@@ -22,12 +22,12 @@ export default function CreateProfile() {
           <View style={styles.header}>
             {/* <View style={styles.arrowback}></View> */}
             <Image
-              source={require("./assets/arrow-back.svg")}
+              source={require("../../assets/arrow-back.svg")}
               style={styles.arrowback}
             ></Image>
             <View style={styles.headerBackground}>
               <Image
-                source={require("./assets/logo.jpg")}
+                source={require("../../assets/logo.jpg")}
                 style={{ width: 50, height: "auto" }}
               />
               <View style={styles.header_text}>
@@ -44,13 +44,13 @@ export default function CreateProfile() {
         <Text style={styles.upload_text}>Upload Profile Photo</Text>
         <View style={styles.avtar_bg}>
           <Image
-            source={require("./assets/avtar.svg")}
+            source={require("../../assets/avtar.svg")}
             style={styles.avtarImage}
           ></Image>
           <View style={styles.camera_bg}>
             <View style={styles.white_bg}>
               <Image
-                source={require("./assets/camera-icon.svg")}
+                source={require("../../assets/camera-icon.svg")}
                 style={styles.camera_img}
               ></Image>
             </View>

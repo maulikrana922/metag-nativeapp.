@@ -25,7 +25,7 @@ export default function Login() {
     <View style={styles.container}>
       <View style={styles.headerBackground}>
         <Image
-          source={require("./assets/logo.jpg")}
+          source={require("../../assets/logo.jpg")}
           style={{ width: 50, height: "auto" }}
         />
         <View style={styles.header}>
@@ -52,7 +52,7 @@ export default function Login() {
 
         <View style={styles.key_text_parent}>
           <Image
-            source={require("./assets/key.png")}
+            source={require("../../assets/key.png")}
             style={styles.key_img}
           ></Image>
           <Text style={styles.forgotpasword_text}>Forgot Password?</Text>
@@ -62,15 +62,15 @@ export default function Login() {
         <Text style={styles.text}>Sign in with:</Text>
         <View style={styles.bg_img_icon}>
           <Image
-            source={require("./assets/icons8-instagram.svg")}
+            source={require("../../assets/icons8-instagram.svg")}
             style={styles.img_icon}
           ></Image>
           <Image
-            source={require("./assets/icons8-facebook.svg")}
+            source={require("../../assets/icons8-facebook.svg")}
             style={styles.img_icon}
           ></Image>
           <Image
-            source={require("./assets/icons8-google.svg")}
+            source={require("../../assets/icons8-google.svg")}
             style={styles.img_icon}
           ></Image>
         </View>

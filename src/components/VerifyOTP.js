@@ -19,7 +19,7 @@ function VerifyOTP() {
     <View style={styles.container}>
       <View style={styles.headerBackground}>
         <Image
-          source={require("./assets/logo.jpg")}
+          source={require("../../assets/logo.jpg")}
           style={{ width: 50, height: "auto" }}
         />
         <View style={styles.header}>
