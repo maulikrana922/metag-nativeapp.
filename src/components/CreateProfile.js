@@ -1,66 +1,121 @@
-import React from "react";
-import { StyleSheet, Text, View, Image, TextInput, Button } from "react-native";
+import React, { useEffect, useState } from "react";
 import {
-  useFonts,
-  Poppins_800ExtraBold_Italic,
-  Poppins_400Regular,
-} from "@expo-google-fonts/poppins";
-import { AppLoading } from "expo";
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TextInput,
+  Button,
+  Platform,
+} from "react-native";
+import { useFonts } from "@use-expo/font";
+import * as ImagePicker from "expo-image-picker";
+import AppLoading from "expo-app-loading";
+import AvtarImage from "../../assets/avtar.svg";
+// import {
+//   useFonts,
+//   Poppins_800ExtraBold_Italic,
+//   Poppins_400Regular,
+//   Poppins_700Bold,
+// } from "@expo-google-fonts/poppins";
+// import { AppLoading, ImagePicker } from "expo";
 
 export default function CreateProfile() {
-  let [fontsLoaded] = useFonts({
-    Poppins_800ExtraBold_Italic,
-    Poppins_400Regular,
+  let [isLoaded] = useFonts({
+    "Poppins-ExtraBold": require("../../assets/fonts/Poppins-ExtraBold.ttf"),
+    "Poppins-Regular": require("../../assets/fonts/Poppins-Regular.ttf"),
   });
-  //   if (!fontsLoaded) {
-  //     return <AppLoading />;
-  //   } else {
-  return (
-    <View>
-      <View style={styles.header_parent}>
-        <View>
-          <View style={styles.header}>
-            {/* <View style={styles.arrowback}></View> */}
-            <Image
-              source={require("../../assets/arrow-back.svg")}
-              style={styles.arrowback}
-            ></Image>
-            <View style={styles.headerBackground}>
+
+  const [image, setImage] = useState(null);
+  const [newImage, setNewImage] = useState(AvtarImage);
+
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== "web") {
+        const {
+          status,
+        } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== "granted") {
+          alert("Sorry, we need camera roll permissions to make this work!");
+        }
+      }
+    })();
+  }, []);
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
+
+  if (!isLoaded) {
+    return <AppLoading />;
+  } else {
+    return (
+      <View style={styles.container}>
+        <View style={styles.header_parent}>
+          <View>
+            <View style={styles.header}>
+              {/* <View style={styles.arrowback}></View> */}
               <Image
-                source={require("../../assets/logo.jpg")}
-                style={{ width: 50, height: "auto" }}
-              />
-              <View style={styles.header_text}>
-                <Text style={styles.text_metag}>meTAG</Text>
-                <Text style={styles.text_tagline}>I M ME,WHO ARE YOU</Text>
+                source={require("../../assets/arrow-back.svg")}
+                style={styles.arrowback}
+              ></Image>
+              <View style={styles.headerBackground}>
+                <Image
+                  source={require("../../assets/logo.jpg")}
+                  style={{ width: 50, height: "auto" }}
+                />
+                <View style={styles.header_text}>
+                  <Text style={styles.text_metag}>meTAG</Text>
+                  <Text style={styles.text_tagline}>I M ME,WHO ARE YOU</Text>
+                </View>
+              </View>
+              <Text style={styles.next}>Next</Text>
+            </View>
+            <Text style={styles.completeProfile}>Complete Profile</Text>
+          </View>
+        </View>
+        <View style={styles.avtar_parent}>
+          <Text style={styles.upload_text}>Upload Profile Photo</Text>
+          <View style={styles.avtar_bg}>
+            <Image
+              // source={require("../../assets/avtar.svg")}
+              source={newImage}
+              style={styles.avtarImage}
+            ></Image>
+            <View style={styles.camera_bg}>
+              <View
+                style={styles.white_bg}
+                onStartShouldSetResponder={pickImage}
+              >
+                {image &&
+                  // <Image
+                  //   source={{ uri: image }}
+                  //   style={{ width: 200, height: 200 }}
+                  // />
+                  setNewImage({ uri: image })}
+                <Image
+                  source={require("../../assets/camera-icon.svg")}
+                  style={styles.camera_img}
+                ></Image>
               </View>
             </View>
-            <Text style={styles.next}>Next</Text>
-          </View>
-          <Text style={styles.complateProfile}>Complete Profile</Text>
-        </View>
-      </View>
-      <View style={styles.avtar_parent}>
-        <Text style={styles.upload_text}>Upload Profile Photo</Text>
-        <View style={styles.avtar_bg}>
-          <Image
-            source={require("../../assets/avtar.svg")}
-            style={styles.avtarImage}
-          ></Image>
-          <View style={styles.camera_bg}>
-            <View style={styles.white_bg}>
-              <Image
-                source={require("../../assets/camera-icon.svg")}
-                style={styles.camera_img}
-              ></Image>
-            </View>
           </View>
         </View>
       </View>
-    </View>
-  );
+    );
+  }
 }
-// }
 const styles = StyleSheet.create({
   header: {
     backgroundColor: "#000000",
@@ -92,27 +147,28 @@ const styles = StyleSheet.create({
     // paddingLeft: 20,
   },
   text_metag: {
-    fontFamily: "Poppins_800ExtraBold_Italic",
+    fontFamily: "Poppins-ExtraBold",
     fontSize: 30,
     letterSpacing: 3,
     color: "white",
   },
   text_tagline: {
-    fontFamily: "Poppins_400Regular",
+    fontFamily: "",
     letterSpacing: 2,
     fontSize: 10,
     color: "white",
   },
   next: {
-    fontFamily: "Poppins_800ExtraBold_Italic",
+    fontFamily: "Poppins-ExtraBold",
     color: "white",
     alignSelf: "center",
   },
-  complateProfile: {
+  completeProfile: {
     alignSelf: "center",
     color: "white",
     fontSize: 15,
-    fontFamily: "Poppins_800ExtraBold_Italic",
+    fontFamily: "Poppins-ExtraBold",
+    fontWeight: "700",
     paddingBottom: 10,
     // backgroundColor: "black",
     // width: "auto",
@@ -129,15 +185,16 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     backgroundColor: "black",
     marginLeft: "auto",
-    marginRight:
-      "auto                                                              ",
+    marginRight: "auto",
+    marginTop: 50,
     // alignContent: "center",
-    // justifyContent: "center",
+    // marginTop: "right",
+    // marginBottom: "right",
   },
   avtar_bg: {
     display: "flex",
     backgroundColor: "black",
-    height: 200,
+    height: 240,
     width: 200,
     justifyContent: "center",
     borderRadius: 20,
@@ -148,11 +205,14 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
     marginTop: 30,
+    // paddingTop: "auto",
+    // paddingBottom: "auto",
   },
   upload_text: {
     marginLeft: "auto",
     marginRight: "auto",
-    fontFamily: "Poppins_800ExtraBold_Italic",
+    fontFamily: "Poppins-ExtraBold",
+    fontWeight: "700",
   },
   camera_img: {
     width: 20,
@@ -175,7 +235,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "center",
     paddingTop: 50,
-    marginRight: 10,
+    marginRight: 5,
     marginBottom: 10,
     // width: "auto",
     // borderRadius: 20,

@@ -6,6 +6,7 @@ import ForgotPassword from "./src/components/ForgotPassword";
 import ResetPassword from "./src/components/ResetPassword";
 import VerifyOTP from "./src/components/VerifyOTP";
 import CreateProfile from "./src/components/CreateProfile";
+import ImagePickerExample from "./src/components/ImagePickerExample";
 function App() {
   return <CreateProfile />;
 }
