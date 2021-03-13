@@ -1,51 +1,62 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Image, TextInput, Button } from "react-native";
-import {
-  useFonts,
-  Poppins_800ExtraBold_Italic,
-  Poppins_400Regular,
-} from "@expo-google-fonts/poppins";
-import { AppLoading } from "expo";
+import { useFonts } from "@use-expo/font";
+// import {
+//   useFonts,
+//   Poppins_800ExtraBold_Italic,
+//   Poppins_400Regular,
+// } from "@expo-google-fonts/poppins";
+// import { AppLoading } from "expo";
+import AppLoading from "expo-app-loading";
 
 function VerifyOTP() {
-  let [fontsLoaded] = useFonts({
-    Poppins_800ExtraBold_Italic,
-    Poppins_400Regular,
+  // let [fontsLoaded] = useFonts({
+  //   Poppins_800ExtraBold_Italic,
+  //   Poppins_400Regular,
+  // });
+
+  let [isLoaded] = useFonts({
+    "Poppins-ExtraBold": require("../../assets/fonts/Poppins-ExtraBold.ttf"),
+    "Poppins-Regular": require("../../assets/fonts/Poppins-Regular.ttf"),
   });
 
   const [email, setEmail] = useState("Email/Number");
-  return (
-    <View style={styles.container}>
-      <View style={styles.headerBackground}>
-        <Image
-          source={require("../../assets/logo.jpg")}
-          style={{ width: 50, height: "auto" }}
-        />
-        <View style={styles.header}>
-          <Text style={styles.text_metag}>meTAG</Text>
-          <Text style={styles.text_tagline}>I M ME,WHO ARE YOU</Text>
+  if (!isLoaded) {
+    return <AppLoading />;
+  } else {
+    return (
+      <View style={styles.container}>
+        <View style={styles.headerBackground}>
+          <Image
+            source={require("../../assets/logo.jpg")}
+            style={{ width: 50, height: "auto" }}
+          />
+          <View style={styles.header}>
+            <Text style={styles.text_metag}>meTAG</Text>
+            <Text style={styles.text_tagline}>I M ME,WHO ARE YOU</Text>
+          </View>
         </View>
-      </View>
-      <View style={styles.background}>
-        <Text style={styles.forgot}>Verify OTP</Text>
-        <Text style={styles.password}>Will be expired in</Text>
-        <Text style={styles.password}>01:08</Text>
+        <View style={styles.background}>
+          <Text style={styles.forgot}>Verify OTP</Text>
+          <Text style={styles.password}>Will be expired in</Text>
+          <Text style={styles.password}>01:08</Text>
 
-        <TextInput
-          style={styles.inputEmail}
-          onChangeText={(text) => setEmail(text)}
-          value={email}
-        />
-        <View style={styles.signin_btn}>
-          <Button style={styles.btn} title="Sign in" color="#841584" />
+          <TextInput
+            style={styles.inputEmail}
+            onChangeText={(text) => setEmail(text)}
+            value={email}
+          />
+          <View style={styles.signin_btn}>
+            <Button style={styles.btn} title="Sign in" color="#841584" />
+          </View>
+        </View>
+        <View style={styles.footer}>
+          <Text style={styles.footer_bold_text}>Back to Login</Text>
         </View>
       </View>
-      <View style={styles.footer}>
-        <Text style={styles.footer_bold_text}>Back to Login</Text>
-      </View>
-    </View>
-  );
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -80,22 +91,22 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   text: {
-    fontFamily: "Poppins_400Regular",
+    fontFamily: "Poppins-Regular",
     padding: 30,
   },
   forgot: {
-    fontFamily: "Poppins_400Regular",
+    fontFamily: "Poppins-Regular",
     color: "white",
     fontSize: 30,
     // paddingBottom: 20,
   },
   text_metag: {
-    fontFamily: "Poppins_800ExtraBold_Italic",
+    fontFamily: "Poppins-ExtraBold",
     fontSize: 40,
     letterSpacing: 3,
   },
   text_tagline: {
-    fontFamily: "Poppins_400Regular",
+    fontFamily: "Poppins-Regular",
     letterSpacing: 2,
     fontSize: 15,
     color: "black",
@@ -150,16 +161,16 @@ const styles = StyleSheet.create({
     // paddingTop: 60,
   },
   footer_normal_text: {
-    fontFamily: "Poppins_400Regular",
+    fontFamily: "Poppins-Regular",
     marginTop: "auto",
   },
   footer_bold_text: {
-    fontFamily: "Poppins_800ExtraBold_Italic",
+    fontFamily: "Poppins-ExtraBold",
     marginTop: "auto",
     paddingTop: 170,
   },
   password: {
-    fontFamily: "Poppins_400Regular",
+    fontFamily: "Poppins-Regular",
     color: "white",
     fontSize: 15,
     // paddingBottom: 20,

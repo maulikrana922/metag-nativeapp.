@@ -1,17 +1,19 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Image, TextInput, Button } from "react-native";
-import {
-  useFonts,
-  Poppins_800ExtraBold_Italic,
-  Poppins_400Regular,
-} from "@expo-google-fonts/poppins";
-import { AppLoading } from "expo";
+import { useFonts } from "@use-expo/font";
+// import {
+//   useFonts,
+//   Poppins_800ExtraBold_Italic,
+//   Poppins_400Regular,
+// } from "@expo-google-fonts/poppins";
+// import { AppLoading } from "expo";
+import AppLoading from "expo-app-loading";
 
 function Signup() {
-  let [fontsLoaded] = useFonts({
-    Poppins_800ExtraBold_Italic,
-    Poppins_400Regular,
+  let [isLoaded] = useFonts({
+    "Poppins-ExtraBold": require("../../assets/fonts/Poppins-ExtraBold.ttf"),
+    "Poppins-Regular": require("../../assets/fonts/Poppins-Regular.ttf"),
   });
   const [fullName, setFullName] = useState("Full Name");
   const [email, setEmail] = useState("Email");
@@ -20,87 +22,91 @@ function Signup() {
   const [password, setPassword] = useState("Password");
   const [confirmPassword, setConfirmPassword] = useState("Confirm Password");
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.headerBackground}>
-        <Image
-          source={require("../../assets/logo.jpg")}
-          style={{ width: 50, height: "auto" }}
-        />
-        <View style={styles.header}>
-          <Text style={styles.text_metag}>meTAG</Text>
-          <Text style={styles.text_tagline}>I M ME,WHO ARE YOU</Text>
+  if (!isLoaded) {
+    return <AppLoading />;
+  } else {
+    return (
+      <View style={styles.container}>
+        <View style={styles.headerBackground}>
+          <Image
+            source={require("../../assets/logo.jpg")}
+            style={{ width: 50, height: "auto" }}
+          />
+          <View style={styles.header}>
+            <Text style={styles.text_metag}>meTAG</Text>
+            <Text style={styles.text_tagline}>I M ME,WHO ARE YOU</Text>
+          </View>
         </View>
-      </View>
-      <View style={styles.background}>
-        <Text style={styles.signin}>Sign Up</Text>
+        <View style={styles.background}>
+          <Text style={styles.signin}>Sign Up</Text>
 
-        <TextInput
-          style={styles.inputEmail}
-          onChangeText={(text) => setFullName(text)}
-          value={fullName}
-        />
+          <TextInput
+            style={styles.inputEmail}
+            onChangeText={(text) => setFullName(text)}
+            value={fullName}
+          />
 
-        <TextInput
-          style={styles.inputEmail}
-          onChangeText={(text) => setEmail(text)}
-          value={email}
-        />
-        <TextInput
-          style={styles.inputEmail}
-          onChangeText={(text) => setNumber(text)}
-          value={number}
-        />
-        <TextInput
-          style={styles.inputEmail}
-          onChangeText={(text) => setBName(text)}
-          value={bName}
-        />
-        <TextInput
-          style={styles.inputEmail}
-          onChangeText={(text) => setPassword(text)}
-          value={password}
-        />
-        <TextInput
-          style={styles.inputEmail}
-          onChangeText={(text) => setConfirmPassword(text)}
-          value={confirmPassword}
-        />
-        <View style={styles.signin_btn}>
-          <Button title="Sign in" color="white" />
-        </View>
+          <TextInput
+            style={styles.inputEmail}
+            onChangeText={(text) => setEmail(text)}
+            value={email}
+          />
+          <TextInput
+            style={styles.inputEmail}
+            onChangeText={(text) => setNumber(text)}
+            value={number}
+          />
+          <TextInput
+            style={styles.inputEmail}
+            onChangeText={(text) => setBName(text)}
+            value={bName}
+          />
+          <TextInput
+            style={styles.inputEmail}
+            onChangeText={(text) => setPassword(text)}
+            value={password}
+          />
+          <TextInput
+            style={styles.inputEmail}
+            onChangeText={(text) => setConfirmPassword(text)}
+            value={confirmPassword}
+          />
+          <View style={styles.signin_btn}>
+            <Button title="Sign in" color="white" />
+          </View>
 
-        <View style={styles.key_text_parent}>
-          <Image
-            source={require("../../assets/key.png")}
-            style={styles.key_img}
-          ></Image>
-          <Text style={styles.forgotpasword_text}>Forgot Password?</Text>
+          <View style={styles.key_text_parent}>
+            <Image
+              source={require("../../assets/key.png")}
+              style={styles.key_img}
+            ></Image>
+            <Text style={styles.forgotpasword_text}>Forgot Password?</Text>
+          </View>
+        </View>
+        <View style={styles.icon_parent}>
+          <Text style={styles.text}>Sign up with:</Text>
+          <View style={styles.bg_img_icon}>
+            <Image
+              source={require("../../assets/icons8-instagram.svg")}
+              style={styles.img_icon}
+            ></Image>
+            <Image
+              source={require("../../assets/icons8-facebook.svg")}
+              style={styles.img_icon}
+            ></Image>
+            <Image
+              source={require("../../assets/icons8-google.svg")}
+              style={styles.img_icon}
+            ></Image>
+          </View>
+        </View>
+        <View style={styles.footer}>
+          <Text style={styles.footer_normal_text}>Alredy have an account?</Text>
+          <Text style={styles.footer_bold_text}>SIGN IN</Text>
         </View>
       </View>
-      <View style={styles.icon_parent}>
-        <Text style={styles.text}>Sign up with:</Text>
-        <View style={styles.bg_img_icon}>
-          <Image
-            source={require("../../assets/icons8-instagram.svg")}
-            style={styles.img_icon}
-          ></Image>
-          <Image
-            source={require("../../assets/icons8-facebook.svg")}
-            style={styles.img_icon}
-          ></Image>
-          <Image
-            source={require("../../assets/icons8-google.svg")}
-            style={styles.img_icon}
-          ></Image>
-        </View>
-      </View>
-      <View style={styles.footer}>
-        <Text style={styles.footer_normal_text}>Alredy have an account?</Text>
-        <Text style={styles.footer_bold_text}>SIGN IN</Text>
-      </View>
-    </View>
-  );
+    );
+  }
 }
 
 const styles = StyleSheet.create({

@@ -1,50 +1,80 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Image, TextInput, Button } from "react-native";
 import {
-  useFonts,
-  Poppins_800ExtraBold_Italic,
-  Poppins_400Regular,
-} from "@expo-google-fonts/poppins";
-import { AppLoading } from "expo";
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TextInput,
+  Button,
+  TouchableOpacity,
+} from "react-native";
+import { useFonts } from "@use-expo/font";
+// import {
+//   useFonts,
+//   Poppins_800ExtraBold_Italic,
+//   Poppins_400Regular,
+// } from "@expo-google-fonts/poppins";
+// import { AppLoading } from "expo";
+import AppLoading from "expo-app-loading";
 
 function ForgotPassword() {
-  let [fontsLoaded] = useFonts({
-    Poppins_800ExtraBold_Italic,
-    Poppins_400Regular,
+  // let [fontsLoaded] = useFonts({
+  //   Poppins_800ExtraBold_Italic,
+  //   Poppins_400Regular,
+  // });
+  let [isLoaded] = useFonts({
+    "Poppins-ExtraBold": require("../../assets/fonts/Poppins-ExtraBold.ttf"),
+    "Poppins-Regular": require("../../assets/fonts/Poppins-Regular.ttf"),
   });
 
   const [email, setEmail] = useState("Email/Number");
-  return (
-    <View style={styles.container}>
-      <View style={styles.headerBackground}>
-        <Image
-          source={require("../../assets/logo.jpg")}
-          style={{ width: 50, height: "auto" }}
-        />
-        <View style={styles.header}>
-          <Text style={styles.text_metag}>meTAG</Text>
-          <Text style={styles.text_tagline}>I M ME,WHO ARE YOU</Text>
+  if (!isLoaded) {
+    return <AppLoading />;
+  } else {
+    return (
+      <View style={styles.container}>
+        <View style={styles.headerBackground}>
+          <Image
+            source={require("../../assets/logo.jpg")}
+            style={{ width: 50, height: "auto" }}
+          />
+          <View style={styles.header}>
+            <Text style={styles.text_metag}>meTAG</Text>
+            <Text style={styles.text_tagline}>I M ME,WHO ARE YOU</Text>
+          </View>
         </View>
-      </View>
-      <View style={styles.background}>
-        <Text style={styles.forgot}>Forgot</Text>
-        <Text style={styles.password}>Password</Text>
+        <View style={styles.background}>
+          <Text style={styles.forgot}>Forgot</Text>
+          <Text style={styles.password}>Password</Text>
 
-        <TextInput
-          style={styles.inputEmail}
-          onChangeText={(text) => setEmail(text)}
-          value={email}
-        />
-        <View style={styles.signin_btn}>
-          <Button title="Sign in" color="white" />
+          <TextInput
+            style={styles.inputEmail}
+            onChangeText={(text) => setEmail(text)}
+            value={email}
+          />
+          {/* <View style={styles.signin_btn}>
+            <Button title="Sign in" color="white" />
+          </View> */}
+          <View
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              width: "auto",
+              flexDirection: "row",
+            }}
+          >
+            <TouchableOpacity style={styles.signin_btn}>
+              <Text style={{ color: "black" }}>Press Here</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={styles.footer}>
+          <Text style={styles.footer_bold_text}>Back to Login</Text>
         </View>
       </View>
-      <View style={styles.footer}>
-        <Text style={styles.footer_bold_text}>Back to Login</Text>
-      </View>
-    </View>
-  );
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -79,22 +109,22 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   text: {
-    fontFamily: "Poppins_400Regular",
+    fontFamily: "Poppins-Regular",
     padding: 30,
   },
   forgot: {
-    fontFamily: "Poppins_400Regular",
+    fontFamily: "Poppins-Regular",
     color: "white",
     fontSize: 30,
     // paddingBottom: 20,
   },
   text_metag: {
-    fontFamily: "Poppins_800ExtraBold_Italic",
+    fontFamily: "Poppins-ExtraBold",
     fontSize: 40,
     letterSpacing: 3,
   },
   text_tagline: {
-    fontFamily: "Poppins_400Regular",
+    fontFamily: "Poppins-Regular",
     letterSpacing: 2,
     fontSize: 15,
     color: "black",
@@ -106,8 +136,16 @@ const styles = StyleSheet.create({
     color: "white",
   },
   signin_btn: {
-    paddingTop: 20,
-    alignItems: "flex-end",
+    // paddingTop: 20,
+    marginTop: 20,
+    alignItems: "center",
+    padding: 10,
+    backgroundColor: "white",
+    borderBottomLeftRadius: 50,
+    borderBottomRightRadius: 50,
+    borderTopRightRadius: 0,
+    borderTopLeftRadius: 50,
+    width: 100,
   },
   key_text_parent: {
     flexDirection: "row",
@@ -148,16 +186,16 @@ const styles = StyleSheet.create({
     // paddingTop: 60,
   },
   footer_normal_text: {
-    fontFamily: "Poppins_400Regular",
+    fontFamily: "Poppins-Regular",
     marginTop: "auto",
   },
   footer_bold_text: {
-    fontFamily: "Poppins_800ExtraBold_Italic",
+    fontFamily: "Poppins-ExtraBold",
     marginTop: "auto",
     paddingTop: 170,
   },
   password: {
-    fontFamily: "Poppins_400Regular",
+    fontFamily: "Poppins-Regular",
     color: "white",
     fontSize: 30,
     paddingBottom: 20,

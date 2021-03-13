@@ -12,6 +12,9 @@ import { useFonts } from "@use-expo/font";
 import * as ImagePicker from "expo-image-picker";
 import AppLoading from "expo-app-loading";
 import AvtarImage from "../../assets/avtar.svg";
+//
+import exampleImg from "../../assets/splash.png";
+
 // import {
 //   useFonts,
 //   Poppins_800ExtraBold_Italic,
@@ -53,7 +56,8 @@ export default function CreateProfile() {
     console.log(result);
 
     if (!result.cancelled) {
-      setImage(result.uri);
+      // setImage(result.uri);
+      setNewImage(result.uri);
     }
   };
 
@@ -98,12 +102,14 @@ export default function CreateProfile() {
                 style={styles.white_bg}
                 onStartShouldSetResponder={pickImage}
               >
-                {image &&
-                  // <Image
-                  //   source={{ uri: image }}
-                  //   style={{ width: 200, height: 200 }}
-                  // />
-                  setNewImage({ uri: image })}
+                {/* {image && (
+                  <Image
+                    source={{ uri: image }}
+                    style={{ width: 200, height: 200 }}
+                  />
+                )} */}
+                {/* // setNewImage(exampleImg)} */}
+                {image && setNewImage(exampleImg)}
                 <Image
                   source={require("../../assets/camera-icon.svg")}
                   style={styles.camera_img}
