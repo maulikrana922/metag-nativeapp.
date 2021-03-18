@@ -7,7 +7,8 @@ import ResetPassword from "./src/components/ResetPassword";
 import VerifyOTP from "./src/components/VerifyOTP";
 import CreateProfile from "./src/components/CreateProfile";
 function App() {
-  return <CreateProfile />;
+  return <CreateProfile/>;
 }
 
 export default App;
+

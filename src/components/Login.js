@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Image, TextInput, Button } from "react-native";
+import { StyleSheet, Text, View, Image, TextInput, Button ,TouchableOpacity} from "react-native";
 import AppLoading from "expo-app-loading";
 // import {
 //   useFonts,
@@ -47,8 +47,17 @@ export default function Login() {
             onChangeText={(text) => setPassword(text)}
             value={password}
           />
-          <View style={styles.signin_btn}>
-            <Button title="Sign in" color="white" />
+                   <View
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              width: "auto",
+              flexDirection: "row",
+            }}
+          >
+            <TouchableOpacity style={styles.signin_btn}>
+              <Text style={{ color: "black" }}>Sign in</Text>
+            </TouchableOpacity>
           </View>
 
           <View style={styles.key_text_parent}>
@@ -140,8 +149,15 @@ const styles = StyleSheet.create({
     color: "white",
   },
   signin_btn: {
-    paddingTop: 20,
-    alignItems: "flex-end",
+    marginTop: 20,
+    alignItems: "center",
+    padding: 10,
+    backgroundColor: "white",
+    borderBottomLeftRadius: 50,
+    borderBottomRightRadius: 50,
+    borderTopRightRadius: 0,
+    borderTopLeftRadius: 50,
+    width: 100,
   },
   key_text_parent: {
     flexDirection: "row",
@@ -175,3 +191,4 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
 });
+

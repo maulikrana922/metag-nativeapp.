@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Image, TextInput, Button } from "react-native";
+import { StyleSheet, Text, View, Image, TextInput, Button,TouchableOpacity } from "react-native";
 import { useFonts } from "@use-expo/font";
 // import {
 //   useFonts,
@@ -71,8 +71,17 @@ function Signup() {
             onChangeText={(text) => setConfirmPassword(text)}
             value={confirmPassword}
           />
-          <View style={styles.signin_btn}>
-            <Button title="Sign in" color="white" />
+          <View
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              width: "auto",
+              flexDirection: "row",
+            }}
+          >
+            <TouchableOpacity style={styles.signin_btn}>
+              <Text style={{ color: "black" }}>Sign up</Text>
+            </TouchableOpacity>
           </View>
 
           <View style={styles.key_text_parent}>
@@ -141,22 +150,22 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   text: {
-    fontFamily: "Poppins_400Regular",
+    fontFamily: "Poppins-Regular",
     padding: 30,
   },
   signin: {
-    fontFamily: "Poppins_400Regular",
+    fontFamily: "Poppins-Regular",
     color: "white",
     fontSize: 30,
     paddingBottom: 20,
   },
   text_metag: {
-    fontFamily: "Poppins_800ExtraBold_Italic",
+    fontFamily: "Poppins-ExtraBold",
     fontSize: 40,
     letterSpacing: 3,
   },
   text_tagline: {
-    fontFamily: "Poppins_400Regular",
+    fontFamily: "Poppins-Regular",
     letterSpacing: 2,
     fontSize: 15,
     color: "black",
@@ -168,8 +177,15 @@ const styles = StyleSheet.create({
     color: "white",
   },
   signin_btn: {
-    paddingTop: 20,
-    alignItems: "flex-end",
+    marginTop: 20,
+    alignItems: "center",
+    padding: 10,
+    backgroundColor: "white",
+    borderBottomLeftRadius: 50,
+    borderBottomRightRadius: 50,
+    borderTopRightRadius: 0,
+    borderTopLeftRadius: 50,
+    width: 100,
   },
   key_text_parent: {
     flexDirection: "row",
@@ -183,7 +199,7 @@ const styles = StyleSheet.create({
   key_img: {
     width: 20,
     height: 20,
-    color: "white",
+    // color: "white",
   },
   icon_parent: {
     flexDirection: "row",
@@ -207,15 +223,16 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
-    borderBottomColor: "#c2c2a3",
-    borderBottomWidth: 1,
+    // borderBottomColor: "#c2c2a3",
+    // borderBottomWidth: 1,
   },
   footer_normal_text: {
-    fontFamily: "Poppins_400Regular",
+    fontFamily: "Poppins-Regular",
   },
   footer_bold_text: {
-    fontFamily: "Poppins_800ExtraBold_Italic",
+    fontFamily: "Poppins-ExtraBold",
   },
 });
 
 export default Signup;
+

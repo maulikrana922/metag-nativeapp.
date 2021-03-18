@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Image, TextInput, Button } from "react-native";
+import { StyleSheet, Text, View, Image, TextInput, Button,TouchableOpacity } from "react-native";
 import { useFonts } from "@use-expo/font";
 // import {
 //   useFonts,
@@ -47,8 +47,17 @@ function VerifyOTP() {
             onChangeText={(text) => setEmail(text)}
             value={email}
           />
-          <View style={styles.signin_btn}>
-            <Button style={styles.btn} title="Sign in" color="#841584" />
+                  <View
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              width: "auto",
+              flexDirection: "row",
+            }}
+          >
+            <TouchableOpacity style={styles.signin_btn}>
+              <Text style={{ color: "black" }}>Submit</Text>
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.footer}>
@@ -178,6 +187,18 @@ const styles = StyleSheet.create({
   btn: {
     color: "#000000",
   },
+  signin_btn: {
+    // paddingTop: 20,
+    marginTop: 20,
+    alignItems: "center",
+    padding: 10,
+    backgroundColor: "white",
+    borderBottomLeftRadius: 50,
+    borderBottomRightRadius: 50,
+    borderTopRightRadius: 0,
+    borderTopLeftRadius: 50,
+    width: 100,
+  },
   // footer_bg: {
   //   display: "flex",
   //   justifyContent: "center",
@@ -189,3 +210,4 @@ const styles = StyleSheet.create({
 });
 
 export default VerifyOTP;
+
