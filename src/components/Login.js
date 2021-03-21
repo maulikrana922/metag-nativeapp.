@@ -1,33 +1,41 @@
-import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
-import { StyleSheet, Text, View, Image, TextInput, Button ,TouchableOpacity} from "react-native";
-import AppLoading from "expo-app-loading";
+import { StatusBar } from 'expo-status-bar'
+import React, { useState } from 'react'
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TextInput,
+  Button,
+  TouchableOpacity,
+} from 'react-native'
+import AppLoading from 'expo-app-loading'
 // import {
 //   useFonts,
 //   Poppins_800ExtraBold_Italic,
 //   Poppins_400Regular,
 // } from "@expo-google-fonts/poppins";
 // import { AppLoading } from "expo";
-import { useFonts } from "@use-expo/font";
+import { useFonts } from '@use-expo/font'
 // import { useFonts, Inter_900Black } from "@expo-google-fonts/inter";
 
 export default function Login() {
   let [isLoaded] = useFonts({
-    "Poppins-ExtraBold": require("../../assets/fonts/Poppins-ExtraBold.ttf"),
-    "Poppins-Regular": require("../../assets/fonts/Poppins-Regular.ttf"),
-  });
-  const [email, setEmail] = useState("Email");
-  const [password, setPassword] = useState("Password");
+    'Poppins-ExtraBold': require('../../assets/fonts/Poppins-ExtraBold.ttf'),
+    'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
+  })
+  const [email, setEmail] = useState('Email')
+  const [password, setPassword] = useState('Password')
 
   if (!isLoaded) {
-    return <AppLoading />;
+    return <AppLoading />
   } else {
     return (
       <View style={styles.container}>
         <View style={styles.headerBackground}>
           <Image
-            source={require("../../assets/logo.jpg")}
-            style={{ width: 50, height: "auto" }}
+            source={require('../../assets/logo.jpg')}
+            style={{ width: 50, height: 'auto' }}
           />
           <View style={styles.header}>
             <Text style={styles.text_metag}>meTAG</Text>
@@ -47,22 +55,22 @@ export default function Login() {
             onChangeText={(text) => setPassword(text)}
             value={password}
           />
-                   <View
+          <View
             style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              width: "auto",
-              flexDirection: "row",
+              display: 'flex',
+              justifyContent: 'flex-end',
+              width: 'auto',
+              flexDirection: 'row',
             }}
           >
             <TouchableOpacity style={styles.signin_btn}>
-              <Text style={{ color: "black" }}>Sign in</Text>
+              <Text style={{ color: 'black' }}>Sign in</Text>
             </TouchableOpacity>
           </View>
 
           <View style={styles.key_text_parent}>
             <Image
-              source={require("../../assets/key.png")}
+              source={require('../../assets/key.png')}
               style={styles.key_img}
             ></Image>
             <Text style={styles.forgotpasword_text}>Forgot Password?</Text>
@@ -72,43 +80,43 @@ export default function Login() {
           <Text style={styles.text}>Sign in with:</Text>
           <View style={styles.bg_img_icon}>
             <Image
-              source={require("../../assets/icons8-instagram.svg")}
+              source={require('../../assets/icons8-instagram.svg')}
               style={styles.img_icon}
             ></Image>
             <Image
-              source={require("../../assets/icons8-facebook.svg")}
+              source={require('../../assets/icons8-facebook.svg')}
               style={styles.img_icon}
             ></Image>
             <Image
-              source={require("../../assets/icons8-google.svg")}
+              source={require('../../assets/icons8-google.svg')}
               style={styles.img_icon}
             ></Image>
           </View>
         </View>
       </View>
-    );
+    )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
-    backgroundColor: "#fff",
+    flexDirection: 'column',
+    backgroundColor: '#fff',
     margin: 20,
     // alignItems: "center",
     // justifyContent: "center",
   },
   background: {
     // flex: 2,
-    backgroundColor: "black",
+    backgroundColor: 'black',
     // border-radius: 0% 25%,
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 0,
     borderTopRightRadius: 50,
     borderTopLeftRadius: 0,
     padding: 30,
-    height: "auto",
+    height: 'auto',
     // width: 300,
   },
   header: {
@@ -117,42 +125,42 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
   },
   headerBackground: {
-    flexDirection: "row",
-    flexWrap: "wrap",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     paddingBottom: 20,
   },
   text: {
-    fontFamily: "Poppins-ExtraBold",
+    fontFamily: 'Poppins-ExtraBold',
     padding: 30,
   },
   signin: {
-    fontFamily: "Poppins-Regular",
-    color: "white",
+    fontFamily: 'Poppins-Regular',
+    color: 'white',
     fontSize: 30,
     paddingBottom: 20,
   },
   text_metag: {
-    fontFamily: "Poppins-ExtraBold",
+    fontFamily: 'Poppins-ExtraBold',
     fontSize: 40,
     letterSpacing: 3,
   },
   text_tagline: {
-    fontFamily: "Poppins-Regular",
+    fontFamily: 'Poppins-Regular',
     letterSpacing: 2,
     fontSize: 15,
-    color: "black",
+    color: 'black',
   },
   inputEmail: {
-    borderBottomColor: "white",
+    borderBottomColor: 'white',
     borderWidth: 1,
     height: 43,
-    color: "white",
+    color: 'white',
   },
   signin_btn: {
     marginTop: 20,
-    alignItems: "center",
+    alignItems: 'center',
     padding: 10,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 50,
     borderTopRightRadius: 0,
@@ -160,21 +168,21 @@ const styles = StyleSheet.create({
     width: 100,
   },
   key_text_parent: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "flex-end",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-end',
     paddingTop: 30,
   },
   forgotpasword_text: {
-    color: "white",
+    color: 'white',
   },
   key_img: {
     width: 20,
     height: 20,
   },
   icon_parent: {
-    flexDirection: "row",
-    alignContent: "space-between",
+    flexDirection: 'row',
+    alignContent: 'space-between',
   },
   img_icon: {
     width: 50,
@@ -186,9 +194,8 @@ const styles = StyleSheet.create({
   },
   bg_img_icon: {
     paddingTop: 20,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-around",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
-});
-
+})

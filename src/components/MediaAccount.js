@@ -7,13 +7,24 @@ import {
   TextInput,
   Button,
   Platform,
+  CheckBox
 } from "react-native";
 import { useFonts } from "@use-expo/font";
 import * as ImagePicker from "expo-image-picker";
 import AppLoading from "expo-app-loading";
-import AvtarImage from "../../assets/avtar.svg";
+// import AvtarImage from "../../assets/avtar.svg";
 //
-import exampleImg from "../../assets/splash.png";
+import AvtarImage from "../../assets/work-suitcase.svg";
+import linkedin from "../../assets/linkedin.png"
+import twitter from "../../assets/twitter.png"
+// import facebook from "../../assets/icons8-facebook.svg"
+import facebook from "../../assets/facebook.png"
+import google from "../../assets/google-plus.png"
+// import instagram  from "../../assets/icons8-instagram.svg"
+import instagram from "../../assets/instagram.png"
+
+
+// import exampleImg from "../../assets/splash.png";
 
 // import {
 //   useFonts,
@@ -89,16 +100,15 @@ export default function CreateProfile() {
             <Text style={styles.completeProfile}>Complete Profile</Text>
           </View>
         </View>
-        <Text style={styles.upload_text}>Upload Profile Photo</Text>
         <View style={styles.avtar_parent}>
-          {/* <Text style={styles.upload_text}>Upload Profile Photo</Text> */}
+          <Text style={styles.upload_text}>Link your Social media accounts </Text>
           <View style={styles.avtar_bg}>
-            <Image
+            {/* <Image
               // source={require("../../assets/avtar.svg")}
               source={newImage}
               style={styles.avtarImage}
-            ></Image>
-            <View style={styles.camera_bg}>
+            ></Image> */}
+            {/* <View style={styles.camera_bg}>
               <View
                 style={styles.white_bg}
                 onStartShouldSetResponder={pickImage}
@@ -110,12 +120,40 @@ export default function CreateProfile() {
                   />
                 )} */}
                 {/* // setNewImage(exampleImg)} */}
-                {image && setNewImage(exampleImg)}
-                <Image
+                {/* {image && setNewImage(exampleImg)} */}
+                {/* <Image
                   source={require("../../assets/camera-icon.svg")}
                   style={styles.camera_img}
-                ></Image>
-              </View>
+                ></Image> */}
+              {/* </View>
+            </View> */} 
+
+            <View style={styles.socialLogin}>
+                <Image source={google} style={styles.logo}></Image>
+                <Text style={styles.socialLoginText}>Jerry</Text>
+
+
+            </View>
+            <View style={styles.socialLogin}>
+                <Image source={linkedin} style={styles.logo}></Image>
+                <Text style={styles.socialLoginText}>Jerry</Text>
+                <CheckBox style={styles.checkboxPadding}
+        //   value={isSelected}
+        //   onValueChange={setSelection}
+        //   style={styles.checkbox}
+        />
+            </View>
+            <View style={styles.socialLogin}>
+                <Image source={twitter} style={styles.logo}></Image>
+                {/* <Text style={styles.socialLoginText}>Jerry</Text> */}
+            </View>
+            <View style={styles.socialLogin}>
+                <Image source={instagram} style={styles.logo}></Image>
+                <Text style={styles.socialLoginText}>Jerry</Text>
+            </View>
+            <View style={styles.socialLogin}>
+                <Image source={facebook} style={styles.logo}></Image>
+                <Text style={styles.socialLoginText}>Jerry</Text>
             </View>
           </View>
         </View>
@@ -201,12 +239,12 @@ const styles = StyleSheet.create({
   avtar_bg: {
     display: "flex",
     backgroundColor: "black",
-    height: 240,
-    width: 200,
-    justifyContent: "center",
+    height: "auto",
+    width: "auto",
+    justifyContent: "space-evenly",
     borderRadius: 20,
-    // marginLeft:"auto",
-    // marginRight:"auto"
+    marginLeft:"auto",
+    marginRight:"auto"
   },
   avtar_parent: {
     display: "flex",
@@ -214,10 +252,9 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
     marginTop: 30,
+    // justifyContent:"space-between   "
     // paddingTop: "auto",
     // paddingBottom: "auto",
-    // marginLeft:"auto",
-    // marginRight:"auto"
   },
   upload_text: {
     marginLeft: "auto",
@@ -261,5 +298,27 @@ const styles = StyleSheet.create({
     // padding: 10,
     justifyContent: "flex-end",
   },
+  logo:{
+      width:50,
+      height:50,
+      borderRadius:20,
+      marginLeft:10
+  },
+  socialLogin:{
+      display:"flex",
+      flexDirection:"row",
+      alignItems:"center",
+      margin:10
+
+  },
+  socialLoginText:{
+    color:"white",paddingLeft:20,
+    width:70    ,
+  },
+  checkboxPadding:{
+      paddingLeft:50,
+      paddingRight:10
+
+  }
 });
 

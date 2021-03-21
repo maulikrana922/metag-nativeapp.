@@ -11,8 +11,9 @@ import {
 import { useFonts } from "@use-expo/font";
 import * as ImagePicker from "expo-image-picker";
 import AppLoading from "expo-app-loading";
-import AvtarImage from "../../assets/avtar.svg";
+// import AvtarImage from "../../assets/avtar.svg";
 //
+import AvtarImage from "../../assets/work-suitcase.svg";
 import exampleImg from "../../assets/splash.png";
 
 // import {
@@ -89,9 +90,8 @@ export default function CreateProfile() {
             <Text style={styles.completeProfile}>Complete Profile</Text>
           </View>
         </View>
-        <Text style={styles.upload_text}>Upload Profile Photo</Text>
         <View style={styles.avtar_parent}>
-          {/* <Text style={styles.upload_text}>Upload Profile Photo</Text> */}
+          <Text style={styles.upload_text}>Upload Business Logo</Text>
           <View style={styles.avtar_bg}>
             <Image
               // source={require("../../assets/avtar.svg")}
@@ -205,8 +205,6 @@ const styles = StyleSheet.create({
     width: 200,
     justifyContent: "center",
     borderRadius: 20,
-    // marginLeft:"auto",
-    // marginRight:"auto"
   },
   avtar_parent: {
     display: "flex",
@@ -216,8 +214,6 @@ const styles = StyleSheet.create({
     marginTop: 30,
     // paddingTop: "auto",
     // paddingBottom: "auto",
-    // marginLeft:"auto",
-    // marginRight:"auto"
   },
   upload_text: {
     marginLeft: "auto",
