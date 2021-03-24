@@ -455,7 +455,7 @@ const styles = StyleSheet.create({
     // width:500
   },
   underlineText: {
-    textDecorationLine: 'Underline',
+    textDecorationLine: 'underline',
     color: 'white',
     textAlign: 'center',
     marginTop: 10,
@@ -487,7 +487,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   viewAll: {
-    textDecorationLine: 'Underline',
+    textDecorationLine: 'underline',
   },
   buyBtnBg: {
     backgroundColor: '#40A41D',

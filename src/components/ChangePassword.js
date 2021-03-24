@@ -10,6 +10,8 @@ import {
   TouchableOpacity,
   CheckBox,
 } from 'react-native'
+import { Svg, Path, Defs } from 'react-native-svg'
+
 import { useFonts } from '@use-expo/font'
 import * as ImagePicker from 'expo-image-picker'
 import AppLoading from 'expo-app-loading'
@@ -83,14 +85,43 @@ export default function CreateProfile() {
           <View>
             <View style={styles.header}>
               {/* <View style={styles.arrowback}></View> */}
-              <Image
+              {/* <Text
+                style={{ color: 'white', alignSelf: 'center', padding: 10 }}
+              >
+                Back
+              </Text> */}
+              {/* <Image
                 source={require('../../assets/arrow-back.svg')}
                 style={styles.arrowback}
-              ></Image>
+              ></Image> */}
+              <Svg
+                xmlns="http://www.w3.org/2000/svg"
+                height={24}
+                viewBox="0 0 24 24"
+                width={24}
+                style={styles.arrowback}
+                // {...props}
+              >
+                <Path d="M0 0h24v24H0z" />
+                <Path
+                  d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
+                  stroke="#f9f9fa"
+                  fill="#fff"
+                />
+              </Svg>
               <View style={styles.headerBackground}>
+                {/* <Text style={{ alignSelf: 'center' }}>Back</Text> */}
                 <Image
                   source={require('../../assets/logo.jpg')}
-                  style={{ width: 50, height: 'auto' }}
+                  style={{
+                    width: 40,
+                    height: 50,
+                    // height: 'auto',
+                    // marginTop: 'auto',
+                    // marginBottom: 'auto',
+                    alignSelf: 'center',
+                    // resizeMode: 'contain',
+                  }}
                 />
                 <View style={styles.header_text}>
                   <Text style={styles.text_metag}>meTAG</Text>
@@ -118,43 +149,22 @@ export default function CreateProfile() {
                     paddingBottom: 5,
                   }}
                 >
-                  <svg
+                  <Svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="14.784"
-                    height="19.561"
+                    width={14.784}
+                    height={19.561}
                     viewBox="0 0 14.784 19.561"
                   >
-                    <defs>
-                      <style></style>
-                    </defs>
-                    <g transform="translate(0 7.506)">
-                      <g transform="translate(0)">
-                        <path
-                          fill="#fff"
-                          d="M76.159,196.465H63.649a1.139,1.139,0,0,0-1.137,1.137v9.78a1.139,1.139,0,0,0,1.137,1.137h12.51a1.139,1.139,0,0,0,1.137-1.137V197.6A1.139,1.139,0,0,0,76.159,196.465Zm-.227,10.69H63.877V197.83H75.932v9.325Z"
-                          transform="translate(-62.512 -196.465)"
-                        />
-                      </g>
-                    </g>
-                    <g transform="translate(1.82)">
-                      <g transform="translate(0)">
-                        <path
-                          fill="#fff"
-                          d="M115.712,0a5.6,5.6,0,0,0-5.572,5.618V7.961H111.5V5.618a4.208,4.208,0,1,1,8.416,0V7.961h1.365V5.618A5.6,5.6,0,0,0,115.712,0Z"
-                          transform="translate(-110.14)"
-                        />
-                      </g>
-                    </g>
-                    <g transform="translate(6.596 12.737)">
-                      <g transform="translate(0)">
-                        <path
-                          fill="#fff"
-                          d="M235.845,333.4a.682.682,0,0,0-.682.682v1.592a.682.682,0,0,0,1.365,0v-1.592A.682.682,0,0,0,235.845,333.4Z"
-                          transform="translate(-235.163 -333.395)"
-                        />
-                      </g>
-                    </g>
-                  </svg>
+                    <Defs></Defs>
+                    <Path
+                      fill="#fff"
+                      d="M13.647 7.506H1.137A1.139 1.139 0 000 8.643v9.78a1.139 1.139 0 001.137 1.137h12.51a1.139 1.139 0 001.137-1.137V8.641a1.139 1.139 0 00-1.137-1.135zm-.227 10.69H1.365V8.871H13.42v9.325z"
+                    />
+                    <Path
+                      fill="#fff"
+                      d="M7.392 0A5.6 5.6 0 001.82 5.618v2.343h1.36V5.618a4.208 4.208 0 118.416 0v2.343h1.365V5.618A5.6 5.6 0 007.392 0zM7.278 12.742a.682.682 0 00-.682.682v1.592a.682.682 0 001.365 0v-1.592a.682.682 0 00-.683-.682z"
+                    />
+                  </Svg>
                   <Text
                     style={{
                       color: 'white',
@@ -175,43 +185,22 @@ export default function CreateProfile() {
                     paddingBottom: 5,
                   }}
                 >
-                  <svg
+                  <Svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="14.784"
-                    height="19.561"
+                    width={14.784}
+                    height={19.561}
                     viewBox="0 0 14.784 19.561"
                   >
-                    <defs>
-                      <style></style>
-                    </defs>
-                    <g transform="translate(0 7.506)">
-                      <g transform="translate(0)">
-                        <path
-                          fill="#fff"
-                          d="M76.159,196.465H63.649a1.139,1.139,0,0,0-1.137,1.137v9.78a1.139,1.139,0,0,0,1.137,1.137h12.51a1.139,1.139,0,0,0,1.137-1.137V197.6A1.139,1.139,0,0,0,76.159,196.465Zm-.227,10.69H63.877V197.83H75.932v9.325Z"
-                          transform="translate(-62.512 -196.465)"
-                        />
-                      </g>
-                    </g>
-                    <g transform="translate(1.82)">
-                      <g transform="translate(0)">
-                        <path
-                          fill="#fff"
-                          d="M115.712,0a5.6,5.6,0,0,0-5.572,5.618V7.961H111.5V5.618a4.208,4.208,0,1,1,8.416,0V7.961h1.365V5.618A5.6,5.6,0,0,0,115.712,0Z"
-                          transform="translate(-110.14)"
-                        />
-                      </g>
-                    </g>
-                    <g transform="translate(6.596 12.737)">
-                      <g transform="translate(0)">
-                        <path
-                          fill="#fff"
-                          d="M235.845,333.4a.682.682,0,0,0-.682.682v1.592a.682.682,0,0,0,1.365,0v-1.592A.682.682,0,0,0,235.845,333.4Z"
-                          transform="translate(-235.163 -333.395)"
-                        />
-                      </g>
-                    </g>
-                  </svg>
+                    <Defs></Defs>
+                    <Path
+                      fill="#fff"
+                      d="M13.647 7.506H1.137A1.139 1.139 0 000 8.643v9.78a1.139 1.139 0 001.137 1.137h12.51a1.139 1.139 0 001.137-1.137V8.641a1.139 1.139 0 00-1.137-1.135zm-.227 10.69H1.365V8.871H13.42v9.325z"
+                    />
+                    <Path
+                      fill="#fff"
+                      d="M7.392 0A5.6 5.6 0 001.82 5.618v2.343h1.36V5.618a4.208 4.208 0 118.416 0v2.343h1.365V5.618A5.6 5.6 0 007.392 0zM7.278 12.742a.682.682 0 00-.682.682v1.592a.682.682 0 001.365 0v-1.592a.682.682 0 00-.683-.682z"
+                    />
+                  </Svg>
                   <Text
                     style={{
                       color: 'white',
@@ -232,43 +221,22 @@ export default function CreateProfile() {
                     paddingBottom: 5,
                   }}
                 >
-                  <svg
+                  <Svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="14.784"
-                    height="19.561"
+                    width={14.784}
+                    height={19.561}
                     viewBox="0 0 14.784 19.561"
                   >
-                    <defs>
-                      <style></style>
-                    </defs>
-                    <g transform="translate(0 7.506)">
-                      <g transform="translate(0)">
-                        <path
-                          fill="#fff"
-                          d="M76.159,196.465H63.649a1.139,1.139,0,0,0-1.137,1.137v9.78a1.139,1.139,0,0,0,1.137,1.137h12.51a1.139,1.139,0,0,0,1.137-1.137V197.6A1.139,1.139,0,0,0,76.159,196.465Zm-.227,10.69H63.877V197.83H75.932v9.325Z"
-                          transform="translate(-62.512 -196.465)"
-                        />
-                      </g>
-                    </g>
-                    <g transform="translate(1.82)">
-                      <g transform="translate(0)">
-                        <path
-                          fill="#fff"
-                          d="M115.712,0a5.6,5.6,0,0,0-5.572,5.618V7.961H111.5V5.618a4.208,4.208,0,1,1,8.416,0V7.961h1.365V5.618A5.6,5.6,0,0,0,115.712,0Z"
-                          transform="translate(-110.14)"
-                        />
-                      </g>
-                    </g>
-                    <g transform="translate(6.596 12.737)">
-                      <g transform="translate(0)">
-                        <path
-                          fill="#fff"
-                          d="M235.845,333.4a.682.682,0,0,0-.682.682v1.592a.682.682,0,0,0,1.365,0v-1.592A.682.682,0,0,0,235.845,333.4Z"
-                          transform="translate(-235.163 -333.395)"
-                        />
-                      </g>
-                    </g>
-                  </svg>
+                    <Defs></Defs>
+                    <Path
+                      fill="#fff"
+                      d="M13.647 7.506H1.137A1.139 1.139 0 000 8.643v9.78a1.139 1.139 0 001.137 1.137h12.51a1.139 1.139 0 001.137-1.137V8.641a1.139 1.139 0 00-1.137-1.135zm-.227 10.69H1.365V8.871H13.42v9.325z"
+                    />
+                    <Path
+                      fill="#fff"
+                      d="M7.392 0A5.6 5.6 0 001.82 5.618v2.343h1.36V5.618a4.208 4.208 0 118.416 0v2.343h1.365V5.618A5.6 5.6 0 007.392 0zM7.278 12.742a.682.682 0 00-.682.682v1.592a.682.682 0 001.365 0v-1.592a.682.682 0 00-.683-.682z"
+                    />
+                  </Svg>
                   <Text
                     style={{
                       color: 'white',
@@ -313,33 +281,16 @@ export default function CreateProfile() {
                   alignItems: 'center',
                 }}
               >
-                <svg
+                <Svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="29.787"
-                  height="35.288"
+                  width={29.787}
+                  height={35.288}
                   viewBox="0 0 29.787 35.288"
                 >
-                  <path
-                    d="M.5,162.223V186.33H18.969v-19.2L14.4,162.223Zm16.4,22.04H2.568V164.291H13.5l3.406,3.658Zm0,0"
-                    transform="translate(-0.5 -151.042)"
-                  />
-                  <path
-                    d="M210.259,115.808a9.494,9.494,0,0,0-3.458-1.16l-.2,2.058a6.313,6.313,0,0,1,5.623,5.627l2.057-.212A7.875,7.875,0,0,0,210.259,115.808Zm0,0"
-                    transform="translate(-192.396 -106.746)"
-                  />
-                  <path
-                    d="M223.567,60.338a13.378,13.378,0,0,0-4.872-1.638l-.195,2.059a11.306,11.306,0,0,1,4.043,1.376,8.981,8.981,0,0,1,4.616,7.29l2.057-.211a11.067,11.067,0,0,0-5.65-8.876Zm0,0"
-                    transform="translate(-203.475 -54.654)"
-                  />
-                  <path
-                    d="M233.312,2.186A17.818,17.818,0,0,0,226.82,0l-.195,2.059a15.839,15.839,0,0,1,5.663,1.924,12.6,12.6,0,0,1,6.482,10.229L240.827,14a14.727,14.727,0,0,0-7.516-11.814Zm0,0"
-                    transform="translate(-211.04)"
-                  />
-                  <path
-                    d="M70.656,243.506H79.2V234.8H70.656Zm2.068-6.638h4.4v4.57h-4.4Zm0,0"
-                    transform="translate(-65.821 -218.617)"
-                  />
-                </svg>
+                  <Path d="M0 11.181v24.107h18.469v-19.2L13.9 11.181zm16.4 22.04H2.068V13.249H13l3.406 3.658zm0 0M17.863 9.062a9.494 9.494 0 00-3.458-1.16l-.2 2.058a6.313 6.313 0 015.623 5.627l2.057-.212a7.875 7.875 0 00-4.022-6.313zm0 0" />
+                  <Path d="M20.092 5.684a13.378 13.378 0 00-4.872-1.638l-.195 2.059a11.306 11.306 0 014.043 1.376 8.981 8.981 0 014.616 7.29l2.057-.211a11.067 11.067 0 00-5.65-8.876zm0 0" />
+                  <Path d="M22.272 2.186A17.818 17.818 0 0015.78 0l-.195 2.059a15.839 15.839 0 015.663 1.924 12.6 12.6 0 016.482 10.229L29.787 14a14.727 14.727 0 00-7.516-11.814zm0 0M4.835 24.889h8.544v-8.706H4.835zm2.068-6.638h4.4v4.57h-4.4zm0 0" />
+                </Svg>
               </View>
               <View style={{ alignSelf: 'center' }}>
                 <Text style={{ color: 'white' }}>Product title</Text>
@@ -358,7 +309,8 @@ export default function CreateProfile() {
 const styles = StyleSheet.create({
   header: {
     backgroundColor: '#000000',
-    height: 100,
+    height: 'auto',
+    width: 'auto',
     display: 'flex',
     flexDirection: 'row',
     // borderBottomLeftRadius: 20,
@@ -370,14 +322,18 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     alignSelf: 'center',
+    // marginTop: 'auto',
+    // marginBottom: 'auto',
     marginLeft: 20,
-    // color: "white",
+    // backgroundColor: 'white',
   },
   headerBackground: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     paddingBottom: 20,
     alignSelf: 'center',
+    // backgroundColor: 'pink',
+    width: 200,
     // borderBottomColor: 'white',
     // paddingRight: 40,
   },
@@ -547,7 +503,7 @@ const styles = StyleSheet.create({
     // width:500
   },
   underlineText: {
-    textDecorationLine: 'Underline',
+    textDecorationLine: 'underline',
     color: 'white',
     textAlign: 'center',
     marginTop: 10,
@@ -579,7 +535,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   viewAll: {
-    textDecorationLine: 'Underline',
+    textDecorationLine: 'underline',
   },
   buyBtnBg: {
     backgroundColor: '#40A41D',

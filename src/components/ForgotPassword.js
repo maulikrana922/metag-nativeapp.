@@ -1,5 +1,5 @@
-import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import { StatusBar } from 'expo-status-bar'
+import React, { useState } from 'react'
 import {
   StyleSheet,
   Text,
@@ -8,15 +8,15 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
-} from "react-native";
-import { useFonts } from "@use-expo/font";
+} from 'react-native'
+import { useFonts } from '@use-expo/font'
 // import {
 //   useFonts,
 //   Poppins_800ExtraBold_Italic,
 //   Poppins_400Regular,
 // } from "@expo-google-fonts/poppins";
 // import { AppLoading } from "expo";
-import AppLoading from "expo-app-loading";
+import AppLoading from 'expo-app-loading'
 
 function ForgotPassword() {
   // let [fontsLoaded] = useFonts({
@@ -24,20 +24,20 @@ function ForgotPassword() {
   //   Poppins_400Regular,
   // });
   let [isLoaded] = useFonts({
-    "Poppins-ExtraBold": require("../../assets/fonts/Poppins-ExtraBold.ttf"),
-    "Poppins-Regular": require("../../assets/fonts/Poppins-Regular.ttf"),
-  });
+    'Poppins-ExtraBold': require('../../assets/fonts/Poppins-ExtraBold.ttf'),
+    'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
+  })
 
-  const [email, setEmail] = useState("Email/Number");
+  const [email, setEmail] = useState('Email/Number')
   if (!isLoaded) {
-    return <AppLoading />;
+    return <AppLoading />
   } else {
     return (
       <View style={styles.container}>
         <View style={styles.headerBackground}>
           <Image
-            source={require("../../assets/logo.jpg")}
-            style={{ width: 50, height: "auto" }}
+            source={require('../../assets/logo.jpg')}
+            style={{ width: 50, height: 'auto' }}
           />
           <View style={styles.header}>
             <Text style={styles.text_metag}>meTAG</Text>
@@ -58,14 +58,14 @@ function ForgotPassword() {
           </View> */}
           <View
             style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              width: "auto",
-              flexDirection: "row",
+              display: 'flex',
+              justifyContent: 'flex-end',
+              width: 'auto',
+              flexDirection: 'row',
             }}
           >
             <TouchableOpacity style={styles.signin_btn}>
-              <Text style={{ color: "black" }}>Press Here</Text>
+              <Text style={{ color: 'black' }}>Press Here</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -73,29 +73,29 @@ function ForgotPassword() {
           <Text style={styles.footer_bold_text}>Back to Login</Text>
         </View>
       </View>
-    );
+    )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
-    backgroundColor: "#fff",
+    flexDirection: 'column',
+    backgroundColor: '#fff',
     margin: 20,
     // alignItems: "center",
     // justifyContent: "center",
   },
   background: {
     // flex: 2,
-    backgroundColor: "black",
+    backgroundColor: 'black',
     // border-radius: 0% 25%,
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 0,
     borderTopRightRadius: 50,
     borderTopLeftRadius: 0,
     padding: 30,
-    height: "auto",
+    height: 'auto',
     // width: 300,
   },
   header: {
@@ -104,43 +104,43 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
   },
   headerBackground: {
-    flexDirection: "row",
-    flexWrap: "wrap",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     paddingBottom: 20,
   },
   text: {
-    fontFamily: "Poppins-Regular",
+    fontFamily: 'Poppins-Regular',
     padding: 30,
   },
   forgot: {
-    fontFamily: "Poppins-Regular",
-    color: "white",
+    fontFamily: 'Poppins-Regular',
+    color: 'white',
     fontSize: 30,
     // paddingBottom: 20,
   },
   text_metag: {
-    fontFamily: "Poppins-ExtraBold",
+    fontFamily: 'Poppins-ExtraBold',
     fontSize: 40,
     letterSpacing: 3,
   },
   text_tagline: {
-    fontFamily: "Poppins-Regular",
+    fontFamily: 'Poppins-Regular',
     letterSpacing: 2,
     fontSize: 15,
-    color: "black",
+    color: 'black',
   },
   inputEmail: {
-    borderBottomColor: "white",
+    borderBottomColor: 'white',
     borderWidth: 1,
     height: 40,
-    color: "white",
+    color: 'white',
   },
   signin_btn: {
     // paddingTop: 20,
     marginTop: 20,
-    alignItems: "center",
+    alignItems: 'center',
     padding: 10,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 50,
     borderTopRightRadius: 0,
@@ -148,22 +148,22 @@ const styles = StyleSheet.create({
     width: 100,
   },
   key_text_parent: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "flex-end",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-end',
     paddingTop: 30,
   },
   forgotpasword_text: {
-    color: "white",
+    color: 'white',
   },
   key_img: {
     width: 20,
     height: 20,
-    color: "white",
+    color: 'white',
   },
   icon_parent: {
-    flexDirection: "row",
-    alignContent: "space-between",
+    flexDirection: 'row',
+    alignContent: 'space-between',
   },
   img_icon: {
     width: 50,
@@ -175,28 +175,28 @@ const styles = StyleSheet.create({
   },
   bg_img_icon: {
     paddingTop: 20,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-around",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
   footer: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
     // paddingTop: 60,
   },
   footer_normal_text: {
-    fontFamily: "Poppins-Regular",
-    marginTop: "auto",
+    fontFamily: 'Poppins-Regular',
+    marginTop: 'auto',
   },
   footer_bold_text: {
-    fontFamily: "Poppins-ExtraBold",
-    marginTop: "auto",
+    fontFamily: 'Poppins-ExtraBold',
+    marginTop: 'auto',
     paddingTop: 170,
   },
   password: {
-    fontFamily: "Poppins-Regular",
-    color: "white",
+    fontFamily: 'Poppins-Regular',
+    color: 'white',
     fontSize: 30,
     paddingBottom: 20,
   },
@@ -208,7 +208,6 @@ const styles = StyleSheet.create({
   //   fontFamily: "Poppins_400Regular",
   //   color: "black",
   // },
-});
+})
 
-export default ForgotPassword;
-
+export default ForgotPassword
