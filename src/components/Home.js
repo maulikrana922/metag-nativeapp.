@@ -24,7 +24,7 @@ import avtar from '../../assets/avatar-home.svg'
 import contact from '../../assets/contact.svg'
 import list from '../../assets/list.svg'
 import home from '../../assets/home-run.svg'
-
+import { Svg, Path, Defs } from 'react-native-svg'
 // import {
 //   useFonts,
 //   Poppins_800ExtraBold_Italic,

@@ -21,7 +21,7 @@ function App() {
   {
     console.log('Hello World')
   }
-  return <Login />
+  return <ChangePassword />
 }
 
 export default App

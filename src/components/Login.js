@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import AppLoading from 'expo-app-loading'
+import { Svg, Path, Defs, RadialGradient, Stop, Circle } from 'react-native-svg'
 // import {
 //   useFonts,
 //   Poppins_800ExtraBold_Italic,
@@ -79,12 +80,11 @@ export default function Login() {
         <View style={styles.icon_parent}>
           <Text style={styles.text}>Sign in with:</Text>
           <View style={styles.bg_img_icon}>
-            <Svg
+            {/* <Svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 64 64"
               width={64}
               height={64}
-              {...props}
             >
               <RadialGradient
                 id="prefix__a"
@@ -138,11 +138,11 @@ export default function Login() {
                 d="M32 25c-5 0-9 4-9 9s4 9 9 9 9-4 9-9-4-9-9-9zm0 15c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"
               />
               <Circle cx={41} cy={25} r={2} fill="#fff" />
-            </Svg>
-            {/* <Image
+            </Svg> */}
+            <Image
               source={require('../../assets/icons8-instagram.svg')}
               style={styles.img_icon}
-            ></Image> */}
+            ></Image>
             <Image
               source={require('../../assets/icons8-facebook.svg')}
               style={styles.img_icon}
