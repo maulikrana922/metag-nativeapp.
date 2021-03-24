@@ -69,8 +69,10 @@ function ForgotPassword() {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={styles.footer}>
-          <Text style={styles.footer_bold_text}>Back to Login</Text>
+        <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+          <View style={styles.footer}>
+            <Text style={styles.footer_bold_text}>Back to Login</Text>
+          </View>
         </View>
       </View>
     )
