@@ -16,6 +16,8 @@ import MyOrders from './src/components/MyOrders'
 import OrderDetails from './src/components/OrderDetails'
 import Interaction from './src/components/Interaction'
 import ChangePassword from './src/components/ChangePassword'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
 
 function App() {
   {
