@@ -13,6 +13,7 @@ import { useFonts } from '@use-expo/font'
 import * as ImagePicker from 'expo-image-picker'
 import AppLoading from 'expo-app-loading'
 // import AvtarImage from "../../assets/avtar.svg";
+import { Svg, Path, Defs } from 'react-native-svg'
 //
 import AvtarImage from '../../assets/work-suitcase.svg'
 import wifi from '../../assets/mobile-phone-with-wifi.png'

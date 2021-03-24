@@ -18,6 +18,7 @@ import AppLoading from 'expo-app-loading'
 // import { AppLoading } from "expo";
 import { useFonts } from '@use-expo/font'
 // import { useFonts, Inter_900Black } from "@expo-google-fonts/inter";
+import { Svg, Path, Defs, RadialGradient, Stop, Circle } from 'react-native-svg'
 
 export default function Login() {
   let [isLoaded] = useFonts({
@@ -84,7 +85,6 @@ export default function Login() {
               viewBox="0 0 64 64"
               width={64}
               height={64}
-              {...props}
             >
               <RadialGradient
                 id="prefix__a"
