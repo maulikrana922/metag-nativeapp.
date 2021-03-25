@@ -11,7 +11,7 @@ import {
 import { useFonts } from '@use-expo/font'
 import * as ImagePicker from 'expo-image-picker'
 import AppLoading from 'expo-app-loading'
-import AvtarImage from '../../assets/avtar.svg'
+import AvtarImage from '../../assets/CreateProfile/avatar.png'
 //
 import exampleImg from '../../assets/splash.png'
 
@@ -70,15 +70,15 @@ export default function CreateProfile() {
           <View>
             <View style={styles.header}>
               {/* <View style={styles.arrowback}></View> */}
-              {/* <Image
+              <Image
                 source={require('../../assets/CreateProfile/back.png')}
                 style={styles.arrowback}
-              ></Image> */}
+              ></Image>
               <View style={styles.headerBackground}>
-                <Image
+                {/* <Image
                   source={require('../../assets/CreateProfile/back.png')}
                   style={styles.arrowback}
-                ></Image>
+                ></Image> */}
                 <Image
                   source={require('../../assets/logo.jpg')}
                   style={{ width: 50, height: 'auto' }}
@@ -87,9 +87,9 @@ export default function CreateProfile() {
                   <Text style={styles.text_metag}>meTAG</Text>
                   <Text style={styles.text_tagline}>I M ME,WHO ARE YOU</Text>
                 </View>
-                <Text style={styles.next}>Next</Text>
+                {/* <Text style={styles.next}>Next</Text> */}
               </View>
-              {/* <Text style={styles.next}>Next</Text> */}
+              <Text style={styles.next}>Next</Text>
             </View>
             <Text style={styles.completeProfile}>Complete Profile</Text>
           </View>
@@ -117,7 +117,7 @@ export default function CreateProfile() {
                 {/* // setNewImage(exampleImg)} */}
                 {image && setNewImage(exampleImg)}
                 <Image
-                  source={require('../../assets/camera-icon.svg')}
+                  source={require('../../assets/CreateProfile/cam.png')}
                   style={styles.camera_img}
                 ></Image>
               </View>
@@ -148,17 +148,22 @@ const styles = StyleSheet.create({
     // color: "white",
   },
   headerBackground: {
+    display: 'flex',
     flexDirection: 'row',
-    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    // flexWrap: 'wrap',
     paddingBottom: 20,
     alignSelf: 'center',
     // paddingRight: 40,
+    // backgroundColor: 'black',
   },
   header_text: {
-    flex: 1,
+    // flex: 1,
+    display: 'flex',
     flexDirection: 'column',
     // width: 30,
-    backgroundColor: 'pink',
+    // width: 30,
+    // backgroundColor: 'pink',
     // paddingLeft: 20,
   },
   text_metag: {
@@ -168,7 +173,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   text_tagline: {
-    fontFamily: '',
+    fontFamily: 'Poppins-Reguler',
     letterSpacing: 2,
     fontSize: 10,
     color: 'white',
@@ -234,8 +239,8 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   camera_img: {
-    width: 20,
-    height: 20,
+    width: 40,
+    height: 40,
     // alignContent: "flex-end",
     // justifyContent: "flex-end",
     backgroundColor: 'white',
@@ -243,6 +248,7 @@ const styles = StyleSheet.create({
     marginTop: 'auto',
     marginRight: 'auto',
     marginLeft: 'auto',
+    borderRadius: 20,
     // padding: 20,
     // marginTop: 40,
     // marginRight: 10,

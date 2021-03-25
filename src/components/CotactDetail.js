@@ -33,6 +33,12 @@ import facebook from '../../assets/facebook.png'
 import google from '../../assets/google-plus.png'
 import instagram from '../../assets/instagram.png'
 
+import email_i from '../../assets/ContactDetails/email.png'
+import gps_i from '../../assets/ContactDetails/gps.png'
+import iphone_i from '../../assets/ContactDetails/iphone.png'
+import work_i from '../../assets/ContactDetails/work.png'
+import avatar from '../../assets/ContactDetails/avatar.png'
+
 // import {
 //   useFonts,
 //   Poppins_800ExtraBold_Italic,
@@ -76,8 +82,8 @@ export default function MyProfile() {
               {/* <Image source={more} style={{ height: 60, width: 30 }}></Image> */}
               {/* here */}
             </View>
-            <View style={styles.avatarBg}>
-              <svg
+            {/* <View style={styles.avatarBg}> */}
+            {/* <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="40.203"
                 height="40.203"
@@ -98,8 +104,20 @@ export default function MyProfile() {
                     transform="translate(10.532 10.267)"
                   />
                 </g>
-              </svg>
-            </View>
+              </svg> */}
+            <Image
+              source={avatar}
+              style={{
+                backgroundColor: 'white',
+                borderRadius: 100,
+                width: 100,
+                height: 100,
+                marginLeft: 'auto',
+                marginRight: 'auto',
+              }}
+              // resizeMode="contain"
+            ></Image>
+            {/* </View> */}
             <Text style={styles.nameText}>John Copeland</Text>
           </View>
           <View
@@ -131,7 +149,7 @@ export default function MyProfile() {
               display: 'flex',
               alignSelf: 'center',
               justifyContent: 'space-evenly',
-              height: 150,
+              height: 'auto',
               backgroundColor: 'white',
               padding: 20,
               marginBottom: 40,
@@ -139,7 +157,7 @@ export default function MyProfile() {
             }}
           >
             <View style={styles.info}>
-              <svg
+              {/* <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18.204"
                 height="17.24"
@@ -149,11 +167,12 @@ export default function MyProfile() {
                   d="M17.675,2.3H12.836V1.724A1.667,1.667,0,0,0,11.236,0H6.969a1.667,1.667,0,0,0-1.6,1.724V2.3H.534A.557.557,0,0,0,0,2.873V15.516A1.667,1.667,0,0,0,1.6,17.24h15a1.667,1.667,0,0,0,1.6-1.724V2.883c-.02-.377-.236-.582-.53-.584ZM6.436,1.724a.556.556,0,0,1,.533-.575h4.267a.556.556,0,0,1,.533.575V2.3H6.436Zm10.5,1.724L15.275,8.8a.537.537,0,0,1-.506.393h-3V8.62a.555.555,0,0,0-.533-.575H6.969a.555.555,0,0,0-.533.575v.575h-3A.537.537,0,0,1,2.93,8.8L1.274,3.448ZM10.7,9.194v1.149H7.5V9.194Zm6.436,6.321a.556.556,0,0,1-.533.575H1.6a.556.556,0,0,1-.533-.575v-9.1l.851,2.751a1.613,1.613,0,0,0,1.518,1.179h3v.575a.555.555,0,0,0,.533.575h4.267a.555.555,0,0,0,.533-.575v-.575h3a1.613,1.613,0,0,0,1.518-1.179l.851-2.751Zm0,0"
                   transform="translate(0)"
                 />
-              </svg>
+              </svg> */}
+              <Image source={work_i}></Image>
               <Text style={styles.infoPadding}>Aqua System LLC</Text>
             </View>
             <View style={styles.info}>
-              <svg
+              {/* <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18.204"
                 height="17.24"
@@ -167,11 +186,12 @@ export default function MyProfile() {
                   d="M17.672,59.882H1.828A1.905,1.905,0,0,0,0,61.852V73.67a1.9,1.9,0,0,0,1.828,1.97H17.672A1.9,1.9,0,0,0,19.5,73.67V61.852A1.905,1.905,0,0,0,17.672,59.882Zm0,1.313a.568.568,0,0,1,.234.051L9.75,68.862,1.595,61.246a.569.569,0,0,1,.234-.051Zm0,13.132H1.828a.635.635,0,0,1-.609-.657V62.633l8.132,7.594a.578.578,0,0,0,.8,0l8.132-7.594V73.67A.635.635,0,0,1,17.672,74.327Z"
                   transform="translate(0 -59.882)"
                 />
-              </svg>
+              </svg> */}
+              <Image source={email_i}></Image>
               <Text style={styles.infoPadding}>Johncopaland@domain.com</Text>
             </View>
             <View style={styles.info}>
-              <svg
+              {/* <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18.204"
                 height="17.24"
@@ -184,11 +204,12 @@ export default function MyProfile() {
                     transform="translate(-142.799 -428.4)"
                   />
                 </g>
-              </svg>
+              </svg> */}
+              <Image source={iphone_i}></Image>
               <Text style={styles.infoPadding}>+004 4567979820</Text>
             </View>
             <View style={styles.info}>
-              <svg
+              {/* <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18.204"
                 height="17.24"
@@ -204,7 +225,8 @@ export default function MyProfile() {
                   d="M1.391,0A7.65,7.65,0,0,0-6.25,7.641c0,5.3,7.649,14.342,7.649,14.342S9.032,12.677,9.032,7.641A7.65,7.65,0,0,0,1.391,0ZM3.7,9.879A3.26,3.26,0,0,1-.914,5.268a3.238,3.238,0,0,1,2.305-.955A3.261,3.261,0,0,1,3.7,9.879Zm0,0"
                   transform="translate(7 0.75)"
                 />
-              </svg>
+              </svg> */}
+              <Image source={gps_i}></Image>
               <Text style={styles.infoPadding}>
                 9 Bow Ridge,Lakeland,FL 33801
               </Text>
@@ -246,7 +268,7 @@ const styles = StyleSheet.create({
     // paddingRight: 40,
   },
   header_text: {
-    flex: 1,
+    // flex: 1,
     flexDirection: 'column',
     // paddingLeft: 20,
   },
@@ -503,19 +525,19 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
   },
-  avatarBg: {
-    backgroundColor: '#f2f2f2',
-    width: 70,
-    height: 70,
-    // padding: 20,
-    // alignItems: 'center',
-    justifyContent: 'center',
-    // selfAlign: 'center',
-    display: 'flex',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    borderRadius: 100,
-  },
+  // avatarBg: {
+  //   backgroundColor: '#f2f2f2',
+  //   width: 70,
+  //   height: 70,
+  //   // padding: 20,
+  //   // alignItems: 'center',
+  //   justifyContent: 'center',
+  //   // selfAlign: 'center',
+  //   display: 'flex',
+  //   marginLeft: 'auto',
+  //   marginRight: 'auto',
+  //   borderRadius: 100,
+  // },
   nameText: {
     color: 'white',
     fontFamily: 'Poppins-Regular',

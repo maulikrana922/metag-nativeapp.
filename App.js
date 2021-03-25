@@ -23,7 +23,7 @@ function App() {
   {
     console.log('Hello World')
   }
-  return <CreateProfile />
+  return <MyOrders />
 }
 
 export default App

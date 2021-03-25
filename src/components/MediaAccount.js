@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
 import {
   StyleSheet,
   Text,
@@ -7,22 +7,21 @@ import {
   TextInput,
   Button,
   Platform,
-  CheckBox
-} from "react-native";
-import { useFonts } from "@use-expo/font";
-import * as ImagePicker from "expo-image-picker";
-import AppLoading from "expo-app-loading";
+  CheckBox,
+} from 'react-native'
+import { useFonts } from '@use-expo/font'
+import * as ImagePicker from 'expo-image-picker'
+import AppLoading from 'expo-app-loading'
 // import AvtarImage from "../../assets/avtar.svg";
 //
-import AvtarImage from "../../assets/work-suitcase.svg";
-import linkedin from "../../assets/linkedin.png"
-import twitter from "../../assets/twitter.png"
+import AvtarImage from '../../assets/work-suitcase.svg'
+import linkedin from '../../assets/linkedin.png'
+import twitter from '../../assets/twitter.png'
 // import facebook from "../../assets/icons8-facebook.svg"
-import facebook from "../../assets/facebook.png"
-import google from "../../assets/google-plus.png"
+import facebook from '../../assets/facebook.png'
+import google from '../../assets/google-plus.png'
 // import instagram  from "../../assets/icons8-instagram.svg"
-import instagram from "../../assets/instagram.png"
-
+import instagram from '../../assets/instagram.png'
 
 // import exampleImg from "../../assets/splash.png";
 
@@ -36,25 +35,25 @@ import instagram from "../../assets/instagram.png"
 
 export default function CreateProfile() {
   let [isLoaded] = useFonts({
-    "Poppins-ExtraBold": require("../../assets/fonts/Poppins-ExtraBold.ttf"),
-    "Poppins-Regular": require("../../assets/fonts/Poppins-Regular.ttf"),
-  });
+    'Poppins-ExtraBold': require('../../assets/fonts/Poppins-ExtraBold.ttf'),
+    'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
+  })
 
-  const [image, setImage] = useState(null);
-  const [newImage, setNewImage] = useState(AvtarImage);
+  const [image, setImage] = useState(null)
+  const [newImage, setNewImage] = useState(AvtarImage)
 
   useEffect(() => {
-    (async () => {
-      if (Platform.OS !== "web") {
+    ;(async () => {
+      if (Platform.OS !== 'web') {
         const {
           status,
-        } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status !== "granted") {
-          alert("Sorry, we need camera roll permissions to make this work!");
+        } = await ImagePicker.requestMediaLibraryPermissionsAsync()
+        if (status !== 'granted') {
+          alert('Sorry, we need camera roll permissions to make this work!')
         }
       }
-    })();
-  }, []);
+    })()
+  }, [])
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -62,18 +61,18 @@ export default function CreateProfile() {
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
-    });
+    })
 
-    console.log(result);
+    console.log(result)
 
     if (!result.cancelled) {
       // setImage(result.uri);
-      setNewImage(result.uri);
+      setNewImage(result.uri)
     }
-  };
+  }
 
   if (!isLoaded) {
-    return <AppLoading />;
+    return <AppLoading />
   } else {
     return (
       <View style={styles.container}>
@@ -82,18 +81,23 @@ export default function CreateProfile() {
             <View style={styles.header}>
               {/* <View style={styles.arrowback}></View> */}
               <Image
-                source={require("../../assets/arrow-back.svg")}
+                source={require('../../assets/CreateProfile/back.png')}
                 style={styles.arrowback}
               ></Image>
               <View style={styles.headerBackground}>
+                {/* <Image
+                  source={require('../../assets/CreateProfile/back.png')}
+                  style={styles.arrowback}
+                ></Image> */}
                 <Image
-                  source={require("../../assets/logo.jpg")}
-                  style={{ width: 50, height: "auto" }}
+                  source={require('../../assets/logo.jpg')}
+                  style={{ width: 50, height: 'auto' }}
                 />
                 <View style={styles.header_text}>
                   <Text style={styles.text_metag}>meTAG</Text>
                   <Text style={styles.text_tagline}>I M ME,WHO ARE YOU</Text>
                 </View>
+                {/* <Text style={styles.next}>Next</Text> */}
               </View>
               <Text style={styles.next}>Next</Text>
             </View>
@@ -101,7 +105,9 @@ export default function CreateProfile() {
           </View>
         </View>
         <View style={styles.avtar_parent}>
-          <Text style={styles.upload_text}>Link your Social media accounts </Text>
+          <Text style={styles.upload_text}>
+            Link your Social media accounts{' '}
+          </Text>
           <View style={styles.avtar_bg}>
             {/* <Image
               // source={require("../../assets/avtar.svg")}
@@ -119,107 +125,107 @@ export default function CreateProfile() {
                     style={{ width: 200, height: 200 }}
                   />
                 )} */}
-                {/* // setNewImage(exampleImg)} */}
-                {/* {image && setNewImage(exampleImg)} */}
-                {/* <Image
+            {/* // setNewImage(exampleImg)} */}
+            {/* {image && setNewImage(exampleImg)} */}
+            {/* <Image
                   source={require("../../assets/camera-icon.svg")}
                   style={styles.camera_img}
                 ></Image> */}
-              {/* </View>
-            </View> */} 
+            {/* </View>
+            </View> */}
 
             <View style={styles.socialLogin}>
-                <Image source={google} style={styles.logo}></Image>
-                <Text style={styles.socialLoginText}>Jerry</Text>
-
-
+              <Image source={google} style={styles.logo}></Image>
+              <Text style={styles.socialLoginText}>Jerry</Text>
             </View>
             <View style={styles.socialLogin}>
-                <Image source={linkedin} style={styles.logo}></Image>
-                <Text style={styles.socialLoginText}>Jerry</Text>
-                <CheckBox style={styles.checkboxPadding}
-        //   value={isSelected}
-        //   onValueChange={setSelection}
-        //   style={styles.checkbox}
-        />
+              <Image source={linkedin} style={styles.logo}></Image>
+              <Text style={styles.socialLoginText}>Jerry</Text>
+              <CheckBox
+                style={styles.checkboxPadding}
+                //   value={isSelected}
+                //   onValueChange={setSelection}
+                //   style={styles.checkbox}
+              />
             </View>
             <View style={styles.socialLogin}>
-                <Image source={twitter} style={styles.logo}></Image>
-                {/* <Text style={styles.socialLoginText}>Jerry</Text> */}
+              <Image source={twitter} style={styles.logo}></Image>
+              {/* <Text style={styles.socialLoginText}>Jerry</Text> */}
             </View>
             <View style={styles.socialLogin}>
-                <Image source={instagram} style={styles.logo}></Image>
-                <Text style={styles.socialLoginText}>Jerry</Text>
+              <Image source={instagram} style={styles.logo}></Image>
+              <Text style={styles.socialLoginText}>Jerry</Text>
             </View>
             <View style={styles.socialLogin}>
-                <Image source={facebook} style={styles.logo}></Image>
-                <Text style={styles.socialLoginText}>Jerry</Text>
+              <Image source={facebook} style={styles.logo}></Image>
+              <Text style={styles.socialLoginText}>Jerry</Text>
             </View>
           </View>
         </View>
       </View>
-    );
+    )
   }
 }
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: "#000000",
+    backgroundColor: '#000000',
     height: 100,
-    display: "flex",
-    flexDirection: "row",
+    display: 'flex',
+    flexDirection: 'row',
     // borderBottomLeftRadius: 20,
     // borderBottomRightRadius: 20,
-    justifyContent: "space-around",
+    justifyContent: 'space-around',
   },
   arrowback: {
     // backgroundColor: "beige",
     width: 20,
     height: 20,
-    alignSelf: "center",
+    alignSelf: 'center',
     marginLeft: 20,
     // color: "white",
   },
   headerBackground: {
-    flexDirection: "row",
-    flexWrap: "wrap",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     paddingBottom: 20,
-    alignSelf: "center",
+    alignSelf: 'center',
+    justifyContent: 'space-around',
     // paddingRight: 40,
   },
   header_text: {
-    flex: 1,
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
     // paddingLeft: 20,
   },
   text_metag: {
-    fontFamily: "Poppins-ExtraBold",
+    fontFamily: 'Poppins-ExtraBold',
     fontSize: 30,
     letterSpacing: 3,
-    color: "white",
+    color: 'white',
   },
   text_tagline: {
-    fontFamily: "",
+    fontFamily: '',
     letterSpacing: 2,
     fontSize: 10,
-    color: "white",
+    color: 'white',
   },
   next: {
-    fontFamily: "Poppins-ExtraBold",
-    color: "white",
-    alignSelf: "center",
+    fontFamily: 'Poppins-ExtraBold',
+    color: 'white',
+    alignSelf: 'center',
   },
   completeProfile: {
-    alignSelf: "center",
-    color: "white",
+    alignSelf: 'center',
+    color: 'white',
     fontSize: 15,
-    fontFamily: "Poppins-ExtraBold",
-    fontWeight: "700",
+    fontFamily: 'Poppins-ExtraBold',
+    fontWeight: '700',
     paddingBottom: 10,
     // backgroundColor: "black",
     // width: "auto",
   },
   header_parent: {
-    backgroundColor: "#000000",
+    backgroundColor: '#000000',
     // height: 200,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
@@ -227,61 +233,64 @@ const styles = StyleSheet.create({
   avtarImage: {
     height: 100,
     width: 100,
-    flexDirection: "column",
-    backgroundColor: "black",
-    marginLeft: "auto",
-    marginRight: "auto",
+    flexDirection: 'column',
+    backgroundColor: 'black',
+    marginLeft: 'auto',
+    marginRight: 'auto',
     marginTop: 50,
     // alignContent: "center",
     // marginTop: "right",
     // marginBottom: "right",
   },
   avtar_bg: {
-    display: "flex",
-    backgroundColor: "black",
-    height: "auto",
-    width: "auto",
-    justifyContent: "space-evenly",
+    display: 'flex',
+    backgroundColor: 'black',
+    height: 'auto',
+    width: 'auto',
+    justifyContent: 'space-evenly',
     borderRadius: 20,
-    marginLeft:"auto",
-    marginRight:"auto"
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   avtar_parent: {
-    display: "flex",
-    flexDirection: "column",
-    marginLeft: "auto",
-    marginRight: "auto",
+    display: 'flex',
+    flexDirection: 'column',
+    marginLeft: 'auto',
+    marginRight: 'auto',
     marginTop: 30,
     // justifyContent:"space-between   "
     // paddingTop: "auto",
     // paddingBottom: "auto",
   },
   upload_text: {
-    marginLeft: "auto",
-    marginRight: "auto",
-    fontFamily: "Poppins-ExtraBold",
-    fontWeight: "700",
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    fontFamily: 'Poppins-SemiBold',
+    // fontWeight: '700',
+    color: 'black',
+    marginBottom: 14,
+    fontSize: 16,
   },
   camera_img: {
     width: 20,
     height: 20,
     // alignContent: "flex-end",
     // justifyContent: "flex-end",
-    backgroundColor: "white",
-    marginBottom: "auto",
-    marginTop: "auto",
-    marginRight: "auto",
-    marginLeft: "auto",
+    backgroundColor: 'white',
+    marginBottom: 'auto',
+    marginTop: 'auto',
+    marginRight: 'auto',
+    marginLeft: 'auto',
     // padding: 20,
     // marginTop: 40,
     // marginRight: 10,
     // borderRadius: 20,
   },
   camera_bg: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
     paddingTop: 50,
     marginRight: 5,
     marginBottom: 10,
@@ -290,35 +299,33 @@ const styles = StyleSheet.create({
     // backgroundColor: "white",
   },
   white_bg: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
     width: 40,
     height: 40,
     borderRadius: 20,
     // marginRight: 10,
     // padding: 10,
-    justifyContent: "flex-end",
+    justifyContent: 'flex-end',
   },
-  logo:{
-      width:50,
-      height:50,
-      borderRadius:20,
-      marginLeft:10
+  logo: {
+    width: 50,
+    height: 50,
+    borderRadius: 20,
+    marginLeft: 10,
   },
-  socialLogin:{
-      display:"flex",
-      flexDirection:"row",
-      alignItems:"center",
-      margin:10
-
+  socialLogin: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    margin: 10,
   },
-  socialLoginText:{
-    color:"white",paddingLeft:20,
-    width:70    ,
+  socialLoginText: {
+    color: 'white',
+    paddingLeft: 20,
+    width: 70,
   },
-  checkboxPadding:{
-      paddingLeft:50,
-      paddingRight:10
-
-  }
-});
-
+  checkboxPadding: {
+    paddingLeft: 50,
+    paddingRight: 10,
+  },
+})

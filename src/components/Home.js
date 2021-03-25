@@ -81,7 +81,7 @@ export default function CreateProfile() {
             <View style={styles.header}>
               {/* <View style={styles.arrowback}></View> */}
               <Image
-                source={require('../../assets/arrow-back.svg')}
+                source={require('../../assets/CreateProfile/back.png')}
                 style={styles.arrowback}
               ></Image>
               <View style={styles.headerBackground}>
@@ -251,25 +251,31 @@ const styles = StyleSheet.create({
     // borderBottomLeftRadius: 20,
     // borderBottomRightRadius: 20,
     justifyContent: 'space-around',
+    // backgroundColor: 'orange',
   },
   arrowback: {
     // backgroundColor: "beige",
-    width: 20,
-    height: 20,
+    width: 30,
+    height: 30,
     alignSelf: 'center',
-    marginLeft: 20,
+    resizeMode: 'contain',
+    // marginLeft: 10,
+    // backgroundColor: 'pink',
     // color: "white",
   },
   headerBackground: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
+    // flexWrap: 'wrap',
     paddingBottom: 20,
     alignSelf: 'center',
+    // backgroundColor: 'yellow',
     // borderBottomColor: 'white',
     // paddingRight: 40,
+    justifyContent: 'space-around',
   },
   header_text: {
-    flex: 1,
+    // flex: 1,
+    display: 'flex',
     flexDirection: 'column',
     // paddingLeft: 20,
   },

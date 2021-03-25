@@ -26,12 +26,13 @@ import avtar from '../../assets/avatar-home.svg'
 import contact from '../../assets/contact.svg'
 import list from '../../assets/list.svg'
 import home from '../../assets/home-run.svg'
-import more from '../../assets/myProfile/more.svg'
+// import more from '../../assets/myProfile/more.svg'
 import linkedin from '../../assets/linkedin.png'
 import twitter from '../../assets/twitter.png'
 import facebook from '../../assets/facebook.png'
 import google from '../../assets/google-plus.png'
 import instagram from '../../assets/instagram.png'
+import more from '../../assets/myOrders/more.png'
 
 // import {
 //   useFonts,
@@ -111,33 +112,10 @@ export default function MyProfile() {
                 style={{
                   alignSelf: 'center',
                   position: 'relative',
-                  left: 30,
+                  left: 60,
                 }}
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="6.269"
-                  height="25.077"
-                  viewBox="0 0 6.269 25.077"
-                >
-                  <defs></defs>
-                  <g transform="translate(-193.334 0)">
-                    <path
-                      fill="white"
-                      d="M198.685.918a3.135,3.135,0,1,1-4.433,0,3.135,3.135,0,0,1,4.433,0"
-                    />
-                    <path
-                      fill="white"
-                      d="M198.685,194.252a3.135,3.135,0,1,1-4.433,0,3.135,3.135,0,0,1,4.433,0"
-                      transform="translate(0 -183.93)"
-                    />
-                    <path
-                      fill="white"
-                      d="M198.685,387.584a3.135,3.135,0,1,1-4.433,0,3.135,3.135,0,0,1,4.433,0"
-                      transform="translate(0 -367.858)"
-                    />
-                  </g>
-                </svg>
+                <Image source={more}></Image>
               </View>
             </View>
             <Text style={styles.completeProfile}>My Orders</Text>
@@ -273,6 +251,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     // borderBottomLeftRadius: 20,
     // borderBottomRightRadius: 20,
+    // justifyContent: 'space-around',
     justifyContent: 'center',
   },
   arrowback: {
@@ -292,7 +271,7 @@ const styles = StyleSheet.create({
     // paddingRight: 40,
   },
   header_text: {
-    flex: 1,
+    // flex: 1,
     flexDirection: 'column',
     // paddingLeft: 20,
   },
@@ -505,8 +484,9 @@ const styles = StyleSheet.create({
   },
   productView: {
     width: 40,
-    height: 75,
-    backgroundColor: '#b8b8b8',
+    height: 'auto',
+    // backgroundColor: '#b8b8b8',
+    backgroundColor: 'red',
     marginTop: 'auto',
     marginBottom: 'auto',
     borderRadius: 5,
