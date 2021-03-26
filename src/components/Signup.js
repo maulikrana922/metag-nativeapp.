@@ -11,12 +11,12 @@ import {
 } from 'react-native';
 
 function Signup(props) {
-  const [fullName, setFullName] = useState('Full Name');
-  const [email, setEmail] = useState('Email');
-  const [number, setNumber] = useState('Mobile Number');
-  const [bName, setBName] = useState('Business Name');
-  const [password, setPassword] = useState('Password');
-  const [confirmPassword, setConfirmPassword] = useState('Confirm Password');
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [number, setNumber] = useState('');
+  const [bName, setBName] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoaded, setLoaded] = useState(true);
 
   if (!isLoaded) {
@@ -36,38 +36,94 @@ function Signup(props) {
         </View>
         <View style={styles.background}>
           <Text style={styles.signin}>Sign Up</Text>
+          {/* <Image source={require('../../assets/signup/user.png')}></Image> */}
 
-          <TextInput
-            style={styles.inputEmail}
-            onChangeText={text => setFullName(text)}
-            value={fullName}
-          />
-
-          <TextInput
-            style={styles.inputEmail}
-            onChangeText={text => setEmail(text)}
-            value={email}
-          />
-          <TextInput
-            style={styles.inputEmail}
-            onChangeText={text => setNumber(text)}
-            value={number}
-          />
-          <TextInput
-            style={styles.inputEmail}
-            onChangeText={text => setBName(text)}
-            value={bName}
-          />
-          <TextInput
-            style={styles.inputEmail}
-            onChangeText={text => setPassword(text)}
-            value={password}
-          />
-          <TextInput
-            style={styles.inputEmail}
-            onChangeText={text => setConfirmPassword(text)}
-            value={confirmPassword}
-          />
+          <View style={styles.inputTextBg}>
+            <Image
+              source={require('../../assets/signup/user.png')}
+              style={styles.icon}
+              resizeMode="contain"></Image>
+            <TextInput
+              style={styles.inputEmail}
+              placeholder="Full Name"
+              placeholderTextColor="white"
+              onChangeText={text => setFullName(text)}
+              value={fullName}
+              underlineColorAndroid="transparent"
+            />
+          </View>
+          <View style={styles.inputTextBg}>
+            <Image
+              source={require('../../assets/signup/email.png')}
+              style={styles.icon}
+              resizeMode="contain"></Image>
+            <TextInput
+              style={styles.inputEmail}
+              placeholder="Email"
+              placeholderTextColor="white"
+              onChangeText={text => setEmail(text)}
+              value={email}
+            />
+          </View>
+          <View style={styles.inputTextBg}>
+            <Image
+              source={require('../../assets/signup/iphone.png')}
+              style={styles.icon}
+              resizeMode="contain"></Image>
+            <TextInput
+              style={styles.inputEmail}
+              placeholder="Mobile Number"
+              onChangeText={text => setNumber(text)}
+              value={number}
+              placeholderTextColor="white"
+            />
+          </View>
+          <View style={styles.inputTextBg}>
+            <Image
+              source={require('../../assets/signup/work.png')}
+              style={styles.icon}
+              resizeMode="contain"></Image>
+            <TextInput
+              style={styles.inputEmail}
+              placeholder="Business Name"
+              placeholderTextColor="white"
+              onChangeText={text => setBName(text)}
+              value={bName}
+            />
+          </View>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              borderBottomColor: 'white',
+              borderWidth: 1,
+              // justifyContent: 'space-between',
+            }}>
+            <Image
+              source={require('../../assets/signup/lock.png')}
+              style={styles.icon}
+              resizeMode="contain"></Image>
+            <TextInput
+              style={styles.inputEmail}
+              placeholder="Password"
+              placeholderTextColor="white"
+              onChangeText={text => setPassword(text)}
+              value={password}
+            />
+          </View>
+          <View style={styles.inputTextBg}>
+            <Image
+              source={require('../../assets/signup/lock.png')}
+              style={styles.icon}
+              resizeMode="contain"></Image>
+            <TextInput
+              style={styles.inputEmail}
+              placeholder="Confirm Password"
+              placeholderTextColor="white"
+              onChangeText={text => setConfirmPassword(text)}
+              value={confirmPassword}
+            />
+          </View>
           <View
             style={{
               display: 'flex',
@@ -118,10 +174,12 @@ function Signup(props) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
+    display: 'flex',
     flexDirection: 'column',
     backgroundColor: '#fff',
-    margin: 20,
+    padding: 14,
+    // paddingBottom: 20,
     // alignItems: "center",
     // justifyContent: "center",
   },
@@ -133,13 +191,16 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 0,
     borderTopRightRadius: 50,
     borderTopLeftRadius: 0,
-    padding: 30,
+    padding: 20,
     height: 'auto',
     // width: 300,
   },
   header: {
     // flex: 1,
     // flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
+
     paddingLeft: 20,
   },
   headerBackground: {
@@ -150,6 +211,8 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: 'Poppins-Regular',
     padding: 30,
+    fontSize: 16,
+    color: 'black',
   },
   signin: {
     fontFamily: 'Poppins-Regular',
@@ -159,20 +222,24 @@ const styles = StyleSheet.create({
   },
   text_metag: {
     fontFamily: 'Poppins-ExtraBold',
-    fontSize: 40,
+    fontSize: 35,
     letterSpacing: 3,
   },
   text_tagline: {
     fontFamily: 'Poppins-Regular',
     letterSpacing: 2,
-    fontSize: 15,
+    fontSize: 14,
     color: 'black',
   },
   inputEmail: {
-    borderBottomColor: 'white',
-    borderWidth: 1,
-    height: 40,
+    // borderBottomColor: 'white',
+    // borderWidth: 1,
+    // height: 41,
+    fontSize: 14,
     color: 'white',
+
+    // alignSelf: 'stretch',
+    // flex: 1,
   },
   signin_btn: {
     marginTop: 20,
@@ -200,8 +267,10 @@ const styles = StyleSheet.create({
     // color: "white",
   },
   icon_parent: {
+    display: 'flex',
     flexDirection: 'row',
-    alignContent: 'space-between',
+    // alignContent: 'space-between',
+    justifyContent: 'space-between',
   },
   img_icon: {
     width: 50,
@@ -211,7 +280,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 50,
     borderTopLeftRadius: 50,
     alignSelf: 'center',
-    margin: 10,
+    // margin: 10,
   },
   bg_img_icon: {
     paddingTop: 20,
@@ -223,6 +292,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
+    // paddingBottom: 20,
     // borderBottomColor: "#c2c2a3",
     // borderBottomWidth: 1,
   },
@@ -231,6 +301,18 @@ const styles = StyleSheet.create({
   },
   footer_bold_text: {
     fontFamily: 'Poppins-ExtraBold',
+  },
+  icon: {
+    // height: 20,
+    alignSelf: 'center',
+    marginRight: 10,
+    // width: 25,
+  },
+  inputTextBg: {
+    display: 'flex',
+    flexDirection: 'row',
+    borderBottomColor: 'white',
+    borderWidth: 1,
   },
 });
 

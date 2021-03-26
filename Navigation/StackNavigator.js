@@ -41,7 +41,7 @@ function StackNavigator() {
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
 
-      {/* <Stack.Screen name="ChangePassword" component={ChangePassword} /> */}
+      {/* <Stack.Screen name="order " component={ChangePassword} /> */}
     </Stack.Navigator>
   );
 }

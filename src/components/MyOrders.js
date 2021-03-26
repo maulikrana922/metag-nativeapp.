@@ -77,7 +77,7 @@ export default function MyProfile(props) {
     return null;
   } else {
     return (
-      <View style={{flex: 1}}>
+      <View style={{flex: 1, backgroundColor: 'white'}}>
         <View style={styles.header_parent}>
           <View>
             <View style={styles.header}>
@@ -471,8 +471,9 @@ const styles = StyleSheet.create({
   productView: {
     width: 40,
     height: 'auto',
-    // backgroundColor: '#b8b8b8',
-    backgroundColor: 'red',
+    backgroundColor: '#b8b8b8',
+    // backgroundColor: 'red',
+    color: 'pink',
     marginTop: 'auto',
     marginBottom: 'auto',
     borderRadius: 5,

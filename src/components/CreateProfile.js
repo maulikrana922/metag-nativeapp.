@@ -8,6 +8,7 @@ import {
   Button,
   Platform,
 } from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 // import { useFonts } from '@use-expo/font'
 // import * as ImagePicker from 'expo-image-picker'
 // import AppLoading from 'expo-app-loading'
@@ -66,9 +67,17 @@ export default function CreateProfile(props) {
           <View>
             <View style={styles.header}>
               {/* <View style={styles.arrowback}></View> */}
-              <Image
-                source={require('../../assets/CreateProfile/back.png')}
-                style={styles.arrowback}></Image>
+              <TouchableOpacity
+                onPress={() => props.navigation.goBack()}
+                style={{
+                  height: 'auto',
+                  marginTop: 'auto',
+                  marginBottom: 'auto',
+                }}>
+                <Image
+                  source={require('../../assets/CreateProfile/back.png')}
+                  style={styles.arrowback}></Image>
+              </TouchableOpacity>
               <View style={styles.headerBackground}>
                 {/* <Image
                   source={require('../../assets/CreateProfile/back.png')}

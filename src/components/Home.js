@@ -13,6 +13,7 @@ import {
 // import * as ImagePicker from 'expo-image-picker'
 // import AppLoading from 'expo-app-loading'
 // import AvtarImage from "../../assets/avtar.svg";
+// import {TouchableOpacity} from 'react-native-gesture-handler';
 //
 import AvtarImage from '../../assets/work-suitcase.svg';
 import wifi from '../../assets/mobile-phone-with-wifi.png';
@@ -76,9 +77,17 @@ export default function CreateProfile(props) {
           <View>
             <View style={styles.header}>
               {/* <View style={styles.arrowback}></View> */}
-              <Image
-                source={require('../../assets/CreateProfile/back.png')}
-                style={styles.arrowback}></Image>
+              <TouchableOpacity
+                onPress={() => props.navigation.goBack()}
+                style={{
+                  height: 'auto',
+                  marginTop: 'auto',
+                  marginBottom: 'auto',
+                }}>
+                <Image
+                  source={require('../../assets/CreateProfile/back.png')}
+                  style={styles.arrowback}></Image>
+              </TouchableOpacity>
               <View style={styles.headerBackground}>
                 <Image
                   source={require('../../assets/logo.jpg')}

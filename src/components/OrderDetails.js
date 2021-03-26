@@ -69,7 +69,7 @@ export default function CreateProfile() {
     return null;
   } else {
     return (
-      <View>
+      <View style={{backgroundColor: 'white', flex: 1}}>
         <View style={styles.header_parent}>
           <View>
             <View style={styles.header}>

@@ -29,7 +29,7 @@ import {
 } from 'react-native-svg';
 
 export default function Login(props) {
-  const [email, setEmail] = useState('Email');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('Password');
   const [isLoaded, setLoaded] = useState(true);
 
@@ -54,9 +54,13 @@ export default function Login(props) {
           <TextInput
             style={styles.inputEmail}
             onChangeText={text => setEmail(text)}
+            placeholder="Email"
+            placeholderTextColor="white"
             value={email}
           />
           <TextInput
+            placeholder="Password"
+            placeholderTextColor="white"
             style={styles.inputEmail}
             onChangeText={text => setPassword(text)}
             value={password}
@@ -108,7 +112,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     backgroundColor: '#fff',
-    margin: 20,
+    padding: 20,
     // alignItems: "center",
     // justifyContent: "center",
   },

@@ -20,6 +20,8 @@ import google from '../../assets/google-plus.png';
 // import instagram  from "../../assets/icons8-instagram.svg"
 import instagram from '../../assets/instagram.png';
 
+import {TouchableOpacity} from 'react-native-gesture-handler';
+
 // import exampleImg from "../../assets/splash.png";
 
 export default function CreateProfile(props) {
@@ -65,9 +67,17 @@ export default function CreateProfile(props) {
           <View>
             <View style={styles.header}>
               {/* <View style={styles.arrowback}></View> */}
-              <Image
-                source={require('../../assets/CreateProfile/back.png')}
-                style={styles.arrowback}></Image>
+              <TouchableOpacity
+                onPress={() => props.navigation.goBack()}
+                style={{
+                  height: 'auto',
+                  marginTop: 'auto',
+                  marginBottom: 'auto',
+                }}>
+                <Image
+                  source={require('../../assets/CreateProfile/back.png')}
+                  style={styles.arrowback}></Image>
+              </TouchableOpacity>
               <View style={styles.headerBackground}>
                 {/* <Image
                   source={require('../../assets/CreateProfile/back.png')}

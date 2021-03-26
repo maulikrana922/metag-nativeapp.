@@ -67,7 +67,7 @@ export default function CreateProfile() {
             <View style={styles.header}>
               {/* <View style={styles.arrowback}></View> */}
               <Image
-                source={require('../../assets/arrow-back.svg')}
+                source={require('../../assets/CreateProfile/back.png')}
                 style={styles.arrowback}></Image>
               <View style={styles.headerBackground}>
                 <Image
@@ -97,6 +97,7 @@ export default function CreateProfile() {
               </View>
             </View>
             <Text style={styles.underlineText}>Interaction History </Text> */}
+            {/* <Image source={}></Image> */}
           </View>
         </View>
 
@@ -112,6 +113,8 @@ export default function CreateProfile() {
               display: 'flex',
               alignItems: 'center',
             }}>
+            <Image source={require('../../assets/interction/scan.png')}></Image>
+
             {/* <svg
               xmlns="http://www.w3.org/2000/svg"
               width="35.484"
@@ -223,6 +226,8 @@ export default function CreateProfile() {
                 display: 'flex',
                 alignItems: 'center',
               }}>
+              <Image
+                source={require('../../assets/interction/hotspot.png')}></Image>
               {/* <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="29.787"
@@ -255,7 +260,7 @@ export default function CreateProfile() {
                 Contact/Device name
               </Text>
               <Text style={{fontFamily: 'Poppins-Reguler', color: '#9E9E9E'}}>
-                By: QR Code
+                NFC card
               </Text>
             </View>
           </View>
@@ -299,8 +304,9 @@ const styles = StyleSheet.create({
     // paddingRight: 40,
   },
   header_text: {
-    flex: 1,
+    // flex: 1,
     flexDirection: 'column',
+
     // paddingLeft: 20,
   },
   text_metag: {
