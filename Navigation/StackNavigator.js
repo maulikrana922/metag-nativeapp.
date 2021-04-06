@@ -2,22 +2,23 @@
 
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import Login from '../src/components/Login';
-import Signup from '../src/components/Signup';
-import ForgotPassword from '../src/components/ForgotPassword';
-import ResetPassword from '../src/components/ResetPassword';
-import VerifyOTP from '../src/components/VerifyOTP';
-import CreateProfile from '../src/components/CreateProfile';
-import UploadBusinessLogo from '../src/components/UploadBusinessLogo';
-import MediaAccount from '../src/components/MediaAccount';
-import Home from '../src/components/Home';
-import MyProfile from '../src/components/MyProfile';
-import Contact from '../src/components/Contact';
-import ContactDetails from '../src/components/CotactDetail';
-import MyOrders from '../src/components/MyOrders';
-import OrderDetails from '../src/components/OrderDetails';
-import Interaction from '../src/components/Interaction';
-import ChangePassword from '../src/components/ChangePassword';
+import Login from '../src/Pages/Login';
+import Signup from '../src/Pages/Signup';
+import ForgotPassword from '../src/Pages/ForgotPassword';
+import ResetPassword from '../src/Pages/ResetPassword';
+import VerifyOTP from '../src/Pages/VerifyOTP';
+import CreateProfile from '../src/Pages/CreateProfile';
+import UploadBusinessLogo from '../src/Pages/UploadBusinessLogo';
+import MediaAccount from '../src/Pages/MediaAccount';
+import Home from '../src/Pages/Home';
+import MyProfile from '../src/Pages/MyProfile';
+import Contact from '../src/Pages/Contact';
+import ContactDetails from '../src/Pages/CotactDetail';
+import MyOrders from '../src/Pages/MyOrders';
+import OrderDetails from '../src/Pages/OrderDetails';
+import Interaction from '../src/Pages/Interaction';
+import ChangePassword from '../src/Pages/ChangePassword';
+import Location from '../src/Pages/Location';
 
 const Stack = createStackNavigator();
 
@@ -40,7 +41,7 @@ function StackNavigator() {
       <Stack.Screen name="ResetPassword" component={ResetPassword} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-
+      <Stack.Screen name="Location" component={Location} />
       {/* <Stack.Screen name="order " component={ChangePassword} /> */}
     </Stack.Navigator>
   );
