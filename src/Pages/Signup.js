@@ -41,6 +41,10 @@ export default function Signup(props) {
     });
   };
 
+  useEffect(()=>{
+    props.navigation.navigate('Home');
+  },[])
+
   const upload = data => {
     // try {
     axios
