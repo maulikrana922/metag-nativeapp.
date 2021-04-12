@@ -11,6 +11,7 @@ import CreateProfile from '../src/Pages/CreateProfile';
 import UploadBusinessLogo from '../src/Pages/UploadBusinessLogo';
 import MediaAccount from '../src/Pages/MediaAccount';
 import Home from '../src/Pages/Home';
+import Nfc from '../src/Pages/Nfc';
 import MyProfile from '../src/Pages/MyProfile';
 import Contact from '../src/Pages/Contact';
 import ContactDetails from '../src/Pages/CotactDetail';
@@ -42,6 +43,7 @@ function StackNavigator() {
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       <Stack.Screen name="Location" component={Location} />
+      <Stack.Screen name="Nfc" component={Nfc} />
       {/* <Stack.Screen name="order " component={ChangePassword} /> */}
     </Stack.Navigator>
   );

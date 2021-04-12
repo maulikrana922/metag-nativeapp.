@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from 'react-native';
+import NfcManager from 'react-native-nfc-manager'
 
 import wifi from '../../assets/mobile-phone-with-wifi.png';
 import qrCode from '../../assets/qr-code.png';
@@ -25,13 +26,27 @@ import Hotspot from '../../assets/Home/hotspot.svg';
 import bg from '../../assets/Logo/bg.png';
 export default function CreateProfile(props) {
   const [isLoaded, setLoaded] = useState(true);
+  const [supportsNfc, setSupportsNfc] = useState(false);
+
+  //This checks if the phone supports nfc feature
+  useEffect(() => {
+    NfcManager.isSupported()
+      .then(supported => {
+        console.log(supported);
+        if (supported) {
+          setSupportsNfc(true);
+        } else {
+          setSupportsNfc(false);
+        }
+      })
+  }, [])
 
   if (!isLoaded) {
     return null;
   } else {
     return (
-      <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
-        <View style={{flex: 1, backgroundColor: 'white'}}>
+      <ImageBackground source={bg} style={{ flex: 1, resizeMode: 'contain' }}>
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
           <StatusBar
             barStyle="light-content"
             backgroundColor="transparent"
@@ -66,9 +81,15 @@ export default function CreateProfile(props) {
                 <View style={styles.backgroundIcon}>
                   <Scan height={40} width={40} fill="black" />
                 </View>
-                <View style={styles.backgroundIcon2}>
-                  <Hotspot height={40} width={40} fill="black" />
-                </View>
+                {true && (
+                  <View style={styles.backgroundIcon2}>
+                    <TouchableOpacity onPress={() => {
+                      props.navigation.navigate('Nfc');
+                    }}>
+                      <Hotspot height={40} width={40} fill="black" />
+                    </TouchableOpacity>
+                  </View>
+                )}
               </View>
               <Text
                 onPress={() => props.navigation.navigate('Interaction')}
@@ -85,7 +106,7 @@ export default function CreateProfile(props) {
                 {/* <Image source={U} style={{width: 20, height: 20}}></Image> */}
                 <UserIcon height={20} width={20} fill="black" />
                 <Text
-                  style={{color: 'black', alignSelf: 'center', marginLeft: 10}}>
+                  style={{ color: 'black', alignSelf: 'center', marginLeft: 10 }}>
                   John Copeland
                 </Text>
               </TouchableOpacity>
@@ -95,7 +116,7 @@ export default function CreateProfile(props) {
                 style={{width: 20, height: 20}}></Image> */}
                 <SuitecaseIcon width={20} height={20} fill="black" />
                 <Text
-                  style={{color: 'black', alignSelf: 'center', marginLeft: 10}}>
+                  style={{ color: 'black', alignSelf: 'center', marginLeft: 10 }}>
                   Aqua System LLC
                 </Text>
               </View>
@@ -126,8 +147,8 @@ export default function CreateProfile(props) {
                       marginBottom: 'auto',
                       marginLeft: 10,
                     }}>
-                    <Text style={{color: 'white'}}>Product Title</Text>
-                    <Text style={{color: '#9FAA11'}}>$ 50.00 USD</Text>
+                    <Text style={{ color: 'white' }}>Product Title</Text>
+                    <Text style={{ color: '#9FAA11' }}>$ 50.00 USD</Text>
                   </View>
                   <View
                     style={{
@@ -136,7 +157,7 @@ export default function CreateProfile(props) {
                       alignSelf: 'center',
                     }}>
                     <TouchableOpacity style={styles.buyBtnBg}>
-                      <Text style={{color: 'white'}}>Buy</Text>
+                      <Text style={{ color: 'white' }}>Buy</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -148,8 +169,8 @@ export default function CreateProfile(props) {
                       marginBottom: 'auto',
                       marginLeft: 10,
                     }}>
-                    <Text style={{color: 'white'}}>Product Title</Text>
-                    <Text style={{color: '#9FAA11'}}>$ 50.00 USD</Text>
+                    <Text style={{ color: 'white' }}>Product Title</Text>
+                    <Text style={{ color: '#9FAA11' }}>$ 50.00 USD</Text>
                   </View>
                   <View
                     style={{
@@ -158,7 +179,7 @@ export default function CreateProfile(props) {
                       alignSelf: 'center',
                     }}>
                     <TouchableOpacity style={styles.buyBtnBg}>
-                      <Text style={{color: 'white'}}>Buy</Text>
+                      <Text style={{ color: 'white' }}>Buy</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -170,8 +191,8 @@ export default function CreateProfile(props) {
                       marginBottom: 'auto',
                       marginLeft: 10,
                     }}>
-                    <Text style={{color: 'white'}}>Product Title</Text>
-                    <Text style={{color: '#9FAA11'}}>$ 50.00 USD</Text>
+                    <Text style={{ color: 'white' }}>Product Title</Text>
+                    <Text style={{ color: '#9FAA11' }}>$ 50.00 USD</Text>
                   </View>
                   <View
                     style={{
@@ -180,7 +201,7 @@ export default function CreateProfile(props) {
                       alignSelf: 'center',
                     }}>
                     <TouchableOpacity style={styles.buyBtnBg}>
-                      <Text style={{color: 'white'}}>Buy</Text>
+                      <Text style={{ color: 'white' }}>Buy</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
