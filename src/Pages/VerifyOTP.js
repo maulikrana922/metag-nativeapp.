@@ -9,20 +9,131 @@ import {
   TouchableOpacity,
   StatusBar,
   ImageBackground,
+  Modal,
+  Alert,
 } from 'react-native';
-
+import {useSelector, useDispatch} from 'react-redux';
+import {getVerifyKey, getId} from '../redux/reducer';
 import Logo from '../../assets/Logo/logo.svg';
 import bg from '../../assets/Logo/bg.png';
+import axios from 'axios';
+import cancel from '../../assets/CreateProfile/cancel.png';
 
 function VerifyOTP(props) {
-  const [email, setEmail] = useState('Email/Number');
-  const [password, setPassword] = useState('');
+  const [otp, setOtp] = useState('');
   const [isLoaded, setLoaded] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [serverError, setServerError] = useState([]);
+  const [error, setError] = useState('');
+  const dispatch = useDispatch();
+
+  const {verifyKey, id} = useSelector(state => state);
+
+  const setVerifyKey = (key, id) => {
+    dispatch(getVerifyKey(key));
+    dispatch(getId(id));
+    // console.log('after submit',verifyKey, id);
+  };
+
+  const upload = data => {
+    // try {
+    axios
+      .post('http://testyourapp.online/metag/api/verify-otp', {
+        otp: data.otp,
+      })
+      .then(res => {
+        if (res.data.errors) {
+          console.log('errr', res.data.errors);
+          let e = [];
+          if (res.data.errors.error) {
+            e.push(res.data.errors.error);
+          }
+
+          console.log(modalVisible);
+          setModalVisible(true);
+          console.log(modalVisible);
+          console.log(e);
+          setServerError(e);
+        } else {
+          console.log('data', res.data);
+          setVerifyKey(res.data.data.verify_key, res.data.data.id);
+          props.navigation.navigate('ResetPassword');
+        }
+      });
+    // .catch(error => {
+    //   console.log(error);
+    //   show();
+    // });
+  };
+
+  const submit = () => {
+    const data = {};
+
+    const errorTemplate = {};
+    if (otp === '') {
+      errorTemplate.otp = "otp can't be empty";
+    }
+
+    const val = Object.entries(errorTemplate).length;
+    if (val) {
+      // console.log(errorTemplate);
+      setError(errorTemplate);
+    } else {
+      (data.otp = otp), upload(data);
+    }
+  };
   if (!isLoaded) {
     return null;
   } else {
     return (
       <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
+        {console.log('verigyOTPLog', verifyKey, id)}
+        <Modal
+          // style={{
+          //   backgroundColor: 'yellow',
+          //   // margin: '30%',
+          //   // width: '60%',
+          //   // height: '60%',
+          //   // margin: '40%',
+          // }}
+          transparent={true}
+          visible={modalVisible}>
+          <View
+            style={{
+              backgroundColor: '#eeeeee',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              marginTop: 'auto',
+              marginBottom: 'auto',
+              width: '80%',
+              height: '80%',
+            }}>
+            <TouchableOpacity
+              onPress={() => setModalVisible(!modalVisible)}
+              style={{
+                // backgroundColor: 'red',
+                width: '5%',
+                height: '5%',
+                marginLeft: 'auto',
+                marginRight: '5%',
+                marginTop: '3%',
+              }}>
+              <Image
+                source={cancel}
+                resizeMode="contain"
+                style={{width: '100%', height: '100%'}}></Image>
+            </TouchableOpacity>
+            <Text
+              style={{
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                marginTop: 'auto',
+                marginBottom: 'auto',
+              }}>
+              {serverError}
+            </Text>
+          </View>
+        </Modal>
         <View style={styles.container}>
           <StatusBar
             barStyle="dark-content"
@@ -62,10 +173,11 @@ function VerifyOTP(props) {
                 style={styles.inputEmail}
                 placeholder="Enter OTP"
                 placeholderTextColor="white"
-                onChangeText={text => setPassword(text)}
-                value={password}
+                onChangeText={text => setOtp(text)}
+                value={otp}
               />
             </View>
+            {error.otp && <Text style={{color: 'white'}}>{error.otp}</Text>}
             <View
               style={{
                 display: 'flex',
@@ -89,14 +201,19 @@ function VerifyOTP(props) {
               </Text>
               <TouchableOpacity
                 style={styles.signin_btn}
-                onPress={() => props.navigation.navigate('ResetPassword')}>
+                // onPress={() => props.navigation.navigate('ResetPassword')}
+                onPress={() => submit()}>
                 <Text style={{color: 'black', fontSize: 14}}>Submit</Text>
               </TouchableOpacity>
             </View>
           </View>
           <View style={{flex: 1, justifyContent: 'flex-end'}}>
             <View style={styles.footer}>
-              <Text style={styles.footer_bold_text}>Back to Login</Text>
+              <Text
+                onPress={() => props.navigation.navigate('Login')}
+                style={styles.footer_bold_text}>
+                Back to Login
+              </Text>
             </View>
           </View>
         </View>

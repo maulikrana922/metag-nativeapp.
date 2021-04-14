@@ -12,6 +12,9 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import MainNavigator from './Navigation/MainNavigator';
 import React, {Component} from 'react';
+import store from './src/redux/store';
+import {Provider as StateProvider} from 'react-redux';
+
 // import Nav from './Navigation/TabNavigation';
 // import Signup from './src/components/Signup';
 // import ForgotPassword from './src/components/ForgotPassword';
@@ -55,7 +58,11 @@ class App extends Component {
   }
 
   render() {
-    return <MainNavigator />;
+    return (
+      <StateProvider store={store}>
+        <MainNavigator />
+      </StateProvider>
+    );
   }
 }
 export default App;

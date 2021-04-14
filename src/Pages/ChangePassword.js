@@ -28,6 +28,8 @@ import contact from '../../assets/contact.svg';
 import list from '../../assets/list.svg';
 import home from '../../assets/home-run.svg';
 import bg from '../../assets/Logo/bg.png';
+import {useSelector, useDispatch} from 'react-redux';
+import axios from 'axios';
 // import {
 //   useFonts,
 //   Poppins_800ExtraBold_Italic,
@@ -37,10 +39,16 @@ import bg from '../../assets/Logo/bg.png';
 // import { AppLoading, ImagePicker } from "expo";
 
 export default function CreateProfile(props) {
+  const {token, profile} = useSelector(state => state);
   const [image, setImage] = useState(null);
   const [newImage, setNewImage] = useState(AvtarImage);
   const [isLoaded, setLoaded] = useState(true);
   const [checked, setChecked] = useState(true);
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [errorTemplate, SetErrorTemplate] = useState({});
+  const [error, setError] = useState({});
   // useEffect(() => {
   //   ;(async () => {
   //     if (Platform.OS !== 'web') {
@@ -69,6 +77,66 @@ export default function CreateProfile(props) {
   //     setNewImage(result.uri)
   //   }
   // }
+
+  const upload = data => {
+    // try {
+    // axios
+    //   .post('http://testyourapp.online/metag/api/change-password', {
+    //     currentpassword: data.name,
+    //     c_password: data.number,
+    //     password: data.password,
+    //   })
+    //   .then(res => {
+    //     console.log(res.data);
+    //   });
+    // .catch(error => {
+    //   console.log(error);
+    //   show();
+    // });
+    axios({
+      method: 'post',
+      url: 'http://testyourapp.online/metag/api/change-password',
+      data: {
+        currentpassword: data.oldPassword,
+        c_password: data.newPassword,
+        password: data.confirmPassword,
+      },
+      headers: {
+        'content-type': 'multipart/form-data',
+        Authorization: 'Bearer ' + profile.api_token,
+      },
+    })
+      .then(response => {
+        console.log('printing', response);
+      })
+      .catch(error => console.log(error));
+  };
+
+  const submit = () => {
+    const data = {};
+    if (oldPassword === '') {
+      errorTemplate.oldPassword = "Old password can't be empty";
+    }
+    if (newPassword === '') {
+      errorTemplate.newPassword = "New password cant't be empty";
+    }
+    if (confirmPassword === '') {
+      errorTemplate.confirmPassword = "Confirm  password can't be empty";
+    }
+    if (newPassword !== confirmPassword) {
+      errorTemplate.match = 'newPassword and confirm password should match';
+    }
+    const val = Object.entries(errorTemplate).length;
+    if (val) {
+      // console.log(errorTemplate);
+      setError(errorTemplate);
+    } else {
+      (data.oldPassword = oldPassword),
+        (data.newPassword = newPassword),
+        (data.confirmPassword = confirmPassword),
+        upload(data);
+    }
+  };
 
   if (!isLoaded) {
     return null;
@@ -106,7 +174,7 @@ export default function CreateProfile(props) {
                   height: 'auto',
                   paddingLeft: 50,
                   paddingRight: 50,
-                  paddingBottom: 50,
+                  // paddingBottom: 50,
                 }}>
                 <View>
                   <View
@@ -115,31 +183,25 @@ export default function CreateProfile(props) {
                       borderBottomWidth: 1,
                       display: 'flex',
                       flexDirection: 'row',
-                      padding: 15,
+                      // padding: 15,
                     }}>
-                    <Svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width={14.784}
-                      height={19.561}
-                      viewBox="0 0 14.784 19.561">
-                      <Defs></Defs>
-                      <Path
-                        fill="#fff"
-                        d="M13.647 7.506H1.137A1.139 1.139 0 000 8.643v9.78a1.139 1.139 0 001.137 1.137h12.51a1.139 1.139 0 001.137-1.137V8.641a1.139 1.139 0 00-1.137-1.135zm-.227 10.69H1.365V8.871H13.42v9.325z"
-                      />
-                      <Path
-                        fill="#fff"
-                        d="M7.392 0A5.6 5.6 0 001.82 5.618v2.343h1.36V5.618a4.208 4.208 0 118.416 0v2.343h1.365V5.618A5.6 5.6 0 007.392 0zM7.278 12.742a.682.682 0 00-.682.682v1.592a.682.682 0 001.365 0v-1.592a.682.682 0 00-.683-.682z"
-                      />
-                    </Svg>
-                    <Text
+                    <Image
+                      source={require('../../assets/signup/lock.png')}
+                      style={styles.icon}
+                      resizeMode="contain"></Image>
+                    <TextInput
+                      placeholder="Old Password"
+                      value={oldPassword}
+                      onChangeText={text => setOldPassword(text.trim())}
+                      placeholderTextColor="white"
                       style={{
                         color: 'white',
                         marginLeft: 10,
-                      }}>
-                      Old Password
-                    </Text>
+                      }}></TextInput>
                   </View>
+                  {error.oldPassword && (
+                    <Text style={{color: 'white'}}>{error.oldPassword}</Text>
+                  )}
                 </View>
                 <View>
                   <View
@@ -148,31 +210,25 @@ export default function CreateProfile(props) {
                       borderBottomWidth: 1,
                       display: 'flex',
                       flexDirection: 'row',
-                      padding: 15,
+                      // padding: 15,
                     }}>
-                    <Svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width={14.784}
-                      height={19.561}
-                      viewBox="0 0 14.784 19.561">
-                      <Defs></Defs>
-                      <Path
-                        fill="#fff"
-                        d="M13.647 7.506H1.137A1.139 1.139 0 000 8.643v9.78a1.139 1.139 0 001.137 1.137h12.51a1.139 1.139 0 001.137-1.137V8.641a1.139 1.139 0 00-1.137-1.135zm-.227 10.69H1.365V8.871H13.42v9.325z"
-                      />
-                      <Path
-                        fill="#fff"
-                        d="M7.392 0A5.6 5.6 0 001.82 5.618v2.343h1.36V5.618a4.208 4.208 0 118.416 0v2.343h1.365V5.618A5.6 5.6 0 007.392 0zM7.278 12.742a.682.682 0 00-.682.682v1.592a.682.682 0 001.365 0v-1.592a.682.682 0 00-.683-.682z"
-                      />
-                    </Svg>
-                    <Text
+                    <Image
+                      source={require('../../assets/signup/lock.png')}
+                      style={styles.icon}
+                      resizeMode="contain"></Image>
+                    <TextInput
+                      value={newPassword}
+                      onChangeText={text => setNewPassword(text.trim())}
+                      placeholder="New Password"
+                      placeholderTextColor="white"
                       style={{
                         color: 'white',
                         marginLeft: 10,
-                      }}>
-                      New Password
-                    </Text>
+                      }}></TextInput>
                   </View>
+                  {error.newPassword && (
+                    <Text style={{color: 'white'}}>{error.newPassword}</Text>
+                  )}
                 </View>
                 <View>
                   <View
@@ -181,34 +237,42 @@ export default function CreateProfile(props) {
                       borderBottomWidth: 1,
                       display: 'flex',
                       flexDirection: 'row',
-                      padding: 15,
+                      // padding: 15,
                     }}>
-                    <Svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width={14.784}
-                      height={19.561}
-                      viewBox="0 0 14.784 19.561">
-                      <Defs></Defs>
-                      <Path
-                        fill="#fff"
-                        d="M13.647 7.506H1.137A1.139 1.139 0 000 8.643v9.78a1.139 1.139 0 001.137 1.137h12.51a1.139 1.139 0 001.137-1.137V8.641a1.139 1.139 0 00-1.137-1.135zm-.227 10.69H1.365V8.871H13.42v9.325z"
-                      />
-                      <Path
-                        fill="#fff"
-                        d="M7.392 0A5.6 5.6 0 001.82 5.618v2.343h1.36V5.618a4.208 4.208 0 118.416 0v2.343h1.365V5.618A5.6 5.6 0 007.392 0zM7.278 12.742a.682.682 0 00-.682.682v1.592a.682.682 0 001.365 0v-1.592a.682.682 0 00-.683-.682z"
-                      />
-                    </Svg>
-                    <Text
+                    <Image
+                      source={require('../../assets/signup/lock.png')}
+                      style={styles.icon}
+                      resizeMode="contain"></Image>
+                    <TextInput
+                      value={confirmPassword}
+                      onChangeText={text => setConfirmPassword(text.trim())}
+                      placeholderTextColor="white"
+                      placeholder="Confirm New Password"
                       style={{
                         color: 'white',
                         marginLeft: 10,
-                      }}>
-                      Confirm New Password
-                    </Text>
+                      }}></TextInput>
                   </View>
+                  {error.confirmPassword && (
+                    <Text style={{color: 'white'}}>
+                      {error.confirmPassword}
+                    </Text>
+                  )}
                 </View>
               </View>
             </View>
+            <TouchableOpacity
+              onPress={() => submit()}
+              style={{
+                marginLeft: 'auto',
+                backgroundColor: 'red',
+                marginRight: 20,
+                marginTop: 20,
+                marginBottom: 20,
+                backgroundColor: 'white',
+              }}>
+              <Text style={{padding: 10, color: 'black'}}>Save</Text>
+            </TouchableOpacity>
           </View>
 
           {/* here */}
@@ -570,5 +634,11 @@ const styles = StyleSheet.create({
   menuIcon: {
     width: 30,
     height: 30,
+  },
+  icon: {
+    // height: 20,
+    alignSelf: 'center',
+    marginRight: 10,
+    // width: 25,
   },
 });

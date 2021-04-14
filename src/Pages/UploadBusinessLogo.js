@@ -18,12 +18,81 @@ import AvtarImage from '../../assets/CreateProfile/work.png';
 import exampleImg from '../../assets/splash.png';
 
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import * as ImagePicker from 'react-native-image-picker';
+import axios from 'axios';
+import {useSelector, useDispatch} from 'react-redux';
+import {getToken, getAuthToken, getProfile} from '../redux/reducer';
 
 export default function CreateProfile(props) {
   const [image, setImage] = useState(null);
   const [newImage, setNewImage] = useState(AvtarImage);
   const [isLoaded, setLoaded] = useState(true);
+  const [next, setNext] = useState(false);
+  const {profile} = useSelector(state => state);
 
+  const handleUploadPhoto = imgResponse => {
+    let formData = new FormData();
+    formData.append('file_type', 'BUSINESS_LOGO');
+    formData.append('file', {
+      uri: imgResponse.uri,
+      type: imgResponse.type,
+      name: imgResponse.fileName,
+      // data: imgResponse.data,
+    });
+
+    // fetch('http://testyourapp.online/metag/api/profile-pic', {
+    //   method: 'POST',
+    //   body: formData,
+    //   headers: {
+    //     'content-type': 'multipart/form-data',
+    //     Authorization: 'Bearer ' + token,
+    //   },
+    // })
+    axios({
+      method: 'post',
+      url: 'http://testyourapp.online/metag/api/profile-pic',
+      data: formData,
+      headers: {
+        'content-type': 'multipart/form-data',
+        Authorization: 'Bearer ' + profile.api_token,
+      },
+    })
+      .then(response => {
+        if (response.data.status === 200) {
+          setNext(true);
+          console.log('true', next);
+        } else {
+          console.log('false', next);
+        }
+      })
+      .catch(error => {
+        console.log('error', error);
+      });
+    // .then(response => {
+    //   console.log('upload succes', JSON.parse(response));
+    //   // alert('Upload success!');
+
+    //   // this.setState({photo: null});
+    // })
+    // .catch(error => {
+    //   console.log('upload error', error);
+    //   // alert('Upload failed!');
+    // });
+  };
+
+  let handleChoosePhoto = () => {
+    const options = {
+      noData: true,
+    };
+    ImagePicker.launchImageLibrary(options, imgResponse => {
+      console.log('response', imgResponse);
+      if (imgResponse.uri) {
+        setImage(imgResponse.uri);
+        // console.log('token', token);
+        handleUploadPhoto(imgResponse);
+      }
+    });
+  };
   // useEffect(() => {
   //   ;(async () => {
   //     if (Platform.OS !== 'web') {
@@ -58,6 +127,7 @@ export default function CreateProfile(props) {
   } else {
     return (
       <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
+        {console.log('body', next)}
         <View style={styles.container}>
           <StatusBar
             barStyle="light-content"
@@ -117,7 +187,7 @@ export default function CreateProfile(props) {
                 {/* <Text style={styles.next}>Next</Text> */}
               </View>
               <Text
-                onPress={() => props.navigation.navigate('Location')}
+                onPress={() => next && props.navigation.navigate('Location')}
                 style={styles.next}>
                 Next
               </Text>
@@ -127,12 +197,27 @@ export default function CreateProfile(props) {
           <View style={styles.avtar_parent}>
             <Text style={styles.upload_text}>Upload Business Logo</Text>
             <View style={styles.avtar_bg}>
-              <Image
+              {image ? (
+                (console.log('image', image),
+                (
+                  <Image
+                    // source={require("../../assets/avtar.svg")}
+                    source={{uri: image}}
+                    style={styles.avtarImage}></Image>
+                ))
+              ) : (
+                <Image
+                  // source={require("../../assets/avtar.svg")}
+                  source={newImage}
+                  style={styles.avtarImage}></Image>
+              )}
+              {/* <Image
                 // source={require("../../assets/avtar.svg")}
                 source={newImage}
-                style={styles.avtarImage}></Image>
+                style={styles.avtarImage}></Image> */}
               <View style={styles.camera_bg}>
-                <View
+                <TouchableOpacity
+                  onPress={handleChoosePhoto}
                   style={styles.white_bg}
                   // onStartShouldSetResponder={pickImage}
                 >
@@ -143,11 +228,11 @@ export default function CreateProfile(props) {
                   />
                 )} */}
                   {/* // setNewImage(exampleImg)} */}
-                  {image && setNewImage(exampleImg)}
+                  {/* {image && setNewImage(exampleImg)} */}
                   <Image
                     source={require('../../assets/CreateProfile/cam.png')}
                     style={styles.camera_img}></Image>
-                </View>
+                </TouchableOpacity>
               </View>
             </View>
           </View>

@@ -34,6 +34,9 @@ import {
 
 import Logo from '../../assets/Logo/logo.svg';
 import bg from '../../assets/Logo/bg.png';
+import cancel from '../../assets/CreateProfile/cancel.png';
+import {getToken, getAuthToken, getProfile} from '../redux/reducer';
+import {useSelector, useDispatch} from 'react-redux';
 
 export default function Login(props) {
   const [email, setEmail] = useState('');
@@ -41,6 +44,36 @@ export default function Login(props) {
   const [modalVisible, setModalVisible] = useState(false);
   const [serverError, setServerError] = useState([]);
   const [isLoaded, setLoaded] = useState(true);
+  const [error, setError] = useState('');
+
+  // const [tokenback, setTokenBack] = useState('');
+
+  const dispatch = useDispatch();
+  const {token, profile} = useSelector(state => state);
+
+  // const setTokenBack = val => {
+  //   dispatch(getProfile(val));
+  //   // console.log(token);
+  // };
+
+  // const getProfileDetail = newToken => {
+  //   axios({
+  //     method: 'get',
+  //     url: 'http://testyourapp.online/metag/api/profile',
+  //     headers: {
+  //       Authorization: 'Bearer ' + newToken,
+  //     },
+  //   }).then(res => {
+  //     if (res.data.status === 200) {
+  //       console.log('200', res.data.data);
+  //       console.log('printing res.data', res.data);
+  //       dispatch(getProfile(res.data.data[0]));
+  //       console.log('array data', res.data.data[0]);
+  //     } else {
+  //       console.log('false', 'error');
+  //     }
+  //   });
+  // };
 
   const upload = data => {
     // try {
@@ -50,7 +83,7 @@ export default function Login(props) {
         password: data.password,
       })
       .then(res => {
-        if (res.data.errors) {
+        if (res.data.status !== 200) {
           console.log('errr', res.data.errors);
           let e = [];
           if (res.data.errors.email) {
@@ -63,7 +96,10 @@ export default function Login(props) {
           console.log(e);
           setServerError(e);
         } else {
-          console.log('data', res.data);
+          // setTokenBack(res.data.data.token);
+          // getProfileDetail(res.data.data.token);
+          dispatch(getProfile(res.data.data));
+          // dispatch(getProfile({...profile, name: 'hinalchanged'}));
           props.navigation.navigate('CreateProfile');
         }
       });
@@ -74,6 +110,7 @@ export default function Login(props) {
   };
 
   const submit = () => {
+    // getProfileDetail();
     const data = {};
 
     const errorTemplate = {};
@@ -102,6 +139,9 @@ export default function Login(props) {
     // const color = modalVisible ? 'rgba(255, 255, 255, 10)' : '';
     return (
       <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
+        {console.log(profile)}
+        {}
+        {console.log('prinitng profile', profile)}
         <Modal
           // style={{
           //   backgroundColor: 'yellow',
@@ -111,11 +151,7 @@ export default function Login(props) {
           //   // margin: '40%',
           // }}
           transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-            setModalVisible(!modalVisible);
-          }}>
+          visible={modalVisible}>
           <View
             style={{
               backgroundColor: '#eeeeee',
@@ -126,6 +162,21 @@ export default function Login(props) {
               width: '80%',
               height: '80%',
             }}>
+            <TouchableOpacity
+              onPress={() => setModalVisible(!modalVisible)}
+              style={{
+                // backgroundColor: 'red',
+                width: '5%',
+                height: '5%',
+                marginLeft: 'auto',
+                marginRight: '5%',
+                marginTop: '3%',
+              }}>
+              <Image
+                source={cancel}
+                resizeMode="contain"
+                style={{width: '100%', height: '100%'}}></Image>
+            </TouchableOpacity>
             <Text
               style={{
                 marginLeft: 'auto',
@@ -167,6 +218,7 @@ export default function Login(props) {
                 value={email}
               />
             </View>
+            {error.email && <Text style={{color: 'white'}}>{error.email}</Text>}
             <View
               style={{
                 display: 'flex',
@@ -189,6 +241,9 @@ export default function Login(props) {
                 value={password}
               />
             </View>
+            {error.password && (
+              <Text style={{color: 'white'}}>{error.password}</Text>
+            )}
             <View
               style={{
                 display: 'flex',

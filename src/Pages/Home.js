@@ -10,7 +10,11 @@ import {
   StatusBar,
   TouchableOpacity,
   ImageBackground,
+  FlatList,
+  ScrollView,
 } from 'react-native';
+import {getAuthToken} from '../redux/reducer';
+import {useSelector, useDispatch} from 'react-redux';
 
 import wifi from '../../assets/mobile-phone-with-wifi.png';
 import qrCode from '../../assets/qr-code.png';
@@ -19,18 +23,46 @@ import SuitecaseIcon from '../../assets/work.svg';
 import avtar from '../../assets/avatar-home.svg';
 import contact from '../../assets/contact.svg';
 import Menu from '../../src/components/Menu';
+import ProductList from '../../src/components/ProductList.js';
 import Logo from '../../assets/Logo/logo.svg';
 import Scan from '../../assets/Home/scan.svg';
 import Hotspot from '../../assets/Home/hotspot.svg';
 import bg from '../../assets/Logo/bg.png';
+import axios from 'axios';
 export default function CreateProfile(props) {
   const [isLoaded, setLoaded] = useState(true);
+  const [count, setCount] = useState('3');
+  const [start, setStart] = useState('0');
+  const [products, setProduct] = useState([]);
+  const {token, profile} = useSelector(state => state);
+
+  useEffect(() => {
+    axios({
+      method: 'post',
+      url: 'http://testyourapp.online/metag/api/productList',
+      data: {
+        count: count,
+        start: start,
+      },
+      headers: {
+        Authorization: 'Bearer ' + profile.api_token,
+      },
+    }).then(response => {
+      if (response.data.status === 200) {
+        console.log('200', response.data);
+        setProduct(response.data.data);
+      } else {
+        console.log('false', response.data);
+      }
+    });
+  }, [count, start]);
 
   if (!isLoaded) {
     return null;
   } else {
     return (
       <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
+        {/* {console.log('products',products)} */}
         <View style={{flex: 1, backgroundColor: 'white'}}>
           <StatusBar
             barStyle="light-content"
@@ -86,7 +118,7 @@ export default function CreateProfile(props) {
                 <UserIcon height={20} width={20} fill="black" />
                 <Text
                   style={{color: 'black', alignSelf: 'center', marginLeft: 10}}>
-                  John Copeland
+                  {profile.name}
                 </Text>
               </TouchableOpacity>
               <View style={styles.eachInfo}>
@@ -96,7 +128,7 @@ export default function CreateProfile(props) {
                 <SuitecaseIcon width={20} height={20} fill="black" />
                 <Text
                   style={{color: 'black', alignSelf: 'center', marginLeft: 10}}>
-                  Aqua System LLC
+                  {profile.business_name}
                 </Text>
               </View>
             </View>
@@ -111,79 +143,54 @@ export default function CreateProfile(props) {
               }}>
               <View style={styles.productTitle}>
                 <Text style={styles.productsText}>Products</Text>
-                <Text
-                  onPress={() => props.navigation.navigate('MyOrders')}
-                  style={styles.viewAll}>
-                  View All
-                </Text>
+                <View style={{display: 'flex', flexDirection: 'row'}}>
+                  <Text>count</Text>
+                  <TextInput
+                    keyboardType="numeric"
+                    // placeholder="Password"
+                    // placeholderTextColor="white"
+                    // onChangeText={text => setPassword(text)}
+                    onChangeText={text => setCount(text.trim())}
+                    value={count}
+                    style={{marginTop: -12}}
+                  />
+                  <Text>start</Text>
+
+                  <TextInput
+                    style={{
+                      borderBottomWidth: 1,
+                      borderBottomColor: 'black',
+                    }}
+                    keyboardType="numeric"
+                    onChangeText={text => setStart(text.trim())}
+                    value={start}
+                    style={{marginTop: -12}}
+                  />
+
+                  <Text
+                    onPress={() => props.navigation.navigate('MyOrders')}
+                    style={styles.viewAll}>
+                    View All
+                  </Text>
+                </View>
               </View>
               <View>
-                <View style={styles.productListView}>
-                  <View style={styles.productView}></View>
-                  <View
-                    style={{
-                      marginTop: 'auto',
-                      marginBottom: 'auto',
-                      marginLeft: 10,
-                    }}>
-                    <Text style={{color: 'white'}}>Product Title</Text>
-                    <Text style={{color: '#9FAA11'}}>$ 50.00 USD</Text>
-                  </View>
-                  <View
-                    style={{
-                      width: 'auto',
-                      marginLeft: 'auto',
-                      alignSelf: 'center',
-                    }}>
-                    <TouchableOpacity style={styles.buyBtnBg}>
-                      <Text style={{color: 'white'}}>Buy</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-                <View style={styles.productListView}>
-                  <View style={styles.productView}></View>
-                  <View
-                    style={{
-                      marginTop: 'auto',
-                      marginBottom: 'auto',
-                      marginLeft: 10,
-                    }}>
-                    <Text style={{color: 'white'}}>Product Title</Text>
-                    <Text style={{color: '#9FAA11'}}>$ 50.00 USD</Text>
-                  </View>
-                  <View
-                    style={{
-                      width: 'auto',
-                      marginLeft: 'auto',
-                      alignSelf: 'center',
-                    }}>
-                    <TouchableOpacity style={styles.buyBtnBg}>
-                      <Text style={{color: 'white'}}>Buy</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-                <View style={styles.productListView}>
-                  <View style={styles.productView}></View>
-                  <View
-                    style={{
-                      marginTop: 'auto',
-                      marginBottom: 'auto',
-                      marginLeft: 10,
-                    }}>
-                    <Text style={{color: 'white'}}>Product Title</Text>
-                    <Text style={{color: '#9FAA11'}}>$ 50.00 USD</Text>
-                  </View>
-                  <View
-                    style={{
-                      width: 'auto',
-                      marginLeft: 'auto',
-                      alignSelf: 'center',
-                    }}>
-                    <TouchableOpacity style={styles.buyBtnBg}>
-                      <Text style={{color: 'white'}}>Buy</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
+                <ScrollView>
+                  {/* <ProductList /> */}
+                  {products.length !== 0 &&
+                    products.map(element => {
+                      return (
+                        // <ScrollView>
+                        <ProductList
+                          // key={element.key}
+                          title={element.title}
+                          price={element.price}
+                          image={element.image}
+                        />
+                        // </ScrollView>
+                      );
+                    })}
+                </ScrollView>
               </View>
             </View>
           </View>
@@ -194,6 +201,9 @@ export default function CreateProfile(props) {
   }
 }
 const styles = StyleSheet.create({
+  padding: {
+    height: 40,
+  },
   header: {
     backgroundColor: '#000000',
     // backgroundColor: 'yellow',

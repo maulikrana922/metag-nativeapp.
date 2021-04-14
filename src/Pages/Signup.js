@@ -13,11 +13,15 @@ import {
   Modal,
   Alert,
 } from 'react-native';
-
+import {useSelector, useDispatch} from 'react-redux';
+// import {useDispatch} from 'react-redux';
+import {getToken, getAuthToken} from '../redux/reducer';
 import Logo from '../../assets/Logo/logo.svg';
 import bg from '../../assets/Logo/bg.png';
+import cancel from '../../assets/CreateProfile/cancel.png';
 import axios from 'axios';
 import {set} from 'react-native-reanimated';
+
 export default function Signup(props) {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -35,9 +39,12 @@ export default function Signup(props) {
 
   // useEffect(() => {}, [modalVisible]);
 
+  const dispatch = useDispatch();
+  const {token} = useSelector(state => state);
+
   const list = () => {
     return serverError.map(e => {
-      return <Text>{e}</Text>;
+      return <Text key={e}>{e}</Text>;
     });
   };
 
@@ -92,26 +99,25 @@ export default function Signup(props) {
 
     const errorTemplate = {};
     if (fullName === '') {
-      errorTemplate.name = "name can't be empty";
+      errorTemplate.name = "Name can't be empty";
     }
     if (email === '') {
-      errorTemplate.email = "email can't be empty";
+      errorTemplate.email = "Email can't be empty";
     }
     if (number === '') {
-      errorTemplate.number = "number can't be empty";
+      errorTemplate.number = "Number can't be empty";
     }
     if (bName === '') {
-      errorTemplate.bName = "business name can't be empty";
+      errorTemplate.bName = "Business name can't be empty";
     }
     if (password === '') {
-      errorTemplate.password = "password can't be empty";
+      errorTemplate.password = "Password can't be empty";
     }
     if (confirmPassword === '') {
-      errorTemplate.confirmPassword = "password can't be empty";
+      errorTemplate.confirmPassword = "Password can't be empty";
     }
     if (password !== confirmPassword) {
-      errorTemplate.passwordMatch =
-        'password and con firmPassword should match';
+      errorTemplate.passwordMatch = 'Password and confirmPassword should match';
     }
     // if () {
     //   console.log(errorTemplate);
@@ -130,13 +136,19 @@ export default function Signup(props) {
         upload(data);
     }
   };
+
   // const
 
   if (!isLoaded) {
     return null;
   } else {
+    // const dispatch = useDispatch();
     return (
       <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
+        {/* {console.log(useSelector(state => state.token))} */}
+        {/* {dispatch(getAuthToken('thisIsToken'))}
+        {console.log(useSelector(state => state.token))} */}
+        {/* <Button >Click</Button> */}
         <ScrollView>
           <Modal
             // style={{
@@ -147,11 +159,7 @@ export default function Signup(props) {
             //   // margin: '40%',
             // }}
             transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-              Alert.alert('Modal has been closed.');
-              setModalVisible(!modalVisible);
-            }}>
+            visible={modalVisible}>
             <View
               style={{
                 backgroundColor: '#eeeeee',
@@ -162,6 +170,21 @@ export default function Signup(props) {
                 width: '80%',
                 height: '80%',
               }}>
+              <TouchableOpacity
+                onPress={() => setModalVisible(!modalVisible)}
+                style={{
+                  // backgroundColor: 'red',
+                  width: '5%',
+                  height: '5%',
+                  marginLeft: 'auto',
+                  marginRight: '5%',
+                  marginTop: '3%',
+                }}>
+                <Image
+                  source={cancel}
+                  resizeMode="contain"
+                  style={{width: '100%', height: '100%'}}></Image>
+              </TouchableOpacity>
               <View
                 style={{
                   marginLeft: 'auto',
@@ -313,6 +336,10 @@ export default function Signup(props) {
                 }}>
                 <TouchableOpacity
                   onPress={() => submit()}
+                  // onPress={() => {
+                  //   dispatch(getAuthToken('AuthToken'));
+                  //   console.log('printing token', token);
+                  // }}
                   // onPress={() => props.navigation.navigate('CreateProfile')}
                   style={styles.signin_btn}>
                   <Text

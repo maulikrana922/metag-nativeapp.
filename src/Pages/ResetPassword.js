@@ -9,21 +9,138 @@ import {
   TouchableOpacity,
   StatusBar,
   ImageBackground,
+  Modal,
 } from 'react-native';
-
+import {useSelector, useDispatch} from 'react-redux';
+import {getVerifyKey, getId} from '../redux/reducer';
 import Logo from '../../assets/Logo/logo.svg';
 import bg from '../../assets/Logo/bg.png';
+import axios from 'axios';
+import cancel from '../../assets/CreateProfile/cancel.png';
 
-function ResetPassword() {
+function ResetPassword(props) {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [serverError, setServerError] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+
   const [isLoaded, setLoaded] = useState(true);
+  const dispatch = useDispatch();
+  const [error, setError] = useState('');
+  // const [serverError, setServerError] = useState([]);
+
+  const {verifyKey, id} = useSelector(state => state);
+
+  const upload = data => {
+    // try {
+    axios
+      .post('http://testyourapp.online/metag/api/reset-password', {
+        newpassword: data.newPassword,
+        confirm_password: data.confirmPassword,
+        verify_key: data.verify_key,
+        id: data.id,
+      })
+      .then(res => {
+        // console.log('data', res.data);
+        // console.log(data);
+        if (res.data.errors) {
+          console.log('errr', res.data.errors);
+          let e = [];
+          if (res.data.errors.user_not_found) {
+            e.push(res.data.data.errors.user_not_found);
+          }
+          console.log(modalVisible);
+          setModalVisible(true);
+          console.log(modalVisible);
+          console.log(e);
+          setServerError(e);
+        } else {
+          console.log('data', res.data);
+          // setVerifyKey(res.data.data.verify_key, res.data.data.id);
+          props.navigation.navigate('Login');
+        }
+      });
+  };
+
+  const submit = () => {
+    const data = {};
+
+    const errorTemplate = {};
+    if (newPassword === '') {
+      errorTemplate.newPassword = "newPassword can't be empty";
+    }
+    if (confirmPassword === '') {
+      errorTemplate.confirmPassword = "confirmPassword can't be empty";
+    }
+    if (newPassword !== confirmPassword) {
+      errorTemplate.passwordMatch = 'password and confirmPassword should match';
+    }
+    const val = Object.entries(errorTemplate).length;
+    if (val) {
+      // console.log(errorTemplate);
+      setError(errorTemplate);
+    } else {
+      (data.newPassword = newPassword),
+        (data.confirmPassword = confirmPassword),
+        (data.verify_key = verifyKey),
+        (data.id = id),
+        upload(data);
+    }
+  };
 
   if (!isLoaded) {
     return null;
   } else {
     return (
       <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
+        <Modal
+          // style={{
+          //   backgroundColor: 'yellow',
+          //   // margin: '30%',
+          //   // width: '60%',
+          //   // height: '60%',
+          //   // margin: '40%',
+          // }}
+          transparent={true}
+          visible={modalVisible}>
+          <View
+            style={{
+              backgroundColor: '#eeeeee',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              marginTop: 'auto',
+              marginBottom: 'auto',
+              width: '80%',
+              height: '80%',
+            }}>
+            <TouchableOpacity
+              onPress={() => setModalVisible(!modalVisible)}
+              style={{
+                // backgroundColor: 'red',
+                width: '5%',
+                height: '5%',
+                marginLeft: 'auto',
+                marginRight: '5%',
+                marginTop: '3%',
+              }}>
+              <Image
+                source={cancel}
+                resizeMode="contain"
+                style={{width: '100%', height: '100%'}}></Image>
+            </TouchableOpacity>
+            <Text
+              style={{
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                marginTop: 'auto',
+                marginBottom: 'auto',
+              }}>
+              {serverError}
+            </Text>
+          </View>
+        </Modal>
+        {/* {console.log(verifyKey)} */}
+        {console.log('printID', id)}
         <View style={styles.container}>
           <StatusBar
             barStyle="dark-content"
@@ -71,10 +188,14 @@ function ResetPassword() {
                 style={styles.inputEmail}
                 placeholder="New Password"
                 placeholderTextColor="white"
-                onChangeText={text => setPassword(text)}
+                onChangeText={text => setNewPassword(text)}
                 value={newPassword}
+                secureTextEntry={true}
               />
             </View>
+            {error.newPassword && (
+              <Text style={{color: 'white'}}>{error.newPassword}</Text>
+            )}
             <View style={styles.inputTextBg}>
               <Image
                 source={require('../../assets/signup/lock.png')}
@@ -86,8 +207,15 @@ function ResetPassword() {
                 placeholderTextColor="white"
                 onChangeText={text => setConfirmPassword(text)}
                 value={confirmPassword}
+                secureTextEntry={true}
               />
             </View>
+            {error.confirmPassword && (
+              <Text style={{color: 'white'}}>{error.confirmPassword}</Text>
+            )}
+            {error.passwordMatch && (
+              <Text style={{color: 'white'}}>{error.passwordMatch}</Text>
+            )}
             <View
               style={{
                 display: 'flex',
@@ -96,7 +224,9 @@ function ResetPassword() {
                 flexDirection: 'row',
                 marginBottom: 40,
               }}>
-              <TouchableOpacity style={styles.signin_btn}>
+              <TouchableOpacity
+                style={styles.signin_btn}
+                onPress={() => submit()}>
                 <Text style={{color: 'black'}}>Submit</Text>
               </TouchableOpacity>
             </View>

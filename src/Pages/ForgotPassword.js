@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   StatusBar,
   ImageBackground,
+  Modal,
 } from 'react-native';
 // import { useFonts } from '@use-expo/font'
 // import {
@@ -20,16 +21,118 @@ import {
 // import AppLoading from 'expo-app-loading'
 import bg from '../../assets/Logo/bg.png';
 import Logo from '../../assets/Logo/logo.svg';
+import axios from 'axios';
+import cancel from '../../assets/CreateProfile/cancel.png';
 
 function ForgotPassword(props) {
   const [email, setEmail] = useState('');
   const [isLoaded, setLoaded] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [serverError, setServerError] = useState([]);
+  const [error, setError] = useState('');
+
+  const upload = data => {
+    // try {
+    axios
+      .post('http://testyourapp.online/metag/api/forgot-password', {
+        email: data.email,
+      })
+      .then(res => {
+        // console.log(res.data);
+        if (res.data.errors) {
+          console.log('errr', res.data.errors);
+          let e = [];
+          if (res.data.errors.error) {
+            e.push(res.data.errors.error);
+          }
+
+          console.log(modalVisible);
+          setModalVisible(true);
+          console.log(modalVisible);
+          console.log(e);
+          setServerError(e);
+        } else {
+          // setTokenBack(res.data.data.token);
+          props.navigation.navigate('VerifyOTP');
+        }
+      });
+    // .catch(error => {
+    //   console.log(error);
+    //   show();
+    // });
+  };
+
+  const submit = () => {
+    const data = {};
+
+    const errorTemplate = {};
+    if (email === '') {
+      errorTemplate.email = "email can't be empty";
+    }
+
+    // if () {
+    //   console.log(errorTemplate);
+    // }
+    const val = Object.entries(errorTemplate).length;
+    if (val) {
+      // console.log(errorTemplate);
+      setError(errorTemplate);
+    } else {
+      (data.email = email), upload(data);
+    }
+  };
 
   if (!isLoaded) {
     return null;
   } else {
     return (
       <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
+        <Modal
+          // style={{
+          //   backgroundColor: 'yellow',
+          //   // margin: '30%',
+          //   // width: '60%',
+          //   // height: '60%',
+          //   // margin: '40%',
+          // }}
+          transparent={true}
+          visible={modalVisible}>
+          <View
+            style={{
+              backgroundColor: '#eeeeee',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              marginTop: 'auto',
+              marginBottom: 'auto',
+              width: '80%',
+              height: '80%',
+            }}>
+            <TouchableOpacity
+              onPress={() => setModalVisible(!modalVisible)}
+              style={{
+                // backgroundColor: 'red',
+                width: '5%',
+                height: '5%',
+                marginLeft: 'auto',
+                marginRight: '5%',
+                marginTop: '3%',
+              }}>
+              <Image
+                source={cancel}
+                resizeMode="contain"
+                style={{width: '100%', height: '100%'}}></Image>
+            </TouchableOpacity>
+            <Text
+              style={{
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                marginTop: 'auto',
+                marginBottom: 'auto',
+              }}>
+              {serverError}
+            </Text>
+          </View>
+        </Modal>
         <View style={styles.container}>
           <StatusBar
             barStyle="dark-content"
@@ -69,6 +172,7 @@ function ForgotPassword(props) {
                 value={email}
               />
             </View>
+            {error.email && <Text style={{color: 'white'}}>{error.email}</Text>}
             {/* <View style={styles.signin_btn}>
             <Button title="Sign in" color="white" />
           </View> */}
@@ -81,7 +185,9 @@ function ForgotPassword(props) {
               }}>
               <TouchableOpacity
                 style={styles.signin_btn}
-                onPress={() => props.navigation.navigate('VerifyOTP')}>
+                onPress={() => submit()}
+                // onPress={() => props.navigation.navigate('VerifyOTP')}
+              >
                 <Text
                   style={{
                     color: 'black',

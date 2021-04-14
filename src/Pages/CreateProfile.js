@@ -18,6 +18,11 @@ import AvtarImage from '../../assets/CreateProfile/avatar.png';
 import Logo from '../../assets/Logo/logo.svg';
 import exampleImg from '../../assets/splash.png';
 import bg from '../../assets/Logo/bg.png';
+// import {getToken, getAuthToken} from '../redux/reducer';
+import {getToken, getAuthToken, getProfile} from '../redux/reducer';
+import {useSelector, useDispatch} from 'react-redux';
+import axios from 'axios';
+import * as ImagePicker from 'react-native-image-picker';
 
 // import {
 //   useFonts,
@@ -31,35 +36,77 @@ export default function CreateProfile(props) {
   const [image, setImage] = useState(null);
   const [newImage, setNewImage] = useState(AvtarImage);
   const [isLoaded, setLoaded] = useState(true);
+  const dispatch = useDispatch();
+  const {profile} = useSelector(state => state);
 
-  // useEffect(() => {
-  //   ;(async () => {
-  //     if (Platform.OS !== 'web') {
-  //       const {
-  //         status,
-  //       } = await ImagePicker.requestMediaLibraryPermissionsAsync()
-  //       if (status !== 'granted') {
-  //         alert('Sorry, we need camera roll permissions to make this work!')
-  //       }
-  //     }
-  //   })()
-  // }, [])
+  // console.log(profile.api_token);
+  const handleUploadPhoto = imgResponse => {
+    let formData = new FormData();
+    formData.append('file_type', 'PROFILE_PIC');
+    formData.append('file', {
+      uri: imgResponse.uri,
+      type: imgResponse.type,
+      name: imgResponse.fileName,
+      // data: imgResponse.data,
+    });
 
-  // const pickImage = async () => {
-  //   let result = await ImagePicker.launchImageLibraryAsync({
-  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
-  //     allowsEditing: true,
-  //     aspect: [4, 3],
-  //     quality: 1,
-  //   })
+    // fetch('http://testyourapp.online/metag/api/profile-pic', {
+    //   method: 'POST',
+    //   body: formData,
+    //   headers: {
+    //     'content-type': 'multipart/form-data',
+    //     Authorization: 'Bearer ' + token,
+    //   },
+    // })
+    axios({
+      method: 'post',
+      url: 'http://testyourapp.online/metag/api/profile-pic',
+      data: formData,
+      headers: {
+        'content-type': 'multipart/form-data',
+        Authorization: 'Bearer ' + profile.api_token,
+      },
+    })
+      .then(response => {
+        console.log('uploaded', response.data);
+        // if (response.data.status === 200) {
+        //   console.log('uploade done ', response.data);
+        // } else {
+        //   console.log('Not upload', response.data);
+        // }
+      })
+      .catch(error => {
+        console.log('error...', error);
+      });
+    // .then(response => {
+    //   console.log('upload succes', JSON.parse(response));
+    //   // alert('Upload success!');
 
-  //   console.log(result)
+    //   // this.setState({photo: null});
+    // })
+    // .catch(error => {
+    //   console.log('upload error', error);
+    //   // alert('Upload failed!');
+    // });
+  };
 
-  //   if (!result.cancelled) {
-  //     // setImage(result.uri);
-  //     setNewImage(result.uri)
-  //   }
-  // }
+  let handleChoosePhoto = () => {
+    const options = {
+      noData: true,
+    };
+    ImagePicker.launchImageLibrary(options, imgResponse => {
+      console.log('response', imgResponse);
+      if (imgResponse.uri) {
+        setImage(imgResponse.uri);
+        // console.log('token', token);
+        // dispatch(getProfile({...profile, name: 'hinalchanged'}));
+
+        handleUploadPhoto(imgResponse);
+      }
+    });
+  };
+
+  console.log('profile...', profile);
 
   if (!isLoaded) {
     return null;
@@ -116,12 +163,29 @@ export default function CreateProfile(props) {
             {/* <Text style={styles.upload_text}>Upload Profile Photo</Text> */}
             <View style={styles.avtar_bg}>
               {/* <Text style={styles.upload_text}>Upload Profile Photo</Text> */}
-              <Image
+              {image ? (
+                (console.log('image', image),
+                (
+                  <Image
+                    // source={require("../../assets/avtar.svg")}
+                    source={{uri: image}}
+                    style={styles.avtarImage}></Image>
+                ))
+              ) : (
+                <Image
+                  // source={require("../../assets/avtar.svg")}
+                  source={newImage}
+                  style={styles.avtarImage}></Image>
+              )}
+              {/* <Image
                 // source={require("../../assets/avtar.svg")}
                 source={newImage}
-                style={styles.avtarImage}></Image>
+                style={styles.avtarImage}></Image> */}
+
+              {console.log(newImage)}
               <View style={styles.camera_bg}>
-                <View
+                <TouchableOpacity
+                  onPress={handleChoosePhoto}
                   style={styles.white_bg}
                   // onStartShouldSetResponder={pickImage}
                 >
@@ -132,11 +196,11 @@ export default function CreateProfile(props) {
                   />
                 )} */}
                   {/* // setNewImage(exampleImg)} */}
-                  {image && setNewImage(exampleImg)}
+
                   <Image
                     source={require('../../assets/CreateProfile/cam.png')}
                     style={styles.camera_img}></Image>
-                </View>
+                </TouchableOpacity>
               </View>
             </View>
           </View>
