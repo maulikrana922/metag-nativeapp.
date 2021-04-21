@@ -9,9 +9,12 @@ import {
   Platform,
   TouchableOpacity,
   ImageBackground,
+  Modal,
 } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import {Svg, Path, Defs} from 'react-native-svg';
+import cancel from '../../assets/CreateProfile/cancel.png';
+
 import Hotspot from '../../assets/Home/hotspot.svg';
 import Tick from '../../assets/CreateProfile/tick.svg';
 // import AvtarImage from "../../assets/avtar.svg";
@@ -49,6 +52,12 @@ export default function CreateProfile(props) {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorTemplate, SetErrorTemplate] = useState({});
   const [error, setError] = useState({});
+  const [modalVisible, setModalVisible] = useState(false);
+  const [serverError, setServerError] = useState([]);
+
+  const list = () => {
+    return <Text style={{color: 'red'}}>{serverError}</Text>;
+  };
   // useEffect(() => {
   //   ;(async () => {
   //     if (Platform.OS !== 'web') {
@@ -102,12 +111,16 @@ export default function CreateProfile(props) {
         password: data.confirmPassword,
       },
       headers: {
-        'content-type': 'multipart/form-data',
         Authorization: 'Bearer ' + profile.api_token,
       },
     })
       .then(response => {
-        console.log('printing', response);
+        if (response.data.errors) {
+          setServerError(response.data.errors.error);
+          setModalVisible(true);
+        }
+        console.log(response.data);
+        // console.log('printing', response.data);
       })
       .catch(error => console.log(error));
   };
@@ -143,6 +156,52 @@ export default function CreateProfile(props) {
   } else {
     return (
       <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
+        <Modal
+          // style={{
+          //   backgroundColor: 'yellow',
+          //   // margin: '30%',
+          //   // width: '60%',
+          //   // height: '60%',
+          //   // margin: '40%',
+          // }}
+          transparent={true}
+          visible={modalVisible}>
+          <View
+            style={{
+              backgroundColor: '#eeeeee',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              marginTop: 'auto',
+              marginBottom: 'auto',
+              width: '80%',
+              height: '80%',
+            }}>
+            <TouchableOpacity
+              onPress={() => setModalVisible(!modalVisible)}
+              style={{
+                // backgroundColor: 'red',
+                width: '5%',
+                height: '5%',
+                marginLeft: 'auto',
+                marginRight: '5%',
+                marginTop: '3%',
+              }}>
+              <Image
+                source={cancel}
+                resizeMode="contain"
+                style={{width: '100%', height: '100%'}}></Image>
+            </TouchableOpacity>
+            <View
+              style={{
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                marginTop: 'auto',
+                marginBottom: 'auto',
+              }}>
+              {list()}
+            </View>
+          </View>
+        </Modal>
         <View>
           <View style={styles.header_parent}>
             <View>
@@ -257,6 +316,9 @@ export default function CreateProfile(props) {
                     <Text style={{color: 'white'}}>
                       {error.confirmPassword}
                     </Text>
+                  )}
+                  {error.match && (
+                    <Text style={{color: 'white'}}>{error.match}</Text>
                   )}
                 </View>
               </View>

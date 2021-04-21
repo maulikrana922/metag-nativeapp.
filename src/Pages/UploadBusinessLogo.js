@@ -187,6 +187,7 @@ export default function CreateProfile(props) {
                 {/* <Text style={styles.next}>Next</Text> */}
               </View>
               <Text
+                // onPress={() => props.navigation.navigate('Location')}
                 onPress={() => next && props.navigation.navigate('Location')}
                 style={styles.next}>
                 Next

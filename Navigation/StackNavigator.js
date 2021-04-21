@@ -19,6 +19,7 @@ import OrderDetails from '../src/Pages/OrderDetails';
 import Interaction from '../src/Pages/Interaction';
 import ChangePassword from '../src/Pages/ChangePassword';
 import Location from '../src/Pages/Location';
+import ViewAll from '../src/Pages/ViewAll';
 
 const Stack = createStackNavigator();
 
@@ -42,6 +43,7 @@ function StackNavigator() {
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       <Stack.Screen name="Location" component={Location} />
+      <Stack.Screen name="ViewAll" component={ViewAll} />
       {/* <Stack.Screen name="order " component={ChangePassword} /> */}
     </Stack.Navigator>
   );

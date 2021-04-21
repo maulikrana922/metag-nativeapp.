@@ -13,6 +13,7 @@ import {
   ImageBackground,
   ScrollView,
   Modal,
+  Share as ShareMethod,
 } from 'react-native';
 // import AvtarImage from "../../assets/avtar.svg";
 //
@@ -36,9 +37,12 @@ import Iphone from '../../assets/myProfile/iphone.svg';
 import Logo from '../../assets/Logo/logo.svg';
 import bg from '../../assets/Logo/bg.png';
 import {useSelector, useDispatch} from 'react-redux';
+import {getToken, getAuthToken, getProfile} from '../redux/reducer';
+
 import * as ImagePicker from 'react-native-image-picker';
 
 export default function MyProfile(props) {
+  const dispatch = useDispatch();
   const [image, setImage] = useState(null);
   const [show, setShow] = useState(false);
   const [newImage, setNewImage] = useState(AvtarImage);
@@ -52,7 +56,10 @@ export default function MyProfile(props) {
   );
   const [businessName, setBusinessName] = useState(profile.business_name);
   const [location, setLocation] = useState(profile.location);
+  const [imageResponse, setImageResponse] = useState('');
 
+  console.log('printing userName', userName);
+  console.log('businessName', businessName);
   // const [user]
   // const []
   // const [error, setError] = useState('');
@@ -85,27 +92,12 @@ export default function MyProfile(props) {
   //     setNewImage(result.uri);
   //   }
   // };
-
-  const updateProfile = () => {
-    // console.log('printing obj', imgResponse);
-    let formData = new FormData();
-    formData.append('id', profile.id);
-    formData.append('name', userName);
-    formData.append('business_name', businessName);
-    formData.append('email', userMobileNumber);
-    formData.append('mobile', userMobileNumber);
-    formData.append('location', location);
-    formData.append('profile_pic', {
-      uri: image,
-      // type: imgResponse.type,
-      // name: imgResponse.fileName,
-      // data: imgResponse.data,
-    });
-
+  console.log('Profile........picture', profile.profile_pic);
+  console.log('printing profile', profile);
+  const logout = () => {
     axios({
       method: 'POST',
-      url: 'https://testyourapp.online/metag/api/profileUpdate',
-      data: formData,
+      url: 'http://testyourapp.online/metag/api/logout',
       headers: {
         Authorization: 'Bearer ' + profile.api_token,
       },
@@ -113,7 +105,68 @@ export default function MyProfile(props) {
       .then(response => {
         if (response.data.status === 200) {
           // setNext(true);
+          console.log('success', response.data);
+          props.navigation.navigate('Login');
+        } else {
+          console.log('Failed', response.data);
+        }
+      })
+      .catch(error => console.log('logout data', error));
+  };
+
+  // console.log('logout', profile);
+  // updateProfile(imgResponse);
+  const updateProfile = imgResponse => {
+    // console.log('printing obj', imgResponse);
+    let formData = new FormData();
+    formData.append('id', profile.id);
+    formData.append('name', userName);
+    formData.append('business_name', businessName);
+    formData.append('email', userEmail);
+    formData.append('mobile', userMobileNumber);
+    formData.append('location', location);
+    image &&
+      formData.append('profile_pic', {
+        uri: imageResponse.uri,
+        // uri: image,
+        type: imageResponse.type,
+        name: imageResponse.fileName,
+        // data: imgResponse.data,
+      });
+    console.log('imgResponse', JSON.stringify(imageResponse));
+    // console.log(formData);
+
+    // var object = {};
+    // formData._parts.forEach(value => (object[value[0]] = value[1]));
+    // console.log(object);
+
+    console.log('printing', formData);
+
+    axios({
+      method: 'POST',
+      url: 'https://testyourapp.online/metag/api/profileUpdate',
+      data: formData,
+      headers: {
+        'content-type': 'multipart/form-data',
+        Authorization: 'Bearer ' + profile.api_token,
+      },
+    })
+      .then(response => {
+        if (response.data.status === 200) {
+          // setNext(true);
           console.log('upload data', response.data);
+          dispatch(
+            getProfile({
+              ...profile,
+              name: userName,
+              email: userEmail,
+              mobile: userMobileNumber,
+              location: location,
+              business_name: businessName,
+              profile_pic: imageResponse,
+            }),
+          );
+          // useDispatch();
         } else {
           console.log('upload error', response.data);
         }
@@ -130,11 +183,17 @@ export default function MyProfile(props) {
       if (imgResponse.uri) {
         console.log('image uri', imgResponse.uri);
         setImage(imgResponse.uri);
-        // updateProfile(imgResponse);
+        setImageResponse(imgResponse);
+        updateProfile(imgResponse);
         // console.log('token', token);
         // handleUploadPhoto(imgResponse);
       }
     });
+  };
+
+  let getPic = () => {
+    const pic = !profile.profile_pic ? Avatar : profile.profile_pic;
+    return pic;
   };
 
   if (!isLoaded) {
@@ -191,7 +250,13 @@ export default function MyProfile(props) {
                     onPress={() => props.navigation.navigate('ChangePassword')}>
                     Setting
                   </Text>
-                  <Text style={{fontSize: 16}}>Logout</Text>
+                  <Text
+                    onPress={() => {
+                      logout();
+                    }}
+                    style={{fontSize: 16}}>
+                    Logout
+                  </Text>
                 </View>
               )}
               <Text style={styles.completeProfile}>My Profile</Text>
@@ -204,7 +269,14 @@ export default function MyProfile(props) {
                 flexDirection: 'row',
               }}>
               <View style={{}}>
-                <Share />
+                <TouchableOpacity
+                  onPress={() =>
+                    ShareMethod.share({
+                      message: 'Share your profile',
+                    })
+                  }>
+                  <Share />
+                </TouchableOpacity>
               </View>
               <TouchableOpacity
                 // onPress={() => props.navigation.navigate('ChangePassword')}
@@ -247,7 +319,10 @@ export default function MyProfile(props) {
             />
           </View> */}
           <Image
-            source={{uri: !image ? profile.profile_pic : image}}
+            // source={{uri: !image ? profile.profile_pic : image}}
+            source={{uri: !image ? getPic() : image}}
+            // source={{uri: profile.profile_pic}}
+
             style={{
               backgroundColor: '#f2f2f2',
               padding: 20,
@@ -325,9 +400,9 @@ export default function MyProfile(props) {
                     borderBottomColor: '#D3D3D3',
                     width: '30%',
                     textAlign: 'center',
+                    // color="black"
                     // color: '#000000',
                   }}
-                  color="black "
                   value={userName}
                   onChangeText={text => setUserName(text.trim())}></TextInput>
               </View>

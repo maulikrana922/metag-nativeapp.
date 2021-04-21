@@ -25,33 +25,23 @@ export default function Location(props) {
   const [newImage, setNewImage] = useState(AvtarImage);
   const [isLoaded, setLoaded] = useState(true);
 
-  // useEffect(() => {
-  //   ;(async () => {
-  //     if (Platform.OS !== 'web') {
-  //       const {
-  //         status,
-  //       } = await ImagePicker.requestMediaLibraryPermissionsAsync()
-  //       if (status !== 'granted') {
-  //         alert('Sorry, we need camera roll permissions to make this work!')
-  //       }
+  // makeEvent(e, name) {
+  //   return {
+  //     id: id++,
+  //     name,
+  //     data: e.nativeEvent ? e.nativeEvent : e,
+  //   };
+  // }
+
+  // recordEvent(name) {
+  //   return e => {
+  //     if (e.persist) {
+  //       e.persist(); // Avoids warnings relating to https://fb.me/react-event-pooling
   //     }
-  //   })()
-  // }, [])
-
-  // const pickImage = async () => {
-  //   let result = await ImagePicker.launchImageLibraryAsync({
-  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
-  //     allowsEditing: true,
-  //     aspect: [4, 3],
-  //     quality: 1,
-  //   })
-
-  //   console.log(result)
-
-  //   if (!result.cancelled) {
-  //     // setImage(result.uri);
-  //     setNewImage(result.uri)
-  //   }
+  //     this.setState(prevState => ({
+  //       events: [makeEvent(e, name), ...prevState.events.slice(0, 10)],
+  //     }));
+  //   };
   // }
 
   if (!isLoaded) {
@@ -65,32 +55,7 @@ export default function Location(props) {
             backgroundColor="transparent"
             translucent={true}
           />
-          {/* -- */}
-          {/* <View style={styles.header_parent}>
-          <View>
-            <View style={styles.header}> */}
-          {/* <View style={styles.arrowback}></View> */}
-          {/* <Image
-                source={require("../../assets/arrow-back.svg")}
-                style={styles.arrowback}
-              ></Image> */}
-          {/* <View style={styles.headerBackground}>
-                <Image
-                  source={require("../../assets/logo.jpg")}
-                  style={{ width: 50, height: "auto" }}
-                />
-                <View style={styles.header_text}>
-                  <Text style={styles.text_metag}>meTAG</Text>
-                  <Text style={styles.text_tagline}>I M ME,WHO ARE YOU</Text>
-                </View>
-              </View> */}
-          {/* <Text style={styles.next}>Next</Text> */}
-          {/* </View>
-            <Text style={styles.completeProfile}>Complete Profile</Text>
-          </View>
-        </View> */}
 
-          {/* -- */}
           <View style={styles.header_parent}>
             <View style={styles.header}>
               {/* <View style={styles.arrowback}></View> */}

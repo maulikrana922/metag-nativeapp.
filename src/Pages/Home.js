@@ -168,7 +168,8 @@ export default function CreateProfile(props) {
                   />
 
                   <Text
-                    onPress={() => props.navigation.navigate('MyOrders')}
+                    onPress={() => props.navigation.navigate('ViewAll')}
+                    // onPress={() => props.navigation.navigate('MyOrders')}
                     style={styles.viewAll}>
                     View All
                   </Text>

@@ -100,7 +100,12 @@ export default function Login(props) {
           // getProfileDetail(res.data.data.token);
           dispatch(getProfile(res.data.data));
           // dispatch(getProfile({...profile, name: 'hinalchanged'}));
-          props.navigation.navigate('CreateProfile');
+          console.log('printing flag', res.data.data.flag);
+          if (res.data.data.flag === 'true') {
+            props.navigation.navigate('CreateProfile');
+          } else {
+            props.navigation.navigate('Home');
+          }
         }
       });
     // .catch(error => {
@@ -183,6 +188,7 @@ export default function Login(props) {
                 marginRight: 'auto',
                 marginTop: 'auto',
                 marginBottom: 'auto',
+                color: 'red',
               }}>
               {serverError}
             </Text>
@@ -218,7 +224,7 @@ export default function Login(props) {
                 value={email}
               />
             </View>
-            {error.email && <Text style={{color: 'white'}}>{error.email}</Text>}
+            {error.email && <Text style={{color: 'red'}}>{error.email}</Text>}
             <View
               style={{
                 display: 'flex',
@@ -242,7 +248,7 @@ export default function Login(props) {
               />
             </View>
             {error.password && (
-              <Text style={{color: 'white'}}>{error.password}</Text>
+              <Text style={{color: 'red'}}>{error.password}</Text>
             )}
             <View
               style={{

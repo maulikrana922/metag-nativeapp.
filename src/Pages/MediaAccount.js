@@ -9,9 +9,10 @@ import {
   Platform,
   ImageBackground,
 } from 'react-native';
-// import CheckBox from '@react-native-community/checkbox';
+import CheckBox from '@react-native-community/checkbox';
 // import AvtarImage from "../../assets/avtar.svg";
-
+import {useSelector, useDispatch} from 'react-redux';
+import axios from 'axios';
 import Tick from '../../assets/CreateProfile/tick.svg';
 import bg from '../../assets/Logo/bg.png';
 import Logo from '../../assets/Logo/logo.svg';
@@ -25,7 +26,8 @@ import google from '../../assets/google-plus.png';
 import instagram from '../../assets/instagram.png';
 
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import CheckBox from 'react-native-check-box';
+import {set} from 'react-native-reanimated';
+// import CheckBox from 'react-native-check-box';
 // import bg from '../../assets/Logo/bg.png';
 
 // import exampleImg from "../../assets/splash.png";
@@ -36,7 +38,68 @@ export default function CreateProfile(props) {
   const [isLoaded, setLoaded] = useState(true);
   const [checked, setChecked] = useState(true);
   const [checked2, setChecked2] = useState(true);
+  const [toggleCheckBox, setToggleCheckBox] = useState(false);
+  const [lText, setLText] = useState(false);
+  const [tText, setTText] = useState(false);
+  const [iText, setIText] = useState(false);
+  const [fText, setFText] = useState(false);
+  const [lUrl, setLUrl] = useState('');
+  const [tUrl, setTUrl] = useState('');
+  const [iUrl, setIUrl] = useState('');
+  const [fUrl, setFUrl] = useState('');
+  const [lCheck, setLCheck] = useState(false);
+  const [tCheck, setTCheck] = useState(false);
+  const [iCheck, setICheck] = useState(false);
+  const [fCheck, setFCheck] = useState(false);
+  const {token, profile} = useSelector(state => state);
 
+  const uploadLinks = () => {
+    const fLink = fCheck ? fUrl : '';
+    const iLink = iCheck ? iUrl : '';
+    const tLink = tCheck ? tUrl : '';
+    const lLink = lCheck ? lUrl : '';
+    const data = {
+      facebook_link: fLink,
+      insta_link: iLink,
+      twitter_link: tLink,
+      linkedin_link: lLink,
+    };
+    axios({
+      method: 'post',
+      url: 'http://testyourapp.online/metag/api/link-account',
+      data: data,
+      headers: {
+        'content-type': 'multipart/form-data',
+        Authorization: 'Bearer ' + profile.api_token,
+      },
+    })
+      .then(response => {
+        console.log('printing link status', response.status);
+        props.navigation.navigate('Home');
+        axios({
+          method: 'post',
+          url: 'http://testyourapp.online/metag/api/flag-changes',
+          data: {
+            flag: 'false',
+          },
+          headers: {
+            Authorization: 'Bearer ' + profile.api_token,
+          },
+        })
+          .then(response => {
+            console.log('printing link status', response.status);
+            console.log('printing true and false', response.data);
+          })
+          .catch(error => {
+            console.log('error...', error);
+          });
+      })
+      .catch(error => {
+        console.log('error...', error);
+      });
+    console.log(data);
+    // props.navigation.navigate('Home');
+  };
   // useEffect(() => {
   //   (async () => {
   //     if (Platform.OS !== 'web') {
@@ -103,7 +166,8 @@ export default function CreateProfile(props) {
                 {/* <Text style={styles.next}>Next</Text> */}
               </View>
               <Text
-                onPress={() => props.navigation.navigate('Home')}
+                // onPress={() => props.navigation.navigate('Home')}
+                onPress={() => uploadLinks()}
                 style={styles.next}>
                 Next
               </Text>
@@ -115,129 +179,128 @@ export default function CreateProfile(props) {
               Link your Social media accounts{' '}
             </Text>
             <View style={styles.avtar_bg}>
-              {/* <Image
-              // source={require("../../assets/avtar.svg")}
-              source={newImage}
-              style={styles.avtarImage}
-            ></Image> */}
-              {/* <View style={styles.camera_bg}>
-              <View
-                style={styles.white_bg}
-                onStartShouldSetResponder={pickImage}
-              >
-                {/* {image && (
-                  <Image
-                    source={{ uri: image }}
-                    style={{ width: 200, height: 200 }}
-                  />
-                )} */}
-              {/* // setNewImage(exampleImg)} */}
-              {/* {image && setNewImage(exampleImg)} */}
-              {/* <Image
-                  source={require("../../assets/camera-icon.svg")}
-                  style={styles.camera_img}
-                ></Image> */}
-              {/* </View>
-            </View> */}
-
               <View style={styles.socialLogin}>
-                <Image source={google} style={styles.logo}></Image>
-                <Text style={styles.socialLoginText}>Jerry</Text>
-
-                <TouchableOpacity
-                  // checkBoxColor="orange"
-                  // checkedCheckBoxColor="red"
-                  // uncheckedCheckBoxColor="yellow"
-                  style={{
-                    borderRadius: 50,
-                    width: 20,
-                    height: 20,
-                    // backgroundColor: 'black',
-                    // backgroundColor: '#F5FCFF',
-                    // checkedCheckBoxColor: 'pink',
-                    // uncheckedCheckBoxColor: 'red',
-                    // checkBoxColor: 'pink',
-
-                    // color: 'black',
-                    backgroundColor: 'white',
-                    color: 'white',
-                  }}
-                  onPress={() => setChecked(!checked)}
-                  // isChecked={checked}
-                  // leftText={'CheckBox'}
-                >
-                  {checked ? (
-                    <Tick
-                      height={10}
-                      width={10}
-                      fill="black"
-                      style={{
-                        marginTop: 'auto',
-                        marginRight: 'auto',
-                        marginBottom: 'auto',
-                        marginLeft: 'auto',
-                        backgroundColor: 'white',
-                      }}
-                    />
-                  ) : (
-                    <View></View>
-                  )}
+                <TouchableOpacity onPress={() => setLText(true)}>
+                  <Image source={linkedin} style={styles.logo}></Image>
                 </TouchableOpacity>
+                {lText && (
+                  <View style={{width: '60%'}}>
+                    <TextInput
+                      onChangeText={text => setLUrl(text.trim())}
+                      value={lUrl}
+                      underlineColorAndroid="transparent"
+                      style={styles.url}></TextInput>
+                  </View>
+                )}
+                {lText && (
+                  <View style={styles.checkBg}>
+                    <TouchableOpacity
+                      style={styles.tick}
+                      onPress={() => setLCheck(!lCheck)}>
+                      {lCheck && (
+                        <Tick
+                          height={10}
+                          width={10}
+                          fill="black"
+                          style={styles.tickCenter}
+                        />
+                      )}
+                    </TouchableOpacity>
+                  </View>
+                )}
               </View>
               <View style={styles.socialLogin}>
-                <Image source={linkedin} style={styles.logo}></Image>
-                {/* <Text style={styles.socialLoginText}>Jerry</Text> */}
-                {/* <CheckBox
-                style={{borderRadius: 100, backgroundColor: 'pink'}}
-                //   value={isSelected}
-                //   onValueChange={setSelection}
-                //   style={styles.checkbox}
-              /> */}
-              </View>
-              <View style={styles.socialLogin}>
-                <Image source={twitter} style={styles.logo}></Image>
-                {/* <Text style={styles.socialLoginText}>Jerry</Text> */}
-              </View>
-              <View style={styles.socialLogin}>
-                <Image source={instagram} style={styles.logo}></Image>
-                <Text style={styles.socialLoginText}>Jerry</Text>
-
-                <TouchableOpacity
-                  // checkBoxColor="orange"
-                  // checkedCheckBoxColor="red"
-                  // uncheckedCheckBoxColor="yellow"
-                  style={{
-                    borderRadius: 50,
-                    width: 20,
-                    height: 20,
-                    // backgroundColor: 'black',
-                    // backgroundColor: '#F5FCFF',
-                    // checkedCheckBoxColor: 'pink',
-                    // uncheckedCheckBoxColor: 'red',
-                    // checkBoxColor: 'pink',
-
-                    // color: 'black',
-                    backgroundColor: 'white',
-                  }}
-                  onPress={() => setChecked2(!checked2)}
-                  isChecked={checked2}
-                  // leftText={'CheckBox'}
-                >
-                  <Tick
-                    height={10}
-                    width={10}
-                    fill={checked2 ? 'black' : 'white'}
-                    style={{
-                      marginTop: 'auto',
-                      marginRight: 'auto',
-                      marginBottom: 'auto',
-                      marginLeft: 'auto',
-                    }}
-                  />
+                <TouchableOpacity onPress={() => setTText(true)}>
+                  <Image source={twitter} style={styles.logo}></Image>
                 </TouchableOpacity>
+                {lText && (
+                  <View style={{width: '60%'}}>
+                    <TextInput
+                      onChangeText={text => setTUrl(text.trim())}
+                      value={tUrl}
+                      underlineColorAndroid="transparent"
+                      style={styles.url}></TextInput>
+                  </View>
+                )}
+                {lText && (
+                  <View style={styles.checkBg}>
+                    <TouchableOpacity
+                      style={styles.tick}
+                      onPress={() => setTCheck(!tCheck)}>
+                      {tCheck && (
+                        <Tick
+                          height={10}
+                          width={10}
+                          fill="black"
+                          style={styles.tickCenter}
+                        />
+                      )}
+                    </TouchableOpacity>
+                  </View>
+                )}
               </View>
               <View style={styles.socialLogin}>
-                <Image source={facebook} style={styles.logo}></Image>
+                <TouchableOpacity onPress={() => setIText(true)}>
+                  <Image source={instagram} style={styles.logo}></Image>
+                </TouchableOpacity>
+                {lText && (
+                  <View style={{width: '60%'}}>
+                    <TextInput
+                      onChangeText={text => setIUrl(text.trim())}
+                      value={iUrl}
+                      underlineColorAndroid="transparent"
+                      style={styles.url}></TextInput>
+                  </View>
+                )}
+                {lText && (
+                  <View style={styles.checkBg}>
+                    <TouchableOpacity
+                      style={styles.tick}
+                      onPress={() => setICheck(!iCheck)}>
+                      {iCheck && (
+                        <Tick
+                          height={10}
+                          width={10}
+                          fill="black"
+                          style={styles.tickCenter}
+                        />
+                      )}
+                    </TouchableOpacity>
+                  </View>
+                )}
+              </View>
+              <View style={styles.socialLogin}>
+                <TouchableOpacity
+                  onPress={() => {
+                    setFText(true);
+                  }}>
+                  <Image source={facebook} style={styles.logo}></Image>
+                </TouchableOpacity>
+                {lText && (
+                  <View style={{width: '60%'}}>
+                    <TextInput
+                      onChangeText={text => setFUrl(text.trim())}
+                      value={fUrl}
+                      underlineColorAndroid="transparent"
+                      style={styles.url}></TextInput>
+                  </View>
+                )}
+                {lText && (
+                  <View style={styles.checkBg}>
+                    <TouchableOpacity
+                      style={styles.tick}
+                      onPress={() => setFCheck(!fCheck)}>
+                      {fCheck && (
+                        <Tick
+                          height={10}
+                          width={10}
+                          fill="black"
+                          style={styles.tickCenter}
+                        />
+                      )}
+                    </TouchableOpacity>
+                  </View>
+                )}
               </View>
             </View>
           </View>
@@ -247,6 +310,48 @@ export default function CreateProfile(props) {
   }
 }
 const styles = StyleSheet.create({
+  url: {
+    color: 'white',
+    borderBottomColor: 'white',
+    borderWidth: 1,
+    width: '100%',
+  },
+  tickCenter: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: 'auto',
+    marginBottom: 'auto',
+  },
+  tick: {
+    width: '90%',
+    height: '90%',
+    borderRadius: 50,
+    // backgroundColor: 'white',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
+  checkBg: {
+    borderRadius: 50,
+    width: 20,
+    height: 20,
+    display: 'flex',
+    alignSelf: 'center',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    // backgroundColor: 'black',
+    // backgroundColor: '#F5FCFF',
+    // checkedCheckBoxColor: 'pink',
+    // uncheckedCheckBoxColor: 'red',
+    // checkBoxColor: 'pink',
+
+    // color: 'black',
+    // display: 'flex',
+    // alignItems: 'center',
+    backgroundColor: 'white',
+    // s
+  },
   container: {
     flex: 1,
     flexDirection: 'column',

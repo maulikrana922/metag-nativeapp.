@@ -44,7 +44,11 @@ export default function Signup(props) {
 
   const list = () => {
     return serverError.map(e => {
-      return <Text key={e}>{e}</Text>;
+      return (
+        <Text style={{color: 'red'}} key={e}>
+          {e}
+        </Text>
+      );
     });
   };
 
@@ -85,7 +89,7 @@ export default function Signup(props) {
           setServerError(e);
         } else {
           console.log('data', res.data.data);
-          props.navigation.navigate('CreateProfile');
+          props.navigation.navigate('Login');
         }
       });
     // .catch(error => {
@@ -233,7 +237,7 @@ export default function Signup(props) {
                   underlineColorAndroid="transparent"
                 />
               </View>
-              {error.name && <Text style={{color: 'white'}}>{error.name}</Text>}
+              {error.name && <Text style={{color: 'red'}}>{error.name}</Text>}
               <View style={styles.inputTextBg}>
                 <Image
                   source={require('../../assets/signup/email.png')}
@@ -247,9 +251,7 @@ export default function Signup(props) {
                   value={email}
                 />
               </View>
-              {error.email && (
-                <Text style={{color: 'white'}}>{error.email}</Text>
-              )}
+              {error.email && <Text style={{color: 'red'}}>{error.email}</Text>}
               <View style={styles.inputTextBg}>
                 <Image
                   source={require('../../assets/signup/iphone.png')}
@@ -265,7 +267,7 @@ export default function Signup(props) {
                 />
               </View>
               {error.number && (
-                <Text style={{color: 'white'}}>{error.number}</Text>
+                <Text style={{color: 'red'}}>{error.number}</Text>
               )}
               <View style={styles.inputTextBg}>
                 <Image
@@ -280,9 +282,7 @@ export default function Signup(props) {
                   value={bName}
                 />
               </View>
-              {error.bName && (
-                <Text style={{color: 'white'}}>{error.bName}</Text>
-              )}
+              {error.bName && <Text style={{color: 'red'}}>{error.bName}</Text>}
               <View
                 style={{
                   display: 'flex',
@@ -305,7 +305,7 @@ export default function Signup(props) {
                 />
               </View>
               {error.password && (
-                <Text style={{color: 'white'}}>{error.password}</Text>
+                <Text style={{color: 'red'}}>{error.password}</Text>
               )}
               <View style={styles.inputTextBg}>
                 <Image
@@ -322,10 +322,10 @@ export default function Signup(props) {
                 />
               </View>
               {error.confirmPassword && (
-                <Text style={{color: 'white'}}>{error.confirmPassword}</Text>
+                <Text style={{color: 'red'}}>{error.confirmPassword}</Text>
               )}
               {error.passwordMatch && (
-                <Text style={{color: 'white'}}>{error.passwordMatch}</Text>
+                <Text style={{color: 'red'}}>{error.passwordMatch}</Text>
               )}
               <View
                 style={{
