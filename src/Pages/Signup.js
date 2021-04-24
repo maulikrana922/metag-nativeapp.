@@ -21,6 +21,7 @@ import bg from '../../assets/Logo/bg.png';
 import cancel from '../../assets/CreateProfile/cancel.png';
 import axios from 'axios';
 import {set} from 'react-native-reanimated';
+import Loader from '../components/Loader';
 
 export default function Signup(props) {
   const [fullName, setFullName] = useState('');
@@ -32,6 +33,7 @@ export default function Signup(props) {
   const [isLoaded, setLoaded] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [serverError, setServerError] = useState([]);
+  const [showLoader, setShowLoader] = useState(false);
 
   const [error, setError] = useState('');
   // // const [data, setData] = useState({});
@@ -63,6 +65,7 @@ export default function Signup(props) {
         password: data.password,
       })
       .then(res => {
+        setShowLoader(false);
         if (res.data.errors) {
           console.log('errr', res.data.errors);
           let e = [];
@@ -137,7 +140,8 @@ export default function Signup(props) {
         (data.Bname = bName),
         (data.password = password),
         (data.confirmPassword = confirmPassword),
-        upload(data);
+        setShowLoader(true);
+      upload(data);
     }
   };
 
@@ -202,6 +206,7 @@ export default function Signup(props) {
           </Modal>
           {/* {console.log({modalVisible})} */}
           <View style={styles.container}>
+            {showLoader && <Loader />}
             <StatusBar
               barStyle="dark-content"
               backgroundColor="transparent"

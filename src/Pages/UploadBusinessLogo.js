@@ -16,6 +16,7 @@ import bg from '../../assets/Logo/bg.png';
 import Logo from '../../assets/Logo/logo.svg';
 import AvtarImage from '../../assets/CreateProfile/work.png';
 import exampleImg from '../../assets/splash.png';
+import Loader from '../components/Loader';
 
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import * as ImagePicker from 'react-native-image-picker';
@@ -29,6 +30,7 @@ export default function CreateProfile(props) {
   const [isLoaded, setLoaded] = useState(true);
   const [next, setNext] = useState(false);
   const {profile} = useSelector(state => state);
+  const [showLoader, setShowLoader] = useState(false);
 
   const handleUploadPhoto = imgResponse => {
     let formData = new FormData();
@@ -81,6 +83,7 @@ export default function CreateProfile(props) {
   };
 
   let handleChoosePhoto = () => {
+    setShowLoader(true);
     const options = {
       noData: true,
     };
@@ -89,7 +92,7 @@ export default function CreateProfile(props) {
       if (imgResponse.uri) {
         setImage(imgResponse.uri);
         // console.log('token', token);
-        handleUploadPhoto(imgResponse);
+        setShowLoader(false), handleUploadPhoto(imgResponse);
       }
     });
   };
@@ -129,6 +132,8 @@ export default function CreateProfile(props) {
       <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
         {console.log('body', next)}
         <View style={styles.container}>
+          {showLoader && <Loader />}
+
           <StatusBar
             barStyle="light-content"
             backgroundColor="transparent"

@@ -19,6 +19,7 @@ import exampleImg from '../../assets/splash.png';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 // import MapView from 'react-native-maps';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 
 export default function Location(props) {
   const [image, setImage] = useState(null);
@@ -92,6 +93,19 @@ export default function Location(props) {
           </View>
           <View style={styles.avtar_parent}>
             <Text style={styles.upload_text}>Upload Business Logo</Text>
+            {/* <View>
+              <GooglePlacesAutocomplete
+                placeholder="Search"
+                onPress={(data, details = null) => {
+                  // 'details' is provided when fetchDetails = true
+                  console.log(data, details);
+                }}
+                query={{
+                  key: 'AIzaSyB0WvJzRd0Cz5AtunbfqMQEt8J64NXltks',
+                  language: 'en',
+                }}
+              />
+            </View> */}
             <View style={styles.avtar_bg}>
               <View style={styles.containerG}>
                 <MapView
@@ -299,7 +313,7 @@ const styles = StyleSheet.create({
     // padding: 10,
   },
   containerG: {
-    ...StyleSheet.absoluteFillObject,
+    // ...StyleSheet.absoluteFillObject,
     height: 200,
     width: 200,
     // marginLeft: 'auto',

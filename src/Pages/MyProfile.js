@@ -14,12 +14,13 @@ import {
   ScrollView,
   Modal,
   Share as ShareMethod,
+  ActivityIndicator,
 } from 'react-native';
 // import AvtarImage from "../../assets/avtar.svg";
 //
 import axios from 'axios';
 import AvtarImage from '../../assets/work-suitcase.svg';
-import Avatar from '../../assets/myProfile/avatar.svg';
+import Avatar from '../../assets/myProfile/avatar.png';
 import linkedin from '../../assets/linkedin.png';
 import twitter from '../../assets/twitter.png';
 import facebook from '../../assets/facebook.png';
@@ -37,6 +38,7 @@ import Iphone from '../../assets/myProfile/iphone.svg';
 import Logo from '../../assets/Logo/logo.svg';
 import bg from '../../assets/Logo/bg.png';
 import {useSelector, useDispatch} from 'react-redux';
+// import Loader from '../components/Loader';
 import {getToken, getAuthToken, getProfile} from '../redux/reducer';
 
 import * as ImagePicker from 'react-native-image-picker';
@@ -45,7 +47,7 @@ export default function MyProfile(props) {
   const dispatch = useDispatch();
   const [image, setImage] = useState(null);
   const [show, setShow] = useState(false);
-  const [newImage, setNewImage] = useState(AvtarImage);
+  const [newImage, setNewImage] = useState(Avatar);
   const [isLoaded, setLoaded] = useState(true);
   const {token, profile} = useSelector(state => state);
   const [input, setInput] = useState(false);
@@ -57,6 +59,7 @@ export default function MyProfile(props) {
   const [businessName, setBusinessName] = useState(profile.business_name);
   const [location, setLocation] = useState(profile.location);
   const [imageResponse, setImageResponse] = useState('');
+  const [showLoader, setShowLoader] = useState(false);
 
   console.log('printing userName', userName);
   console.log('businessName', businessName);
@@ -117,6 +120,7 @@ export default function MyProfile(props) {
   // console.log('logout', profile);
   // updateProfile(imgResponse);
   const updateProfile = imgResponse => {
+    setShowLoader(true);
     // console.log('printing obj', imgResponse);
     let formData = new FormData();
     formData.append('id', profile.id);
@@ -152,6 +156,7 @@ export default function MyProfile(props) {
       },
     })
       .then(response => {
+        setShowLoader(false);
         if (response.data.status === 200) {
           // setNext(true);
           console.log('upload data', response.data);
@@ -178,11 +183,15 @@ export default function MyProfile(props) {
     const options = {
       noData: true,
     };
+
     ImagePicker.launchImageLibrary(options, imgResponse => {
+      setShowLoader(true);
       console.log('response', imgResponse);
+      setShowLoader(false);
       if (imgResponse.uri) {
         console.log('image uri', imgResponse.uri);
         setImage(imgResponse.uri);
+
         setImageResponse(imgResponse);
         updateProfile(imgResponse);
         // console.log('token', token);
@@ -192,8 +201,13 @@ export default function MyProfile(props) {
   };
 
   let getPic = () => {
-    const pic = !profile.profile_pic ? Avatar : profile.profile_pic;
-    return pic;
+    // const pic = !profile.profile_pic ? Avatar : profile.profile_pic;
+    if (!profile.profile_pic) {
+      return require('../../assets/myProfile/avatar.png');
+    } else {
+      return {uri: profile.profile_pic};
+    }
+    return {uri: image};
   };
 
   if (!isLoaded) {
@@ -202,6 +216,15 @@ export default function MyProfile(props) {
     return (
       <ImageBackground source={bg} style={{flex: 1, resizeMode: 'cover'}}>
         <View style={{flex: 1}}>
+          {showLoader && (
+            <Modal transparent={true} statusBarTranslucent={true}>
+              <View style={styles.modalBackground}>
+                <View style={styles.activityIndicatorWrapper}>
+                  <ActivityIndicator size={60} color="white" />
+                </View>
+              </View>
+            </Modal>
+          )}
           <View style={styles.header_parent}>
             <View>
               <View style={styles.header}>
@@ -318,32 +341,23 @@ export default function MyProfile(props) {
               }}
             />
           </View> */}
-          <Image
+          {/* <Image
             // source={{uri: !image ? profile.profile_pic : image}}
-            source={{uri: !image ? getPic() : image}}
-            // source={{uri: profile.profile_pic}}
-
-            style={{
-              backgroundColor: '#f2f2f2',
-              padding: 20,
-              // backgroundColor: 'red',
-              width: 100,
-              height: 100,
-              borderRadius: 100,
-              // position: 'absolute',
-              // top: 20,
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              marginTop: -35,
-              // left: '50%',
-              // right: '100%',
-              // marginLeft: 'auto',
-              // marginRight: 'auto',
-              // top: 100,
-              // z-index:-1
-            }}></Image>
+            // source={{uri: !image ? getPic() : image}}
+            // source={!image ? getPic : {uri: image}}
+            style={styles.profileImage}></Image> */}
           {/* <View style={styles.camera_bg}> */}
-
+          {!image ? (
+            !profile.profile_pic ? (
+              <Image source={Avatar} style={styles.profileImage}></Image>
+            ) : (
+              <Image
+                source={{uri: profile.profile_pic}}
+                style={styles.profileImage}></Image>
+            )
+          ) : (
+            <Image source={{uri: image}} style={styles.profileImage}></Image>
+          )}
           {input && (
             <TouchableOpacity
               onPress={handleChoosePhoto}
@@ -649,6 +663,25 @@ export default function MyProfile(props) {
   }
 }
 const styles = StyleSheet.create({
+  profileImage: {
+    backgroundColor: '#f2f2f2',
+    padding: 20,
+    // backgroundColor: 'red',
+    width: 100,
+    height: 100,
+    borderRadius: 100,
+    // position: 'absolute',
+    // top: 20,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: -35,
+    // left: '50%',
+    // right: '100%',
+    // marginLeft: 'auto',
+    // marginRight: 'auto',
+    // top: 100,
+    // z-index:-1
+  },
   header: {
     backgroundColor: '#000000',
     height: 100,
@@ -934,5 +967,28 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
     color: '#000000',
     fontSize: 16,
+  },
+  modalBackground: {
+    flex: 1,
+
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    // paddingTop: 'auto',
+    height: '100%',
+    // margin: 'auto',
+    // paddingLeft: 'auto',
+    // paddingRight: 'auto',
+    backgroundColor: 'rgba( 0, 0, 0, 0.6 )',
+    // justifyContent: 'space-around',
+    // backgroundColor: '#00000040',
+  },
+  activityIndicatorWrapper: {
+    // alignSelf: 'center',
+    // borderRadius: 10,
+    // display: 'flex',
+    // flexDirection: 'row',
+    // alignItems: 'center',
+    // justifyContent: 'space-around',
   },
 });

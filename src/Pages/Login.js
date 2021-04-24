@@ -11,6 +11,7 @@ import {
   ImageBackground,
   Modal,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
 // import AppLoading from 'expo-app-loading';
 // import {
@@ -37,6 +38,7 @@ import bg from '../../assets/Logo/bg.png';
 import cancel from '../../assets/CreateProfile/cancel.png';
 import {getToken, getAuthToken, getProfile} from '../redux/reducer';
 import {useSelector, useDispatch} from 'react-redux';
+import Loader from '../components/Loader';
 
 export default function Login(props) {
   const [email, setEmail] = useState('');
@@ -45,7 +47,7 @@ export default function Login(props) {
   const [serverError, setServerError] = useState([]);
   const [isLoaded, setLoaded] = useState(true);
   const [error, setError] = useState('');
-
+  const [showLoader, setShowLoader] = useState(false);
   // const [tokenback, setTokenBack] = useState('');
 
   const dispatch = useDispatch();
@@ -83,6 +85,7 @@ export default function Login(props) {
         password: data.password,
       })
       .then(res => {
+        setShowLoader(false);
         if (res.data.status !== 200) {
           console.log('errr', res.data.errors);
           let e = [];
@@ -136,8 +139,10 @@ export default function Login(props) {
       setError(errorTemplate);
     } else {
       (data.email = email), (data.password = password), upload(data);
+      setShowLoader(true);
     }
   };
+
   if (!isLoaded) {
     return null;
   } else {
@@ -195,6 +200,7 @@ export default function Login(props) {
           </View>
         </Modal>
         <View style={styles.container}>
+          {showLoader && <Loader />}
           <StatusBar
             barStyle="dark-content"
             backgroundColor="transparent"

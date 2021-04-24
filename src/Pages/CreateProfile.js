@@ -69,6 +69,10 @@ export default function CreateProfile(props) {
     })
       .then(response => {
         console.log('uploaded', response.data);
+        dispatch(
+          getProfile({...profile, profile_pic: response.data.data[0].file_url}),
+        );
+        console.log('print url', response.data.data[0].file_url);
         // if (response.data.status === 200) {
         //   console.log('uploade done ', response.data);
         // } else {
@@ -99,7 +103,7 @@ export default function CreateProfile(props) {
       if (imgResponse.uri) {
         setImage(imgResponse.uri);
         // console.log('token', token);
-        // dispatch(getProfile({...profile, name: 'hinalchanged'}));
+        // dispatch(getProfile({...profile,profile_pic:imageResponse.uri}));
 
         handleUploadPhoto(imgResponse);
       }
