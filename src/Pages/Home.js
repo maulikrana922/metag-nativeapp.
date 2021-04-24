@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import {getAuthToken} from '../redux/reducer';
 import {useSelector, useDispatch} from 'react-redux';
+import NfcManager from 'react-native-nfc-manager';
 
 import wifi from '../../assets/mobile-phone-with-wifi.png';
 import qrCode from '../../assets/qr-code.png';
@@ -34,9 +35,18 @@ export default function CreateProfile(props) {
   const [count, setCount] = useState('3');
   const [start, setStart] = useState('0');
   const [products, setProduct] = useState([]);
+  const [supportsNfc, setSupportsNfc] = useState(false);
   const {token, profile} = useSelector(state => state);
 
   useEffect(() => {
+    NfcManager.isSupported().then(supported => {
+      console.log(supported);
+      if (supported) {
+        setSupportsNfc(true);
+      } else {
+        setSupportsNfc(false);
+      }
+    });
     axios({
       method: 'post',
       url: 'http://testyourapp.online/metag/api/productList',
@@ -56,6 +66,19 @@ export default function CreateProfile(props) {
       }
     });
   }, [count, start]);
+
+  //This checks if the phone supports nfc feature
+  // useEffect(() => {
+  //   NfcManager.isSupported()
+  //     .then(supported => {
+  //       console.log(supported);
+  //       if (supported) {
+  //         setSupportsNfc(true);
+  //       } else {
+  //         setSupportsNfc(false);
+  //       }
+  //     })
+  // }, [])
 
   if (!isLoaded) {
     return null;
@@ -98,9 +121,16 @@ export default function CreateProfile(props) {
                 <View style={styles.backgroundIcon}>
                   <Scan height={40} width={40} fill="black" />
                 </View>
-                <View style={styles.backgroundIcon2}>
-                  <Hotspot height={40} width={40} fill="black" />
-                </View>
+                {true && (
+                  <View style={styles.backgroundIcon2}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        props.navigation.navigate('Nfc');
+                      }}>
+                      <Hotspot height={40} width={40} fill="black" />
+                    </TouchableOpacity>
+                  </View>
+                )}
               </View>
               <Text
                 onPress={() => props.navigation.navigate('Interaction')}
