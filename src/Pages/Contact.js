@@ -55,6 +55,7 @@ export default function Contact(props) {
   const [image, setImage] = useState(null);
   const [newImage, setNewImage] = useState(AvtarImage);
   const [isLoaded, setLoaded] = useState(true);
+  const [show, setShow] = useState(false);
 
   // useEffect(() => {
   //   (async () => {
@@ -109,8 +110,75 @@ export default function Contact(props) {
                 </View>
                 {/* <Text style={styles.next}>  </Text> */}
                 {/* <Image source={more} style={{ height: 60, width: 30 }}></Image> */}
-                <More style={{alignSelf: 'center'}} />
+                {/* <More style={{alignSelf: 'center'}} /> */}
+                <TouchableOpacity
+                  // onPress={() => props.navigation.navigate('Contact')}
+                  onPress={() => setShow(!show)}
+                  style={{
+                    alignSelf: 'center',
+                    padding: 10,
+                    // backgroundColor: 'red',
+                  }}>
+                  <More />
+                </TouchableOpacity>
               </View>
+              {show && (
+                <View
+                  style={{
+                    backgroundColor: '#FFFFFF',
+                    width: 'auto',
+                    height: 'auto',
+                    borderRadius: 10,
+                    marginLeft: 'auto',
+                    // marginRight: -10,
+                    // marginRight: '10%',
+                    marginTop: -20,
+                    marginRight: 12,
+                  }}>
+                  <View
+                    style={{
+                      transform: [{rotate: '-45deg'}],
+                      backgroundColor: '#FFFFFF',
+                      width: 15,
+                      height: 15,
+                      position: 'relative',
+                      bottom: 5,
+                      marginLeft: 'auto',
+                      marginRight: 10,
+                    }}></View>
+                  <View
+                    style={{
+                      paddingRight: 10,
+                      paddingLeft: 10,
+                      paddingBottom: 10,
+                    }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        borderBottomColor: '#E5E5E5',
+                        borderBottomWidth: 1,
+                        paddingBottom: '2%',
+                        fontFamily: 'Poppins-Reguler',
+                      }}
+                      onPress={() =>
+                        props.navigation.navigate('ChangePassword')
+                      }>
+                      Settings
+                    </Text>
+                    <Text
+                      onPress={() => {
+                        logout();
+                      }}
+                      style={{
+                        fontSize: 16,
+                        paddingTop: '2%',
+                        fontFamily: 'Poppins-Reguler',
+                      }}>
+                      Logout
+                    </Text>
+                  </View>
+                </View>
+              )}
               <Text style={styles.completeProfile}>Contacts</Text>
             </View>
             <View
@@ -224,14 +292,14 @@ export default function Contact(props) {
                       marginTop: 'auto',
                       marginBottom: 'auto',
                       borderRadius: 100,
-                      marginLeft: 40,
+                      marginLeft: '10%',
                     }}>
                     <Image
                       source={require('../../assets/contact/bin.png')}
                       resizeMode="contain"
                       style={{
-                        width: 25,
-                        height: 25,
+                        width: 15,
+                        height: 15,
                         marginLeft: 'auto',
                         marginRight: 'auto',
                       }}></Image>
@@ -243,13 +311,13 @@ export default function Contact(props) {
                       marginTop: 'auto',
                       marginBottom: 'auto',
                       borderRadius: 100,
-                      marginLeft: 10,
+                      marginLeft: '5%',
                     }}>
                     <Image
                       source={require('../../assets/contact/pen.png')}
                       style={{
-                        width: 25,
-                        height: 25,
+                        width: 15,
+                        height: 15,
                         marginLeft: 'auto',
                         marginRight: 'auto',
                       }}></Image>
@@ -258,7 +326,6 @@ export default function Contact(props) {
               </TouchableOpacity>
             </View>
           </View>
-          <Menu />
         </View>
       </ImageBackground>
     );

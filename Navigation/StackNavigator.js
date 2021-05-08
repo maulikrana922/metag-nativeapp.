@@ -21,6 +21,7 @@ import Interaction from '../src/Pages/Interaction';
 import ChangePassword from '../src/Pages/ChangePassword';
 import Location from '../src/Pages/Location';
 import ViewAll from '../src/Pages/ViewAll';
+import TabNavigator from './tabs/TabNavigator';
 
 const Stack = createStackNavigator();
 
@@ -35,7 +36,7 @@ function StackNavigator() {
       <Stack.Screen name="ContactDetails" component={ContactDetails} />
       <Stack.Screen name="Contact" component={Contact} />
       <Stack.Screen name="MyProfile" component={MyProfile} />
-      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Home" component={TabNavigator} />
       <Stack.Screen name="MediaAccount" component={MediaAccount} />
       <Stack.Screen name="UploadBusinessLogo" component={UploadBusinessLogo} />
       <Stack.Screen name="CreateProfile" component={CreateProfile} />

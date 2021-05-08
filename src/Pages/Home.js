@@ -13,31 +13,48 @@ import {
   FlatList,
   ScrollView,
 } from 'react-native';
-import {getAuthToken} from '../redux/reducer';
+// import {getAuthToken} from '../redux/reducer';
+// import {useSelector, useDispatch} from 'react-redux';
+import {getToken, getAuthToken, getProfile, getLink} from '../redux/reducer';
 import {useSelector, useDispatch} from 'react-redux';
 import NfcManager from 'react-native-nfc-manager';
 
 import wifi from '../../assets/mobile-phone-with-wifi.png';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import qrCode from '../../assets/qr-code.png';
 import UserIcon from '../../assets/user.svg';
 import SuitecaseIcon from '../../assets/work.svg';
 import avtar from '../../assets/avatar-home.svg';
 import contact from '../../assets/contact.svg';
 import Menu from '../../src/components/Menu';
+// import MyTabs from '../../Navigation/tabs/Tabs.js';
 import ProductList from '../../src/components/ProductList.js';
 import Logo from '../../assets/Logo/logo.svg';
 import Scan from '../../assets/Home/scan.svg';
 import Hotspot from '../../assets/Home/hotspot.svg';
 import bg from '../../assets/Logo/bg.png';
 import axios from 'axios';
+import MyProfile from './MyOrders';
 export default function CreateProfile(props) {
   const [isLoaded, setLoaded] = useState(true);
   const [count, setCount] = useState('3');
   const [start, setStart] = useState('0');
   const [products, setProduct] = useState([]);
   const [supportsNfc, setSupportsNfc] = useState(false);
-  const {token, profile} = useSelector(state => state);
+  const dispatch = useDispatch();
+  const {token, profile, link} = useSelector(state => state);
+  // console.log('linking0000', link.linkedin_link);
 
+  // const removeValue = async () => {
+  //   try {
+  //     await AsyncStorage.removeItem('@storage_Key');
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+
+  //   console.log('Done.');
+  // };
+  // removeValue;
   useEffect(() => {
     NfcManager.isSupported().then(supported => {
       console.log(supported);
@@ -47,25 +64,51 @@ export default function CreateProfile(props) {
         setSupportsNfc(false);
       }
     });
-    axios({
-      method: 'post',
-      url: 'http://testyourapp.online/metag/api/productList',
-      data: {
-        count: count,
-        start: start,
-      },
-      headers: {
-        Authorization: 'Bearer ' + profile.api_token,
-      },
-    }).then(response => {
-      if (response.data.status === 200) {
-        console.log('200', response.data);
-        setProduct(response.data.data);
-      } else {
-        console.log('false', response.data);
-      }
-    });
+    {
+      profile !== null &&
+        axios({
+          method: 'post',
+          url: 'http://testyourapp.online/metag/api/productList',
+          data: {
+            count: count,
+            start: start,
+          },
+          headers: {
+            Authorization: 'Bearer ' + profile.api_token,
+          },
+        })
+          .then(response => {
+            if (response.data.status === 200) {
+              // console.log('200', response.data);
+              setProduct(response.data.data);
+            } else {
+              console.log('false', response.data);
+            }
+          })
+          .catch(e => console.log('error500', e));
+    }
   }, [count, start]);
+
+  // axios({
+  //   method: 'post',
+  //   url: 'http://testyourapp.online/metag/api/productList',
+  //   data: {
+  //     count: count,
+  //     start: start,
+  //   },
+  //   headers: {
+  //     Authorization: 'Bearer ' + profile.api_token,
+  //   },
+  // })
+  //   .then(response => {
+  //     if (response.data.status === 200) {
+  //       // console.log('200', response.data);
+  //       setProduct(response.data.data);
+  //     } else {
+  //       console.log('false', response.data);
+  //     }
+  //   })
+  //   .catch(e => console.log('error500', e));
 
   //This checks if the phone supports nfc feature
   // useEffect(() => {
@@ -79,6 +122,38 @@ export default function CreateProfile(props) {
   //       }
   //     })
   // }, [])
+  // const getData = async () => {
+  //   try {
+  //     const jsonValue = await AsyncStorage.getItem('@storage_Key');
+  //     await dispatch(getProfile(jsonValue));
+  //     await console.log('json value', profile);
+  //     setLoaded(false);
+
+  //     // return jsonValue != null ? JSON.parse(jsonValue) : null;
+  //   } catch (e) {
+  //     // error reading value
+  //     console.log('error occur', e);
+  //   }
+  // };
+  // // console.log('pro...', profile);
+  // const getData = async () => {
+  //   try {
+  //     const value = await AsyncStorage.getItem('@storage_Key');
+  //     // if (value !== null) {
+  //     //   // props.navigation.navigate('Home');
+  //     //   console.log('val', value);
+  //     // }
+  //     if (value) {
+  //       console.log('value from signup', value);
+  //     } else {
+  //       console.log('does not exist');
+  //     }
+  //   } catch (e) {
+  //     console.log('e', e);
+  //   }
+  //   // console.log('no value is printes');
+  // };
+  // console.log('profile name', profile.name);
 
   if (!isLoaded) {
     return null;
@@ -146,20 +221,32 @@ export default function CreateProfile(props) {
                 style={styles.eachInfo}>
                 {/* <Image source={U} style={{width: 20, height: 20}}></Image> */}
                 <UserIcon height={20} width={20} fill="black" />
-                <Text
-                  style={{color: 'black', alignSelf: 'center', marginLeft: 10}}>
-                  {profile.name}
-                </Text>
+                {profile !== null && (
+                  <Text
+                    style={{
+                      color: 'black',
+                      alignSelf: 'center',
+                      marginLeft: 10,
+                    }}>
+                    {profile.name}
+                  </Text>
+                )}
               </TouchableOpacity>
               <View style={styles.eachInfo}>
                 {/* <Image
                 source={suitecaseIcon}
                 style={{width: 20, height: 20}}></Image> */}
                 <SuitecaseIcon width={20} height={20} fill="black" />
-                <Text
-                  style={{color: 'black', alignSelf: 'center', marginLeft: 10}}>
-                  {profile.business_name}
-                </Text>
+                {profile !== null && (
+                  <Text
+                    style={{
+                      color: 'black',
+                      alignSelf: 'center',
+                      marginLeft: 10,
+                    }}>
+                    {profile.business_name}
+                  </Text>
+                )}
               </View>
             </View>
             <View
@@ -217,6 +304,9 @@ export default function CreateProfile(props) {
                           title={element.title}
                           price={element.price}
                           image={element.image}
+                          key={element.id}
+                          image={element.image}
+                          currency={element.currency}
                         />
                         // </ScrollView>
                       );
@@ -225,7 +315,7 @@ export default function CreateProfile(props) {
               </View>
             </View>
           </View>
-          <Menu />
+          {/* <Menu /> */}
         </View>
       </ImageBackground>
     );

@@ -13,15 +13,26 @@ import {
   Modal,
   Alert,
 } from 'react-native';
+import {getToken, getAuthToken, getProfile, getLink} from '../redux/reducer';
 import {useSelector, useDispatch} from 'react-redux';
-// import {useDispatch} from 'react-redux';
-import {getToken, getAuthToken} from '../redux/reducer';
 import Logo from '../../assets/Logo/logo.svg';
 import bg from '../../assets/Logo/bg.png';
 import cancel from '../../assets/CreateProfile/cancel.png';
 import axios from 'axios';
 import {set} from 'react-native-reanimated';
 import Loader from '../components/Loader';
+import close from '../../assets/close.png';
+import loginFail from '../../assets/loginFail.png';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+// import LinkedInModal from 'react-native-linkedin';
+import LinkedInModal from 'react-native-linkedin';
+
+// import OAuthManager from 'react-native-social-login';
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
 
 export default function Signup(props) {
   const [fullName, setFullName] = useState('');
@@ -34,6 +45,8 @@ export default function Signup(props) {
   const [modalVisible, setModalVisible] = useState(false);
   const [serverError, setServerError] = useState([]);
   const [showLoader, setShowLoader] = useState(false);
+  // const [userInfo, setUserInfo] = useState();
+  // const [manager,setManager] = useState(manager)
 
   const [error, setError] = useState('');
   // // const [data, setData] = useState({});
@@ -43,12 +56,118 @@ export default function Signup(props) {
 
   const dispatch = useDispatch();
   const {token} = useSelector(state => state);
+  // const manage = () => {};
 
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('@storage_Key');
+      const parseValue = JSON.parse(value);
+      if (value) {
+        await dispatch(getProfile(parseValue));
+        props.navigation.navigate('Home');
+        console.log('parseValue', parseValue);
+      } else {
+        console.log('does not exist');
+      }
+    } catch (e) {
+      console.log('e', e);
+    }
+    // console.log('no value is printed');
+  };
+
+  useEffect(() => {
+    getData;
+    GoogleSignin.configure({
+      webClientId:
+        '981119860372-h2i63fmjo5q885p8er2r9uv0lpv3tq78.apps.googleusercontent.com',
+      offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
+      forceCodeForRefreshToken: true, // [Android] related to `serverAuthCode`, read the docs link below *.
+      // iosClientId: '', // [iOS] optional, if you want to specify the client ID of type iOS (otherwise, it is taken from GoogleService-Info.plist)
+    });
+    // isSignedIn();
+  }, []);
+
+  const sendUserData = async userInfo => {
+    // await console.log('setUserData33333', userInfo);
+    await console.log('userData', userInfo);
+    let formData = new FormData();
+    await console.log('printing Id..', userInfo.user.id);
+    await formData.append('social_id', userInfo.user.id);
+    await formData.append('name', userInfo.user.name);
+    await formData.append('email', userInfo.user.email);
+    await formData.append('api_token', userInfo.idToken);
+    await formData.append('avtar', userInfo.user.photo);
+    console.log('printing form data', formData);
+    await axios({
+      method: 'post',
+      url: 'http://testyourapp.online/metag/api/socialAccount',
+      data: formData,
+    })
+      .then(response => {
+        if (response.data.status === 200) {
+          // props.navigation.navigate('Home');
+          // setShowLoader(false),
+          console.log('res print', response);
+        } else {
+          console.log('printing Response', response);
+        }
+      })
+      .catch(error => {
+        console.log('error log...', error);
+      });
+  };
+
+  const signIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      // console.log(userInfo);
+      // setUserInfo(userInfo);
+      await sendUserData(userInfo);
+      props.navigation.navigate('Home');
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+        console.log(error);
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation (e.g. sign in) is in progress already
+        console.log(error);
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        console.log(error);
+        // play services not available or outdated
+      } else {
+        console.log(error);
+        // some other error happened
+      }
+    }
+  };
+
+  // const removeValue = async () => {
+  //   try {
+  //     await AsyncStorage.removeItem('@storage_Key');
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+
+  //   console.log('Done.');
+  // };
+  // removeValue();
   const list = () => {
     return serverError.map(e => {
       return (
-        <Text style={{color: 'red'}} key={e}>
+        <Text
+          style={{
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            // marginTop: 'auto',
+            // marginBottom: 'auto',
+            color: '#808080',
+            fontSize: 16,
+            textAlign: 'center',
+          }}
+          key={e}>
           {e}
+          {'\n'}
         </Text>
       );
     });
@@ -57,7 +176,7 @@ export default function Signup(props) {
   const upload = data => {
     // try {
     axios
-      .post('http://testyourapp.online/metag/api/register', {
+      .post('https://testyourapp.online/metag/api/register', {
         name: data.name,
         email: data.email,
         mobile: data.number,
@@ -94,6 +213,9 @@ export default function Signup(props) {
           console.log('data', res.data.data);
           props.navigation.navigate('Login');
         }
+      })
+      .catch(e => {
+        console.log(e);
       });
     // .catch(error => {
     //   console.log(error);
@@ -126,12 +248,32 @@ export default function Signup(props) {
     if (password !== confirmPassword) {
       errorTemplate.passwordMatch = 'Password and confirmPassword should match';
     }
+    if (number.length !== 12) {
+      errorTemplate.numberLength = 'Mobile Number should be  at 12 digit';
+    }
+    if (password.length < 8) {
+      errorTemplate.passwordLength =
+        'Password should be at least 8 characters long';
+    }
+    if (/[a-z]/.test(password) === false) {
+      errorTemplate.lowerCase = 'Must contain lowercase';
+    }
+    if (/[A-Z]/.test(password) === false) {
+      errorTemplate.upperCase = 'Must contain uppercase';
+    }
+    if (/\d/g.test(password) === false) {
+      errorTemplate.passwordNumber = 'Must conain number';
+    }
+    if (/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(password) === false) {
+      errorTemplate.specialSymbol = 'Must contain special symbol';
+    }
+
     // if () {
     //   console.log(errorTemplate);
     // }
     const val = Object.entries(errorTemplate).length;
     if (val) {
-      // console.log(errorTemplate);
+      console.log(errorTemplate);
       setError(errorTemplate);
     } else {
       (data.name = fullName),
@@ -157,8 +299,9 @@ export default function Signup(props) {
         {/* {dispatch(getAuthToken('thisIsToken'))}
         {console.log(useSelector(state => state.token))} */}
         {/* <Button >Click</Button> */}
+
         <ScrollView>
-          <Modal
+          {/* <Modal
             // style={{
             //   backgroundColor: 'yellow',
             //   // margin: '30%',
@@ -201,6 +344,92 @@ export default function Signup(props) {
                   marginBottom: 'auto',
                 }}>
                 {list()}
+              </View>
+            </View>
+          </Modal> */}
+          <Modal
+            // style={{
+            //   backgroundColor: 'yellow',
+            //   // margin: '30%',
+            //   // width: '60%',
+            //   // height: '60%',
+            //   // margin: '40%',
+            // }}
+            statusBarTranslucent={true}
+            transparent={true}
+            visible={modalVisible}>
+            <View
+              style={{
+                height: '100%',
+                backgroundColor: 'rgba( 0, 0, 0, 0.6 )',
+              }}>
+              <View
+                style={{
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                  marginTop: 'auto',
+                  marginBottom: 'auto',
+                  width: '80%',
+                  height: 'auto',
+                }}>
+                <TouchableOpacity
+                  onPress={() => setModalVisible(!modalVisible)}
+                  style={{
+                    width: '8%',
+                    height: '8%',
+                    marginLeft: 'auto',
+                    // marginRight: '5%',
+                    marginTop: '3%',
+                  }}>
+                  <Image
+                    source={close}
+                    resizeMode="contain"
+                    style={{width: '100%', height: '100%'}}></Image>
+                </TouchableOpacity>
+                {/* <Text
+                  style={{
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    marginTop: 'auto',
+                    marginBottom: 'auto',
+                    color: 'red',
+                  }}>
+                  {list()}
+                </Text> */}
+                <View
+                  style={{
+                    backgroundColor: 'white',
+                    // marginTop: '5%',
+                    padding: '5%',
+                    borderBottomLeftRadius: 10,
+                    borderBottomRightRadius: 10,
+                    borderTopLeftRadius: 10,
+                    borderTopRightRadius: 10,
+                    display: 'flex',
+                    justifyContent: 'space-evenly',
+                  }}>
+                  <Image
+                    source={loginFail}
+                    resizeMode="contain"
+                    style={{
+                      width: '50%',
+                      height: '50%',
+                      marginLeft: 'auto',
+                      marginRight: 'auto',
+                    }}></Image>
+                  <Text
+                    style={{
+                      marginLeft: 'auto',
+                      marginRight: 'auto',
+                      // marginTop: 'auto',
+                      // marginBottom: 'auto',
+                      color: '#000000',
+                      fontSize: 17,
+                    }}>
+                    Oops! something went wrong.
+                  </Text>
+                  {list()}
+                </View>
               </View>
             </View>
           </Modal>
@@ -256,6 +485,7 @@ export default function Signup(props) {
                   value={email}
                 />
               </View>
+              <Text style={{color: 'white'}}>Hint: example@domain.com</Text>
               {error.email && <Text style={{color: 'red'}}>{error.email}</Text>}
               <View style={styles.inputTextBg}>
                 <Image
@@ -274,6 +504,10 @@ export default function Signup(props) {
               {error.number && (
                 <Text style={{color: 'red'}}>{error.number}</Text>
               )}
+              {error.numberLength && (
+                <Text style={{color: 'red'}}>{error.numberLength}</Text>
+              )}
+
               <View style={styles.inputTextBg}>
                 <Image
                   source={require('../../assets/signup/work.png')}
@@ -311,6 +545,21 @@ export default function Signup(props) {
               </View>
               {error.password && (
                 <Text style={{color: 'red'}}>{error.password}</Text>
+              )}
+              {error.passwordLength && (
+                <Text style={{color: 'red'}}>{error.passwordLength}</Text>
+              )}
+              {error.lowerCase && (
+                <Text style={{color: 'red'}}>{error.lowerCase}</Text>
+              )}
+              {error.upperCase && (
+                <Text style={{color: 'red'}}>{error.upperCase}</Text>
+              )}
+              {error.passwordNumber && (
+                <Text style={{color: 'red'}}>{error.passwordNumber}</Text>
+              )}
+              {error.specialSymbol && (
+                <Text style={{color: 'red'}}>{error.specialSymbol}</Text>
               )}
               <View style={styles.inputTextBg}>
                 <Image
@@ -367,6 +616,13 @@ export default function Signup(props) {
             <Text style={styles.forgotpasword_text}>Forgot Password?</Text>
           </TouchableOpacity> */}
             </View>
+            {/* <LinkedInModal
+              // ref={this.linkedRef}
+              clientID="77c766srkw2c1f"
+              clientSecret="Kk0WLaQLszEWtH86"
+              redirectUri="http://localhost:3000/return"
+              onSuccess={token => console.log(token)}
+            /> */}
             <View style={styles.icon_parent}>
               <Text style={styles.text}>Sign up with:</Text>
               <View
@@ -382,9 +638,11 @@ export default function Signup(props) {
                 <Image
                   source={require('../../assets/Login/linkedin.png')}
                   style={styles.img_icon}></Image>
-                <Image
-                  source={require('../../assets/Login/google.png')}
-                  style={styles.img_icon}></Image>
+                <TouchableOpacity onPress={() => signIn()}>
+                  <Image
+                    source={require('../../assets/Login/google.png')}
+                    style={styles.img_icon}></Image>
+                </TouchableOpacity>
               </View>
             </View>
             <View style={styles.footer}>
@@ -399,6 +657,7 @@ export default function Signup(props) {
             </View>
           </View>
         </ScrollView>
+        {/* {manage()} */}
       </ImageBackground>
     );
   }

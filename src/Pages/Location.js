@@ -15,6 +15,8 @@ import bg from '../../assets/Logo/bg.png';
 import Logo from '../../assets/Logo/logo.svg';
 import AvtarImage from '../../assets/CreateProfile/work.png';
 import exampleImg from '../../assets/splash.png';
+import gps from '../../assets/gps.png';
+import group from '../../assets/Group.png';
 
 import {TouchableOpacity} from 'react-native-gesture-handler';
 // import MapView from 'react-native-maps';
@@ -92,7 +94,7 @@ export default function Location(props) {
             <Text style={styles.completeProfile}>Complete Profile</Text>
           </View>
           <View style={styles.avtar_parent}>
-            <Text style={styles.upload_text}>Upload Business Logo</Text>
+            <Text style={styles.upload_text}>Add Your Address/Location</Text>
             {/* <View>
               <GooglePlacesAutocomplete
                 placeholder="Search"
@@ -106,8 +108,56 @@ export default function Location(props) {
                 }}
               />
             </View> */}
-            <View style={styles.avtar_bg}>
+            <View
+            //  style={styles.avtar_bg}
+            >
+              <View
+                style={{
+                  // marginBottom: '-30%',
+                  backgroundColor: 'white',
+                  borderWidth: 3,
+                  borderRadius: 1,
+                  borderColor: '#ddd',
+                  borderBottomWidth: 0,
+                  shadowColor: '#000',
+                  shadowOffset: {width: 0, height: 2},
+                  shadowOpacity: 0.8,
+                  shadowRadius: 20,
+                  elevation: 1,
+                  // marginLeft: '3%',
+                  // marginRight: '3%',
+                  display: 'flex',
+                  flexDirection: 'row',
+                }}>
+                <TextInput
+                  placeholder="Enter Location"
+                  placeholderTextColor="#a9a9a9"
+                  style={{marginLeft: '5%', color: '#000000'}}></TextInput>
+                <Image
+                  source={gps}
+                  width={30}
+                  height={30}
+                  style={{
+                    zIndex: 5,
+                    marginLeft: 'auto',
+                    alignSelf: 'center',
+                    marginRight: '5%',
+                    // margin,
+                    // marginRight: '5%',
+                    // marginBottom: '-5%',
+                  }}></Image>
+              </View>
+              {/* <Image source={gps}></Image> */}
               <View style={styles.containerG}>
+                <Image
+                  source={group}
+                  style={{
+                    zIndex: 5,
+                    alignSelf: 'flex-end',
+                    marginTop: 'auto',
+                    marginRight: '3%',
+                    marginBottom: '3%',
+                  }}></Image>
                 <MapView
                   provider={PROVIDER_GOOGLE} // remove if not using Google Maps
                   style={styles.map}
@@ -314,16 +364,20 @@ const styles = StyleSheet.create({
   },
   containerG: {
     // ...StyleSheet.absoluteFillObject,
-    height: 200,
-    width: 200,
+    height: '70%',
+    width: '100%',
+    // backgroundColor:'pink',
     // marginLeft: 'auto',
     // marginRight: 'auto',
-    marginLeft: '10%',
-    marginRight: '10%',
-    justifyContent: 'flex-end',
+    // marginLeft: '10%',
+    // marginRight: '10%',
+    // justifyContent: 'flex-end',
     alignItems: 'center',
+    // borderRadius: 20,
+    // borderBottomRightRadius: 20,
   },
   map: {
     ...StyleSheet.absoluteFillObject,
+    // borderRadius: 40,
   },
 });

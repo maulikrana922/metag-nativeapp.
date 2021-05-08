@@ -2,6 +2,7 @@ export const GET_TOKEN = 'GET_TOKEN';
 export const GET_VERIFY_KEY = 'GET_VERIFY_KEY';
 export const GET_ID = 'GET_ID';
 export const GET_PROFILE = 'GET_PROFILE';
+export const GET_LINK = 'GET_LINK';
 
 export const getAuthToken = token => ({
   type: GET_TOKEN,
@@ -28,12 +29,17 @@ export const getProfile = profile => ({
 //     payload: 'token',
 //   });
 // };
+export const getLink = link => ({
+  type: GET_LINK,
+  payload: link,
+});
 
 const initialState = {
   token: null,
   verifyKey: null,
   id: null,
   profile: null,
+  link: null,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -59,6 +65,12 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         profile: payload,
+      };
+    }
+    case GET_LINK: {
+      return {
+        ...state,
+        link: payload,
       };
     }
     default:

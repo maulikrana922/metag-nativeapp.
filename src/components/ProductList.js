@@ -40,11 +40,16 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function ProductList({price, title, image}) {
+export default function ProductList({price, title, image, key, currency}) {
   return (
-    <View style={styles.productListView}>
+    <View style={styles.productListView} Key={key}>
       {console.log(price, title, image)}
-      <View style={styles.productView}></View>
+      {/* <View style={styles.productView}></View> */}
+      <Image
+        source={{uri: image}}
+        style={styles.productView}
+        width={40}
+        height={40}></Image>
       <View
         style={{
           marginTop: 'auto',

@@ -9,6 +9,9 @@ import {
   Button,
   Platform,
   StatusBar,
+  Alert,
+  Modal,
+  TouchableOpacity,
 } from 'react-native';
 // import AvtarImage from "../../assets/avtar.svg";
 //
@@ -17,12 +20,14 @@ import Logo from '../../assets/Logo/logo.svg';
 import AvtarImage from '../../assets/CreateProfile/work.png';
 import exampleImg from '../../assets/splash.png';
 import Loader from '../components/Loader';
+import close from '../../assets/close.png';
 
-import {TouchableOpacity} from 'react-native-gesture-handler';
+// import {TouchableOpacity} from 'react-native-gesture-handler';
 import * as ImagePicker from 'react-native-image-picker';
 import axios from 'axios';
 import {useSelector, useDispatch} from 'react-redux';
 import {getToken, getAuthToken, getProfile} from '../redux/reducer';
+import loginFail from '../../assets/loginFail.png';
 
 export default function CreateProfile(props) {
   const [image, setImage] = useState(null);
@@ -31,6 +36,9 @@ export default function CreateProfile(props) {
   const [next, setNext] = useState(false);
   const {profile} = useSelector(state => state);
   const [showLoader, setShowLoader] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  console.log(modalVisible);
 
   const handleUploadPhoto = imgResponse => {
     let formData = new FormData();
@@ -61,10 +69,14 @@ export default function CreateProfile(props) {
     })
       .then(response => {
         if (response.data.status === 200) {
+          // setShowLoader(false),
           setNext(true);
+          console.log('settignNext', next);
+          console.log(showLoader);
           console.log('true', next);
         } else {
           console.log('false', next);
+          // setNext(false);
         }
       })
       .catch(error => {
@@ -89,10 +101,16 @@ export default function CreateProfile(props) {
     };
     ImagePicker.launchImageLibrary(options, imgResponse => {
       console.log('response', imgResponse);
+      if (imgResponse.didCancel) {
+        setShowLoader(false);
+      }
       if (imgResponse.uri) {
         setImage(imgResponse.uri);
         // console.log('token', token);
-        setShowLoader(false), handleUploadPhoto(imgResponse);
+        // setShowLoader(false),
+        handleUploadPhoto(imgResponse);
+        setShowLoader(false);
+        setNext(true);
       }
     });
   };
@@ -124,13 +142,15 @@ export default function CreateProfile(props) {
   //     setNewImage(result.uri)
   //   }
   // }
-
+  console.log('log next', next);
+  console.log('modalClose123', modalVisible);
   if (!isLoaded) {
     return null;
   } else {
     return (
       <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
         {console.log('body', next)}
+
         <View style={styles.container}>
           {showLoader && <Loader />}
 
@@ -193,7 +213,12 @@ export default function CreateProfile(props) {
               </View>
               <Text
                 // onPress={() => props.navigation.navigate('Location')}
-                onPress={() => next && props.navigation.navigate('Location')}
+                // disabled={true}
+                onPress={() =>
+                  next === true
+                    ? props.navigation.navigate('Location')
+                    : setModalVisible(true)
+                }
                 style={styles.next}>
                 Next
               </Text>
@@ -243,6 +268,126 @@ export default function CreateProfile(props) {
             </View>
           </View>
         </View>
+        <Modal
+          // style={{
+          //   backgroundColor: 'yellow',
+          //   // margin: '30%',
+          //   // width: '60%',
+          //   // height: '60%',
+          //   // margin: '40%',
+          // }}
+          statusBarTranslucent={true}
+          transparent={true}
+          visible={modalVisible}>
+          <View
+            style={{
+              height: '100%',
+              backgroundColor: 'rgba( 0, 0, 0, 0.6 )',
+            }}>
+            <View
+              style={{
+                // backgroundColor: 'white',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                marginTop: 'auto',
+                marginBottom: 'auto',
+                width: '80%',
+                height: 'auto',
+              }}>
+              <TouchableOpacity
+                onPress={() => setModalVisible(false)}
+                style={{
+                  // backgroundColor: 'red',
+                  // width: '15%',
+                  // height: '15%',
+                  // marginLeft: 'auto',
+                  // // marginRight: '5%',
+                  // marginTop: 'auto',
+                  // marginBottom: '5%',
+                  width: '8%',
+                  height: '8%',
+                  marginLeft: 'auto',
+                  // marginRight: '5%',
+                  marginTop: '3%',
+                }}>
+                <Image
+                  source={close}
+                  resizeMode="contain"
+                  style={{width: '100%', height: '100%'}}></Image>
+              </TouchableOpacity>
+              <View
+                style={{
+                  backgroundColor: 'white',
+                  // marginTop: '5%',
+                  padding: '5%',
+                  borderBottomLeftRadius: 10,
+                  borderBottomRightRadius: 10,
+                  borderTopLeftRadius: 10,
+                  borderTopRightRadius: 10,
+                  display: 'flex',
+                  justifyContent: 'space-evenly',
+                }}>
+                <Image
+                  source={loginFail}
+                  resizeMode="contain"
+                  style={{
+                    width: '50%',
+                    height: '50%',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                  }}></Image>
+                <Text
+                  style={{
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    // marginTop: 'auto',
+                    // marginBottom: 'auto',
+                    color: '#000000',
+                    fontSize: 17,
+                  }}>
+                  Oops! something went wrong.
+                </Text>
+                <Text
+                  style={{
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    // marginTop: 'auto',
+                    // marginBottom: 'auto',
+                    color: '#808080',
+                    fontSize: 16,
+                    textAlign: 'center',
+                  }}>
+                  Please upload Business Logo to complete your Profile.
+                </Text>
+                <TouchableOpacity
+                  onPress={() => setModalVisible(false)}
+                  // onPress={() => props.navigation.navigate('CreateProfile')}
+                  style={{
+                    // marginTop: 20,
+                    alignItems: 'center',
+                    padding: 8,
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    backgroundColor: 'black',
+                    borderBottomLeftRadius: 50,
+                    borderBottomRightRadius: 50,
+                    borderTopRightRadius: 0,
+                    borderTopLeftRadius: 50,
+                    width: '100%',
+                  }}>
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontFamily: 'Poppins-Regular',
+                      fontSize: 16,
+                    }}>
+                    Got it!
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </Modal>
       </ImageBackground>
     );
   }

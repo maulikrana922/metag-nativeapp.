@@ -11,6 +11,7 @@ import {
   Platform,
   TouchableOpacity,
   ImageBackground,
+  Modal,
 } from 'react-native';
 // import AvtarImage from "../../assets/avtar.svg";
 //
@@ -31,10 +32,12 @@ import facebook from '../../assets/facebook.png';
 import google from '../../assets/google-plus.png';
 import instagram from '../../assets/instagram.png';
 import more from '../../assets/myOrders/more.png';
+import More from '../../assets/myProfile/more.svg';
 
 import Menu from '../../src/components/Menu';
 import Logo from '../../assets/Logo/logo.svg';
 import bg from '../../assets/Logo/bg.png';
+import axios from 'axios';
 
 // import {
 //   useFonts,
@@ -48,6 +51,7 @@ export default function MyProfile(props) {
   const [image, setImage] = useState(null);
   const [newImage, setNewImage] = useState(AvtarImage);
   const [isLoaded, setLoaded] = useState(true);
+  const [show, setShow] = useState(false);
 
   // useEffect(() => {
   //   ;(async () => {
@@ -77,7 +81,27 @@ export default function MyProfile(props) {
   //     setNewImage(result.uri)
   //   }
   // }
+  const logout = () => {
+    axios({
+      method: 'POST',
+      url: 'http://testyourapp.online/metag/api/logout',
+      headers: {
+        Authorization: 'Bearer ' + profile.api_token,
+      },
+    })
+      .then(response => {
+        if (response.data.status === 200) {
+          // setNext(true);
+          console.log('success', response.data);
+          removeValue();
 
+          // removeData();
+        } else {
+          console.log('Failed', response.data);
+        }
+      })
+      .catch(error => console.log('logout data', error));
+  };
   if (!isLoaded) {
     return null;
   } else {
@@ -114,9 +138,74 @@ export default function MyProfile(props) {
                     position: 'relative',
                     left: 60,
                   }}>
-                  <Image source={more}></Image>
+                  {/* <Image source={more}></Image> */}
+                  <TouchableOpacity
+                    // onPress={() => props.navigation.navigate('Contact')}
+                    onPress={() => setShow(!show)}
+                    style={{
+                      alignSelf: 'center',
+                      padding: 10,
+                      // backgroundColor: 'red',
+                    }}>
+                    <More />
+                  </TouchableOpacity>
                 </View>
               </View>
+              {show && (
+                <View
+                  style={{
+                    backgroundColor: '#FFFFFF',
+                    width: 'auto',
+                    height: 'auto',
+                    borderRadius: 10,
+                    marginLeft: 'auto',
+                    marginRight: 22,
+                    marginTop: -20,
+                  }}>
+                  <View
+                    style={{
+                      transform: [{rotate: '-45deg'}],
+                      backgroundColor: '#FFFFFF',
+                      width: 15,
+                      height: 15,
+                      position: 'relative',
+                      bottom: 5,
+                      marginLeft: 'auto',
+                      marginRight: 10,
+                    }}></View>
+                  <View
+                    style={{
+                      paddingRight: 10,
+                      paddingLeft: 10,
+                      paddingBottom: 10,
+                    }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        borderBottomColor: '#E5E5E5',
+                        borderBottomWidth: 1,
+                        paddingBottom: '2%',
+                        fontFamily: 'Poppins-Reguler',
+                      }}
+                      onPress={() =>
+                        props.navigation.navigate('ChangePassword')
+                      }>
+                      Settings
+                    </Text>
+                    <Text
+                      onPress={() => {
+                        logout();
+                      }}
+                      style={{
+                        fontSize: 16,
+                        paddingTop: '2%',
+                        fontFamily: 'Poppins-Reguler',
+                      }}>
+                      Logout
+                    </Text>
+                  </View>
+                </View>
+              )}
               <Text style={styles.completeProfile}>My Orders</Text>
             </View>
           </View>
@@ -219,7 +308,7 @@ export default function MyProfile(props) {
               </View>
             </TouchableOpacity>
           </View>
-          <Menu />
+          {/* <Menu /> */}
         </View>
       </ImageBackground>
     );

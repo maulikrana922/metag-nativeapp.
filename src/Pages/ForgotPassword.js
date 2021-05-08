@@ -42,8 +42,8 @@ function ForgotPassword(props) {
         if (res.data.errors) {
           console.log('errr', res.data.errors);
           let e = [];
-          if (res.data.errors.error) {
-            e.push(res.data.errors.error);
+          if (res.data.errors.email) {
+            e.push(res.data.errors.email);
           }
 
           console.log(modalVisible);
@@ -95,42 +95,55 @@ function ForgotPassword(props) {
           //   // height: '60%',
           //   // margin: '40%',
           // }}
+          statusBarTranslucent={true}
           transparent={true}
           visible={modalVisible}>
           <View
             style={{
-              backgroundColor: '#eeeeee',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              marginTop: 'auto',
-              marginBottom: 'auto',
-              width: '80%',
-              height: '80%',
+              height: '100%',
+              backgroundColor: 'rgba( 0, 0, 0, 0.6 )',
             }}>
-            <TouchableOpacity
-              onPress={() => setModalVisible(!modalVisible)}
+            <View
               style={{
-                // backgroundColor: 'red',
-                width: '5%',
-                height: '5%',
-                marginLeft: 'auto',
-                marginRight: '5%',
-                marginTop: '3%',
-              }}>
-              <Image
-                source={cancel}
-                resizeMode="contain"
-                style={{width: '100%', height: '100%'}}></Image>
-            </TouchableOpacity>
-            <Text
-              style={{
+                backgroundColor: '#eeeeee',
                 marginLeft: 'auto',
                 marginRight: 'auto',
                 marginTop: 'auto',
                 marginBottom: 'auto',
+                width: '80%',
+                height: '10%',
+                borderBottomLeftRadius: 10,
+                borderBottomRightRadius: 10,
+                borderTopLeftRadius: 10,
+                borderTopRightRadius: 10,
               }}>
-              {serverError}
-            </Text>
+              <TouchableOpacity
+                onPress={() => setModalVisible(!modalVisible)}
+                style={{
+                  // backgroundColor: 'red',
+                  width: '17%',
+                  height: '17%',
+                  marginLeft: 'auto',
+                  // marginRight: '5%',
+                  marginTop: '3%',
+                }}>
+                <Image
+                  source={cancel}
+                  resizeMode="contain"
+                  style={{width: '100%', height: '100%'}}></Image>
+              </TouchableOpacity>
+              <Text
+                style={{
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                  marginTop: 'auto',
+                  marginBottom: 'auto',
+                  color: 'red',
+                  fontSize: 17,
+                }}>
+                {serverError}
+              </Text>
+            </View>
           </View>
         </Modal>
         <View style={styles.container}>

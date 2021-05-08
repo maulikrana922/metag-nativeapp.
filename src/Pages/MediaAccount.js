@@ -12,6 +12,7 @@ import {
 import CheckBox from '@react-native-community/checkbox';
 // import AvtarImage from "../../assets/avtar.svg";
 import {useSelector, useDispatch} from 'react-redux';
+import {getToken, getAuthToken, getProfile, getLink} from '../redux/reducer';
 import axios from 'axios';
 import Tick from '../../assets/CreateProfile/tick.svg';
 import bg from '../../assets/Logo/bg.png';
@@ -26,6 +27,8 @@ import google from '../../assets/google-plus.png';
 import instagram from '../../assets/instagram.png';
 
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import Loader from '../components/Loader';
+
 import {set} from 'react-native-reanimated';
 // import CheckBox from 'react-native-check-box';
 // import bg from '../../assets/Logo/bg.png';
@@ -51,31 +54,45 @@ export default function CreateProfile(props) {
   const [tCheck, setTCheck] = useState(false);
   const [iCheck, setICheck] = useState(false);
   const [fCheck, setFCheck] = useState(false);
-  const {token, profile} = useSelector(state => state);
+  const [showLoader, setShowLoader] = useState(false);
+  const dispatch = useDispatch();
+  const {token, profile, link} = useSelector(state => state);
+
+  console.log(fUrl, iUrl, tUrl, lUrl);
+  console.log('My token', profile.api_token);
 
   const uploadLinks = () => {
-    const fLink = fCheck ? fUrl : '';
-    const iLink = iCheck ? iUrl : '';
-    const tLink = tCheck ? tUrl : '';
-    const lLink = lCheck ? lUrl : '';
-    const data = {
-      facebook_link: fLink,
-      insta_link: iLink,
-      twitter_link: tLink,
-      linkedin_link: lLink,
-    };
+    setShowLoader(true);
+    const fLink = fCheck ? fUrl : null;
+    const iLink = iCheck ? iUrl : null;
+    const tLink = tCheck ? tUrl : null;
+    const lLink = lCheck ? lUrl : null;
+    console.log(profile);
+    // const data = {
+    //   facebook_link: fLink,
+    //   insta_link: iLink,
+    //   twitter_link: tLink,
+    //   linkedin_link: lLink,
+    // };
     axios({
       method: 'post',
       url: 'http://testyourapp.online/metag/api/link-account',
-      data: data,
+      data: {
+        facebook_link: fLink,
+        insta_link: iLink,
+        twitter_link: tLink,
+        linkedin_link: lLink,
+      },
       headers: {
-        'content-type': 'multipart/form-data',
         Authorization: 'Bearer ' + profile.api_token,
       },
     })
       .then(response => {
-        console.log('printing link status', response.status);
-        props.navigation.navigate('Home');
+        console.log('printing link status......', response.status);
+        // console.log('printing data with checking link', data);
+
+        // dispatch(getLink(data));
+
         axios({
           method: 'post',
           url: 'http://testyourapp.online/metag/api/flag-changes',
@@ -87,6 +104,8 @@ export default function CreateProfile(props) {
           },
         })
           .then(response => {
+            setShowLoader(false);
+            props.navigation.navigate('Home');
             console.log('printing link status', response.status);
             console.log('printing true and false', response.data);
           })
@@ -97,7 +116,7 @@ export default function CreateProfile(props) {
       .catch(error => {
         console.log('error...', error);
       });
-    console.log(data);
+    // console.log(data);
     // props.navigation.navigate('Home');
   };
   // useEffect(() => {
@@ -127,7 +146,9 @@ export default function CreateProfile(props) {
   //     // setImage(result.uri);
   //     setNewImage(result.uri);
   //   }
+
   // };
+  console.log(link);
 
   if (!isLoaded) {
     return null;
@@ -135,6 +156,7 @@ export default function CreateProfile(props) {
     return (
       <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
         <View style={styles.container}>
+          {showLoader && <Loader />}
           <View style={styles.header_parent}>
             <View style={styles.header}>
               {/* <View style={styles.arrowback}></View> */}
@@ -213,7 +235,7 @@ export default function CreateProfile(props) {
                 <TouchableOpacity onPress={() => setTText(true)}>
                   <Image source={twitter} style={styles.logo}></Image>
                 </TouchableOpacity>
-                {lText && (
+                {tText && (
                   <View style={{width: '60%'}}>
                     <TextInput
                       onChangeText={text => setTUrl(text.trim())}
@@ -222,7 +244,7 @@ export default function CreateProfile(props) {
                       style={styles.url}></TextInput>
                   </View>
                 )}
-                {lText && (
+                {tText && (
                   <View style={styles.checkBg}>
                     <TouchableOpacity
                       style={styles.tick}
@@ -243,7 +265,7 @@ export default function CreateProfile(props) {
                 <TouchableOpacity onPress={() => setIText(true)}>
                   <Image source={instagram} style={styles.logo}></Image>
                 </TouchableOpacity>
-                {lText && (
+                {iText && (
                   <View style={{width: '60%'}}>
                     <TextInput
                       onChangeText={text => setIUrl(text.trim())}
@@ -252,7 +274,7 @@ export default function CreateProfile(props) {
                       style={styles.url}></TextInput>
                   </View>
                 )}
-                {lText && (
+                {iText && (
                   <View style={styles.checkBg}>
                     <TouchableOpacity
                       style={styles.tick}
@@ -276,7 +298,7 @@ export default function CreateProfile(props) {
                   }}>
                   <Image source={facebook} style={styles.logo}></Image>
                 </TouchableOpacity>
-                {lText && (
+                {fText && (
                   <View style={{width: '60%'}}>
                     <TextInput
                       onChangeText={text => setFUrl(text.trim())}
@@ -285,7 +307,7 @@ export default function CreateProfile(props) {
                       style={styles.url}></TextInput>
                   </View>
                 )}
-                {lText && (
+                {fText && (
                   <View style={styles.checkBg}>
                     <TouchableOpacity
                       style={styles.tick}

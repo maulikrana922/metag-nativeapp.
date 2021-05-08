@@ -31,7 +31,14 @@ function ViewAll(props) {
     });
   }, [count, start]);
   return (
-    <View style={{marginTop: '10%'}}>
+    <View
+      style={{
+        paddingTop: '10%',
+        paddingLeft: '5%',
+        paddingRight: '5%',
+        backgroundColor: 'white',
+        flex: 1,
+      }}>
       <ScrollView>
         {/* <ProductList /> */}
         {products.length !== 0 &&
@@ -43,6 +50,7 @@ function ViewAll(props) {
                 title={element.title}
                 price={element.price}
                 image={element.image}
+                key={element.id}
               />
               // </ScrollView>
             );

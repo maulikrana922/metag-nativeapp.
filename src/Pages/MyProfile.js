@@ -40,8 +40,14 @@ import bg from '../../assets/Logo/bg.png';
 import {useSelector, useDispatch} from 'react-redux';
 // import Loader from '../components/Loader';
 import {getToken, getAuthToken, getProfile} from '../redux/reducer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import * as ImagePicker from 'react-native-image-picker';
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
 
 export default function MyProfile(props) {
   const dispatch = useDispatch();
@@ -49,7 +55,7 @@ export default function MyProfile(props) {
   const [show, setShow] = useState(false);
   const [newImage, setNewImage] = useState(Avatar);
   const [isLoaded, setLoaded] = useState(true);
-  const {token, profile} = useSelector(state => state);
+  const {token, profile, link} = useSelector(state => state);
   const [input, setInput] = useState(false);
   const [userEmail, setUseremail] = useState(profile.email);
   const [userName, setUserName] = useState(profile.name);
@@ -60,9 +66,22 @@ export default function MyProfile(props) {
   const [location, setLocation] = useState(profile.location);
   const [imageResponse, setImageResponse] = useState('');
   const [showLoader, setShowLoader] = useState(false);
+  const [social, setSocial] = useState('');
 
   console.log('printing userName', userName);
   console.log('businessName', businessName);
+  console.log('linking22', link);
+
+  const signOut = async () => {
+    try {
+      await GoogleSignin.revokeAccess();
+      await GoogleSignin.signOut();
+      this.setState({user: null}); // Remember to remove the user from your app's state as well
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  signOut();
   // const [user]
   // const []
   // const [error, setError] = useState('');
@@ -96,7 +115,58 @@ export default function MyProfile(props) {
   //   }
   // };
   console.log('Profile........picture', profile.profile_pic);
+
   console.log('printing profile', profile);
+
+  // const removeData = async () => {
+  //   try {
+  //     await AsyncStorage.removeItem('@storage_Key');
+  //     await props.navigation.navigate('Login');
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+
+  //   console.log('Done.');
+  // };
+
+  const removeValue = async () => {
+    try {
+      await AsyncStorage.removeItem('@storage_Key');
+      await dispatch(getProfile({}));
+      props.navigation.navigate('Login');
+      // props.navigation.navigate('Login');
+    } catch (e) {
+      console.log(e);
+    }
+
+    console.log('Done.');
+  };
+  // removeValue();
+  useEffect(() => {
+    axios({
+      method: 'GET',
+      url: 'http://testyourapp.online/metag/api/profile',
+      headers: {
+        Authorization: 'Bearer ' + profile.api_token,
+      },
+    })
+      .then(response => {
+        if (response.data.status === 200) {
+          // setNext(true);
+          console.log('success getting profile 4', response.data.data[0]);
+          // removeValue();
+          setSocial(response.data.data[0]);
+          console.log('priting social', social);
+          // removeData();
+        } else {
+          console.log('Failed', response.data);
+        }
+      })
+      .catch(error => console.log('profile error', error));
+  }, []);
+
+  // console.log(profile.api_token);
+
   const logout = () => {
     axios({
       method: 'POST',
@@ -109,14 +179,16 @@ export default function MyProfile(props) {
         if (response.data.status === 200) {
           // setNext(true);
           console.log('success', response.data);
-          props.navigation.navigate('Login');
+          removeValue();
+
+          // removeData();
         } else {
           console.log('Failed', response.data);
         }
       })
       .catch(error => console.log('logout data', error));
   };
-
+  // logout();
   // console.log('logout', profile);
   // updateProfile(imgResponse);
   const updateProfile = imgResponse => {
@@ -200,15 +272,15 @@ export default function MyProfile(props) {
     });
   };
 
-  let getPic = () => {
-    // const pic = !profile.profile_pic ? Avatar : profile.profile_pic;
-    if (!profile.profile_pic) {
-      return require('../../assets/myProfile/avatar.png');
-    } else {
-      return {uri: profile.profile_pic};
-    }
-    return {uri: image};
-  };
+  // let getPic = () => {
+  //   // const pic = !profile.profile_pic ? Avatar : profile.profile_pic;
+  //   if (!profile.profile_pic) {
+  //     return require('../../assets/myProfile/avatar.png');
+  //   } else {
+  //     return {uri: profile.profile_pic};
+  //   }
+  //   return {uri: image};
+  // };
 
   if (!isLoaded) {
     return null;
@@ -252,34 +324,65 @@ export default function MyProfile(props) {
                 <TouchableOpacity
                   // onPress={() => props.navigation.navigate('Contact')}
                   onPress={() => setShow(!show)}
-                  style={{alignSelf: 'center'}}>
+                  style={{
+                    alignSelf: 'center',
+                    padding: 10,
+                    // backgroundColor: 'red',
+                  }}>
                   <More />
                 </TouchableOpacity>
               </View>
               {show && (
                 <View
                   style={{
-                    backgroundColor: 'white',
-                    width: '30%',
-                    marginLeft: 'auto',
+                    backgroundColor: '#FFFFFF',
+                    width: 'auto',
                     height: 'auto',
-                    padding: '2%',
-                    display: 'flex',
-                    alignItems: 'center',
+                    borderRadius: 10,
+                    marginLeft: 'auto',
+                    marginRight: -6,
                     marginTop: -20,
                   }}>
-                  <Text
-                    style={{fontSize: 16}}
-                    onPress={() => props.navigation.navigate('ChangePassword')}>
-                    Setting
-                  </Text>
-                  <Text
-                    onPress={() => {
-                      logout();
-                    }}
-                    style={{fontSize: 16}}>
-                    Logout
-                  </Text>
+                  <View
+                    style={{
+                      transform: [{rotate: '-45deg'}],
+                      backgroundColor: '#FFFFFF',
+                      width: 15,
+                      height: 15,
+                      position: 'relative',
+                      bottom: 5,
+                      marginLeft: 'auto',
+                      marginRight: 10,
+                    }}></View>
+                  <View
+                    style={{
+                      paddingRight: 10,
+                      paddingLeft: 10,
+                      paddingBottom: 10,
+                    }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        borderBottomColor: '#E5E5E5',
+                        borderBottomWidth: 1,
+                        paddingBottom: '2%',
+                        fontFamily: 'Poppins-Reguler',
+                      }}
+                      onPress={() =>
+                        props.navigation.navigate('ChangePassword')
+                      }>
+                      Settings
+                    </Text>
+                    <Text
+                      onPress={() => logout()}
+                      style={{
+                        fontSize: 16,
+                        paddingTop: '2%',
+                        fontFamily: 'Poppins-Reguler',
+                      }}>
+                      Logout
+                    </Text>
+                  </View>
                 </View>
               )}
               <Text style={styles.completeProfile}>My Profile</Text>
@@ -295,7 +398,7 @@ export default function MyProfile(props) {
                 <TouchableOpacity
                   onPress={() =>
                     ShareMethod.share({
-                      message: 'Share your profile',
+                      message: `https://metag.com/${profile.id}/details`,
                     })
                   }>
                   <Share />
@@ -347,7 +450,7 @@ export default function MyProfile(props) {
             // source={!image ? getPic : {uri: image}}
             style={styles.profileImage}></Image> */}
           {/* <View style={styles.camera_bg}> */}
-          {!image ? (
+          {/* {!image ? (
             !profile.profile_pic ? (
               <Image source={Avatar} style={styles.profileImage}></Image>
             ) : (
@@ -357,7 +460,21 @@ export default function MyProfile(props) {
             )
           ) : (
             <Image source={{uri: image}} style={styles.profileImage}></Image>
+          )} */}
+          {social.profilePic == null ? (
+            <Image source={Avatar} style={styles.profileImage}></Image>
+          ) : !image ? (
+            <Image
+              source={{uri: social.profilePic}}
+              style={styles.profileImage}></Image>
+          ) : (
+            <Image
+              source={{uri: social.profilePic}}
+              style={styles.profileImage}></Image>
           )}
+          {/* {image && (
+            <Image source={{uri: image}} style={styles.profileImage}></Image>
+          )} */}
           {input && (
             <TouchableOpacity
               onPress={handleChoosePhoto}
@@ -378,6 +495,7 @@ export default function MyProfile(props) {
             </TouchableOpacity>
           )}
           {/* </View> */}
+          {/* <ScrollView> */}
           <View style={{paddingTop: 10}}>
             {!input ? (
               <Text
@@ -414,8 +532,8 @@ export default function MyProfile(props) {
                     borderBottomColor: '#D3D3D3',
                     width: '30%',
                     textAlign: 'center',
-                    // color="black"
-                    // color: '#000000',
+                    // fontColor="black"
+                    color: '#000000',
                   }}
                   value={userName}
                   onChangeText={text => setUserName(text.trim())}></TextInput>
@@ -427,24 +545,43 @@ export default function MyProfile(props) {
               display: 'flex',
               flexDirection: 'row',
               alignSelf: 'center',
-              margin: 20,
+              width: '100%',
+              marginTop: '3%',
+              // margin: 20,
+              justifyContent: 'space-evenly',
             }}>
-            <View>
-              <Image source={google} style={styles.logo}></Image>
-            </View>
-            <View>
+            {social.linkedin_link && (
               <Image source={linkedin} style={styles.logo}></Image>
-            </View>
-            <View>
+            )}
+            {social.twitter_link && (
               <Image source={twitter} style={styles.logo}></Image>
-            </View>
-            <View>
+            )}
+            {social.insta_link && (
               <Image source={instagram} style={styles.logo}></Image>
-            </View>
-            <View>
+            )}
+            {social.facebook_link && (
               <Image source={facebook} style={styles.logo}></Image>
-            </View>
+            )}
           </View>
+
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignSelf: 'center',
+              // margin: 20,
+              width: '80%',
+              marginBottom: 10,
+              // backgroundColor: 'red',
+              justifyContent: 'space-evenly',
+              // marginLeft: '10%',
+              // marginRight: '10%',
+            }}>
+            {/* <View> */}
+
+            {/* </View> */}
+          </View>
+
           {!input && (
             <View
               style={{
@@ -488,6 +625,7 @@ export default function MyProfile(props) {
                 elevation: 4,
                 padding: 20,
                 width: '90%',
+                // marginRight: 40,
               }}>
               <ScrollView>
                 <View
@@ -500,7 +638,7 @@ export default function MyProfile(props) {
                   }}>
                   <Work width={30} height={30} fill="black" />
                   <TextInput
-                    style={{marginLeft: '10%'}}
+                    style={{marginLeft: '10%', color: '#000000'}}
                     value={businessName}
                     onChangeText={text =>
                       setBusinessName(text.trim())
@@ -516,7 +654,7 @@ export default function MyProfile(props) {
                   }}>
                   <Email width={30} height={30} fill="black" />
                   <TextInput
-                    style={{marginLeft: '10%'}}
+                    style={{marginLeft: '10%', color: '#000000'}}
                     value={userEmail}
                     onChangeText={text =>
                       setUseremail(text.trim())
@@ -533,8 +671,7 @@ export default function MyProfile(props) {
                   <Iphone width={30} height={30} fill="black" />
 
                   <TextInput
-                    style={{marginLeft: '10%'}}
-                    color="black "
+                    style={{marginLeft: '10%', color: '#000000'}}
                     value={userMobileNumber}
                     onChangeText={text =>
                       setUserMobileNumber(text.trim())
@@ -551,94 +688,13 @@ export default function MyProfile(props) {
                   }}>
                   <Gps width={30} height={30} fill="black" />
                   <TextInput
-                    style={{marginLeft: '10%'}}
+                    style={{marginLeft: '10%', color: '#000000'}}
                     value={location}
                     onChangeText={text => setLocation(text.trim())}></TextInput>
                 </View>
               </ScrollView>
             </View>
           )}
-          {/* {input ? (
-              <View
-                style={{
-                  borderBottomWidth: 1,
-                  borderBottomColor: '#D3D3D3',
-                  display: 'flex',
-                  flexDirection: 'row',
-                  marginTop: '5%',
-                }}>
-                <Work width={30} height={30} fill="black" />
-                <TextInput style={{}}></TextInput>
-              </View>
-            ) : (
-              <View style={styles.info}>
-                <Work width={30} height={30} fill="black" />
-                <Text style={styles.infoPadding}>{profile.business_name}</Text>
-              </View>
-            )} */}
-          {/* {input ? (
-              <View
-                style={{
-                  borderBottomWidth: 1,
-                  borderBottomColor: '#D3D3D3',
-                  display: 'flex',
-                  flexDirection: 'row',
-                  marginTop: '5%',
-                }}>
-                <Email width={30} height={30} fill="black" />
-                <TextInput style={{}}></TextInput>
-              </View>
-            ) : (
-              <View style={styles.info}>
-                <Email width={30} height={30} fill="black" />
-                <Text style={styles.infoPadding}>{profile.email}</Text>
-              </View>
-            )} */}
-          {/* {input ? (
-              <View
-                style={{
-                  borderBottomWidth: 1,
-                  borderBottomColor: '#D3D3D3',
-                  display: 'flex',
-                  flexDirection: 'row',
-                  marginTop: '5%',
-                }}>
-                <Iphone width={30} height={30} fill="black" />
-                <TextInput style={{}}></TextInput>
-              </View>
-            ) : (
-              <View style={styles.info}>
-                <Iphone width={30} height={30} fill="black" />
-                <Text style={styles.infoPadding}>{profile.mobile}</Text>
-              </View>
-            )} */}
-          {/* <View style={styles.info}>
-              <Iphone width={30} height={30} fill="black" />
-              <Text style={styles.infoPadding}>{profile.mobile}</Text>
-            </View> */}
-          {/* {input ? (
-              <View
-                style={{
-                  borderBottomWidth: 1,
-                  borderBottomColor: '#D3D3D3',
-                  display: 'flex',
-                  flexDirection: 'row',
-                  marginTop: '5%',
-                }}>
-                <Gps width={30} height={30} fill="black" />
-                <TextInput style={{}}></TextInput>
-              </View>
-            ) : (
-              <View style={styles.info}>
-                <Gps width={30} height={30} fill="black" />
-                <Text style={styles.infoPadding}>{profile.location}</Text>
-              </View>
-            )} */}
-          {/* <View style={styles.info}>
-              <Gps width={30} height={30} fill="black" />
-              <Text style={styles.infoPadding}>{profile.location}</Text>
-            </View> */}
-          {/* {!nuput && </ScrollView> } */}
           {input && (
             <TouchableOpacity
               style={{
@@ -647,16 +703,22 @@ export default function MyProfile(props) {
                 marginRight: 20,
                 marginTop: 20,
                 backgroundColor: 'black',
+                borderBottomLeftRadius: 50,
+                borderBottomRightRadius: 50,
+                borderTopRightRadius: 0,
+                borderTopLeftRadius: 50,
+                width: 100,
               }}
               onPress={() => {
                 updateProfile();
                 setInput(!input);
               }}>
-              <Text style={{padding: 10, color: 'white'}}>Save</Text>
+              <Text style={{padding: 10, color: 'white', textAlign: 'center'}}>
+                Save
+              </Text>
             </TouchableOpacity>
           )}
           {/* here */}
-          <Menu />
         </View>
       </ImageBackground>
     );
@@ -956,7 +1018,7 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     borderRadius: 20,
-    marginLeft: 10,
+    // marginLeft: 10,
   },
   info: {
     display: 'flex',

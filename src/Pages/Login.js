@@ -39,6 +39,9 @@ import cancel from '../../assets/CreateProfile/cancel.png';
 import {getToken, getAuthToken, getProfile} from '../redux/reducer';
 import {useSelector, useDispatch} from 'react-redux';
 import Loader from '../components/Loader';
+import close from '../../assets/close.png';
+import loginFail from '../../assets/loginFail.png';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Login(props) {
   const [email, setEmail] = useState('');
@@ -52,6 +55,43 @@ export default function Login(props) {
 
   const dispatch = useDispatch();
   const {token, profile} = useSelector(state => state);
+
+  const storeData = async value => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem('@storage_Key', jsonValue);
+    } catch (e) {}
+  };
+
+  // const getData = async () => {
+  //   try {
+  //     const value = await AsyncStorage.getItem('@storage_Key');
+
+  //     if (value !== null) {
+  //       const parseValue = JSON.parse(value);
+  //       console.log('val...', parseValue);
+  //     }
+  //     if (value) {
+  //       console.log('value', value);
+  //     } else {
+  //       console.log('does not exist');
+  //     }
+  //   } catch (e) {
+  //     console.log('e', e);
+  //   }
+  //   // console.log('no value is printes');
+  // };
+  // getData();
+
+  const removeValue = async () => {
+    try {
+      await AsyncStorage.removeItem('@storage_Key');
+    } catch (e) {
+      console.log(e);
+    }
+
+    console.log('Done.');
+  };
 
   // const setTokenBack = val => {
   //   dispatch(getProfile(val));
@@ -103,6 +143,8 @@ export default function Login(props) {
           // getProfileDetail(res.data.data.token);
           dispatch(getProfile(res.data.data));
           // dispatch(getProfile({...profile, name: 'hinalchanged'}));
+          // console.log
+          storeData(res.data.data);
           console.log('printing flag', res.data.data.flag);
           if (res.data.data.flag === 'true') {
             props.navigation.navigate('CreateProfile');
@@ -118,6 +160,10 @@ export default function Login(props) {
   };
 
   const submit = () => {
+    // storeData('hiiiiiinal');
+    // getData();
+    // removeValue();
+
     // getProfileDetail();
     const data = {};
 
@@ -149,9 +195,9 @@ export default function Login(props) {
     // const color = modalVisible ? 'rgba(255, 255, 255, 10)' : '';
     return (
       <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
-        {console.log(profile)}
+        {/* {console.log(profile)}
         {}
-        {console.log('prinitng profile', profile)}
+        {console.log('prinitng profile', profile)} */}
         <Modal
           // style={{
           //   backgroundColor: 'yellow',
@@ -160,43 +206,110 @@ export default function Login(props) {
           //   // height: '60%',
           //   // margin: '40%',
           // }}
+          statusBarTranslucent={true}
           transparent={true}
           visible={modalVisible}>
           <View
             style={{
-              backgroundColor: '#eeeeee',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              marginTop: 'auto',
-              marginBottom: 'auto',
-              width: '80%',
-              height: '80%',
+              height: '100%',
+              backgroundColor: 'rgba( 0, 0, 0, 0.6 )',
             }}>
-            <TouchableOpacity
-              onPress={() => setModalVisible(!modalVisible)}
+            <View
               style={{
-                // backgroundColor: 'red',
-                width: '5%',
-                height: '5%',
-                marginLeft: 'auto',
-                marginRight: '5%',
-                marginTop: '3%',
-              }}>
-              <Image
-                source={cancel}
-                resizeMode="contain"
-                style={{width: '100%', height: '100%'}}></Image>
-            </TouchableOpacity>
-            <Text
-              style={{
+                // backgroundColor: 'white',
                 marginLeft: 'auto',
                 marginRight: 'auto',
                 marginTop: 'auto',
                 marginBottom: 'auto',
-                color: 'red',
+                width: '80%',
+                height: 'auto',
               }}>
-              {serverError}
-            </Text>
+              <TouchableOpacity
+                onPress={() => setModalVisible(!modalVisible)}
+                style={{
+                  // backgroundColor: 'red',
+                  width: '8%',
+                  height: '8%',
+                  marginLeft: 'auto',
+                  // marginRight: '5%',
+                  marginTop: '3%',
+                }}>
+                <Image
+                  source={close}
+                  resizeMode="contain"
+                  style={{width: '100%', height: '100%'}}></Image>
+              </TouchableOpacity>
+              <View
+                style={{
+                  backgroundColor: 'white',
+                  // marginTop: '5%',
+                  padding: '5%',
+                  borderBottomLeftRadius: 10,
+                  borderBottomRightRadius: 10,
+                  borderTopLeftRadius: 10,
+                  borderTopRightRadius: 10,
+                  display: 'flex',
+                  justifyContent: 'space-evenly',
+                }}>
+                <Image
+                  source={loginFail}
+                  resizeMode="contain"
+                  style={{
+                    width: '50%',
+                    height: '50%',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                  }}></Image>
+                <Text
+                  style={{
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    // marginTop: 'auto',
+                    // marginBottom: 'auto',
+                    color: '#000000',
+                    fontSize: 17,
+                  }}>
+                  Oops! something went wrong.
+                </Text>
+                <Text
+                  style={{
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    // marginTop: 'auto',
+                    // marginBottom: 'auto',
+                    color: '#808080',
+                    fontSize: 16,
+                    textAlign: 'center',
+                  }}>
+                  It seems you have typed an incorrect email or password.
+                </Text>
+                <TouchableOpacity
+                  onPress={() => setModalVisible(!modalVisible)}
+                  // onPress={() => props.navigation.navigate('CreateProfile')}
+                  style={{
+                    // marginTop: 20,
+                    alignItems: 'center',
+                    padding: 8,
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    backgroundColor: 'black',
+                    borderBottomLeftRadius: 50,
+                    borderBottomRightRadius: 50,
+                    borderTopRightRadius: 0,
+                    borderTopLeftRadius: 50,
+                    width: '100%',
+                  }}>
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontFamily: 'Poppins-Regular',
+                      fontSize: 16,
+                    }}>
+                    Got it!
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
           </View>
         </Modal>
         <View style={styles.container}>
@@ -230,6 +343,7 @@ export default function Login(props) {
                 value={email}
               />
             </View>
+            <Text style={{color: 'white'}}>Hint: example@domain.com</Text>
             {error.email && <Text style={{color: 'red'}}>{error.email}</Text>}
             <View
               style={{

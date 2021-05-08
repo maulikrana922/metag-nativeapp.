@@ -23,6 +23,7 @@ import {getToken, getAuthToken, getProfile} from '../redux/reducer';
 import {useSelector, useDispatch} from 'react-redux';
 import axios from 'axios';
 import * as ImagePicker from 'react-native-image-picker';
+import Loader from '../components/Loader';
 
 // import {
 //   useFonts,
@@ -38,6 +39,7 @@ export default function CreateProfile(props) {
   const [isLoaded, setLoaded] = useState(true);
   const dispatch = useDispatch();
   const {profile} = useSelector(state => state);
+  const [showLoader, setShowLoader] = useState(false);
 
   // console.log(profile.api_token);
   const handleUploadPhoto = imgResponse => {
@@ -95,16 +97,20 @@ export default function CreateProfile(props) {
   };
 
   let handleChoosePhoto = () => {
+    setShowLoader(true);
     const options = {
       noData: true,
     };
     ImagePicker.launchImageLibrary(options, imgResponse => {
       console.log('response', imgResponse);
+      if (imgResponse.didCancel) {
+        setShowLoader(false);
+      }
       if (imgResponse.uri) {
         setImage(imgResponse.uri);
         // console.log('token', token);
         // dispatch(getProfile({...profile,profile_pic:imageResponse.uri}));
-
+        setShowLoader(false);
         handleUploadPhoto(imgResponse);
       }
     });
@@ -118,6 +124,7 @@ export default function CreateProfile(props) {
     return (
       <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
         <View style={styles.container}>
+          {showLoader && <Loader />}
           <StatusBar
             barStyle="light-content"
             backgroundColor="transparent"

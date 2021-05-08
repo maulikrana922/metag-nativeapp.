@@ -14,6 +14,7 @@ import MainNavigator from './Navigation/MainNavigator';
 import React, {Component} from 'react';
 import store from './src/redux/store';
 import {Provider as StateProvider} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // import Nav from './Navigation/TabNavigation';
 // import Signup from './src/components/Signup';
@@ -47,14 +48,34 @@ const Stack = createStackNavigator();
 
 //   return <MainNavigator />;
 // }
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
 
+  // getData = async () => {
+  //   try {
+  //     const value = await AsyncStorage.getItem('@storage_Key');
+  //     if (value !== null) {
+  //       console.log(value);
+  //     }
+  //     if (value) {
+  //       console.log('value', value);
+
+  //     } else {
+  //       console.log('does not exist');
+  //     }
+  //   } catch (e) {
+  //     console.log('e', e);
+  //   }
+  //   // console.log('no value is printes');
+  // };
+
   componentDidMount() {
     SplashScreen.hide();
+    // this.getData();
   }
 
   render() {
