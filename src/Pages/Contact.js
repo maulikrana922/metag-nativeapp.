@@ -45,17 +45,25 @@ import bg from '../../assets/Logo/bg.png';
 //   Poppins_700Bold,
 // } from "@expo-google-fonts/poppins";
 // import { AppLoading, ImagePicker } from "expo";
+import {useSelector, useDispatch} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
 
 export default function Contact(props) {
   // let [isLoaded] = useFonts({
   //   'Poppins-ExtraBold': require('../../assets/fonts/Poppins-ExtraBold.ttf'),
   //   'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
   // });
-
+  const {token, profile, link, flag} = useSelector(state => state);
   const [image, setImage] = useState(null);
   const [newImage, setNewImage] = useState(AvtarImage);
   const [isLoaded, setLoaded] = useState(true);
   const [show, setShow] = useState(false);
+  const apiToken = flag ? profile.data[0].api_token : profile.api_token;
 
   // useEffect(() => {
   //   (async () => {
@@ -85,6 +93,43 @@ export default function Contact(props) {
   //     setNewImage(result.uri);
   //   }
   // };
+  const removeValue = async () => {
+    try {
+      await AsyncStorage.removeItem('@storage_Key');
+      await AsyncStorage.setItem('@flag_key', 'false');
+      // await AsyncStorage.removeItem('@flag_Key')
+      await dispatch(getProfile({}));
+      await dispatch(getSocialFlag({flag: false}));
+      await GoogleSignin.revokeAccess();
+      await GoogleSignin.signOut();
+      props.navigation.navigate('Login');
+      // props.navigation.navigate('Login');
+    } catch (e) {
+      console.log(e);
+    }
+
+    console.log('Done.');
+  };
+  const logout = () => {
+    axios({
+      method: 'POST',
+      url: 'http://testyourapp.online/metag/api/logout',
+      headers: {
+        Authorization: 'Bearer ' + apiToken,
+      },
+    })
+      .then(response => {
+        if (response.data.status === 200) {
+          // setNext(true);
+          console.log('success', response.data);
+          removeValue();
+          // removeData();
+        } else {
+          console.log('Failed', response.data);
+        }
+      })
+      .catch(error => console.log('logout data', error));
+  };
 
   if (!isLoaded) {
     return null;

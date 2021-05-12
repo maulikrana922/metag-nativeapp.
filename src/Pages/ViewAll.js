@@ -5,7 +5,7 @@ import axios from 'axios';
 import {useSelector, useDispatch} from 'react-redux';
 
 function ViewAll(props) {
-  const [count, setCount] = useState('10');
+  const [count, setCount] = useState('3');
   const [start, setStart] = useState('0');
   const [products, setProduct] = useState([]);
   const {token, profile} = useSelector(state => state);

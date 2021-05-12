@@ -11,9 +11,17 @@ import {
   ScrollView,
   ImageBackground,
   Modal,
+  Platform,
   Alert,
 } from 'react-native';
-import {getToken, getAuthToken, getProfile, getLink} from '../redux/reducer';
+import {
+  getToken,
+  getAuthToken,
+  getProfile,
+  getLink,
+  getSocialFlag,
+  getRemoveProfile,
+} from '../redux/reducer';
 import {useSelector, useDispatch} from 'react-redux';
 import Logo from '../../assets/Logo/logo.svg';
 import bg from '../../assets/Logo/bg.png';
@@ -33,6 +41,8 @@ import {
   GoogleSigninButton,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
+
+console.log(Platform.OS);
 
 export default function Signup(props) {
   const [fullName, setFullName] = useState('');
@@ -55,28 +65,64 @@ export default function Signup(props) {
   // useEffect(() => {}, [modalVisible]);
 
   const dispatch = useDispatch();
-  const {token} = useSelector(state => state);
+  const {token, flag, profile, removeProfile} = useSelector(state => state);
   // const manage = () => {};
+  // console.log('printing flag', flag);
+  // console.log('remove Profile', removeProfile);
+  // console.log('profile', profile);
+  const storeData = async value => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem('@storage_Key', jsonValue);
+    } catch (e) {}
+  };
+
+  const storeFlag = async value => {
+    try {
+      await AsyncStorage.setItem('@flag_Key', value);
+    } catch (e) {}
+  };
 
   const getData = async () => {
     try {
       const value = await AsyncStorage.getItem('@storage_Key');
+      const flag = await AsyncStorage.getItem('@flag_Key');
       const parseValue = JSON.parse(value);
-      if (value) {
+      if (flag) {
+        console.log('flag in signup page');
+        await dispatch(getSocialFlag(flag));
+      }
+      if (parseValue) {
         await dispatch(getProfile(parseValue));
         props.navigation.navigate('Home');
         console.log('parseValue', parseValue);
       } else {
         console.log('does not exist');
       }
+      console.log(parseValue);
     } catch (e) {
       console.log('e', e);
     }
     // console.log('no value is printed');
   };
 
+  // const isSignedIn = async () => {
+  //   const isSignedIn = await GoogleSignin.isSignedIn();
+  //   // if(isSigned)
+  //   console.log('check', isSignedIn);
+  // };
+  // isSignedIn();
+
+  // if (removeProfile) {
+  //   dispatch(getProfile(null));
+  //   dispatch(removeProfile(false));
+  // }
   useEffect(() => {
-    getData;
+    if (removeProfile == true) {
+      dispatch(getProfile(null));
+      dispatch(getRemoveProfile(false));
+    }
+    getData();
     GoogleSignin.configure({
       webClientId:
         '981119860372-h2i63fmjo5q885p8er2r9uv0lpv3tq78.apps.googleusercontent.com',
@@ -89,25 +135,41 @@ export default function Signup(props) {
 
   const sendUserData = async userInfo => {
     // await console.log('setUserData33333', userInfo);
+    // uri: imageResponse
     await console.log('userData', userInfo);
     let formData = new FormData();
+    console.log(formData);
     await console.log('printing Id..', userInfo.user.id);
-    await formData.append('social_id', userInfo.user.id);
+    // await formData.append('social_id', userInfo.user.id);
     await formData.append('name', userInfo.user.name);
     await formData.append('email', userInfo.user.email);
-    await formData.append('api_token', userInfo.idToken);
-    await formData.append('avtar', userInfo.user.photo);
+    await formData.append('social_account_token', userInfo.idToken);
+    // await formData.append('avtar', userInfo.user.photo);
+    await formData.append('social_flag', true);
+    await formData.append('provider_id', userInfo.user.id);
+    await formData.append('provider', 'Google');
     console.log('printing form data', formData);
+
+    // props.navigation.navigate('Home');
     await axios({
       method: 'post',
-      url: 'http://testyourapp.online/metag/api/socialAccount',
+      url: 'http://testyourapp.online/metag/api/social-login',
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
       data: formData,
     })
       .then(response => {
         if (response.data.status === 200) {
-          // props.navigation.navigate('Home');
           // setShowLoader(false),
+          console.log('printing response', response.data);
+          dispatch(getProfile(response.data));
+          dispatch(getSocialFlag(response.data.data[0].flag));
+          storeData(response.data);
+          storeFlag(response.data.data[0].flag);
+
           console.log('res print', response);
+          props.navigation.navigate('Home');
         } else {
           console.log('printing Response', response);
         }
@@ -121,7 +183,7 @@ export default function Signup(props) {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      // console.log(userInfo);
+      console.log(userInfo);
       // setUserInfo(userInfo);
       await sendUserData(userInfo);
       props.navigation.navigate('Home');
@@ -145,6 +207,7 @@ export default function Signup(props) {
   // const removeValue = async () => {
   //   try {
   //     await AsyncStorage.removeItem('@storage_Key');
+  //     await AsyncStorage.removeItem('@flag_Key');
   //   } catch (e) {
   //     console.log(e);
   //   }

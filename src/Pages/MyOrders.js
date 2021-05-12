@@ -38,6 +38,13 @@ import Menu from '../../src/components/Menu';
 import Logo from '../../assets/Logo/logo.svg';
 import bg from '../../assets/Logo/bg.png';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
+import {useSelector, useDispatch} from 'react-redux';
 
 // import {
 //   useFonts,
@@ -48,11 +55,17 @@ import axios from 'axios';
 // import { AppLoading, ImagePicker } from "expo";
 
 export default function MyProfile(props) {
+  const dispatch = useDispatch();
+  const {token, profile, link, flag} = useSelector(state => state);
   const [image, setImage] = useState(null);
   const [newImage, setNewImage] = useState(AvtarImage);
   const [isLoaded, setLoaded] = useState(true);
   const [show, setShow] = useState(false);
 
+  console.log(flag);
+
+  const apiToken =
+    flag == 'true' ? profile.data[0].api_token : profile.api_token;
   // useEffect(() => {
   //   ;(async () => {
   //     if (Platform.OS !== 'web') {
@@ -81,12 +94,59 @@ export default function MyProfile(props) {
   //     setNewImage(result.uri)
   //   }
   // }
+  // const logout = async () => {
+  // axios({
+  //   method: 'POST',
+  //   url: 'http://testyourapp.online/metag/api/logout',
+  //   headers: {
+  //     Authorization: 'Bearer ' + profile.api_token,
+  //   },
+  // })
+  //   .then(response => {
+  //     if (response.data.status === 200) {
+  //       // setNext(true);
+  //       console.log('success', response.data);
+  //       removeValue();
+
+  //       // removeData();
+  //     } else {
+  //       console.log('Failed', response.data);
+  //     }
+  //   })
+  //   .catch(error => console.log('logout data', error));
+  // try {
+  //   await GoogleSignin.revokeAccess();
+  //   await GoogleSignin.signOut();
+  //   props.navigation.navigate('Signup');
+  //   // this.setState({user: null}); // Remember to remove the user from your app's state as well
+  // } catch (error) {
+  //   console.error(error);
+  // }
+  // };
+  // dispatch(getSocialFlag(false));
+  const removeValue = async () => {
+    try {
+      await AsyncStorage.removeItem('@storage_Key');
+      await AsyncStorage.setItem('@flag_key', 'false');
+      // await AsyncStorage.removeItem('@flag_Key')
+      await dispatch(getProfile({}));
+      await dispatch(getSocialFlag(false));
+      await GoogleSignin.revokeAccess();
+      await GoogleSignin.signOut();
+      props.navigation.navigate('Login');
+      // props.navigation.navigate('Login');
+    } catch (e) {
+      console.log(e);
+    }
+
+    console.log('Done.');
+  };
   const logout = () => {
     axios({
       method: 'POST',
       url: 'http://testyourapp.online/metag/api/logout',
       headers: {
-        Authorization: 'Bearer ' + profile.api_token,
+        Authorization: 'Bearer ' + apiToken,
       },
     })
       .then(response => {
@@ -94,7 +154,6 @@ export default function MyProfile(props) {
           // setNext(true);
           console.log('success', response.data);
           removeValue();
-
           // removeData();
         } else {
           console.log('Failed', response.data);

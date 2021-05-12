@@ -42,7 +42,12 @@ export default function CreateProfile(props) {
   const [products, setProduct] = useState([]);
   const [supportsNfc, setSupportsNfc] = useState(false);
   const dispatch = useDispatch();
-  const {token, profile, link} = useSelector(state => state);
+  const {token, profile, link, flag} = useSelector(state => state);
+
+  console.log('flag value', typeof flag);
+  // const [apiToken, setToken] = useState(
+  //   flag === true ? profile.data[0].api_token : profile.api_token,
+  // );
   // console.log('linking0000', link.linkedin_link);
 
   // const removeValue = async () => {
@@ -55,7 +60,14 @@ export default function CreateProfile(props) {
   //   console.log('Done.');
   // };
   // removeValue;
+  // console.log('flag in my profile', flag);
+  // console.log('printing profile in my Home', profile.data[0].api_token);
+
+  console.log('flag....................', flag);
+
   useEffect(() => {
+    const apiToken =
+      flag == 'true' ? profile.data[0].api_token : profile.api_token;
     NfcManager.isSupported().then(supported => {
       console.log(supported);
       if (supported) {
@@ -64,29 +76,28 @@ export default function CreateProfile(props) {
         setSupportsNfc(false);
       }
     });
-    {
-      profile !== null &&
-        axios({
-          method: 'post',
-          url: 'http://testyourapp.online/metag/api/productList',
-          data: {
-            count: count,
-            start: start,
-          },
-          headers: {
-            Authorization: 'Bearer ' + profile.api_token,
-          },
+    profile !== null &&
+      axios({
+        method: 'post',
+        url: 'http://testyourapp.online/metag/api/productList',
+        data: {
+          count: count,
+          start: start,
+        },
+        headers: {
+          Authorization: 'Bearer ' + apiToken,
+        },
+      })
+        .then(response => {
+          if (response.data.status == 200) {
+            // console.log('200', response.data);
+            setProduct(response.data.data);
+          } else {
+            console.log('false in Home', response.data);
+          }
+          console.log('response', response.data);
         })
-          .then(response => {
-            if (response.data.status === 200) {
-              // console.log('200', response.data);
-              setProduct(response.data.data);
-            } else {
-              console.log('false', response.data);
-            }
-          })
-          .catch(e => console.log('error500', e));
-    }
+        .catch(e => console.log('error500', e));
   }, [count, start]);
 
   // axios({
@@ -228,7 +239,8 @@ export default function CreateProfile(props) {
                       alignSelf: 'center',
                       marginLeft: 10,
                     }}>
-                    {profile.name}
+                    {console.log('TTTTTT', flag)}
+                    {flag == 'true' ? profile.data[0].name : profile.name}
                   </Text>
                 )}
               </TouchableOpacity>
@@ -244,7 +256,9 @@ export default function CreateProfile(props) {
                       alignSelf: 'center',
                       marginLeft: 10,
                     }}>
-                    {profile.business_name}
+                    {flag == 'true'
+                      ? profile.data[0].business_name
+                      : profile.business_name}
                   </Text>
                 )}
               </View>

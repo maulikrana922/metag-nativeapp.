@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -36,12 +36,23 @@ import {
 import Logo from '../../assets/Logo/logo.svg';
 import bg from '../../assets/Logo/bg.png';
 import cancel from '../../assets/CreateProfile/cancel.png';
-import {getToken, getAuthToken, getProfile} from '../redux/reducer';
+import {
+  getToken,
+  getAuthToken,
+  getProfile,
+  getSocialFlag,
+  getRemoveProfile,
+} from '../redux/reducer';
 import {useSelector, useDispatch} from 'react-redux';
 import Loader from '../components/Loader';
 import close from '../../assets/close.png';
 import loginFail from '../../assets/loginFail.png';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
 
 export default function Login(props) {
   const [email, setEmail] = useState('');
@@ -54,7 +65,7 @@ export default function Login(props) {
   // const [tokenback, setTokenBack] = useState('');
 
   const dispatch = useDispatch();
-  const {token, profile} = useSelector(state => state);
+  const {token, profile, removeProfile} = useSelector(state => state);
 
   const storeData = async value => {
     try {
@@ -62,7 +73,6 @@ export default function Login(props) {
       await AsyncStorage.setItem('@storage_Key', jsonValue);
     } catch (e) {}
   };
-
   // const getData = async () => {
   //   try {
   //     const value = await AsyncStorage.getItem('@storage_Key');
@@ -82,6 +92,11 @@ export default function Login(props) {
   //   // console.log('no value is printes');
   // };
   // getData();
+  const storeFlag = async value => {
+    try {
+      await AsyncStorage.setItem('@flag_Key', value);
+    } catch (e) {}
+  };
 
   const removeValue = async () => {
     try {
@@ -116,7 +131,7 @@ export default function Login(props) {
   //     }
   //   });
   // };
-
+  // console.log(flag);
   const upload = data => {
     // try {
     axios
@@ -188,6 +203,91 @@ export default function Login(props) {
       setShowLoader(true);
     }
   };
+
+  const sendUserData = async userInfo => {
+    // await console.log('setUserData33333', userInfo);
+    // uri: imageResponse
+    await console.log('userData', userInfo);
+    let formData = new FormData();
+    console.log(formData);
+    await console.log('printing Id..', userInfo.user.id);
+    // await formData.append('social_id', userInfo.user.id);
+    await formData.append('name', userInfo.user.name);
+    await formData.append('email', userInfo.user.email);
+    await formData.append('social_account_token', userInfo.idToken);
+    // await formData.append('avtar', userInfo.user.photo);
+    await formData.append('social_flag', true);
+    await formData.append('provider_id', userInfo.user.id);
+    await formData.append('provider', 'Google');
+    console.log('printing form data', formData);
+
+    // props.navigation.navigate('Home');
+    await axios({
+      method: 'post',
+      url: 'http://testyourapp.online/metag/api/social-login',
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
+      data: formData,
+    })
+      .then(response => {
+        if (response.data.status === 200) {
+          // setShowLoader(false),
+          console.log('printing response', response.data);
+          dispatch(getProfile(response.data));
+          dispatch(getSocialFlag(response.data.data[0].flag));
+          storeData(response.data);
+          storeFlag(response.data.data[0].flag);
+
+          console.log('res print', response);
+          props.navigation.navigate('Home');
+        } else {
+          console.log('printing Response', response);
+        }
+        console.log(response);
+      })
+      .catch(error => {
+        console.log('error log...', error);
+      });
+  };
+
+  const signIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      console.log(userInfo);
+      // setUserInfo(userInfo);
+      await sendUserData(userInfo);
+      props.navigation.navigate('Home');
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+        console.log(error);
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation (e.g. sign in) is in progress already
+        console.log(error);
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        console.log(error);
+        // play services not available or outdated
+      } else {
+        console.log(error);
+        // some other error happened
+      }
+    }
+  };
+  useEffect(() => {
+    if (removeProfile == true) {
+      dispatch(getProfile(null));
+      dispatch(getRemoveProfile(false));
+    }
+    GoogleSignin.configure({
+      webClientId:
+        '981119860372-h2i63fmjo5q885p8er2r9uv0lpv3tq78.apps.googleusercontent.com',
+      offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
+      forceCodeForRefreshToken: true, // [Android] related to `serverAuthCode`, read the docs link below *.
+      // iosClientId: '', // [iOS] optional, if you want to specify the client ID of type iOS (otherwise, it is taken from GoogleService-Info.plist)
+    });
+  }, []);
 
   if (!isLoaded) {
     return null;
@@ -417,9 +517,11 @@ export default function Login(props) {
               <Image
                 source={require('../../assets/Login/linkedin.png')}
                 style={styles.img_icon}></Image>
-              <Image
-                source={require('../../assets/Login/google.png')}
-                style={styles.img_icon}></Image>
+              <TouchableOpacity onPress={() => signIn()}>
+                <Image
+                  source={require('../../assets/Login/google.png')}
+                  style={styles.img_icon}></Image>
+              </TouchableOpacity>
             </View>
           </View>
           <View style={styles.footer}>

@@ -39,7 +39,13 @@ import Logo from '../../assets/Logo/logo.svg';
 import bg from '../../assets/Logo/bg.png';
 import {useSelector, useDispatch} from 'react-redux';
 // import Loader from '../components/Loader';
-import {getToken, getAuthToken, getProfile} from '../redux/reducer';
+import {
+  getToken,
+  getAuthToken,
+  getProfile,
+  getSocialFlag,
+  getRemoveProfile,
+} from '../redux/reducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import * as ImagePicker from 'react-native-image-picker';
@@ -55,15 +61,25 @@ export default function MyProfile(props) {
   const [show, setShow] = useState(false);
   const [newImage, setNewImage] = useState(Avatar);
   const [isLoaded, setLoaded] = useState(true);
-  const {token, profile, link} = useSelector(state => state);
+  const {token, profile, link, flag} = useSelector(state => state);
   const [input, setInput] = useState(false);
-  const [userEmail, setUseremail] = useState(profile.email);
-  const [userName, setUserName] = useState(profile.name);
+  const [userEmail, setUseremail] = useState(
+    profile !== null && flag == 'true' ? profile.data[0].email : profile.email,
+  );
+  const [userName, setUserName] = useState(
+    profile !== null && flag == 'true' ? profile.data[0].name : profile.name,
+  );
   const [userMobileNumber, setUserMobileNumber] = useState(
-    '' + profile.mobile + '',
+    '' + profile !== null && flag == 'true'
+      ? profile.data[0].mobile
+      : profile.mobile + '',
   );
   const [businessName, setBusinessName] = useState(profile.business_name);
-  const [location, setLocation] = useState(profile.location);
+  const [location, setLocation] = useState(
+    profile !== null && flag == 'true'
+      ? profile.data[0].location
+      : profile.location,
+  );
   const [imageResponse, setImageResponse] = useState('');
   const [showLoader, setShowLoader] = useState(false);
   const [social, setSocial] = useState('');
@@ -72,19 +88,17 @@ export default function MyProfile(props) {
   console.log('businessName', businessName);
   console.log('linking22', link);
 
-  const signOut = async () => {
-    try {
-      await GoogleSignin.revokeAccess();
-      await GoogleSignin.signOut();
-      this.setState({user: null}); // Remember to remove the user from your app's state as well
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  signOut();
+  const apiToken =
+    profile !== null && flag === 'true'
+      ? profile.data[0].api_token
+      : profile.api_token;
+
+  // signOut();
   // const [user]
   // const []
   // const [error, setError] = useState('');
+
+  console.log(apiToken);
 
   // useEffect(() => {
   //   (async () => {
@@ -114,9 +128,9 @@ export default function MyProfile(props) {
   //     setNewImage(result.uri);
   //   }
   // };
-  console.log('Profile........picture', profile.profile_pic);
+  // console.log('Profile........picture', profile.profile_pic);
 
-  console.log('printing profile', profile);
+  // console.log('printing profile', profile);
 
   // const removeData = async () => {
   //   try {
@@ -132,8 +146,18 @@ export default function MyProfile(props) {
   const removeValue = async () => {
     try {
       await AsyncStorage.removeItem('@storage_Key');
-      await dispatch(getProfile({}));
+      await AsyncStorage.setItem('@flag_key', 'false');
+      // await AsyncStorage.removeItem('@flag_Key')
       props.navigation.navigate('Login');
+      await dispatch(getSocialFlag('false'));
+      // dispatch(getSocialFlag('false'));
+      await GoogleSignin.revokeAccess();
+      await GoogleSignin.signOut();
+      // dispatch(getProfile(null));
+      dispatch(getRemoveProfile(true));
+      props.navigation.navigate('Login');
+      // dispatch(getProfile(null));
+
       // props.navigation.navigate('Login');
     } catch (e) {
       console.log(e);
@@ -142,12 +166,13 @@ export default function MyProfile(props) {
     console.log('Done.');
   };
   // removeValue();
+
   useEffect(() => {
     axios({
       method: 'GET',
       url: 'http://testyourapp.online/metag/api/profile',
       headers: {
-        Authorization: 'Bearer ' + profile.api_token,
+        Authorization: 'Bearer ' + apiToken,
       },
     })
       .then(response => {
@@ -172,15 +197,14 @@ export default function MyProfile(props) {
       method: 'POST',
       url: 'http://testyourapp.online/metag/api/logout',
       headers: {
-        Authorization: 'Bearer ' + profile.api_token,
+        Authorization: 'Bearer ' + apiToken,
       },
     })
       .then(response => {
         if (response.data.status === 200) {
-          // setNext(true);
+          // setNext(true);true
           console.log('success', response.data);
           removeValue();
-
           // removeData();
         } else {
           console.log('Failed', response.data);
@@ -195,11 +219,11 @@ export default function MyProfile(props) {
     setShowLoader(true);
     // console.log('printing obj', imgResponse);
     let formData = new FormData();
-    formData.append('id', profile.id);
+    formData.append('id', flag ? profile.data[0].id : profile.id);
     formData.append('name', userName);
     formData.append('business_name', businessName);
     formData.append('email', userEmail);
-    formData.append('mobile', userMobileNumber);
+    formData.append('mobile', Number(userMobileNumber));
     formData.append('location', location);
     image &&
       formData.append('profile_pic', {
@@ -210,13 +234,14 @@ export default function MyProfile(props) {
         // data: imgResponse.data,
       });
     console.log('imgResponse', JSON.stringify(imageResponse));
+    console.log('imgResponse');
     // console.log(formData);
 
     // var object = {};
     // formData._parts.forEach(value => (object[value[0]] = value[1]));
     // console.log(object);
 
-    console.log('printing', formData);
+    console.log('printing form data', formData);
 
     axios({
       method: 'POST',
@@ -224,7 +249,7 @@ export default function MyProfile(props) {
       data: formData,
       headers: {
         'content-type': 'multipart/form-data',
-        Authorization: 'Bearer ' + profile.api_token,
+        Authorization: 'Bearer ' + apiToken,
       },
     })
       .then(response => {
@@ -232,23 +257,35 @@ export default function MyProfile(props) {
         if (response.data.status === 200) {
           // setNext(true);
           console.log('upload data', response.data);
-          dispatch(
-            getProfile({
-              ...profile,
-              name: userName,
-              email: userEmail,
-              mobile: userMobileNumber,
-              location: location,
-              business_name: businessName,
-              profile_pic: imageResponse,
-            }),
-          );
+          // dispatch(
+          //   getProfile({
+          //     ...profile,
+          //     name: userName,
+          //     email: userEmail,
+          //     mobile: userMobileNumber,
+          //     location: location,
+          //     business_name: businessName,
+          //     profile_pic: imageResponse,
+          //   }),
+          // );
           // useDispatch();
+          // flag === true ? dispatch(getProfile({...profile,data[0].name:userName})):dispatch(
+          //     getProfile({
+          //       ...profile,
+          //       name: userName,
+          //       email: userEmail,
+          //       mobile: userMobileNumber,
+          //       location: location,
+          //       business_name: businessName,
+          //       profile_pic: imageResponse,
+          //     }),
+          //   );
         } else {
           console.log('upload error', response.data);
         }
+        console.log('update profile', response);
       })
-      .catch(error => console.log('catch data', error));
+      .catch(error => console.log('catch data', error), setShowLoader(false));
   };
 
   let handleChoosePhoto = () => {
@@ -461,12 +498,13 @@ export default function MyProfile(props) {
           ) : (
             <Image source={{uri: image}} style={styles.profileImage}></Image>
           )} */}
-          {social.profilePic == null ? (
-            <Image source={Avatar} style={styles.profileImage}></Image>
-          ) : !image ? (
+          {console.log(image)}
+          {social.profilePic === null ? (
             <Image
-              source={{uri: social.profilePic}}
+              source={require('../../assets/myProfile/avatar.png')}
               style={styles.profileImage}></Image>
+          ) : image ? (
+            <Image source={{uri: image}} style={styles.profileImage}></Image>
           ) : (
             <Image
               source={{uri: social.profilePic}}
@@ -506,7 +544,7 @@ export default function MyProfile(props) {
                   fontFamily: 'Poppins-Regular',
                   color: '#000000',
                 }}>
-                {profile.name}
+                {social.name}
               </Text>
             ) : (
               // <TextInput style={{backgroundColor: 'pink'}}></TextInput>
@@ -597,19 +635,25 @@ export default function MyProfile(props) {
               }}>
               <View style={styles.info}>
                 <Work width={30} height={30} fill="black" />
-                <Text style={styles.infoPadding}>{profile.business_name}</Text>
+                <Text style={styles.infoPadding}>
+                  {social.business_name !== 'undefined' && social.business_name}
+                </Text>
               </View>
               <View style={styles.info}>
                 <Email width={30} height={30} fill="black" />
-                <Text style={styles.infoPadding}>{profile.email}</Text>
+                <Text style={styles.infoPadding}>{social.email}</Text>
               </View>
               <View style={styles.info}>
                 <Iphone width={30} height={30} fill="black" />
-                <Text style={styles.infoPadding}>{profile.mobile}</Text>
+                <Text style={styles.infoPadding}>
+                  {social.mobile !== 0 && social.mobile}
+                </Text>
               </View>
               <View style={styles.info}>
                 <Gps width={30} height={30} fill="black" />
-                <Text style={styles.infoPadding}>{profile.location}</Text>
+                <Text style={styles.infoPadding}>
+                  {social.location !== 'null' && social.location}
+                </Text>
               </View>
             </View>
           )}
@@ -640,9 +684,10 @@ export default function MyProfile(props) {
                   <TextInput
                     style={{marginLeft: '10%', color: '#000000'}}
                     value={businessName}
-                    onChangeText={text =>
-                      setBusinessName(text.trim())
-                    }></TextInput>
+                    onChangeText={text => {
+                      setBusinessName(text.trim());
+                      setSocial({...social, business_name: text.trim()});
+                    }}></TextInput>
                 </View>
                 <View
                   style={{
@@ -656,9 +701,10 @@ export default function MyProfile(props) {
                   <TextInput
                     style={{marginLeft: '10%', color: '#000000'}}
                     value={userEmail}
-                    onChangeText={text =>
-                      setUseremail(text.trim())
-                    }></TextInput>
+                    onChangeText={text => {
+                      setUseremail(text.trim());
+                      setSocial({...social, email: text.trim()});
+                    }}></TextInput>
                 </View>
                 <View
                   style={{
@@ -673,9 +719,10 @@ export default function MyProfile(props) {
                   <TextInput
                     style={{marginLeft: '10%', color: '#000000'}}
                     value={userMobileNumber}
-                    onChangeText={text =>
-                      setUserMobileNumber(text.trim())
-                    }></TextInput>
+                    onChangeText={text => {
+                      setUserMobileNumber(text.trim());
+                      setSocial({...social, mobile: text.trim()});
+                    }}></TextInput>
                   {console.log(userMobileNumber)}
                 </View>
                 <View
@@ -690,7 +737,10 @@ export default function MyProfile(props) {
                   <TextInput
                     style={{marginLeft: '10%', color: '#000000'}}
                     value={location}
-                    onChangeText={text => setLocation(text.trim())}></TextInput>
+                    onChangeText={text => {
+                      setLocation(text.trim());
+                      setSocial({...social, location: text.trim()});
+                    }}></TextInput>
                 </View>
               </ScrollView>
             </View>
@@ -710,6 +760,7 @@ export default function MyProfile(props) {
                 width: 100,
               }}
               onPress={() => {
+                // updateProfile(imageResponse);
                 updateProfile();
                 setInput(!input);
               }}>

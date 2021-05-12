@@ -42,7 +42,7 @@ import axios from 'axios';
 // import { AppLoading, ImagePicker } from "expo";
 
 export default function CreateProfile(props) {
-  const {token, profile} = useSelector(state => state);
+  const {token, profile, flag} = useSelector(state => state);
   const [image, setImage] = useState(null);
   const [newImage, setNewImage] = useState(AvtarImage);
   const [isLoaded, setLoaded] = useState(true);
@@ -102,32 +102,54 @@ export default function CreateProfile(props) {
     //   console.log(error);
     //   show();
     // });
-    axios({
-      method: 'post',
-      url: 'http://testyourapp.online/metag/api/change-password',
-      data: {
-        currentpassword: data.oldPassword,
-        c_password: data.newPassword,
-        password: data.confirmPassword,
-      },
-      headers: {
-        Authorization: 'Bearer ' + profile.api_token,
-      },
-    })
-      .then(response => {
-        if (response.data.errors) {
-          setServerError(response.data.errors.error);
-          setModalVisible(true);
-        }
-        console.log(response.data);
-        // console.log('printing', response.data);
+    const sendData = {
+      id: profile.data[0].id,
+      password: data.newPassword,
+      confirm_password: data.confirmPassword,
+    };
+    console.log(sendData);
+    flag === 'true' &&
+      axios({
+        method: 'post',
+        url: 'http://testyourapp.online/metag/api/createPassword',
+        data: sendData,
       })
-      .catch(error => console.log(error));
+        .then(response => {
+          if (response.data.errors) {
+            setServerError(response.data.errors.error);
+            setModalVisible(true);
+          }
+          console.log(response.data);
+          // console.log('printing', response.data);
+        })
+        .catch(error => console.log(error));
+    flag === 'false' &&
+      axios({
+        method: 'post',
+        url: 'http://testyourapp.online/metag/api/change-password',
+        data: {
+          currentpassword: data.oldPassword,
+          c_password: data.newPassword,
+          password: data.confirmPassword,
+        },
+        headers: {
+          Authorization: 'Bearer ' + profile.api_token,
+        },
+      })
+        .then(response => {
+          if (response.data.errors) {
+            setServerError(response.data.errors.error);
+            setModalVisible(true);
+          }
+          console.log(response.data);
+          // console.log('printing', response.data);
+        })
+        .catch(error => console.log(error));
   };
 
   const submit = () => {
     const data = {};
-    if (oldPassword === '') {
+    if (flag === 'false' && oldPassword === '') {
       errorTemplate.oldPassword = "Old password can't be empty";
     }
     if (newPassword === '') {
@@ -144,8 +166,8 @@ export default function CreateProfile(props) {
       // console.log(errorTemplate);
       setError(errorTemplate);
     } else {
-      (data.oldPassword = oldPassword),
-        (data.newPassword = newPassword),
+      // flag === 'true' && (data.oldPassword = oldPassword),
+      (data.newPassword = newPassword),
         (data.confirmPassword = confirmPassword),
         upload(data);
     }
@@ -235,33 +257,35 @@ export default function CreateProfile(props) {
                   paddingRight: 50,
                   // paddingBottom: 50,
                 }}>
-                <View>
-                  <View
-                    style={{
-                      borderBottomColor: 'white',
-                      borderBottomWidth: 1,
-                      display: 'flex',
-                      flexDirection: 'row',
-                      // padding: 15,
-                    }}>
-                    <Image
-                      source={require('../../assets/signup/lock.png')}
-                      style={styles.icon}
-                      resizeMode="contain"></Image>
-                    <TextInput
-                      placeholder="Old Password"
-                      value={oldPassword}
-                      onChangeText={text => setOldPassword(text.trim())}
-                      placeholderTextColor="white"
+                {flag === 'false' && (
+                  <View>
+                    <View
                       style={{
-                        color: 'white',
-                        marginLeft: 10,
-                      }}></TextInput>
+                        borderBottomColor: 'white',
+                        borderBottomWidth: 1,
+                        display: 'flex',
+                        flexDirection: 'row',
+                        // padding: 15,
+                      }}>
+                      <Image
+                        source={require('../../assets/signup/lock.png')}
+                        style={styles.icon}
+                        resizeMode="contain"></Image>
+                      <TextInput
+                        placeholder="Old Password"
+                        value={oldPassword}
+                        onChangeText={text => setOldPassword(text.trim())}
+                        placeholderTextColor="white"
+                        style={{
+                          color: 'white',
+                          marginLeft: 10,
+                        }}></TextInput>
+                    </View>
+                    {error.oldPassword && (
+                      <Text style={{color: 'white'}}>{error.oldPassword}</Text>
+                    )}
                   </View>
-                  {error.oldPassword && (
-                    <Text style={{color: 'white'}}>{error.oldPassword}</Text>
-                  )}
-                </View>
+                )}
                 <View>
                   <View
                     style={{
@@ -332,6 +356,12 @@ export default function CreateProfile(props) {
                 marginTop: 20,
                 marginBottom: 20,
                 backgroundColor: 'white',
+                borderBottomLeftRadius: 50,
+                borderBottomRightRadius: 50,
+                borderTopRightRadius: 0,
+                borderTopLeftRadius: 50,
+                paddingLeft: '2%',
+                padddingRight: '2%',
               }}>
               <Text style={{padding: 10, color: 'black'}}>Save</Text>
             </TouchableOpacity>

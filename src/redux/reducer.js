@@ -3,6 +3,8 @@ export const GET_VERIFY_KEY = 'GET_VERIFY_KEY';
 export const GET_ID = 'GET_ID';
 export const GET_PROFILE = 'GET_PROFILE';
 export const GET_LINK = 'GET_LINK';
+export const GET_SOCIAL_LINK = 'GET_SOCIAL_LINK';
+export const REMOVE_PROFILE = 'REMOVE_PROFILE';
 
 export const getAuthToken = token => ({
   type: GET_TOKEN,
@@ -34,12 +36,23 @@ export const getLink = link => ({
   payload: link,
 });
 
+export const getSocialFlag = flag => ({
+  type: GET_SOCIAL_LINK,
+  payload: flag,
+});
+
+export const getRemoveProfile = removeProfile => ({
+  type: REMOVE_PROFILE,
+  payload: removeProfile,
+});
 const initialState = {
   token: null,
   verifyKey: null,
   id: null,
   profile: null,
   link: null,
+  flag: 'false',
+  removeProfile: false,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -71,6 +84,18 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         link: payload,
+      };
+    }
+    case GET_SOCIAL_LINK: {
+      return {
+        ...state,
+        flag: payload,
+      };
+    }
+    case REMOVE_PROFILE: {
+      return {
+        ...state,
+        removeProfile: payload,
       };
     }
     default:
