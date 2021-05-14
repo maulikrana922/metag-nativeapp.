@@ -15,6 +15,8 @@ import {
   Modal,
   Share as ShareMethod,
   ActivityIndicator,
+  Linking,
+  Alert,
 } from 'react-native';
 // import AvtarImage from "../../assets/avtar.svg";
 //
@@ -37,6 +39,7 @@ import Gps from '../../assets/myProfile/gps.svg';
 import Iphone from '../../assets/myProfile/iphone.svg';
 import Logo from '../../assets/Logo/logo.svg';
 import bg from '../../assets/Logo/bg.png';
+import loginFail from '../../assets/loginFail.png';
 import {useSelector, useDispatch} from 'react-redux';
 // import Loader from '../components/Loader';
 import {
@@ -54,6 +57,8 @@ import {
   GoogleSigninButton,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
+import {useLinkProps} from '@react-navigation/native';
+import close from '../../assets/close.png';
 
 export default function MyProfile(props) {
   const dispatch = useDispatch();
@@ -63,6 +68,7 @@ export default function MyProfile(props) {
   const [isLoaded, setLoaded] = useState(true);
   const {token, profile, link, flag} = useSelector(state => state);
   const [input, setInput] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [userEmail, setUseremail] = useState(
     profile !== null && flag == 'true' ? profile.data[0].email : profile.email,
   );
@@ -83,6 +89,7 @@ export default function MyProfile(props) {
   const [imageResponse, setImageResponse] = useState('');
   const [showLoader, setShowLoader] = useState(false);
   const [social, setSocial] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
 
   console.log('printing userName', userName);
   console.log('businessName', businessName);
@@ -142,6 +149,19 @@ export default function MyProfile(props) {
 
   //   console.log('Done.');
   // };
+  const handlePress = async link => {
+    const url = `${link}`;
+
+    const supported = await Linking.canOpenURL(url);
+    if (supported) {
+      await Linking.openURL(url);
+    } else {
+      setModalVisible(true);
+      setErrorMessage(link);
+      // Alert.alert(`Don't know how to open this URL: ${link}`);
+    }
+    console.log(typeof url);
+  };
 
   const removeValue = async () => {
     try {
@@ -435,7 +455,7 @@ export default function MyProfile(props) {
                 <TouchableOpacity
                   onPress={() =>
                     ShareMethod.share({
-                      message: `https://metag.com/${profile.id}/details`,
+                      message: `http://testyourapp.online/metag/userDetails/${social.id}`,
                     })
                   }>
                   <Share />
@@ -589,16 +609,27 @@ export default function MyProfile(props) {
               justifyContent: 'space-evenly',
             }}>
             {social.linkedin_link && (
-              <Image source={linkedin} style={styles.logo}></Image>
+              <TouchableOpacity
+                onPress={() => handlePress(social.linkedin_link)}>
+                <Image source={linkedin} style={styles.logo}></Image>
+              </TouchableOpacity>
             )}
             {social.twitter_link && (
-              <Image source={twitter} style={styles.logo}></Image>
+              <TouchableOpacity
+                onPress={() => handlePress(social.twitter_link)}>
+                <Image source={twitter} style={styles.logo}></Image>
+              </TouchableOpacity>
             )}
             {social.insta_link && (
-              <Image source={instagram} style={styles.logo}></Image>
+              <TouchableOpacity onPress={() => handlePress(social.insta_link)}>
+                <Image source={instagram} style={styles.logo}></Image>
+              </TouchableOpacity>
             )}
             {social.facebook_link && (
-              <Image source={facebook} style={styles.logo}></Image>
+              <TouchableOpacity
+                onPress={() => handlePress(social.facebook_link)}>
+                <Image source={facebook} style={styles.logo}></Image>
+              </TouchableOpacity>
             )}
           </View>
 
@@ -771,6 +802,120 @@ export default function MyProfile(props) {
           )}
           {/* here */}
         </View>
+        <Modal
+          // style={{
+          //   backgroundColor: 'yellow',
+          //   // margin: '30%',
+          //   // width: '60%',
+          //   // height: '60%',
+          //   // margin: '40%',
+          // }}
+          statusBarTranslucent={true}
+          transparent={true}
+          visible={modalVisible}>
+          <View
+            style={{
+              height: '100%',
+              backgroundColor: 'rgba( 0, 0, 0, 0.6 )',
+            }}>
+            <View
+              style={{
+                // backgroundColor: 'white',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                marginTop: 'auto',
+                marginBottom: 'auto',
+                width: '80%',
+                height: 'auto',
+              }}>
+              <TouchableOpacity
+                onPress={() => setModalVisible(!modalVisible)}
+                style={{
+                  // backgroundColor: 'red',
+                  width: '8%',
+                  height: '8%',
+                  marginLeft: 'auto',
+                  // marginRight: '5%',
+                  marginTop: '3%',
+                }}>
+                <Image
+                  source={close}
+                  resizeMode="contain"
+                  style={{width: '100%', height: '100%'}}></Image>
+              </TouchableOpacity>
+              <View
+                style={{
+                  backgroundColor: 'white',
+                  // marginTop: '5%',
+                  padding: '5%',
+                  borderBottomLeftRadius: 10,
+                  borderBottomRightRadius: 10,
+                  borderTopLeftRadius: 10,
+                  borderTopRightRadius: 10,
+                  display: 'flex',
+                  justifyContent: 'space-evenly',
+                }}>
+                <Image
+                  source={loginFail}
+                  resizeMode="contain"
+                  style={{
+                    width: '50%',
+                    height: '50%',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                  }}></Image>
+                <Text
+                  style={{
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    // marginTop: 'auto',
+                    // marginBottom: 'auto',
+                    color: '#000000',
+                    fontSize: 17,
+                  }}>
+                  Oops! something went wrong.
+                </Text>
+                <Text
+                  style={{
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    // marginTop: 'auto',
+                    // marginBottom: 'auto',
+                    color: '#808080',
+                    fontSize: 16,
+                    textAlign: 'center',
+                  }}>
+                  Soical url link is not correact! {errorMessage}
+                </Text>
+                <TouchableOpacity
+                  onPress={() => setModalVisible(!modalVisible)}
+                  // onPress={() => props.navigation.navigate('CreateProfile')}
+                  style={{
+                    // marginTop: 20,
+                    alignItems: 'center',
+                    padding: 8,
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    backgroundColor: 'black',
+                    borderBottomLeftRadius: 50,
+                    borderBottomRightRadius: 50,
+                    borderTopRightRadius: 0,
+                    borderTopLeftRadius: 50,
+                    width: '100%',
+                  }}>
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontFamily: 'Poppins-Regular',
+                      fontSize: 16,
+                    }}>
+                    Got it!
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </Modal>
       </ImageBackground>
     );
   }

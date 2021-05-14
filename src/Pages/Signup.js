@@ -33,7 +33,7 @@ import close from '../../assets/close.png';
 import loginFail from '../../assets/loginFail.png';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // import LinkedInModal from 'react-native-linkedin';
-import LinkedInModal from 'react-native-linkedin';
+//import LinkedInModal from 'react-native-linkedin';
 
 // import OAuthManager from 'react-native-social-login';
 import {

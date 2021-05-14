@@ -216,7 +216,7 @@ export default function CreateProfile(props) {
                 // disabled={true}
                 onPress={() =>
                   next === true
-                    ? props.navigation.navigate('Location')
+                    ? props.navigation.navigate('Upload')
                     : setModalVisible(true)
                 }
                 style={styles.next}>

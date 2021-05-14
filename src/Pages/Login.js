@@ -53,6 +53,9 @@ import {
   GoogleSigninButton,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
+import InstagramLogin from 'react-native-instagram-login';
+// import InstagramLogin from 'react-native-instagram-login';
+// import CookieManager from '@react-native-community/cookies';
 
 export default function Login(props) {
   const [email, setEmail] = useState('');
@@ -504,6 +507,7 @@ export default function Login(props) {
           </View>
           <View style={styles.icon_parent}>
             <Text style={styles.text}>Sign up with:</Text>
+
             <View
               style={{
                 width: 'auto',
@@ -511,9 +515,11 @@ export default function Login(props) {
                 flexDirection: 'row',
                 alignItems: 'center',
               }}>
-              <Image
-                source={require('../../assets/Login/instagram.png')}
-                style={styles.img_icon}></Image>
+              <TouchableOpacity onPress={() => this.instagramLogin.show()}>
+                <Image
+                  source={require('../../assets/Login/instagram.png')}
+                  style={styles.img_icon}></Image>
+              </TouchableOpacity>
               <Image
                 source={require('../../assets/Login/linkedin.png')}
                 style={styles.img_icon}></Image>
@@ -522,6 +528,15 @@ export default function Login(props) {
                   source={require('../../assets/Login/google.png')}
                   style={styles.img_icon}></Image>
               </TouchableOpacity>
+              <InstagramLogin
+                ref={ref => (this.instagramLogin = ref)}
+                appId="948203199310677"
+                appSecret="f1c766dbd42990d7ed9b8cc0d57ed24a"
+                redirectUrl="https://localhost:3000/redirect"
+                scopes={['user_profile', 'user_media']}
+                onLoginSuccess={data => console.log(ImageData)}
+                onLoginFailure={data => console.log(data)}
+              />
             </View>
           </View>
           <View style={styles.footer}>
