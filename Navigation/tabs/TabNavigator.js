@@ -22,6 +22,7 @@ export default function TabNavigator() {
       initialRouteName="Home"
       tabBarOptions={{
         activeTintColor: 'black',
+        keyboardHidesTabBar: true,
       }}>
       <Tab.Screen
         name="Home"

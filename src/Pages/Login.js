@@ -101,15 +101,15 @@ export default function Login(props) {
     } catch (e) {}
   };
 
-  const removeValue = async () => {
-    try {
-      await AsyncStorage.removeItem('@storage_Key');
-    } catch (e) {
-      console.log(e);
-    }
+  // const removeValue = async () => {
+  //   try {
+  //     await AsyncStorage.removeItem('@storage_Key');
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
 
-    console.log('Done.');
-  };
+  //   console.log('Done.');
+  // };
 
   // const setTokenBack = val => {
   //   dispatch(getProfile(val));
@@ -163,6 +163,7 @@ export default function Login(props) {
           // dispatch(getProfile({...profile, name: 'hinalchanged'}));
           // console.log
           storeData(res.data.data);
+          storeFlag('false');
           console.log('printing flag', res.data.data.flag);
           if (res.data.data.flag === 'true') {
             props.navigation.navigate('CreateProfile');
@@ -290,7 +291,7 @@ export default function Login(props) {
       forceCodeForRefreshToken: true, // [Android] related to `serverAuthCode`, read the docs link below *.
       // iosClientId: '', // [iOS] optional, if you want to specify the client ID of type iOS (otherwise, it is taken from GoogleService-Info.plist)
     });
-  }, []);
+  }, [profile]);
 
   if (!isLoaded) {
     return null;

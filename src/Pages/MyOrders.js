@@ -53,7 +53,13 @@ import {useSelector, useDispatch} from 'react-redux';
 //   Poppins_700Bold,
 // } from "@expo-google-fonts/poppins";
 // import { AppLoading, ImagePicker } from "expo";
-
+import {
+  getToken,
+  getAuthToken,
+  getProfile,
+  getSocialFlag,
+  getRemoveProfile,
+} from '../redux/reducer';
 export default function MyProfile(props) {
   const dispatch = useDispatch();
   const {token, profile, link, flag} = useSelector(state => state);
@@ -65,7 +71,9 @@ export default function MyProfile(props) {
   console.log(flag);
 
   const apiToken =
-    flag == 'true' ? profile.data[0].api_token : profile.api_token;
+    profile !== null && flag === 'true'
+      ? profile.data[0].api_token
+      : profile !== null && profile.api_token;
   // useEffect(() => {
   //   ;(async () => {
   //     if (Platform.OS !== 'web') {
@@ -129,11 +137,16 @@ export default function MyProfile(props) {
       await AsyncStorage.removeItem('@storage_Key');
       await AsyncStorage.setItem('@flag_key', 'false');
       // await AsyncStorage.removeItem('@flag_Key')
-      await dispatch(getProfile({}));
-      await dispatch(getSocialFlag(false));
+      props.navigation.navigate('Login');
+      await dispatch(getSocialFlag('false'));
+      // dispatch(getSocialFlag('false'));
       await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
-      props.navigation.navigate('Login');
+      // dispatch(getProfile(null));
+      dispatch(getRemoveProfile(true));
+      //props.navigation.navigate('Login');
+      // dispatch(getProfile(null));
+
       // props.navigation.navigate('Login');
     } catch (e) {
       console.log(e);
@@ -141,6 +154,7 @@ export default function MyProfile(props) {
 
     console.log('Done.');
   };
+
   const logout = () => {
     axios({
       method: 'POST',
@@ -151,9 +165,10 @@ export default function MyProfile(props) {
     })
       .then(response => {
         if (response.data.status === 200) {
-          // setNext(true);
-          console.log('success', response.data);
+          // setNext(true);true
           removeValue();
+          console.log('success', response.data);
+
           // removeData();
         } else {
           console.log('Failed', response.data);

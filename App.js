@@ -1,4 +1,4 @@
-// import React, {useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -11,10 +11,13 @@ import {
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import MainNavigator from './Navigation/MainNavigator';
-import React, {Component} from 'react';
+// import React, {Component} from 'react';
 import store from './src/redux/store';
-import {Provider as StateProvider} from 'react-redux';
+import {useSelector, useDispatch, Provider as StateProvider} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AppStore from './AppStore';
+
+// import {useSelector, useDispatch} from 'react-redux';
 
 // import Nav from './Navigation/TabNavigation';
 // import Signup from './src/components/Signup';
@@ -37,53 +40,75 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import SplashScreen from 'react-native-splash-screen';
 
-const Stack = createStackNavigator();
+// const Stack = createStackNavigator();
 
-// function App() {
-//   useEffect(() => {
-//     // Runs after the first render() lifecycle
-//     // SplashScreen.hide();
-//     console.log('mounted');
-//   }, []);
+// const removeValue = async () => {
+//   try {
+//     await AsyncStorage.removeItem('@storage_Key');
+//     await AsyncStorage.removeItem('@flag_Key');
+//   } catch (e) {
+//     console.log(e);
+//   }
 
-//   return <MainNavigator />;
-// }
+//   console.log('Done.');
+// };
+// removeValue();
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+function App() {
+  // const dispatch = useDispatch();
+  // const {token, flag, profile, removeProfile} = useSelector(state => state);
 
-  // getData = async () => {
-  //   try {
-  //     const value = await AsyncStorage.getItem('@storage_Key');
-  //     if (value !== null) {
-  //       console.log(value);
-  //     }
-  //     if (value) {
-  //       console.log('value', value);
+  useEffect(() => {
+    // Runs after the first render() lifecycle
 
-  //     } else {
-  //       console.log('does not exist');
-  //     }
-  //   } catch (e) {
-  //     console.log('e', e);
-  //   }
-  //   // console.log('no value is printes');
-  // };
-
-  componentDidMount() {
+    console.log('mounted');
     SplashScreen.hide();
-    // this.getData();
-  }
+  }, []);
 
-  render() {
-    return (
-      <StateProvider store={store}>
-        <MainNavigator />
-      </StateProvider>
-    );
-  }
+  return (
+    <StateProvider store={store}>
+      {/* <AppStore /> */}
+      {/* <MainNavigator /> */}
+      <MainNavigator />
+    </StateProvider>
+  );
 }
+
+// class App extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {};
+//   }
+
+//   // getData = async () => {
+//   //   try {
+//   //     const value = await AsyncStorage.getItem('@storage_Key');
+//   //     if (value !== null) {
+//   //       console.log(value);
+//   //     }
+//   //     if (value) {
+//   //       console.log('value', value);
+
+//   //     } else {
+//   //       console.log('does not exist');
+//   //     }
+//   //   } catch (e) {
+//   //     console.log('e', e);
+//   //   }
+//   //   // console.log('no value is printes');
+//   // };
+
+//   componentDidMount() {
+//     SplashScreen.hide();
+//     // this.getData();
+//   }
+
+//   render() {
+//     return (
+//       <StateProvider store={store}>
+//         <MainNavigator />
+//       </StateProvider>
+//     );
+//   }
+// }
 export default App;

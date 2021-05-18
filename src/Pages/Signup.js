@@ -83,28 +83,27 @@ export default function Signup(props) {
     } catch (e) {}
   };
 
-  const getData = async () => {
-    try {
-      const value = await AsyncStorage.getItem('@storage_Key');
-      const flag = await AsyncStorage.getItem('@flag_Key');
-      const parseValue = JSON.parse(value);
-      if (flag) {
-        console.log('flag in signup page');
-        await dispatch(getSocialFlag(flag));
-      }
-      if (parseValue) {
-        await dispatch(getProfile(parseValue));
-        props.navigation.navigate('Home');
-        console.log('parseValue', parseValue);
-      } else {
-        console.log('does not exist');
-      }
-      console.log(parseValue);
-    } catch (e) {
-      console.log('e', e);
-    }
-    // console.log('no value is printed');
-  };
+  // const getData = async () => {
+  //   try {
+  //     const value = await AsyncStorage.getItem('@storage_Key');
+  //     const flag = await AsyncStorage.getItem('@flag_Key');
+  //     const parseValue = JSON.parse(value);
+  //     if (flag) {
+  //       console.log('flag in signup page');
+  //       await dispatch(getSocialFlag(flag));
+  //     }
+  //     if (parseValue) {
+  //       await dispatch(getProfile(parseValue));
+  //       props.navigation.navigate('Home');
+  //       console.log('parseValue', parseValue);
+  //     } else {
+  //       console.log('does not exist');
+  //     }
+  //     console.log(parseValue);
+  //   } catch (e) {
+  //     console.log('e', e);
+  //   }
+  // };
 
   // const isSignedIn = async () => {
   //   const isSignedIn = await GoogleSignin.isSignedIn();
@@ -122,7 +121,7 @@ export default function Signup(props) {
       dispatch(getProfile(null));
       dispatch(getRemoveProfile(false));
     }
-    getData();
+    // getData();
     GoogleSignin.configure({
       webClientId:
         '981119860372-h2i63fmjo5q885p8er2r9uv0lpv3tq78.apps.googleusercontent.com',
@@ -164,9 +163,9 @@ export default function Signup(props) {
           // setShowLoader(false),
           console.log('printing response', response.data);
           dispatch(getProfile(response.data));
-          dispatch(getSocialFlag(response.data.data[0].flag));
+          dispatch(getSocialFlag('true'));
           storeData(response.data);
-          storeFlag(response.data.data[0].flag);
+          storeFlag('true');
 
           console.log('res print', response);
           props.navigation.navigate('Home');
@@ -273,6 +272,7 @@ export default function Signup(props) {
           console.log(e);
           setServerError(e);
         } else {
+          storeFlag('false');
           console.log('data', res.data.data);
           props.navigation.navigate('Login');
         }

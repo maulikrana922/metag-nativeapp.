@@ -67,7 +67,9 @@ export default function CreateProfile(props) {
 
   useEffect(() => {
     const apiToken =
-      flag == 'true' ? profile.data[0].api_token : profile.api_token;
+      profile && flag == 'true'
+        ? profile && profile.data[0].api_token
+        : profile && profile.api_token;
     NfcManager.isSupported().then(supported => {
       console.log(supported);
       if (supported) {
@@ -240,7 +242,9 @@ export default function CreateProfile(props) {
                       marginLeft: 10,
                     }}>
                     {console.log('TTTTTT', flag)}
-                    {flag == 'true' ? profile.data[0].name : profile.name}
+                    {profile && flag == 'true'
+                      ? profile && profile.data[0].name
+                      : profile && profile.name}
                   </Text>
                 )}
               </TouchableOpacity>

@@ -69,36 +69,42 @@ export default function MyProfile(props) {
   const {token, profile, link, flag} = useSelector(state => state);
   const [input, setInput] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
+  console.log(profile);
   const [userEmail, setUseremail] = useState(
-    profile !== null && flag == 'true' ? profile.data[0].email : profile.email,
+    profile !== null && flag == 'true'
+      ? profile.data[0].email
+      : profile !== null && profile.email,
   );
   const [userName, setUserName] = useState(
-    profile !== null && flag == 'true' ? profile.data[0].name : profile.name,
+    profile !== null && flag == 'true'
+      ? profile !== null && profile.data[0].name
+      : profile !== null && profile.name,
   );
   const [userMobileNumber, setUserMobileNumber] = useState(
     '' + profile !== null && flag == 'true'
-      ? profile.data[0].mobile
-      : profile.mobile + '',
+      ? profile !== null && profile.data[0].mobile
+      : profile !== null && profile.mobile + '',
   );
-  const [businessName, setBusinessName] = useState(profile.business_name);
+  const [businessName, setBusinessName] = useState(
+    profile !== null && flag == 'true'
+      ? profile !== null && profile.data[0].business_name
+      : profile !== null && profile.business_name,
+  );
   const [location, setLocation] = useState(
     profile !== null && flag == 'true'
-      ? profile.data[0].location
-      : profile.location,
+      ? profile !== null && profile.data[0].location
+      : profile !== null && profile.location,
   );
   const [imageResponse, setImageResponse] = useState('');
   const [showLoader, setShowLoader] = useState(false);
   const [social, setSocial] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
 
-  console.log('printing userName', userName);
-  console.log('businessName', businessName);
-  console.log('linking22', link);
-
   const apiToken =
     profile !== null && flag === 'true'
       ? profile.data[0].api_token
-      : profile.api_token;
+      : profile !== null && profile.api_token;
 
   // signOut();
   // const [user]
@@ -162,6 +168,11 @@ export default function MyProfile(props) {
     }
     console.log(typeof url);
   };
+  const storeFlag = async value => {
+    try {
+      await AsyncStorage.setItem('@flag_Key', value);
+    } catch (e) {}
+  };
 
   const removeValue = async () => {
     try {
@@ -170,12 +181,13 @@ export default function MyProfile(props) {
       // await AsyncStorage.removeItem('@flag_Key')
       props.navigation.navigate('Login');
       await dispatch(getSocialFlag('false'));
+      await storeFlag('false');
       // dispatch(getSocialFlag('false'));
       await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
       // dispatch(getProfile(null));
       dispatch(getRemoveProfile(true));
-      props.navigation.navigate('Login');
+      //props.navigation.navigate('Login');
       // dispatch(getProfile(null));
 
       // props.navigation.navigate('Login');
@@ -200,7 +212,11 @@ export default function MyProfile(props) {
           // setNext(true);
           console.log('success getting profile 4', response.data.data[0]);
           // removeValue();
-          setSocial(response.data.data[0]);
+          if (response.data.data[0]) {
+            setSocial(response.data.data[0]);
+          }
+          // if(response.data)
+
           console.log('priting social', social);
           // removeData();
         } else {
@@ -208,7 +224,7 @@ export default function MyProfile(props) {
         }
       })
       .catch(error => console.log('profile error', error));
-  }, []);
+  }, [apiToken]);
 
   // console.log(profile.api_token);
 
@@ -223,8 +239,9 @@ export default function MyProfile(props) {
       .then(response => {
         if (response.data.status === 200) {
           // setNext(true);true
-          console.log('success', response.data);
           removeValue();
+          console.log('success', response.data);
+
           // removeData();
         } else {
           console.log('Failed', response.data);
@@ -239,11 +256,12 @@ export default function MyProfile(props) {
     setShowLoader(true);
     // console.log('printing obj', imgResponse);
     let formData = new FormData();
-    formData.append('id', flag ? profile.data[0].id : profile.id);
+    formData.append('id', flag === 'true' ? profile.data[0].id : profile.id);
     formData.append('name', userName);
     formData.append('business_name', businessName);
     formData.append('email', userEmail);
-    formData.append('mobile', Number(userMobileNumber));
+    //formData.append('mobile', Number(userMobileNumber));
+    formData.append('mobile', userMobileNumber);
     formData.append('location', location);
     image &&
       formData.append('profile_pic', {
@@ -455,7 +473,7 @@ export default function MyProfile(props) {
                 <TouchableOpacity
                   onPress={() =>
                     ShareMethod.share({
-                      message: `http://testyourapp.online/metag/userDetails/${social.id}`,
+                      message: `http://testyourapp.online/metag/userDetails/${social.id} \n\n\n\nClick on link to see  userprofile.`,
                     })
                   }>
                   <Share />
@@ -667,7 +685,9 @@ export default function MyProfile(props) {
               <View style={styles.info}>
                 <Work width={30} height={30} fill="black" />
                 <Text style={styles.infoPadding}>
-                  {social.business_name !== 'undefined' && social.business_name}
+                  {social.business_name !== 'undefine' && social.business_name}
+                  {/* {social.business_name}
+                  {console.log('printing business name', social)} */}
                 </Text>
               </View>
               <View style={styles.info}>
@@ -719,6 +739,7 @@ export default function MyProfile(props) {
                       setBusinessName(text.trim());
                       setSocial({...social, business_name: text.trim()});
                     }}></TextInput>
+                  {console.log('printing business name input', businessName)}
                 </View>
                 <View
                   style={{
@@ -749,12 +770,12 @@ export default function MyProfile(props) {
 
                   <TextInput
                     style={{marginLeft: '10%', color: '#000000'}}
-                    value={userMobileNumber}
+                    value={String(userMobileNumber)}
                     onChangeText={text => {
                       setUserMobileNumber(text.trim());
                       setSocial({...social, mobile: text.trim()});
                     }}></TextInput>
-                  {console.log(userMobileNumber)}
+                  {/* {console.log(userMobileNumber)} */}
                 </View>
                 <View
                   style={{
@@ -766,7 +787,11 @@ export default function MyProfile(props) {
                   }}>
                   <Gps width={30} height={30} fill="black" />
                   <TextInput
-                    style={{marginLeft: '10%', color: '#000000'}}
+                    style={{
+                      marginLeft: '10%',
+                      // marginRight: '10%',
+                      color: '#000000',
+                    }}
                     value={location}
                     onChangeText={text => {
                       setLocation(text.trim());
@@ -930,6 +955,9 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     // position: 'absolute',
     // top: 20,
+    borderWidth: 3,
+    borderColor: 'white',
+
     marginLeft: 'auto',
     marginRight: 'auto',
     marginTop: -35,
@@ -1222,6 +1250,7 @@ const styles = StyleSheet.create({
   },
   infoPadding: {
     paddingLeft: 10,
+    paddingRight: '5%',
     fontFamily: 'Poppins-Regular',
     color: '#000000',
     fontSize: 16,

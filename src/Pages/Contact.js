@@ -17,6 +17,7 @@ import {
 // import AppLoading from 'expo-app-loading';
 // import AvtarImage from "../../assets/avtar.svg";
 //
+import axios from 'axios';
 import AvtarImage from '../../assets/work-suitcase.svg';
 import wifi from '../../assets/mobile-phone-with-wifi.png';
 import qrCode from '../../assets/qr-code.png';
@@ -52,8 +53,16 @@ import {
   GoogleSigninButton,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
+import {
+  getToken,
+  getAuthToken,
+  getProfile,
+  getSocialFlag,
+  getRemoveProfile,
+} from '../redux/reducer';
 
 export default function Contact(props) {
+  const dispatch = useDispatch();
   // let [isLoaded] = useFonts({
   //   'Poppins-ExtraBold': require('../../assets/fonts/Poppins-ExtraBold.ttf'),
   //   'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
@@ -63,7 +72,10 @@ export default function Contact(props) {
   const [newImage, setNewImage] = useState(AvtarImage);
   const [isLoaded, setLoaded] = useState(true);
   const [show, setShow] = useState(false);
-  const apiToken = flag ? profile.data[0].api_token : profile.api_token;
+  const apiToken =
+    profile !== null && flag === 'true'
+      ? profile.data[0].api_token
+      : profile !== null && profile.api_token;
 
   // useEffect(() => {
   //   (async () => {
@@ -98,11 +110,16 @@ export default function Contact(props) {
       await AsyncStorage.removeItem('@storage_Key');
       await AsyncStorage.setItem('@flag_key', 'false');
       // await AsyncStorage.removeItem('@flag_Key')
-      await dispatch(getProfile({}));
-      await dispatch(getSocialFlag({flag: false}));
+      props.navigation.navigate('Login');
+      await dispatch(getSocialFlag('false'));
+      // dispatch(getSocialFlag('false'));
       await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
-      props.navigation.navigate('Login');
+      // dispatch(getProfile(null));
+      dispatch(getRemoveProfile(true));
+      //props.navigation.navigate('Login');
+      // dispatch(getProfile(null));
+
       // props.navigation.navigate('Login');
     } catch (e) {
       console.log(e);
@@ -110,6 +127,7 @@ export default function Contact(props) {
 
     console.log('Done.');
   };
+
   const logout = () => {
     axios({
       method: 'POST',
@@ -120,9 +138,10 @@ export default function Contact(props) {
     })
       .then(response => {
         if (response.data.status === 200) {
-          // setNext(true);
-          console.log('success', response.data);
+          // setNext(true);true
           removeValue();
+          console.log('success', response.data);
+
           // removeData();
         } else {
           console.log('Failed', response.data);
@@ -130,7 +149,6 @@ export default function Contact(props) {
       })
       .catch(error => console.log('logout data', error));
   };
-
   if (!isLoaded) {
     return null;
   } else {

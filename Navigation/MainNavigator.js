@@ -1,10 +1,11 @@
 // In App.js in a new project
 
-import * as React from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import StackNavigator from './StackNavigator';
-// import MyTabs from './tabs/Tabs.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useSelector, useDispatch, Provider as StateProvider} from 'react-redux';
 
 const SwitchNavigator = createSwitchNavigator({
   StackNavigator: {
