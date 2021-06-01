@@ -16,10 +16,7 @@ target 'metag' do
 
   pod 'RNCCheckbox', :path => '../node_modules/@react-native-community/checkbox'
 
-  target 'metagTests' do
-    inherit! :complete
-    # Pods for testing
-  end
+  
 
   # Enables Flipper.
   #

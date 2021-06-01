@@ -57,7 +57,7 @@ export default function Signup(props) {
   const upload = data => {
     // try {
     axios
-      .post('http://testyourapp.online/metag/api/register', {
+      .post('https://testyourapp.online/metag/api/register', {
         name: data.name,
         email: data.email,
         mobile: data.number,
@@ -157,7 +157,6 @@ export default function Signup(props) {
         {/* {dispatch(getAuthToken('thisIsToken'))}
         {console.log(useSelector(state => state.token))} */}
         {/* <Button >Click</Button> */}
-        <ScrollView>
           <Modal
             // style={{
             //   backgroundColor: 'yellow',
@@ -288,14 +287,8 @@ export default function Signup(props) {
                 />
               </View>
               {error.bName && <Text style={{color: 'red'}}>{error.bName}</Text>}
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  borderBottomColor: 'white',
-                  borderWidth: 1,
-                  // justifyContent: 'space-between',
-                }}>
+              <View style={styles.inputTextBg}
+                >
                 <Image
                   source={require('../../assets/signup/lock.png')}
                   style={styles.icon}
@@ -398,7 +391,6 @@ export default function Signup(props) {
               </Text>
             </View>
           </View>
-        </ScrollView>
       </ImageBackground>
     );
   }
@@ -481,7 +473,7 @@ const styles = StyleSheet.create({
     // borderBottomColor: 'white',
     // borderWidth: 1,
     // height: 41,
-    fontSize: 16,
+    fontSize: 20,
     color: 'white',
 
     // alignSelf: 'stretch',
@@ -492,10 +484,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 8,
     backgroundColor: 'white',
-    borderBottomLeftRadius: 50,
-    borderBottomRightRadius: 50,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
     borderTopRightRadius: 0,
-    borderTopLeftRadius: 50,
+    borderTopLeftRadius: 20,
     width: 100,
   },
   key_text_parent: {
@@ -565,5 +557,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderBottomColor: 'white',
     borderWidth: 1,
+    padding:15
   },
 });

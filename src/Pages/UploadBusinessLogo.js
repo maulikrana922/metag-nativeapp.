@@ -52,7 +52,7 @@ export default function CreateProfile(props) {
     // })
     axios({
       method: 'post',
-      url: 'http://testyourapp.online/metag/api/profile-pic',
+      url: 'https://testyourapp.online/metag/api/profile-pic',
       data: formData,
       headers: {
         'content-type': 'multipart/form-data',
