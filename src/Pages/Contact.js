@@ -11,12 +11,16 @@ import {
   Platform,
   TouchableOpacity,
   ImageBackground,
+  Animated,
 } from 'react-native';
 
 // import * as ImagePicker from 'expo-image-picker';
 // import AppLoading from 'expo-app-loading';
 // import AvtarImage from "../../assets/avtar.svg";
 //
+
+import url from '../BaseURl/baseurl.json';
+
 import axios from 'axios';
 import AvtarImage from '../../assets/work-suitcase.svg';
 import wifi from '../../assets/mobile-phone-with-wifi.png';
@@ -61,6 +65,9 @@ import {
   getRemoveProfile,
 } from '../redux/reducer';
 
+import {RectButton} from 'react-native-gesture-handler';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+
 export default function Contact(props) {
   const dispatch = useDispatch();
   // let [isLoaded] = useFonts({
@@ -72,6 +79,7 @@ export default function Contact(props) {
   const [newImage, setNewImage] = useState(AvtarImage);
   const [isLoaded, setLoaded] = useState(true);
   const [show, setShow] = useState(false);
+  const [remove, setRemove] = useState(false);
   const apiToken =
     profile !== null && flag === 'true'
       ? profile.data[0].api_token
@@ -131,7 +139,7 @@ export default function Contact(props) {
   const logout = () => {
     axios({
       method: 'POST',
-      url: 'http://testyourapp.online/metag/api/logout',
+      url: `${url.baseurl}logout`,
       headers: {
         Authorization: 'Bearer ' + apiToken,
       },
@@ -148,6 +156,33 @@ export default function Contact(props) {
         }
       })
       .catch(error => console.log('logout data', error));
+  };
+
+  const close = () => {
+    setRemove(true);
+  };
+
+  console.log(remove);
+
+  const renderLeftActions = (progress, dragX) => {
+    const trans = dragX.interpolate({
+      inputRange: [0, 50, 100, 101],
+      outputRange: [-20, 0, 0, 1],
+    });
+    return (
+      <TouchableOpacity style={styles.leftAction} onPress={close}>
+        <Animated.Text
+          style={[
+            styles.actionText,
+            {
+              transform: [{translateX: trans}],
+            },
+          ]}>
+          deleted
+        </Animated.Text>
+      </TouchableOpacity>
+      // <View></View>
+    );
   };
   if (!isLoaded) {
     return null;
@@ -291,36 +326,44 @@ export default function Contact(props) {
           {/* list  */}
           <View style={{margin: 20}}>
             <View style={{display: 'flex'}}>
-              <TouchableOpacity
-                onPress={() => props.navigation.navigate('ContactDetails')}>
-                <View style={styles.shadow}>
-                  <View style={styles.avatarBg}>
-                    <Image
-                      source={require('../../assets/contact/avatar.png')}
-                      style={{
-                        width: 40,
-                        height: 40,
-                        backgroundColor: '#f2f2f2',
-                        marginLeft: 'auto',
-                        marginRight: 'auto',
-                      }}></Image>
-                  </View>
-                  <View
-                    style={{
-                      marginTop: 'auto',
-                      marginBottom: 'auto',
-                      paddingLeft: 10,
-                    }}>
-                    <Text style={{fontFamily: 'Poppins-Regular'}}>
-                      James wink
-                    </Text>
-                    <Text
-                      style={{fontFamily: 'Poppins-Regular', color: '#9E9E9E'}}>
-                      Aqua system LLC
-                    </Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
+              {remove === false && (
+                <Swipeable renderLeftActions={renderLeftActions}>
+                  <TouchableOpacity
+                    onPress={() => props.navigation.navigate('ContactDetails')}>
+                    <View style={styles.shadow}>
+                      <View style={styles.avatarBg}>
+                        <Image
+                          source={require('../../assets/contact/avatar.png')}
+                          style={{
+                            width: 40,
+                            height: 40,
+                            backgroundColor: '#f2f2f2',
+                            marginLeft: 'auto',
+                            marginRight: 'auto',
+                          }}></Image>
+                      </View>
+
+                      <View
+                        style={{
+                          marginTop: 'auto',
+                          marginBottom: 'auto',
+                          paddingLeft: 10,
+                        }}>
+                        <Text style={{fontFamily: 'Poppins-Regular'}}>
+                          James wink
+                        </Text>
+                        <Text
+                          style={{
+                            fontFamily: 'Poppins-Regular',
+                            color: '#9E9E9E',
+                          }}>
+                          Aqua system LLC
+                        </Text>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                </Swipeable>
+              )}
               <TouchableOpacity>
                 <View style={styles.shadow}>
                   <View style={styles.avatarBg}>

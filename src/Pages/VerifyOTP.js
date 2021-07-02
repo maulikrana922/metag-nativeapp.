@@ -19,6 +19,8 @@ import bg from '../../assets/Logo/bg.png';
 import axios from 'axios';
 import cancel from '../../assets/CreateProfile/cancel.png';
 
+import url from '../BaseURl/baseurl.json';
+
 function VerifyOTP(props) {
   const [otp, setOtp] = useState('');
   const [isLoaded, setLoaded] = useState(true);
@@ -38,7 +40,7 @@ function VerifyOTP(props) {
   const upload = data => {
     // try {
     axios
-      .post('http://testyourapp.online/metag/api/verify-otp', {
+      .post(`${url.baseurl}verify-otp`, {
         otp: data.otp,
       })
       .then(res => {

@@ -29,6 +29,8 @@ import {useSelector, useDispatch} from 'react-redux';
 import {getToken, getAuthToken, getProfile} from '../redux/reducer';
 import loginFail from '../../assets/loginFail.png';
 
+import url from '../BaseURl/baseurl.json';
+
 export default function CreateProfile(props) {
   const [image, setImage] = useState(null);
   const [newImage, setNewImage] = useState(AvtarImage);
@@ -60,7 +62,7 @@ export default function CreateProfile(props) {
     // })
     axios({
       method: 'post',
-      url: 'http://testyourapp.online/metag/api/profile-pic',
+      url: `${url.baseurl}profile-pic`,
       data: formData,
       headers: {
         'content-type': 'multipart/form-data',

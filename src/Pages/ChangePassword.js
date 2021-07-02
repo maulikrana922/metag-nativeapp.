@@ -35,6 +35,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import axios from 'axios';
 import close from '../../assets/close.png';
 import loginFail from '../../assets/loginFail.png';
+import url from '../BaseURl/baseurl.json';
 // import {
 //   useFonts,
 //   Poppins_800ExtraBold_Italic,
@@ -114,7 +115,7 @@ export default function CreateProfile(props) {
     flag === 'true' &&
       axios({
         method: 'post',
-        url: 'http://testyourapp.online/metag/api/createPassword',
+        url: `${url.baseurl}createPassword`,
         data: sendData,
       })
         .then(response => {
@@ -133,7 +134,7 @@ export default function CreateProfile(props) {
     flag === 'false' &&
       axios({
         method: 'post',
-        url: 'http://testyourapp.online/metag/api/change-password',
+        url: `${url.baseurl}change-password`,
         data: {
           currentpassword: data.oldPassword,
           c_password: data.newPassword,

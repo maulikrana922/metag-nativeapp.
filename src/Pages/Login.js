@@ -56,6 +56,7 @@ import {
 import InstagramLogin from 'react-native-instagram-login';
 // import InstagramLogin from 'react-native-instagram-login';
 // import CookieManager from '@react-native-community/cookies';
+import url from '../BaseURl/baseurl.json';
 
 export default function Login(props) {
   const [email, setEmail] = useState('');
@@ -138,7 +139,7 @@ export default function Login(props) {
   const upload = data => {
     // try {
     axios
-      .post('http://testyourapp.online/metag/api/login', {
+      .post(`${url.baseurl}login`, {
         email: data.email,
         password: data.password,
       })
@@ -228,7 +229,7 @@ export default function Login(props) {
     // props.navigation.navigate('Home');
     await axios({
       method: 'post',
-      url: 'http://testyourapp.online/metag/api/social-login',
+      url: `${url.baseurl}social-login`,
       headers: {
         'content-type': 'multipart/form-data',
       },

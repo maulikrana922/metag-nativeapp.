@@ -60,6 +60,9 @@ import {
   getSocialFlag,
   getRemoveProfile,
 } from '../redux/reducer';
+
+import url from '../BaseURl/baseurl.json';
+
 export default function MyProfile(props) {
   const dispatch = useDispatch();
   const {token, profile, link, flag} = useSelector(state => state);
@@ -158,7 +161,7 @@ export default function MyProfile(props) {
   const logout = () => {
     axios({
       method: 'POST',
-      url: 'http://testyourapp.online/metag/api/logout',
+      url: `${url.baseurl}logout`,
       headers: {
         Authorization: 'Bearer ' + apiToken,
       },

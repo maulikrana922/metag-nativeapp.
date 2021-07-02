@@ -39,6 +39,8 @@ import avatar from '../../assets/ContactDetails/avatar.png';
 
 import bg from '../../assets/Logo/bg.png';
 
+import url from '../BaseURl/baseurl.json';
+
 export default function MyProfile() {
   const [isLoaded, setLoaded] = useState(true);
   if (!isLoaded) {

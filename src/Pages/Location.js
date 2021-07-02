@@ -23,6 +23,8 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 
+import url from '../BaseURl/baseurl.json';
+
 export default function Location(props) {
   const [image, setImage] = useState(null);
   const [newImage, setNewImage] = useState(AvtarImage);

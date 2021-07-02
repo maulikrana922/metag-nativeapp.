@@ -60,6 +60,8 @@ import {
 import {useLinkProps} from '@react-navigation/native';
 import close from '../../assets/close.png';
 
+import url from '../BaseURl/baseurl.json';
+
 export default function MyProfile(props) {
   const dispatch = useDispatch();
   const [image, setImage] = useState(null);
@@ -202,7 +204,7 @@ export default function MyProfile(props) {
   useEffect(() => {
     axios({
       method: 'GET',
-      url: 'http://testyourapp.online/metag/api/profile',
+      url: `${url.baseurl}profile`,
       headers: {
         Authorization: 'Bearer ' + apiToken,
       },
@@ -231,7 +233,7 @@ export default function MyProfile(props) {
   const logout = () => {
     axios({
       method: 'POST',
-      url: 'http://testyourapp.online/metag/api/logout',
+      url: `${url.baseurl}logout`,
       headers: {
         Authorization: 'Bearer ' + apiToken,
       },
@@ -283,7 +285,7 @@ export default function MyProfile(props) {
 
     axios({
       method: 'POST',
-      url: 'https://testyourapp.online/metag/api/profileUpdate',
+      url: `${url.baseurl}profileUpdate`,
       data: formData,
       headers: {
         'content-type': 'multipart/form-data',

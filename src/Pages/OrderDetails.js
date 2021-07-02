@@ -26,6 +26,8 @@ import contact from '../../assets/contact.svg';
 import list from '../../assets/list.svg';
 import home from '../../assets/home-run.svg';
 
+import url from '../BaseURl/baseurl.json';
+
 // import {
 //   useFonts,
 //   Poppins_800ExtraBold_Italic,

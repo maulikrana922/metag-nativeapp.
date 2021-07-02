@@ -36,6 +36,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 //import LinkedInModal from 'react-native-linkedin';
 
 // import OAuthManager from 'react-native-social-login';
+
+import url from '../BaseURl/baseurl.json';
 import {
   GoogleSignin,
   GoogleSigninButton,
@@ -152,7 +154,7 @@ export default function Signup(props) {
     // props.navigation.navigate('Home');
     await axios({
       method: 'post',
-      url: 'http://testyourapp.online/metag/api/social-login',
+      url: `${url.baseurl}social-login`,
       headers: {
         'content-type': 'multipart/form-data',
       },
@@ -185,7 +187,7 @@ export default function Signup(props) {
       console.log(userInfo);
       // setUserInfo(userInfo);
       await sendUserData(userInfo);
-      props.navigation.navigate('Home');
+      //props.navigation.navigate('Home');
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
@@ -199,6 +201,7 @@ export default function Signup(props) {
       } else {
         console.log(error);
         // some other error happened
+        console.log('printing Error Google Login');
       }
     }
   };
@@ -238,7 +241,7 @@ export default function Signup(props) {
   const upload = data => {
     // try {
     axios
-      .post('https://testyourapp.online/metag/api/register', {
+      .post(`${url.baseurl}register`, {
         name: data.name,
         email: data.email,
         mobile: data.number,
