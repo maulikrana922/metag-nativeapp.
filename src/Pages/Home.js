@@ -79,7 +79,7 @@ export default function CreateProfile(props) {
     profile !== null &&
       axios({
         method: 'post',
-        url: 'http://testyourapp.online/metag/api/productList',
+        url: 'https://testyourapp.online/metag/api/productList',
         data: {
           count: count,
           start: start,

@@ -58,8 +58,8 @@ import InstagramLogin from 'react-native-instagram-login';
 // import CookieManager from '@react-native-community/cookies';
 
 export default function Login(props) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('hinal.tilavat@gmail.com');
+  const [password, setPassword] = useState('Admin@123');
   const [modalVisible, setModalVisible] = useState(false);
   const [serverError, setServerError] = useState([]);
   const [isLoaded, setLoaded] = useState(true);
@@ -138,7 +138,7 @@ export default function Login(props) {
   const upload = data => {
     // try {
     axios
-      .post('http://testyourapp.online/metag/api/login', {
+      .post('https://testyourapp.online/metag/api/login', {
         email: data.email,
         password: data.password,
       })
@@ -621,7 +621,7 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // height: 43,
     // color: 'white',
-    fontSize: 16,
+    fontSize: 20,
     color: 'white',
   },
   signin_btn: {
@@ -629,10 +629,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 8,
     backgroundColor: 'white',
-    borderBottomLeftRadius: 50,
-    borderBottomRightRadius: 50,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
     borderTopRightRadius: 0,
-    borderTopLeftRadius: 50,
+    borderTopLeftRadius: 20,
     width: 100,
   },
   key_text_parent: {
@@ -701,11 +701,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderBottomColor: 'white',
     borderWidth: 1,
+    //padding:20,
   },
   icon: {
     // height: 20,
     alignSelf: 'center',
     marginRight: 10,
+    margin:20
     // width: 25,
   },
 });

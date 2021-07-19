@@ -19,10 +19,10 @@ target 'metag' do
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-async-storage/async-storage'
 
 
-  target 'metagTests' do
-    inherit! :complete
-    # Pods for testing
-  end
+  # target 'metagTests' do
+  #   inherit! :complete
+  #   # Pods for testing
+  # end
 
   # Enables Flipper.
   #
