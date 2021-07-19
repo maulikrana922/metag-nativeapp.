@@ -1,9 +1,9 @@
 import React from 'react';
-import {StyleSheet, View, ScrollView, Text, Button} from 'react-native';
+import {StyleSheet, View, ScrollView, Text, } from 'react-native';
 // import {Button} from 'react-native-paper';
 //import NdefMessage from '../../Components/NdefMessage';
 import NdefMessage from '../../src/components/NdefMessage';
-import {getTechList} from '../../Utils/getTechList';
+import {getTechList} from '../Utils/getTechList';
 
 function TagDetailScreen(props) {
   const {tag} = props.route.params;
@@ -24,14 +24,15 @@ function TagDetailScreen(props) {
       <View style={styles.section}>
         <Text style={styles.sectionLabel}>TECHNOLOGIES</Text>
         <View style={styles.row}>
-          {techs.map(tech => (
+          {/* {techs.map(tech => (
             <Button
               key={tech}
-              //   mode="outlined"
+                mode="outlined"
               style={{marginRight: 5, marginBottom: 5}}>
               {tech}
+
             </Button>
-          ))}
+          ))} */}
         </View>
       </View>
 
