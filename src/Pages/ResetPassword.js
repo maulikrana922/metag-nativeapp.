@@ -17,6 +17,7 @@ import Logo from '../../assets/Logo/logo.svg';
 import bg from '../../assets/Logo/bg.png';
 import axios from 'axios';
 import cancel from '../../assets/CreateProfile/cancel.png';
+import url from '../BaseURl/baseurl.json';
 
 function ResetPassword(props) {
   const [newPassword, setNewPassword] = useState('');
@@ -34,7 +35,7 @@ function ResetPassword(props) {
   const upload = data => {
     // try {
     axios
-      .post('http://testyourapp.online/metag/api/reset-password', {
+      .post(`${url.baseurl}reset-password`, {
         newpassword: data.newPassword,
         confirm_password: data.confirmPassword,
         verify_key: data.verify_key,

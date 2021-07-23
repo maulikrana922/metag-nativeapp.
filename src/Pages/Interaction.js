@@ -26,6 +26,7 @@ import contact from '../../assets/contact.svg';
 import list from '../../assets/list.svg';
 import home from '../../assets/home-run.svg';
 import bg from '../../assets/Logo/bg.png';
+import url from '../BaseURl/baseurl.json';
 
 export default function CreateProfile(props) {
   const [image, setImage] = useState(null);

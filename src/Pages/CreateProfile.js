@@ -25,6 +25,8 @@ import axios from 'axios';
 import * as ImagePicker from 'react-native-image-picker';
 import Loader from '../components/Loader';
 
+import url from '../BaseURl/baseurl.json';
+
 // import {
 //   useFonts,
 //   Poppins_800ExtraBold_Italic,
@@ -62,7 +64,7 @@ export default function CreateProfile(props) {
     // })
     axios({
       method: 'post',
-      url: 'https://testyourapp.online/metag/api/profile-pic',
+      url: `${url.baseurl}profile-pic`,
       data: formData,
       headers: {
         'content-type': 'multipart/form-data',

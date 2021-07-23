@@ -35,6 +35,9 @@ import Hotspot from '../../assets/Home/hotspot.svg';
 import bg from '../../assets/Logo/bg.png';
 import axios from 'axios';
 import MyProfile from './MyOrders';
+import NfcProxy from './NfcProxy';
+
+import url from '../BaseURl/baseurl.json';
 export default function CreateProfile(props) {
   const [isLoaded, setLoaded] = useState(true);
   const [count, setCount] = useState('3');
@@ -63,13 +66,26 @@ export default function CreateProfile(props) {
   // console.log('flag in my profile', flag);
   // console.log('printing profile in my Home', profile.data[0].api_token);
 
+  // const removeValue = async () => {
+  //   try {
+  //     await AsyncStorage.removeItem('@storage_Key');
+  //     await AsyncStorage.removeItem('@flag_Key');
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+
+  //   console.log('Done.');
+  // };
+  // removeValue();
   console.log('flag....................', flag);
 
   useEffect(() => {
     const apiToken =
-      flag == 'true' ? profile.data[0].api_token : profile.api_token;
+      profile && flag == 'true'
+        ? profile && profile.data[0].api_token
+        : profile && profile.api_token;
     NfcManager.isSupported().then(supported => {
-      console.log(supported);
+      console.log('supported', supported);
       if (supported) {
         setSupportsNfc(true);
       } else {
@@ -79,7 +95,7 @@ export default function CreateProfile(props) {
     profile !== null &&
       axios({
         method: 'post',
-        url: 'https://testyourapp.online/metag/api/productList',
+        url: `${url.baseurl}productList`,
         data: {
           count: count,
           start: start,
@@ -240,7 +256,9 @@ export default function CreateProfile(props) {
                       marginLeft: 10,
                     }}>
                     {console.log('TTTTTT', flag)}
-                    {flag == 'true' ? profile.data[0].name : profile.name}
+                    {profile && flag == 'true'
+                      ? profile && profile.data[0].name
+                      : profile && profile.name}
                   </Text>
                 )}
               </TouchableOpacity>

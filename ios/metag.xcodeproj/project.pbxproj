@@ -32,9 +32,27 @@
 		FB73C0A39D2E4DD29153FBEE /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E5B17C35D474DF89EC42DB3 /* Poppins-ExtraBold.ttf */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		0400176B26A5B48400972D1E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0400176626A5B48400972D1E /* RNCAsyncStorage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNCAsyncStorage;
+		};
+		0400176D26A5B48400972D1E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0400176626A5B48400972D1E /* RNCAsyncStorage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3893A2F023C50AFE009200E3;
+			remoteInfo = "RNCAsyncStorage-macOS";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* metagTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = metagTests.m; sourceTree = "<group>"; };
+		0400176626A5B48400972D1E /* RNCAsyncStorage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCAsyncStorage.xcodeproj; path = "../node_modules/@react-native-async-storage/async-storage/macos/RNCAsyncStorage.xcodeproj"; sourceTree = "<group>"; };
 		04259BC92634299500DDBEC6 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		04B013D026247A5200B7AF6E /* metag.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = metag.entitlements; path = metag/metag.entitlements; sourceTree = "<group>"; };
 		054F50960E523CA79D6EB8FF /* Pods-metag-metagTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-metag-metagTests.debug.xcconfig"; path = "Target Support Files/Pods-metag-metagTests/Pods-metag-metagTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -100,6 +118,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		0400176726A5B48400972D1E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0400176C26A5B48400972D1E /* libRNCAsyncStorage.a */,
+				0400176E26A5B48400972D1E /* libRNCAsyncStorage-macOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		13B07FAE1A68108700A75B9A /* metag */ = {
 			isa = PBXGroup;
 			children = (
@@ -128,6 +155,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				0400176626A5B48400972D1E /* RNCAsyncStorage.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -240,12 +268,35 @@
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 0400176726A5B48400972D1E /* Products */;
+					ProjectRef = 0400176626A5B48400972D1E /* RNCAsyncStorage.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* metag */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		0400176C26A5B48400972D1E /* libRNCAsyncStorage.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNCAsyncStorage.a;
+			remoteRef = 0400176B26A5B48400972D1E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0400176E26A5B48400972D1E /* libRNCAsyncStorage-macOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRNCAsyncStorage-macOS.a";
+			remoteRef = 0400176D26A5B48400972D1E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		13B07F8E1A680F5B00A75B9A /* Resources */ = {

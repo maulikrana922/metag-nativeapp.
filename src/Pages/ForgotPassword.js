@@ -24,6 +24,8 @@ import Logo from '../../assets/Logo/logo.svg';
 import axios from 'axios';
 import cancel from '../../assets/CreateProfile/cancel.png';
 
+import url from '../BaseURl/baseurl.json';
+
 function ForgotPassword(props) {
   const [email, setEmail] = useState('');
   const [isLoaded, setLoaded] = useState(true);
@@ -34,7 +36,7 @@ function ForgotPassword(props) {
   const upload = data => {
     // try {
     axios
-      .post('http://testyourapp.online/metag/api/forgot-password', {
+      .post(`${url.baseurl}forgot-password`, {
         email: data.email,
       })
       .then(res => {

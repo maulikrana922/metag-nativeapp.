@@ -33,6 +33,9 @@ import home from '../../assets/home-run.svg';
 import bg from '../../assets/Logo/bg.png';
 import {useSelector, useDispatch} from 'react-redux';
 import axios from 'axios';
+import close from '../../assets/close.png';
+import loginFail from '../../assets/loginFail.png';
+import url from '../BaseURl/baseurl.json';
 // import {
 //   useFonts,
 //   Poppins_800ExtraBold_Italic,
@@ -53,6 +56,7 @@ export default function CreateProfile(props) {
   const [errorTemplate, SetErrorTemplate] = useState({});
   const [error, setError] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible2, setModalVisible2] = useState(false);
   const [serverError, setServerError] = useState([]);
 
   const list = () => {
@@ -111,7 +115,7 @@ export default function CreateProfile(props) {
     flag === 'true' &&
       axios({
         method: 'post',
-        url: 'http://testyourapp.online/metag/api/createPassword',
+        url: `${url.baseurl}createPassword`,
         data: sendData,
       })
         .then(response => {
@@ -119,6 +123,10 @@ export default function CreateProfile(props) {
             setServerError(response.data.errors.error);
             setModalVisible(true);
           }
+          if (response.data.status == 200) {
+            setModalVisible2(true);
+          }
+
           console.log(response.data);
           // console.log('printing', response.data);
         })
@@ -126,7 +134,7 @@ export default function CreateProfile(props) {
     flag === 'false' &&
       axios({
         method: 'post',
-        url: 'http://testyourapp.online/metag/api/change-password',
+        url: `${url.baseurl}change-password`,
         data: {
           currentpassword: data.oldPassword,
           c_password: data.newPassword,
@@ -221,6 +229,91 @@ export default function CreateProfile(props) {
                 marginBottom: 'auto',
               }}>
               {list()}
+            </View>
+          </View>
+        </Modal>
+        <Modal
+          // style={{
+          //   backgroundColor: 'yellow',
+          //   // margin: '30%',
+          //   // width: '60%',
+          //   // height: '60%',
+          //   // margin: '40%',
+          // }}
+          statusBarTranslucent={true}
+          transparent={true}
+          visible={modalVisible2}>
+          <View
+            style={{
+              height: '100%',
+              backgroundColor: 'rgba( 0, 0, 0, 0.6 )',
+            }}>
+            <View
+              style={{
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                marginTop: 'auto',
+                marginBottom: 'auto',
+                width: '80%',
+                height: 'auto',
+              }}>
+              <TouchableOpacity
+                onPress={() => setModalVisible2(!modalVisible2)}
+                style={{
+                  width: '8%',
+                  height: '8%',
+                  marginLeft: 'auto',
+                  // marginRight: '5%',
+                  marginTop: '3%',
+                }}>
+                <Image
+                  source={close}
+                  resizeMode="contain"
+                  style={{width: '100%', height: '100%'}}></Image>
+              </TouchableOpacity>
+              {/* <Text
+                  style={{
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    marginTop: 'auto',
+                    marginBottom: 'auto',
+                    color: 'red',
+                  }}>
+                  {list()}
+                </Text> */}
+              <View
+                style={{
+                  backgroundColor: 'white',
+                  // marginTop: '5%',
+                  padding: '5%',
+                  borderBottomLeftRadius: 10,
+                  borderBottomRightRadius: 10,
+                  borderTopLeftRadius: 10,
+                  borderTopRightRadius: 10,
+                  display: 'flex',
+                  justifyContent: 'space-evenly',
+                }}>
+                <Image
+                  source={loginFail}
+                  resizeMode="contain"
+                  style={{
+                    width: '50%',
+                    height: '50%',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                  }}></Image>
+                <Text
+                  style={{
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    // marginTop: 'auto',
+                    // marginBottom: 'auto',
+                    color: '#000000',
+                    fontSize: 17,
+                  }}>
+                  Your password updated successfully
+                </Text>
+              </View>
             </View>
           </View>
         </Modal>

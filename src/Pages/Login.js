@@ -56,6 +56,7 @@ import {
 import InstagramLogin from 'react-native-instagram-login';
 // import InstagramLogin from 'react-native-instagram-login';
 // import CookieManager from '@react-native-community/cookies';
+import url from '../BaseURl/baseurl.json';
 
 export default function Login(props) {
   const [email, setEmail] = useState('hinal.tilavat@gmail.com');
@@ -101,15 +102,15 @@ export default function Login(props) {
     } catch (e) {}
   };
 
-  const removeValue = async () => {
-    try {
-      await AsyncStorage.removeItem('@storage_Key');
-    } catch (e) {
-      console.log(e);
-    }
+  // const removeValue = async () => {
+  //   try {
+  //     await AsyncStorage.removeItem('@storage_Key');
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
 
-    console.log('Done.');
-  };
+  //   console.log('Done.');
+  // };
 
   // const setTokenBack = val => {
   //   dispatch(getProfile(val));
@@ -138,7 +139,7 @@ export default function Login(props) {
   const upload = data => {
     // try {
     axios
-      .post('https://testyourapp.online/metag/api/login', {
+      .post(`${url.baseurl}login`, {
         email: data.email,
         password: data.password,
       })
@@ -163,6 +164,7 @@ export default function Login(props) {
           // dispatch(getProfile({...profile, name: 'hinalchanged'}));
           // console.log
           storeData(res.data.data);
+          storeFlag('false');
           console.log('printing flag', res.data.data.flag);
           if (res.data.data.flag === 'true') {
             props.navigation.navigate('CreateProfile');
@@ -227,7 +229,7 @@ export default function Login(props) {
     // props.navigation.navigate('Home');
     await axios({
       method: 'post',
-      url: 'http://testyourapp.online/metag/api/social-login',
+      url: `${url.baseurl}social-login`,
       headers: {
         'content-type': 'multipart/form-data',
       },
@@ -290,7 +292,7 @@ export default function Login(props) {
       forceCodeForRefreshToken: true, // [Android] related to `serverAuthCode`, read the docs link below *.
       // iosClientId: '', // [iOS] optional, if you want to specify the client ID of type iOS (otherwise, it is taken from GoogleService-Info.plist)
     });
-  }, []);
+  }, [profile]);
 
   if (!isLoaded) {
     return null;

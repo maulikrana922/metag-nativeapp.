@@ -30,6 +30,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import Loader from '../components/Loader';
 
 import {set} from 'react-native-reanimated';
+import url from '../BaseURl/baseurl.json';
 // import CheckBox from 'react-native-check-box';
 // import bg from '../../assets/Logo/bg.png';
 
@@ -76,7 +77,7 @@ export default function CreateProfile(props) {
     // };
     axios({
       method: 'post',
-      url: 'http://testyourapp.online/metag/api/link-account',
+      url: `${url.baseurl}link-account`,
       data: {
         facebook_link: fLink,
         insta_link: iLink,
@@ -95,7 +96,7 @@ export default function CreateProfile(props) {
 
         axios({
           method: 'post',
-          url: 'http://testyourapp.online/metag/api/flag-changes',
+          url: `${url.baseurl}flag-changes`,
           data: {
             flag: 'false',
           },
