@@ -551,7 +551,7 @@ export default function Signup(props) {
                   value={email}
                 />
               </View>
-              <Text style={{color: 'white'}}>Hint: example@domain.com</Text>
+              {/* <Text style={{color: 'white'}}>Hint: example@domain.com</Text> */}
               {error.email && <Text style={{color: 'red'}}>{error.email}</Text>}
               <View style={styles.inputTextBg}>
                 <Image
@@ -588,14 +588,7 @@ export default function Signup(props) {
                 />
               </View>
               {error.bName && <Text style={{color: 'red'}}>{error.bName}</Text>}
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  borderBottomColor: 'white',
-                  borderWidth: 1,
-                  // justifyContent: 'space-between',
-                }}>
+              <View style={styles.inputTextBg}>
                 <Image
                   source={require('../../assets/signup/lock.png')}
                   style={styles.icon}
@@ -757,14 +750,18 @@ const styles = StyleSheet.create({
     // flexDirection: "column",
     display: 'flex',
     flexDirection: 'column',
+
     // marginLeft: -15,
 
     // paddingLeft: 20,
   },
   headerBackground: {
     flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems:'flex-start',
     flexWrap: 'wrap',
-    paddingTop: '10%',
+    paddingTop: '15%',
+    display:'flex',
     // paddingBottom: 20,
   },
   text: {
@@ -782,6 +779,7 @@ const styles = StyleSheet.create({
   text_metag: {
     fontFamily: 'Poppins-SemiBold',
     fontSize: 45,
+    
     // backgroundColor: 'pink',
     // height: 40,
     // marginTop: -8,
@@ -808,6 +806,7 @@ const styles = StyleSheet.create({
     // height: 41,
     fontSize: 16,
     color: 'white',
+    paddingTop:5,
 
     // alignSelf: 'stretch',
     // flex: 1,
@@ -817,10 +816,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 8,
     backgroundColor: 'white',
-    borderBottomLeftRadius: 50,
-    borderBottomRightRadius: 50,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
     borderTopRightRadius: 0,
-    borderTopLeftRadius: 50,
+    borderTopLeftRadius: 20,
     width: 100,
   },
   key_text_parent: {
@@ -875,9 +874,12 @@ const styles = StyleSheet.create({
   },
   footer_normal_text: {
     fontFamily: 'Poppins-Regular',
+    fontSize:16,
   },
   footer_bold_text: {
     fontFamily: 'Poppins-ExtraBold',
+    fontSize:16,
+
   },
   icon: {
     // height: 20,
@@ -890,5 +892,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderBottomColor: 'white',
     borderWidth: 1,
+    paddingTop: '10%',
+    fontFamily: 'Poppins-Regular',
+    fontSize: 5,
+    paddingBottom: '4%',
   },
 });

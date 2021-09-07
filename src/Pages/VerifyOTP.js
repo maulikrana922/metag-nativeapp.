@@ -11,6 +11,7 @@ import {
   ImageBackground,
   Modal,
   Alert,
+  SafeAreaView,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {getVerifyKey, getId} from '../redux/reducer';
@@ -88,151 +89,155 @@ function VerifyOTP(props) {
     return null;
   } else {
     return (
-      <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
-        {console.log('verigyOTPLog', verifyKey, id)}
-        <Modal
-          // style={{
-          //   backgroundColor: 'yellow',
-          //   // margin: '30%',
-          //   // width: '60%',
-          //   // height: '60%',
-          //   // margin: '40%',
-          // }}
-          statusBarTranslucent={true}
-          transparent={true}
-          visible={modalVisible}>
-          <View
-            style={{
-              height: '100%',
-              backgroundColor: 'rgba( 0, 0, 0, 0.6 )',
-            }}>
+      <SafeAreaView style={{flex: 1}}>
+        <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
+          {console.log('verigyOTPLog', verifyKey, id)}
+          <Modal
+            // style={{
+            //   backgroundColor: 'yellow',
+            //   // margin: '30%',
+            //   // width: '60%',
+            //   // height: '60%',
+            //   // margin: '40%',
+            // }}
+            statusBarTranslucent={true}
+            transparent={true}
+            visible={modalVisible}>
             <View
               style={{
-                backgroundColor: '#eeeeee',
-                marginLeft: 'auto',
-                marginRight: 'auto',
-                marginTop: 'auto',
-                marginBottom: 'auto',
-                width: '80%',
-                height: '10%',
-                borderBottomLeftRadius: 10,
-                borderBottomRightRadius: 10,
-                borderTopLeftRadius: 10,
-                borderTopRightRadius: 10,
+                height: '100%',
+                backgroundColor: 'rgba( 0, 0, 0, 0.6 )',
               }}>
-              <TouchableOpacity
-                onPress={() => setModalVisible(!modalVisible)}
+              <View
                 style={{
-                  // backgroundColor: 'red',
-                  width: '17%',
-                  height: '17%',
-                  marginLeft: 'auto',
-                  // marginRight: '5%',
-                  marginTop: '3%',
-                }}>
-                <Image
-                  source={cancel}
-                  resizeMode="contain"
-                  style={{width: '100%', height: '100%'}}></Image>
-              </TouchableOpacity>
-              <Text
-                style={{
+                  backgroundColor: '#eeeeee',
                   marginLeft: 'auto',
                   marginRight: 'auto',
                   marginTop: 'auto',
                   marginBottom: 'auto',
-                  color: 'red',
-                  fontSize: 17,
+                  width: '80%',
+                  height: '10%',
+                  borderBottomLeftRadius: 10,
+                  borderBottomRightRadius: 10,
+                  borderTopLeftRadius: 10,
+                  borderTopRightRadius: 10,
                 }}>
-                {serverError}
-              </Text>
+                <TouchableOpacity
+                  onPress={() => setModalVisible(!modalVisible)}
+                  style={{
+                    // backgroundColor: 'red',
+                    width: '17%',
+                    height: '17%',
+                    marginLeft: 'auto',
+                    // marginRight: '5%',
+                    marginTop: '3%',
+                  }}>
+                  <Image
+                    source={cancel}
+                    resizeMode="contain"
+                    style={{width: '100%', height: '100%'}}></Image>
+                </TouchableOpacity>
+                <Text
+                  style={{
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    marginTop: 'auto',
+                    marginBottom: 'auto',
+                    color: 'red',
+                    fontSize: 17,
+                  }}>
+                  {serverError}
+                </Text>
+              </View>
             </View>
-          </View>
-        </Modal>
-        <View style={styles.container}>
-          <StatusBar
-            barStyle="dark-content"
-            backgroundColor="transparent"
-            translucent={true}
-          />
-          <View style={styles.headerBackground}>
-            <Logo width={100} height={100} />
-            <View style={styles.header}>
-              <Text style={styles.text_metag}>meTAG</Text>
-              <Text style={styles.text_tagline}>I M ME,WHO ARE YOU</Text>
+          </Modal>
+          <View style={styles.container}>
+            <StatusBar
+              barStyle="dark-content"
+              backgroundColor="transparent"
+              translucent={true}
+            />
+            <View style={styles.headerBackground}>
+              <Logo width={100} height={100} />
+              <View style={styles.header}>
+                <Text style={styles.text_metag}>meTAG</Text>
+                <Text style={styles.text_tagline}>I M ME,WHO ARE YOU</Text>
+              </View>
             </View>
-          </View>
-          <View style={styles.background}>
-            <Text style={styles.forgot}>Verify OTP</Text>
-            <Text style={styles.password}>Will be expired in</Text>
-            <Text style={styles.password}>01:08</Text>
+            <View style={styles.background}>
+              <Text style={styles.forgot}>Verify OTP</Text>
+              <Text style={styles.password}>Will be expired in</Text>
+              <Text style={styles.password}>01:08</Text>
 
-            {/* <TextInput
+              {/* <TextInput
             style={styles.inputEmail}
             onChangeText={text => setEmail(text)}
             value={email}
           /> */}
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                borderBottomColor: 'white',
-                borderWidth: 1,
-                // justifyContent: 'space-between',
-              }}>
-              <Image
-                source={require('../../assets/signup/lock.png')}
-                style={styles.icon}
-                resizeMode="contain"></Image>
-              <TextInput
-                style={styles.inputEmail}
-                placeholder="Enter OTP"
-                placeholderTextColor="white"
-                onChangeText={text => setOtp(text)}
-                value={otp}
-              />
-            </View>
-            {error.otp && <Text style={{color: 'white'}}>{error.otp}</Text>}
-            <View
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                // width: 'auto',
-                flexDirection: 'row',
-                marginBottom: 30,
-                marginTop: 30,
-                alignItems: 'center',
-              }}>
-              <Text
+              <View
                 style={{
-                  color: 'white',
-                  alignContent: 'center',
-                  // alignSelf: 'center',
-                  // marginTop: 'auto',
-                  // marginBottom: 'auto',
-                  fontFamily: 'Poppins-Regular',
+                  display: 'flex',
+                  flexDirection: 'row',
+                  borderBottomColor: 'white',
+                  borderWidth: 1,
+                  paddingTop: 50,
+
+                  // justifyContent: 'space-between',
                 }}>
-                Resend OTP
-              </Text>
-              <TouchableOpacity
-                style={styles.signin_btn}
-                // onPress={() => props.navigation.navigate('ResetPassword')}
-                onPress={() => submit()}>
-                <Text style={{color: 'black', fontSize: 14}}>Submit</Text>
-              </TouchableOpacity>
+                <Image
+                  source={require('../../assets/signup/lock.png')}
+                  style={styles.icon}
+                  resizeMode="contain"></Image>
+                <TextInput
+                  style={styles.inputEmail}
+                  placeholder="Enter OTP"
+                  placeholderTextColor="white"
+                  onChangeText={text => setOtp(text)}
+                  value={otp}
+                />
+              </View>
+              {error.otp && <Text style={{color: 'white'}}>{error.otp}</Text>}
+              <View
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  // width: 'auto',
+                  flexDirection: 'row',
+                  marginBottom: 30,
+                  marginTop: 30,
+                  alignItems: 'center',
+                }}>
+                <Text
+                  style={{
+                    color: 'white',
+                    alignContent: 'center',
+                    // alignSelf: 'center',
+                    // marginTop: 'auto',
+                    // marginBottom: 'auto',
+                    fontFamily: 'Poppins-Regular',
+                  }}>
+                  Resend OTP
+                </Text>
+                <TouchableOpacity
+                  style={styles.signin_btn}
+                  // onPress={() => props.navigation.navigate('ResetPassword')}
+                  onPress={() => submit()}>
+                  <Text style={{color: 'black', fontSize: 14}}>Submit</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View style={{flex: 1, justifyContent: 'flex-end'}}>
+              <View style={styles.footer}>
+                <Text
+                  onPress={() => props.navigation.navigate('Login')}
+                  style={styles.footer_bold_text}>
+                  Back to Login
+                </Text>
+              </View>
             </View>
           </View>
-          <View style={{flex: 1, justifyContent: 'flex-end'}}>
-            <View style={styles.footer}>
-              <Text
-                onPress={() => props.navigation.navigate('Login')}
-                style={styles.footer_bold_text}>
-                Back to Login
-              </Text>
-            </View>
-          </View>
-        </View>
-      </ImageBackground>
+        </ImageBackground>
+      </SafeAreaView>
     );
   }
 }
@@ -256,6 +261,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 0,
     padding: 30,
     height: 'auto',
+    marginTop: 40,
     // width: 300,
   },
   header: {
@@ -269,6 +275,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     paddingTop: '10%',
+    justifyContent: 'flex-start',
   },
   text: {
     fontFamily: 'Poppins-Regular',
@@ -344,6 +351,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
+    marginBottom: 8,
     // paddingTop: 60,
   },
   footer_normal_text: {
@@ -354,6 +362,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-ExtraBold',
     marginTop: 'auto',
     paddingTop: 170,
+    fontSize: 18,
   },
   password: {
     fontFamily: 'Poppins-Regular',
@@ -373,10 +382,10 @@ const styles = StyleSheet.create({
     marginTop: 'auto',
     marginBottom: 'auto',
     backgroundColor: 'white',
-    borderBottomLeftRadius: 50,
-    borderBottomRightRadius: 50,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
     borderTopRightRadius: 0,
-    borderTopLeftRadius: 50,
+    borderTopLeftRadius: 20,
     width: 100,
   },
   icon: {

@@ -11,7 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 const Nfc = () => {
   const navigation = useNavigation();
   // const { token, profile, link, flag } = useSelector(state => state);
-  // const apiToken =
+  // const apiToken =p
   //   profile !== null && flag === 'true'
   //     ? profile.data[0].api_token
   //     : profile !== null && profile.api_token;
