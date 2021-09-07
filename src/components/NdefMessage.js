@@ -50,8 +50,8 @@ class NdefMessage extends React.Component {
 
     return (
       <View>
-        {tnfName && <Text>{`TNF: ${tnfName}`}</Text>}
-        {rtdName && <Text>{`RTD: ${rtdName}`}</Text>}
+        {/* {tnfName && <Text>{`TNF: ${tnfName}`}</Text>}
+        {rtdName && <Text>{`RTD: ${rtdName}`}</Text>} */}
 
         {this._renderPayload({ndef, rtdName})}
       </View>
@@ -79,9 +79,16 @@ class NdefMessage extends React.Component {
 
 class RtdTextPayload extends React.Component {
   render() {
+    
     let {ndef} = this.props;
     let text = Ndef.text.decodePayload(ndef.payload);
-    return <Text style={{fontSize: 18}}>{text}</Text>;
+    alert(text)
+
+    console.log("new text",text)
+    return <View style={{flex:1}}>
+      
+    </View>
+    // return <Text style={{fontSize: 18}}>{text}</Text>;
   }
 }
 

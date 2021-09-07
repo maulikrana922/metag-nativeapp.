@@ -16,15 +16,15 @@ function TagDetailScreen(props) {
 
   return (
     <ScrollView style={[styles.wrapper, {padding: 10}]}>
-      <View style={styles.section}>
+      {/* <View style={styles.section}>
         <Text style={styles.sectionLabel}>UID</Text>
         <Text>{tag.id || '---'}</Text>
-      </View>
+      </View> */}
 
-      <View style={styles.section}>
+      {/* <View style={styles.section}>
         <Text style={styles.sectionLabel}>TECHNOLOGIES</Text>
         <View style={styles.row}>
-          {/* {techs.map(tech => (
+          {techs.map(tech => (
             <Button
               key={tech}
                 mode="outlined"
@@ -32,19 +32,19 @@ function TagDetailScreen(props) {
               {tech}
 
             </Button>
-          ))} */}
+          ))}
         </View>
-      </View>
+      </View> */}
 
       <View style={styles.section}>
-        <Text style={styles.sectionLabel}>NDEF</Text>
+        {/* <Text style={styles.sectionLabel}>NDEF</Text> */}
         {ndef ? <NdefMessage ndef={ndef} /> : <Text>---</Text>}
       </View>
 
-      <View style={styles.section}>
+      {/* <View style={styles.section}>
         <Text style={styles.sectionLabel}>TAG OBJECT</Text>
         <Text>{JSON.stringify(tag, null, 2)}</Text>
-      </View>
+      </View> */}
     </ScrollView>
   );
 }
