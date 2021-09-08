@@ -353,7 +353,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-ExtraBold',
     marginTop: 'auto',
     paddingTop: 170,
-    fontSize:18,
+    fontSize: 18,
   },
   password: {
     fontFamily: 'Poppins-Regular',
@@ -367,7 +367,7 @@ const styles = StyleSheet.create({
     borderBottomColor: 'white',
     borderWidth: 1,
     marginTop: 30,
-    paddingBottom:5,
+    paddingBottom: 10,
   },
   icon: {
     // height: 20,
@@ -379,7 +379,7 @@ const styles = StyleSheet.create({
     // borderBottomColor: 'white',
     // borderWidth: 1,
     // height: 41,
-    fontSize: 16,
+    fontSize: 18,
     color: 'white',
 
     // alignSelf: 'stretch',

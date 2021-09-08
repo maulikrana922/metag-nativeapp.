@@ -418,10 +418,11 @@ const styles = StyleSheet.create({
     // fontWeight: '700',
     paddingBottom: 10,
     // backgroundColor: 'black',
-    borderWidth: 1,
+    borderWidth: 3,
     borderBottomColor: 'white',
     // alignContent:"center",
     textAlign: 'center',
+    textDecoration: 'underline',
     width: 230,
 
     // width: "auto",
@@ -556,7 +557,7 @@ const styles = StyleSheet.create({
     height: 30,
   },
   infoShadow: {
-    // padding: 8,
+    padding: 8,
     borderRadius: 1,
     shadowColor: 'black',
     elevation: 4,

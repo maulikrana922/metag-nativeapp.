@@ -619,7 +619,7 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // height: 43,
     // color: 'white',
-    fontSize: 16,
+    fontSize: 20,
     color: 'white',
   },
   signin_btn: {
@@ -642,6 +642,7 @@ const styles = StyleSheet.create({
   },
   forgotpasword_text: {
     color: 'white',
+    fontSize: 18,
   },
   key_img: {
     width: 20,

@@ -36,7 +36,7 @@ import {
   getSocialFlag,
   getRemoveProfile,
 } from '../src/redux/reducer';
-import TagDetail from '../src/Pages/TagDetail'
+import TagDetail from '../src/Pages/TagDetail';
 import Loader from '../src/components/Loader';
 
 const Stack = createStackNavigator();
@@ -127,7 +127,7 @@ function StackNavigator() {
                 <Stack.Screen name="Nfc" component={Nfc} />
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Signup" component={Signup} />
-                <Stack.Screen name="TagDetail" component={TagDetail}/>
+                <Stack.Screen name="TagDetail" component={TagDetail} />
               </>
             )}
         {/* <Stack.Screen name=""
