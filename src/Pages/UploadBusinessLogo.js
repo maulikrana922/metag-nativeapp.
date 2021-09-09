@@ -216,10 +216,13 @@ export default function CreateProfile(props) {
               <Text
                 // onPress={() => props.navigation.navigate('Location')}
                 // disabled={true}
-                onPress={() =>
-                  next === true
-                    ? props.navigation.navigate('Location')
-                    : setModalVisible(true)
+                onPress={
+                  () => {
+                    props.navigation.navigate('MediaAccount');
+                  }
+                  // next === true
+                  //   ? props.navigation.navigate('Location')
+                  //   : setModalVisible(true)
                 }
                 style={styles.next}>
                 Next
@@ -461,12 +464,12 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-SemiBold',
     color: 'white',
     alignSelf: 'center',
-    fontSize: 14,
+    fontSize: 16,
   },
   completeProfile: {
     alignSelf: 'center',
     color: 'white',
-    fontSize: 15,
+    fontSize: 18,
     fontFamily: 'Poppins-ExtraBold',
     fontWeight: '700',
     // paddingBottom: 10,
@@ -534,7 +537,7 @@ const styles = StyleSheet.create({
     color: 'black',
     // marginBottom: 14,
     // marginTop: 20,
-    fontSize: 14,
+    fontSize: 18,
     marginBottom: 15,
   },
   camera_img: {

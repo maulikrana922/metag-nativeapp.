@@ -255,6 +255,7 @@ export default function MyProfile(props) {
                       paddingRight: 10,
                       paddingLeft: 10,
                       paddingBottom: 10,
+                      width: 120,
                     }}>
                     <Text
                       style={{

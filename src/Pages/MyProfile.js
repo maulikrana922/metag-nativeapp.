@@ -436,6 +436,7 @@ export default function MyProfile(props) {
                       paddingRight: 10,
                       paddingLeft: 10,
                       paddingBottom: 10,
+                      width: 120,
                     }}>
                     <Text
                       style={{
@@ -462,7 +463,14 @@ export default function MyProfile(props) {
                   </View>
                 </View>
               )}
-              <Text style={styles.completeProfile}>My Profile</Text>
+              <View
+                style={{
+                  borderWidth: 1,
+                  borderBottomColor: 'white',
+                  alignSelf: 'center',
+                }}>
+                <Text style={styles.completeProfile}>My Profile</Text>
+              </View>
             </View>
             {/*three View*/}
             <View
@@ -580,9 +588,10 @@ export default function MyProfile(props) {
                 style={{
                   marginLeft: 'auto',
                   marginRight: 'auto',
-                  marginTop: '5%',
+                  marginTop: '2.5%',
                   fontFamily: 'Poppins-Regular',
                   color: '#000000',
+                  fontSize: 18,
                 }}>
                 {social.name}
               </Text>
@@ -598,6 +607,7 @@ export default function MyProfile(props) {
                     // marginTop: '5%',
                     // fontFamily: 'Poppins-Regular',
                     // color: '#000000',
+                    // backgroundColor: 'red',
                   }
                 }>
                 <TextInput
@@ -663,50 +673,41 @@ export default function MyProfile(props) {
               marginBottom: 10,
               // backgroundColor: 'red',
               justifyContent: 'space-evenly',
+
               // marginLeft: '10%',
               // marginRight: '10%',
             }}>
-            {/* <View> */}
-
-            {/* </View> */}
+            <Text>ICONS</Text>
           </View>
 
           {!input && (
-            <View
-              style={{
-                display: 'flex',
-                alignSelf: 'center',
-                justifyContent: 'space-evenly',
-                height: '30%',
-                borderRadius: 1,
-                shadowColor: 'black',
-                elevation: 4,
-                padding: 20,
-                width: '90%',
-              }}>
-              <View style={styles.info}>
-                <Work width={30} height={30} fill="black" />
-                <Text style={styles.infoPadding}>
-                  {social.business_name !== 'undefine' && social.business_name}
-                  {/* {social.business_name}
+            <View style={styles.card}>
+              <View style={styles.cardDetails}>
+                <View style={styles.info}>
+                  <Work width={30} height={30} fill="black" />
+                  <Text style={styles.infoPadding}>
+                    {social.business_name !== 'undefine' &&
+                      social.business_name}
+                    {/* {social.business_name}
                   {console.log('printing business name', social)} */}
-                </Text>
-              </View>
-              <View style={styles.info}>
-                <Email width={30} height={30} fill="black" />
-                <Text style={styles.infoPadding}>{social.email}</Text>
-              </View>
-              <View style={styles.info}>
-                <Iphone width={30} height={30} fill="black" />
-                <Text style={styles.infoPadding}>
-                  {social.mobile !== 0 && social.mobile}
-                </Text>
-              </View>
-              <View style={styles.info}>
-                <Gps width={30} height={30} fill="black" />
-                <Text style={styles.infoPadding}>
-                  {social.location !== 'null' && social.location}
-                </Text>
+                  </Text>
+                </View>
+                <View style={styles.info}>
+                  <Email width={30} height={30} fill="black" />
+                  <Text style={styles.infoPadding}>{social.email}</Text>
+                </View>
+                <View style={styles.info}>
+                  <Iphone width={30} height={30} fill="black" />
+                  <Text style={styles.infoPadding}>
+                    {social.mobile !== 0 && social.mobile}
+                  </Text>
+                </View>
+                <View style={styles.info}>
+                  <Gps width={30} height={30} fill="black" />
+                  <Text style={styles.infoPadding}>
+                    {social.location !== 'null' && social.location}
+                  </Text>
+                </View>
               </View>
             </View>
           )}
@@ -811,10 +812,10 @@ export default function MyProfile(props) {
                 marginRight: 20,
                 marginTop: 20,
                 backgroundColor: 'black',
-                borderBottomLeftRadius: 50,
-                borderBottomRightRadius: 50,
+                borderBottomLeftRadius: 20,
+                borderBottomRightRadius: 20,
                 borderTopRightRadius: 0,
-                borderTopLeftRadius: 50,
+                borderTopLeftRadius: 20,
                 width: 100,
               }}
               onPress={() => {
@@ -1024,18 +1025,14 @@ const styles = StyleSheet.create({
   completeProfile: {
     alignSelf: 'center',
     color: 'white',
-    fontSize: 15,
-    fontFamily: 'Poppins-ExtraBold',
-    fontWeight: '700',
+    fontSize: 20,
+    fontFamily: 'Poppins-SemiBold',
     paddingBottom: 10,
-    backgroundColor: 'black',
-    borderWidth: 1,
-    borderBottomColor: '#808080',
-    // alignContent:"center",
+    borderWidth: 3,
+    borderBottomColor: 'white',
     textAlign: 'center',
-    width: '60%',
 
-    // width: "auto",
+    width: 230,
   },
   connectedByProfile: {
     alignSelf: 'center',
@@ -1246,16 +1243,45 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     // marginLeft: 10,
   },
+  card: {
+    display: 'flex',
+    alignSelf: 'center',
+  },
+  cardDetails: {
+    justifyContent: 'space-evenly',
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: 'white',
+    padding: 20,
+    width: '90%',
+    shadowColor: 'black',
+    shadowOffset: {
+      width: 10,
+      height: 3,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 4.65,
+    elevation: 7,
+  },
   info: {
     display: 'flex',
     flexDirection: 'row',
+    shadowColor: 'white',
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowOpacity: 0,
+    shadowRadius: 0,
+    elevation: 0,
   },
   infoPadding: {
-    paddingLeft: 10,
+    paddingLeft: 18,
     paddingRight: '5%',
     fontFamily: 'Poppins-Regular',
     color: '#000000',
-    fontSize: 16,
+    fontSize: 18,
+    paddingBottom: 35,
   },
   modalBackground: {
     flex: 1,

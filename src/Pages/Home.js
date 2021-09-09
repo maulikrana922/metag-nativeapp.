@@ -217,7 +217,9 @@ export default function CreateProfile(props) {
                 </View>
                 <Text style={styles.next}></Text>
               </View>
-              <Text style={styles.completeProfile}>Home</Text>
+              <View style={styles.completeProfileView}>
+                <Text style={styles.completeProfile}>Home</Text>
+              </View>
               <Text style={styles.connectedByProfile}>Connected by</Text>
               <View style={styles.iconFlex}>
                 <View style={styles.backgroundIcon}>
@@ -227,7 +229,8 @@ export default function CreateProfile(props) {
                   <View style={styles.backgroundIcon2}>
                     <TouchableOpacity
                       onPress={() => {
-                        props.navigation.navigate('Nfc');
+                        props.navigation.navigate('CreateProfile');
+                        // props.navigation.navigate('Nfc');
                       }}>
                       <Hotspot height={40} width={40} fill="black" />
                     </TouchableOpacity>
@@ -237,113 +240,109 @@ export default function CreateProfile(props) {
               <Text
                 onPress={() => props.navigation.navigate('Interaction')}
                 style={styles.underlineText}>
-                Interaction History{' '}
+                Interaction History
               </Text>
             </View>
           </View>
-          <View style={styles.infoBox}>
-            <View style={styles.infoShadow}>
-              <TouchableOpacity
-                onPress={() => props.navigation.navigate('MyProfile')}
-                style={styles.eachInfo}>
-                {/* <Image source={U} style={{width: 20, height: 20}}></Image> */}
-                <UserIcon height={20} width={20} fill="black" />
-                {profile !== null && (
-                  <Text
-                    style={{
-                      color: 'black',
-                      alignSelf: 'center',
-                      marginLeft: 10,
-                    }}>
-                    {console.log('TTTTTT', flag)}
-                    {profile && flag == 'true'
-                      ? profile && profile.data[0].name
-                      : profile && profile.name}
-                  </Text>
-                )}
-              </TouchableOpacity>
-              <View style={styles.eachInfo}>
-                {/* <Image
+          <View style={styles.cardComponents}>
+            <View style={styles.infoBox}>
+              <View style={styles.infoShadow}>
+                <TouchableOpacity
+                  onPress={() => props.navigation.navigate('MyProfile')}
+                  style={styles.eachInfo}>
+                  {/* <Image source={U} style={{width: 20, height: 20}}></Image> */}
+                  <UserIcon height={30} width={30} fill="black" />
+                  {profile !== null && (
+                    <Text
+                      style={{
+                        color: 'black',
+                        alignSelf: 'center',
+                        marginLeft: 20,
+                        fontSize: 18,
+                      }}>
+                      {console.log('TTTTTT', flag)}
+                      {profile && flag == 'true'
+                        ? profile && profile.data[0].name
+                        : profile && profile.name}
+                    </Text>
+                  )}
+                </TouchableOpacity>
+                <View style={styles.eachInfo}>
+                  {/* <Image
                 source={suitecaseIcon}
                 style={{width: 20, height: 20}}></Image> */}
-                <SuitecaseIcon width={20} height={20} fill="black" />
-                {profile !== null && (
-                  <Text
-                    style={{
-                      color: 'black',
-                      alignSelf: 'center',
-                      marginLeft: 10,
-                    }}>
-                    {flag == 'true'
-                      ? profile.data[0].business_name
-                      : profile.business_name}
-                  </Text>
-                )}
-              </View>
-            </View>
-            <View
-              style={{
-                borderRadius: 1,
-                shadowColor: 'black',
-                elevation: 4,
-                marginTop: 8,
-                padding: 8,
-                // backgroundColor: 'yellow',
-              }}>
-              <View style={styles.productTitle}>
-                <Text style={styles.productsText}>Products</Text>
-                <View style={{display: 'flex', flexDirection: 'row'}}>
-                  <Text>count</Text>
-                  <TextInput
-                    keyboardType="numeric"
-                    // placeholder="Password"
-                    // placeholderTextColor="white"
-                    // onChangeText={text => setPassword(text)}
-                    onChangeText={text => setCount(text.trim())}
-                    value={count}
-                    style={{marginTop: -12}}
-                  />
-                  <Text>start</Text>
-
-                  <TextInput
-                    style={{
-                      borderBottomWidth: 1,
-                      borderBottomColor: 'black',
-                    }}
-                    keyboardType="numeric"
-                    onChangeText={text => setStart(text.trim())}
-                    value={start}
-                    style={{marginTop: -12}}
-                  />
-
-                  <Text
-                    onPress={() => props.navigation.navigate('ViewAll')}
-                    // onPress={() => props.navigation.navigate('MyOrders')}
-                    style={styles.viewAll}>
-                    View All
-                  </Text>
+                  <SuitecaseIcon width={30} height={30} fill="black" />
+                  {profile !== null && (
+                    <Text
+                      style={{
+                        color: 'black',
+                        alignSelf: 'center',
+                        marginLeft: 20,
+                        fontSize: 18,
+                      }}>
+                      {flag == 'true'
+                        ? profile.data[0].business_name
+                        : profile.business_name}
+                    </Text>
+                  )}
                 </View>
               </View>
-              <View>
-                <ScrollView>
-                  {/* <ProductList /> */}
-                  {products.length !== 0 &&
-                    products.map(element => {
-                      return (
-                        // <ScrollView>
-                        <ProductList
-                          // key={element.key}
-                          title={element.title}
-                          price={element.price}
-                          image={element.image}
-                          key={element.id}
-                          image={element.image}
-                          currency={element.currency}
-                        />
-                        // </ScrollView>
-                      );
-                    })}
-                </ScrollView>
+              <View style={styles.infoShadow}>
+                <View style={styles.productTitle}>
+                  <Text style={styles.productsText}>Products</Text>
+                  <View style={{display: 'flex', flexDirection: 'row'}}>
+                    <Text>count</Text>
+                    <TextInput
+                      keyboardType="numeric"
+                      // placeholder="Password"
+                      // placeholderTextColor="white"
+                      // onChangeText={text => setPassword(text)}
+                      onChangeText={text => setCount(text.trim())}
+                      value={count}
+                      style={{marginTop: -12}}
+                    />
+                    <Text>start</Text>
+
+                    <TextInput
+                      style={{
+                        borderBottomWidth: 1,
+                        borderBottomColor: 'black',
+                      }}
+                      keyboardType="numeric"
+                      onChangeText={text => setStart(text.trim())}
+                      value={start}
+                      style={{marginTop: -12}}
+                    />
+
+                    <Text
+                      onPress={() => props.navigation.navigate('ViewAll')}
+                      // onPress={() => props.navigation.navigate('MyOrders')}
+                      style={styles.viewAll}>
+                      View All
+                    </Text>
+                  </View>
+                </View>
+                <View>
+                  <ScrollView>
+                    {/* <ProductList /> */}
+                    {products.length !== 0 &&
+                      products.map(element => {
+                        return (
+                          // <ScrollView>
+                          <ProductList
+                            // key={element.key}
+                            title={element.title}
+                            price={element.price}
+                            image={element.image}
+                            key={element.id}
+                            image={element.image}
+                            currency={element.currency}
+                          />
+                          // </ScrollView>
+                        );
+                      })}
+                  </ScrollView>
+                </View>
               </View>
             </View>
           </View>
@@ -410,10 +409,15 @@ const styles = StyleSheet.create({
     color: 'white',
     alignSelf: 'center',
   },
+  completeProfileView: {
+    borderWidth: 1,
+    borderBottomColor: 'white',
+    alignSelf: 'center',
+  },
   completeProfile: {
     alignSelf: 'center',
     color: 'white',
-    fontSize: 14,
+    fontSize: 20,
     fontFamily: 'Poppins-SemiBold',
     // fontWeight: '700',
     paddingBottom: 10,
@@ -422,7 +426,7 @@ const styles = StyleSheet.create({
     borderBottomColor: 'white',
     // alignContent:"center",
     textAlign: 'center',
-    textDecoration: 'underline',
+
     width: 230,
 
     // width: "auto",
@@ -430,7 +434,7 @@ const styles = StyleSheet.create({
   connectedByProfile: {
     alignSelf: 'center',
     color: 'white',
-    fontSize: 12,
+    fontSize: 14,
     paddingTop: 10,
     fontFamily: 'Poppins-Regular',
     // fontWeight: '700',
@@ -452,11 +456,10 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 20,
   },
   backgroundIcon: {
-    width: 70,
-    // backgroundIcon:"auto",
     height: 'auto',
+    width: 'auto',
     backgroundColor: 'white',
-    padding: 10,
+    padding: 20,
     marginRight: 10,
     borderBottomLeftRadius: 100,
     borderBottomRightRadius: 100,
@@ -465,11 +468,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   backgroundIcon2: {
-    width: 70,
+    width: 'auto',
     // backgroundIcon:"auto",
     height: 'auto',
     backgroundColor: 'white',
-    padding: 10,
+    padding: 20,
     // marginRight: 15,
     //   margin:"auto",
     borderBottomLeftRadius: 100,
@@ -489,9 +492,9 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
     color: 'white',
     textAlign: 'center',
-    fontSize: 12,
+    fontSize: 14,
     fontFamily: 'Poppins-Reguler',
-    marginTop: 10,
+    marginTop: 15,
     marginBottom: 10,
   },
   infoBox: {
@@ -501,7 +504,6 @@ const styles = StyleSheet.create({
     margin: 20,
     // marign: 30,
     // borderWidth: 1,
-    // borderColor: 'black',
   },
   eachInfo: {
     display: 'flex',
@@ -514,13 +516,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     margin: 8,
     justifyContent: 'space-between',
+    marginTop: 8,
   },
   productsText: {
     fontFamily: 'Poppins-ExtraBold',
-    fontWeight: '700',
+    fontSize: 20,
+    fontWeight: '600',
   },
   viewAll: {
     textDecorationLine: 'underline',
+    fontSize: 14,
+    paddingLeft: 120,
   },
   buyBtnBg: {
     backgroundColor: '#40A41D',
@@ -557,10 +563,16 @@ const styles = StyleSheet.create({
     height: 30,
   },
   infoShadow: {
-    padding: 8,
-    borderRadius: 1,
-    shadowColor: 'black',
-    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: {width: 5, height: 5},
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
     padding: 4,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    marginBottom: 15,
+    height: 100,
+    alignItems: 'flex-start',
   },
+  cardComponents: {},
 });

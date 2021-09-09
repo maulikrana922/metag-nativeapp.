@@ -192,7 +192,7 @@ export default function CreateProfile(props) {
                 // onPress={() => props.navigation.navigate('Home')}
                 onPress={() => uploadLinks()}
                 style={styles.next}>
-                Next
+                Done
               </Text>
             </View>
             <Text style={styles.completeProfile}>Complete Profile</Text>
@@ -438,12 +438,12 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-SemiBold',
     color: 'white',
     alignSelf: 'center',
-    fontSize: 14,
+    fontSize: 16,
   },
   completeProfile: {
     alignSelf: 'center',
     color: 'white',
-    fontSize: 15,
+    fontSize: 18,
     fontFamily: 'Poppins-ExtraBold',
     fontWeight: '700',
     // paddingBottom: 10,

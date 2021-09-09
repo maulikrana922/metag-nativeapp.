@@ -249,6 +249,7 @@ export default function Contact(props) {
                       paddingRight: 10,
                       paddingLeft: 10,
                       paddingBottom: 10,
+                      width: 120,
                     }}>
                     <Text
                       style={{
@@ -277,7 +278,9 @@ export default function Contact(props) {
                   </View>
                 </View>
               )}
-              <Text style={styles.completeProfile}>Contacts</Text>
+              <View style={styles.completeProfileView}>
+                <Text style={styles.completeProfile}>Contacts</Text>
+              </View>
             </View>
             <View
               style={{
@@ -289,37 +292,13 @@ export default function Contact(props) {
                 marginRight: 40,
               }}>
               <TouchableOpacity style={styles.choiceMenu}>
-                <Text
-                  style={{
-                    color: 'black',
-                    textAlign: 'center',
-                    fontSize: 14,
-                    fontFamily: 'Poppins-Regular',
-                  }}>
-                  All
-                </Text>
+                <Text style={styles.choiceMenuText}>All</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.choiceMenu}>
-                <Text
-                  style={{
-                    color: 'black',
-                    textAlign: 'center',
-                    fontSize: 14,
-                    fontFamily: 'Poppins-Regular',
-                  }}>
-                  Recived
-                </Text>
+                <Text style={styles.choiceMenuText}>Recived</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.choiceMenu}>
-                <Text
-                  style={{
-                    color: 'black',
-                    textAlign: 'center',
-                    fontSize: 14,
-                    fontFamily: 'Poppins-Regular',
-                  }}>
-                  Sent
-                </Text>
+                <Text style={styles.choiceMenuText}>Sent</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -459,7 +438,7 @@ const styles = StyleSheet.create({
   headerBackground: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    paddingBottom: 20,
+    paddingBottom: 5,
     alignSelf: 'center',
     // borderBottomColor: 'white',
     // paddingRight: 40,
@@ -488,21 +467,25 @@ const styles = StyleSheet.create({
     color: 'white',
     alignSelf: 'center',
   },
+  completeProfileView: {
+    borderWidth: 1,
+    borderBottomColor: 'white',
+    alignSelf: 'center',
+  },
   completeProfile: {
     alignSelf: 'center',
     color: 'white',
-    fontSize: 15,
-    fontFamily: 'Poppins-ExtraBold',
-    fontWeight: '700',
+    fontSize: 20,
+    fontFamily: 'Poppins-SemiBold',
+    // fontWeight: '700',
     paddingBottom: 10,
-    backgroundColor: 'black',
-    borderWidth: 1,
-    borderBottomColor: '#808080',
+    // backgroundColor: 'black',
+    borderWidth: 3,
+    borderBottomColor: 'white',
     // alignContent:"center",
     textAlign: 'center',
-    width: '60%',
 
-    // width: "auto",
+    width: 230,
   },
   connectedByProfile: {
     alignSelf: 'center',
@@ -715,8 +698,15 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     fontFamily: 'Poppins-Regular',
   },
+  choiceMenuText: {
+    color: 'black',
+    textAlign: 'center',
+    fontSize: 18,
+    fontFamily: 'Poppins-Regular',
+    padding: 5,
+  },
   choiceMenu: {
-    width: 90,
+    width: '30%',
     height: 'auto',
     backgroundColor: '#FFFFFF',
     borderRadius: 20,
