@@ -36,6 +36,7 @@ import axios from 'axios';
 import close from '../../assets/close.png';
 import loginFail from '../../assets/loginFail.png';
 import url from '../BaseURl/baseurl.json';
+import Logo from '../../assets/Logo/logo.svg';
 // import {
 //   useFonts,
 //   Poppins_800ExtraBold_Italic,
@@ -329,10 +330,12 @@ export default function CreateProfile(props) {
                     source={require('../../assets/CreateProfile/back.png')}></Image>
                 </TouchableOpacity>
                 <View style={styles.headerBackground}>
-                  <Image
+                  {/* <Image
                     source={require('../../assets/logo.jpg')}
                     style={{width: 50, height: 'auto'}}
-                  />
+                  /> */}
+                  <Logo width={54} height={54} />
+
                   <View style={styles.header_text}>
                     <Text style={styles.text_metag}>meTAG</Text>
                     <Text style={styles.text_tagline}>I M ME,WHO ARE YOU</Text>
@@ -340,7 +343,15 @@ export default function CreateProfile(props) {
                 </View>
                 <Text style={styles.next}></Text>
               </View>
-              <Text style={styles.completeProfile}>Change Password</Text>
+              <View
+                style={{
+                  width: 'auto',
+                  height: 'auto',
+                  borderWidth: 1,
+                  paddingBottom: 20,
+                }}>
+                <Text style={styles.completeProfile}>Change Password</Text>
+              </View>
               <View
                 style={{
                   display: 'flex',
@@ -348,18 +359,13 @@ export default function CreateProfile(props) {
                   height: 'auto',
                   paddingLeft: 50,
                   paddingRight: 50,
+                  paddingTop: 0,
                   // paddingBottom: 50,
+                  // backgroundColor: 'red',
                 }}>
                 {flag === 'false' && (
                   <View>
-                    <View
-                      style={{
-                        borderBottomColor: 'white',
-                        borderBottomWidth: 1,
-                        display: 'flex',
-                        flexDirection: 'row',
-                        // padding: 15,
-                      }}>
+                    <View style={styles.fieldInputView}>
                       <Image
                         source={require('../../assets/signup/lock.png')}
                         style={styles.icon}
@@ -369,10 +375,7 @@ export default function CreateProfile(props) {
                         value={oldPassword}
                         onChangeText={text => setOldPassword(text.trim())}
                         placeholderTextColor="white"
-                        style={{
-                          color: 'white',
-                          marginLeft: 10,
-                        }}></TextInput>
+                        style={styles.fieldInputText}></TextInput>
                     </View>
                     {error.oldPassword && (
                       <Text style={{color: 'white'}}>{error.oldPassword}</Text>
@@ -380,14 +383,7 @@ export default function CreateProfile(props) {
                   </View>
                 )}
                 <View>
-                  <View
-                    style={{
-                      borderBottomColor: 'white',
-                      borderBottomWidth: 1,
-                      display: 'flex',
-                      flexDirection: 'row',
-                      // padding: 15,
-                    }}>
+                  <View style={styles.fieldInputView}>
                     <Image
                       source={require('../../assets/signup/lock.png')}
                       style={styles.icon}
@@ -397,24 +393,14 @@ export default function CreateProfile(props) {
                       onChangeText={text => setNewPassword(text.trim())}
                       placeholder="New Password"
                       placeholderTextColor="white"
-                      style={{
-                        color: 'white',
-                        marginLeft: 10,
-                      }}></TextInput>
+                      style={styles.fieldInputText}></TextInput>
                   </View>
                   {error.newPassword && (
                     <Text style={{color: 'white'}}>{error.newPassword}</Text>
                   )}
                 </View>
                 <View>
-                  <View
-                    style={{
-                      borderBottomColor: 'white',
-                      borderBottomWidth: 1,
-                      display: 'flex',
-                      flexDirection: 'row',
-                      // padding: 15,
-                    }}>
+                  <View style={styles.fieldInputView}>
                     <Image
                       source={require('../../assets/signup/lock.png')}
                       style={styles.icon}
@@ -424,10 +410,7 @@ export default function CreateProfile(props) {
                       onChangeText={text => setConfirmPassword(text.trim())}
                       placeholderTextColor="white"
                       placeholder="Confirm New Password"
-                      style={{
-                        color: 'white',
-                        marginLeft: 10,
-                      }}></TextInput>
+                      style={styles.fieldInputText}></TextInput>
                   </View>
                   {error.confirmPassword && (
                     <Text style={{color: 'white'}}>
@@ -445,18 +428,22 @@ export default function CreateProfile(props) {
               style={{
                 marginLeft: 'auto',
                 backgroundColor: 'red',
-                marginRight: 20,
+                marginRight: 50,
                 marginTop: 20,
                 marginBottom: 20,
                 backgroundColor: 'white',
-                borderBottomLeftRadius: 50,
-                borderBottomRightRadius: 50,
+                borderBottomLeftRadius: 20,
+                borderBottomRightRadius: 20,
                 borderTopRightRadius: 0,
-                borderTopLeftRadius: 50,
-                paddingLeft: '2%',
-                padddingRight: '2%',
+                borderTopLeftRadius: 20,
+                paddingLeft: '3%',
+                padddingRight: '3%',
+                height: 40,
+                width: 80,
               }}>
-              <Text style={{padding: 10, color: 'black'}}>Save</Text>
+              <Text style={{padding: 10, color: 'black', fontSize: 16}}>
+                Save
+              </Text>
             </TouchableOpacity>
           </View>
 
@@ -464,11 +451,13 @@ export default function CreateProfile(props) {
           <View
             style={{
               margin: 14,
-              borderRadius: 1,
+              borderRadius: 5,
               shadowColor: 'black',
-              elevation: 4,
               padding: 4,
               margin: 8,
+              borderWidth: 1,
+              shadowOffset: {width: 1, height: 1},
+              shadowOpacity: 1,
             }}>
             <Text
               style={{
@@ -485,12 +474,14 @@ export default function CreateProfile(props) {
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 margin: 10,
+                borderRadius: 12,
               }}>
               <View
                 style={{
                   backgroundColor: 'black',
                   display: 'flex',
                   flexDirection: 'row',
+                  borderRadius: 12,
                 }}>
                 <View
                   style={{
@@ -554,13 +545,13 @@ export default function CreateProfile(props) {
 const styles = StyleSheet.create({
   header: {
     backgroundColor: '#000000',
-    height: 'auto',
-    width: 'auto',
+    height: 100,
     display: 'flex',
     flexDirection: 'row',
     // borderBottomLeftRadius: 20,
     // borderBottomRightRadius: 20,
-    justifyContent: 'space-around',
+    // backgroundColor: 'yellow',
+    justifyContent: 'space-between',
   },
   arrowback: {
     // backgroundColor: "beige",
@@ -607,21 +598,29 @@ const styles = StyleSheet.create({
     color: 'white',
     alignSelf: 'center',
   },
+  fieldInputText: {
+    color: 'white',
+    marginLeft: 10,
+    fontSize: 18,
+  },
+
+  fieldInputView: {
+    borderBottomColor: 'white',
+    borderBottomWidth: 1,
+    display: 'flex',
+    flexDirection: 'row',
+    paddingBottom: 10,
+    paddingTop: 10,
+    // backgroundColor: 'red',
+  },
   completeProfile: {
     alignSelf: 'center',
     color: 'white',
-    fontSize: 15,
+    fontSize: 18,
     fontFamily: 'Poppins-SemiBold',
     fontWeight: '700',
-    paddingBottom: 20,
     backgroundColor: 'black',
-    // borderWidth: 2,
-    // borderBottomColor: 'white',
-    // alignContent:"center",
     textAlign: 'center',
-    width: 150,
-
-    // width: "auto",
   },
   connectedByProfile: {
     alignSelf: 'center',

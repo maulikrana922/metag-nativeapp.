@@ -179,6 +179,7 @@ function VerifyOTP(props) {
                 borderBottomColor: 'white',
                 borderWidth: 1,
                 paddingTop: 50,
+                paddingBottom: 10,
 
                 // justifyContent: 'space-between',
               }}>
@@ -213,6 +214,7 @@ function VerifyOTP(props) {
                   // marginTop: 'auto',
                   // marginBottom: 'auto',
                   fontFamily: 'Poppins-Regular',
+                  fontSize: 16,
                 }}>
                 Resend OTP
               </Text>
@@ -220,7 +222,7 @@ function VerifyOTP(props) {
                 style={styles.signin_btn}
                 // onPress={() => props.navigation.navigate('ResetPassword')}
                 onPress={() => submit()}>
-                <Text style={{color: 'black', fontSize: 14}}>Submit</Text>
+                <Text style={{color: 'black', fontSize: 16}}>Submit</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -309,7 +311,7 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // height: 43,
     // color: 'white',
-    fontSize: 14,
+    fontSize: 18,
     color: 'white',
   },
   key_text_parent: {
@@ -364,7 +366,7 @@ const styles = StyleSheet.create({
   password: {
     fontFamily: 'Poppins-Regular',
     color: 'white',
-    fontSize: 15,
+    fontSize: 16,
     // paddingBottom: 20,
   },
   btn: {

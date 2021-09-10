@@ -27,6 +27,7 @@ import list from '../../assets/list.svg';
 import home from '../../assets/home-run.svg';
 import bg from '../../assets/Logo/bg.png';
 import url from '../BaseURl/baseurl.json';
+import Logo from '../../assets/Logo/logo.svg';
 
 export default function CreateProfile(props) {
   const [image, setImage] = useState(null);
@@ -84,10 +85,12 @@ export default function CreateProfile(props) {
                     source={require('../../assets/CreateProfile/back.png')}></Image>
                 </TouchableOpacity>
                 <View style={styles.headerBackground}>
-                  <Image
+                  {/* <Image
                     source={require('../../assets/logo.jpg')}
                     style={{width: 50, height: 'auto'}}
-                  />
+                  /> */}
+                  <Logo width={54} height={54} />
+
                   <View style={styles.header_text}>
                     <Text style={styles.text_metag}>meTAG</Text>
                     <Text style={styles.text_tagline}>I M ME,WHO ARE YOU</Text>
@@ -116,7 +119,7 @@ export default function CreateProfile(props) {
           </View>
 
           {/* here */}
-          <View style={{padding: 12}}>
+          <View style={{padding: 12, margin: 2}}>
             <View style={styles.shadow}>
               <View
                 style={{
@@ -127,6 +130,7 @@ export default function CreateProfile(props) {
                   height: 'auto',
                   display: 'flex',
                   alignItems: 'center',
+                  borderRadius: 4,
                 }}>
                 <Image
                   source={require('../../assets/interction/scan.png')}></Image>
@@ -219,7 +223,12 @@ export default function CreateProfile(props) {
                 <Text style={{fontFamily: 'Poppins-Reguler', fontSize: 14}}>
                   Contact/Device name
                 </Text>
-                <Text style={{fontFamily: 'Poppins-Reguler', color: '#9E9E9E'}}>
+                <Text
+                  style={{
+                    fontFamily: 'Poppins-Reguler',
+                    color: '#9E9E9E',
+                    paddingTop: 5,
+                  }}>
                   By: QR Code
                 </Text>
               </View>
@@ -235,6 +244,7 @@ export default function CreateProfile(props) {
                     height: 'auto',
                     display: 'flex',
                     // alignItems: 'center',
+                    borderRadius: 4,
                   }}>
                   <Image
                     source={require('../../assets/interction/hotspot.png')}></Image>
@@ -244,7 +254,11 @@ export default function CreateProfile(props) {
                     Contact/Device name
                   </Text>
                   <Text
-                    style={{fontFamily: 'Poppins-Reguler', color: '#9E9E9E'}}>
+                    style={{
+                      fontFamily: 'Poppins-Reguler',
+                      color: '#9E9E9E',
+                      paddingTop: 5,
+                    }}>
                     NFC card
                   </Text>
                 </View>
@@ -272,7 +286,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     // borderBottomLeftRadius: 20,
     // borderBottomRightRadius: 20,
-    justifyContent: 'space-around',
+    // backgroundColor: 'yellow',
+    justifyContent: 'space-between',
   },
   arrowback: {
     // backgroundColor: "beige",
@@ -318,18 +333,14 @@ const styles = StyleSheet.create({
   completeProfile: {
     alignSelf: 'center',
     color: 'white',
-    fontSize: 15,
-    fontFamily: 'Poppins-SemiBold',
+    fontSize: 18,
+    fontFamily: 'Poppins-ExtraBold',
     fontWeight: '700',
-    paddingBottom: 20,
     backgroundColor: 'black',
-    // borderWidth: 2,
-    // borderBottomColor: 'white',
     // alignContent:"center",
     textAlign: 'center',
-    width: 150,
-
-    // width: "auto",
+    width: 200,
+    paddingBottom: 15,
   },
   connectedByProfile: {
     alignSelf: 'center',
@@ -531,10 +542,11 @@ const styles = StyleSheet.create({
   shadow: {
     display: 'flex',
     flexDirection: 'row',
-    borderRadius: 1,
+    borderRadius: 10,
     shadowColor: 'black',
     elevation: 4,
     padding: 4,
     margin: 8,
+    borderWidth: 1,
   },
 });

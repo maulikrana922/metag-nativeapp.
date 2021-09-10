@@ -207,7 +207,7 @@ function ForgotPassword(props) {
                   style={{
                     color: 'black',
                     fontFamily: 'Poppins-Regular',
-                    fontSize: 14,
+                    fontSize: 16,
                   }}>
                   Send now
                 </Text>
@@ -374,7 +374,7 @@ const styles = StyleSheet.create({
     // borderBottomColor: 'white',
     // borderWidth: 1,
     // height: 41,
-    fontSize: 18,
+    fontSize: 20,
     color: 'white',
 
     // alignSelf: 'stretch',

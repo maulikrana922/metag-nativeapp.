@@ -212,17 +212,21 @@ export default function MyProfile(props) {
                   style={{
                     alignSelf: 'center',
                     // marginLeft: '30%',
-                    position: 'relative',
-                    left: 60,
+                    position: 'absolute',
+                    // left: 60,
+                    right: 20,
+                    // backgroundColor: 'yellow',
                   }}>
                   {/* <Image source={more}></Image> */}
                   <TouchableOpacity
                     // onPress={() => props.navigation.navigate('Contact')}
                     onPress={() => setShow(!show)}
                     style={{
-                      alignSelf: 'center',
+                      // alignSelf: 'center',
                       padding: 10,
                       // backgroundColor: 'red',
+                      marginBottom: 30,
+                      // paddingLeft: 40,
                     }}>
                     <More />
                   </TouchableOpacity>
@@ -236,8 +240,8 @@ export default function MyProfile(props) {
                     height: 'auto',
                     borderRadius: 10,
                     marginLeft: 'auto',
-                    marginRight: 22,
-                    marginTop: -20,
+                    marginRight: 16,
+                    marginTop: -30,
                   }}>
                   <View
                     style={{
@@ -257,134 +261,186 @@ export default function MyProfile(props) {
                       paddingBottom: 10,
                       width: 120,
                     }}>
-                    <Text
+                    <View
                       style={{
-                        fontSize: 16,
                         borderBottomColor: '#E5E5E5',
                         borderBottomWidth: 1,
-                        paddingBottom: '2%',
-                        fontFamily: 'Poppins-Reguler',
-                      }}
-                      onPress={() =>
-                        props.navigation.navigate('ChangePassword')
-                      }>
-                      Settings
-                    </Text>
-                    <Text
-                      onPress={() => {
-                        logout();
-                      }}
-                      style={{
-                        fontSize: 16,
-                        paddingTop: '2%',
-                        fontFamily: 'Poppins-Reguler',
+                        padding: 1,
+                        paddingBottom: '10%',
                       }}>
-                      Logout
-                    </Text>
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          borderBottomColor: '#E5E5E5',
+                          borderBottomWidth: 1,
+                          paddingBottom: '2%',
+                          fontFamily: 'Poppins-Reguler',
+                        }}
+                        onPress={() =>
+                          props.navigation.navigate('ChangePassword')
+                        }>
+                        Settings
+                      </Text>
+                    </View>
+                    <View
+                      style={{
+                        paddingTop: '10%',
+                        padding: 1,
+                      }}>
+                      <Text
+                        onPress={() => {
+                          logout();
+                        }}
+                        style={{
+                          fontSize: 16,
+                          paddingTop: '2%',
+                          fontFamily: 'Poppins-Reguler',
+                        }}>
+                        Logout
+                      </Text>
+                    </View>
                   </View>
                 </View>
               )}
-              <Text style={styles.completeProfile}>My Orders</Text>
+              <View style={styles.completeProfileView}>
+                <Text style={styles.completeProfile}>My Orders</Text>
+              </View>
             </View>
           </View>
           {/* list  */}
-          <View style={{padding: 8}}>
-            <TouchableOpacity
-              style={styles.shadow}
-              onPress={() => props.navigation.navigate('OrderDetails')}>
-              <View style={{paddingLeft: 15, paddingRight: 15, paddingTop: 15}}>
+          <View style={{padding: 15}}>
+            <View
+              style={{backgroundColor: '#fff', marginBottom: 15}}
+              shadowOffset={{height: 2, width: 0}}
+              shadowColor="#000"
+              shadowOpacity={0.25}
+              shadowRadius={3.84}
+              elevation={5}>
+              <TouchableOpacity
+                style={styles.shadow}
+                onPress={() => props.navigation.navigate('OrderDetails')}>
                 <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                  }}>
-                  <Text style={styles.orderTitleFont}>
-                    Order No 84766132132{' '}
-                  </Text>
-                  <Text style={styles.orderTitleFont}>$50.00</Text>
-                </View>
-                <Text style={{fontFamily: 'Poppins-Reguler'}}>
-                  09:13 PM 10 Jun 2019
-                </Text>
-              </View>
-              <View style={styles.productListView}>
-                <View style={styles.productView}></View>
-                <View
-                  style={{
-                    marginTop: 'auto',
-                    marginBottom: 'auto',
-                    marginLeft: 10,
-                  }}>
-                  <Text style={{color: 'black', fontFamily: 'Poppins-Bold'}}>
-                    Successful
-                  </Text>
-                  <Text style={{color: 'black', fontFamily: 'Poppins-Regular'}}>
-                    Lorem Ipsum is simply dummy {`\n`}text of the printing and
-                    type
-                    {'\n'}setting industry.
+                  style={{paddingLeft: 15, paddingRight: 15, paddingTop: 15}}>
+                  <View
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      paddingBottom: 3,
+                    }}>
+                    <Text style={styles.orderTitleFont}>
+                      Order No 84766132132{' '}
+                    </Text>
+                    <Text style={styles.orderTitleFont}>$50.00</Text>
+                  </View>
+                  <Text style={{fontFamily: 'Poppins-Reguler', fontSize: 16}}>
+                    09:13 PM 10 Jun 2019
                   </Text>
                 </View>
-                <View
-                  style={{
-                    width: 'auto',
-                    marginLeft: 'auto',
-                    alignSelf: 'flex-end',
-                  }}>
-                  <TouchableOpacity style={styles.buyBtnBg}>
-                    <Text style={{color: 'white'}}>Repeat</Text>
-                  </TouchableOpacity>
+                <View style={styles.productListView}>
+                  <View style={styles.productView}>
+                    <Text>Product</Text>
+                  </View>
+                  <View
+                    style={{
+                      marginTop: 'auto',
+                      marginBottom: 'auto',
+                      marginLeft: 10,
+                    }}>
+                    <Text
+                      style={{
+                        color: 'black',
+                        fontFamily: 'Poppins-Bold',
+                        fontSize: 14,
+                      }}>
+                      Successful
+                    </Text>
+                    <Text
+                      style={{color: 'black', fontFamily: 'Poppins-Regular'}}>
+                      Lorem Ipsum is simply dummy {`\n`}text of the printing and
+                      type
+                      {'\n'}setting industry.
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      width: 'auto',
+                      marginLeft: 'auto',
+                      alignSelf: 'flex-end',
+                    }}>
+                    <TouchableOpacity style={styles.buyBtnBg}>
+                      <Text style={{color: 'white'}}>Repeat</Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.shadow}
-              onPress={() => props.navigation.navigate('OrderDetails')}>
-              <View style={{paddingLeft: 15, paddingRight: 15, paddingTop: 15}}>
+              </TouchableOpacity>
+            </View>
+            <View
+              style={{backgroundColor: '#fff'}}
+              shadowOffset={{height: 2, width: 0}}
+              shadowColor="#000"
+              shadowOpacity={0.25}
+              shadowRadius={3.84}
+              elevation={5}>
+              <TouchableOpacity
+                style={styles.shadow}
+                onPress={() => props.navigation.navigate('OrderDetails')}>
                 <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                  }}>
-                  <Text style={styles.orderTitleFont}>
-                    Order No 84766132132{' '}
+                  style={{paddingLeft: 15, paddingRight: 15, paddingTop: 15}}>
+                  <View
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      paddingBottom: 3,
+                    }}>
+                    <Text style={styles.orderTitleFont}>
+                      Order No 84766132132{' '}
+                    </Text>
+                    <Text style={styles.orderTitleFont}>$50.00</Text>
+                  </View>
+                  <Text style={{fontFamily: 'Poppins-Reguler', fontSize: 16}}>
+                    09:13 PM 10 Jun 2019
                   </Text>
-                  <Text style={styles.orderTitleFont}>$50.00</Text>
                 </View>
-                <Text style={{fontFamily: 'Poppins-Reguler'}}>
-                  09:13 PM 10 Jun 2019
-                </Text>
-              </View>
-              <View style={styles.productListView}>
-                <View style={styles.productView}></View>
-                <View
-                  style={{
-                    marginTop: 'auto',
-                    marginBottom: 'auto',
-                    marginLeft: 10,
-                  }}>
-                  <Text style={{color: 'black', fontFamily: 'Poppins-Bold'}}>
-                    Successful
-                  </Text>
-                  <Text style={{color: 'black', fontFamily: 'Poppins-Regular'}}>
-                    Lorem Ipsum is simply dummy {`\n`}text of the printing and
-                    type
-                    {'\n'}setting industry.
-                  </Text>
+                <View style={styles.productListView}>
+                  <View style={styles.productView}>
+                    <Text>Something</Text>
+                  </View>
+                  <View
+                    style={{
+                      marginTop: 'auto',
+                      marginBottom: 'auto',
+                      marginLeft: 10,
+                    }}>
+                    <Text
+                      style={{
+                        color: 'black',
+                        fontSize: 14,
+                        fontFamily: 'Poppins-Bold',
+                      }}>
+                      Successful
+                    </Text>
+                    <Text
+                      style={{color: 'black', fontFamily: 'Poppins-Regular'}}>
+                      Lorem Ipsum is simply dummy {`\n`}text of the printing and
+                      type
+                      {'\n'}setting industry.
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      width: 'auto',
+                      marginLeft: 'auto',
+                      alignSelf: 'flex-end',
+                    }}>
+                    <TouchableOpacity style={styles.buyBtnBg}>
+                      <Text style={{color: 'white'}}>Repeat</Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
-                <View
-                  style={{
-                    width: 'auto',
-                    marginLeft: 'auto',
-                    alignSelf: 'flex-end',
-                  }}>
-                  <TouchableOpacity style={styles.buyBtnBg}>
-                    <Text style={{color: 'white'}}>Repeat</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </TouchableOpacity>
+              </TouchableOpacity>
+            </View>
           </View>
           {/* <Menu /> */}
         </View>
@@ -443,13 +499,15 @@ const styles = StyleSheet.create({
     color: 'white',
     alignSelf: 'center',
   },
+  completeProfileView: {
+    paddingBottom: 30,
+  },
   completeProfile: {
     alignSelf: 'center',
     color: 'white',
-    fontSize: 15,
+    fontSize: 20,
     fontFamily: 'Poppins-ExtraBold',
     fontWeight: '700',
-    paddingBottom: 10,
     backgroundColor: 'black',
     // alignContent:"center",
     textAlign: 'center',
@@ -698,12 +756,14 @@ const styles = StyleSheet.create({
   },
   orderTitleFont: {
     fontFamily: 'Poppins-Bold',
+    fontSize: 18,
+    fontWeight: '600',
   },
   shadow: {
     borderRadius: 1,
     shadowColor: 'black',
     elevation: 4,
-    padding: 4,
+    padding: 0,
     margin: 4,
   },
 });

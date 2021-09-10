@@ -438,28 +438,42 @@ export default function MyProfile(props) {
                       paddingBottom: 10,
                       width: 120,
                     }}>
-                    <Text
+                    <View
                       style={{
-                        fontSize: 16,
                         borderBottomColor: '#E5E5E5',
                         borderBottomWidth: 1,
-                        paddingBottom: '2%',
-                        fontFamily: 'Poppins-Reguler',
-                      }}
-                      onPress={() =>
-                        props.navigation.navigate('ChangePassword')
-                      }>
-                      Settings
-                    </Text>
-                    <Text
-                      onPress={() => logout()}
-                      style={{
-                        fontSize: 16,
-                        paddingTop: '2%',
-                        fontFamily: 'Poppins-Reguler',
+                        padding: 1,
+                        paddingBottom: '10%',
                       }}>
-                      Logout
-                    </Text>
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          borderBottomColor: '#E5E5E5',
+                          borderBottomWidth: 1,
+                          paddingBottom: '2%',
+                          fontFamily: 'Poppins-Reguler',
+                        }}
+                        onPress={() =>
+                          props.navigation.navigate('ChangePassword')
+                        }>
+                        Settings
+                      </Text>
+                    </View>
+                    <View
+                      style={{
+                        paddingTop: '10%',
+                        padding: 1,
+                      }}>
+                      <Text
+                        onPress={() => logout()}
+                        style={{
+                          fontSize: 16,
+                          paddingTop: '2%',
+                          fontFamily: 'Poppins-Reguler',
+                        }}>
+                        Logout
+                      </Text>
+                    </View>
                   </View>
                 </View>
               )}
@@ -681,7 +695,13 @@ export default function MyProfile(props) {
           </View>
 
           {!input && (
-            <View style={styles.card}>
+            <View
+              style={styles.card}
+              shadowOffset={{height: 2, width: 0}}
+              shadowColor="#000"
+              shadowOpacity={0.25}
+              shadowRadius={3.84}
+              elevation={5}>
               <View style={styles.cardDetails}>
                 <View style={styles.info}>
                   <Work width={30} height={30} fill="black" />
@@ -1246,6 +1266,7 @@ const styles = StyleSheet.create({
   card: {
     display: 'flex',
     alignSelf: 'center',
+    backgroundColor: '#fff',
   },
   cardDetails: {
     justifyContent: 'space-evenly',
@@ -1254,14 +1275,6 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     padding: 20,
     width: '90%',
-    shadowColor: 'black',
-    shadowOffset: {
-      width: 10,
-      height: 3,
-    },
-    shadowOpacity: 1,
-    shadowRadius: 4.65,
-    elevation: 7,
   },
   info: {
     display: 'flex',

@@ -198,6 +198,7 @@ export default function Contact(props) {
                 source={require('../../assets/arrow-back.svg')} 
                 style={styles.arrowback}
               ></Image> */}
+
                 <Scan style={{alignSelf: 'center'}} />
                 <View style={styles.headerBackground}>
                   <Logo width={54} height={54} />
@@ -251,30 +252,41 @@ export default function Contact(props) {
                       paddingBottom: 10,
                       width: 120,
                     }}>
-                    <Text
+                    <View
                       style={{
-                        fontSize: 16,
                         borderBottomColor: '#E5E5E5',
                         borderBottomWidth: 1,
-                        paddingBottom: '2%',
-                        fontFamily: 'Poppins-Reguler',
-                      }}
-                      onPress={() =>
-                        props.navigation.navigate('ChangePassword')
-                      }>
-                      Settings
-                    </Text>
-                    <Text
-                      onPress={() => {
-                        logout();
-                      }}
-                      style={{
-                        fontSize: 16,
-                        paddingTop: '2%',
-                        fontFamily: 'Poppins-Reguler',
+                        padding: 1,
+                        paddingBottom: '10%',
                       }}>
-                      Logout
-                    </Text>
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          fontFamily: 'Poppins-Reguler',
+                        }}
+                        onPress={() =>
+                          props.navigation.navigate('ChangePassword')
+                        }>
+                        Settings
+                      </Text>
+                    </View>
+                    <View
+                      style={{
+                        paddingTop: '10%',
+                        padding: 1,
+                      }}>
+                      <Text
+                        onPress={() => {
+                          logout();
+                        }}
+                        style={{
+                          fontSize: 16,
+                          paddingTop: '2%',
+                          fontFamily: 'Poppins-Reguler',
+                        }}>
+                        Logout
+                      </Text>
+                    </View>
                   </View>
                 </View>
               )}
@@ -309,7 +321,13 @@ export default function Contact(props) {
                 <Swipeable renderLeftActions={renderLeftActions}>
                   <TouchableOpacity
                     onPress={() => props.navigation.navigate('ContactDetails')}>
-                    <View style={styles.shadow}>
+                    <View
+                      style={styles.shadow}
+                      shadowOffset={{height: 2, width: 0}}
+                      shadowColor="#000"
+                      shadowOpacity={0.25}
+                      shadowRadius={3.84}
+                      elevation={5}>
                       <View style={styles.avatarBg}>
                         <Image
                           source={require('../../assets/contact/avatar.png')}
@@ -344,7 +362,13 @@ export default function Contact(props) {
                 </Swipeable>
               )}
               <TouchableOpacity>
-                <View style={styles.shadow}>
+                <View
+                  style={styles.shadow}
+                  shadowOffset={{height: 2, width: 0}}
+                  shadowColor="#000"
+                  shadowOpacity={0.25}
+                  shadowRadius={3.84}
+                  elevation={5}>
                   <View style={styles.avatarBg}>
                     <Image
                       source={require('../../assets/contact/avatar.png')}
@@ -733,9 +757,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 10,
     borderRadius: 1,
-    shadowColor: 'black',
-    elevation: 4,
-    padding: 4,
+    backgroundColor: '#fff',
     padding: 10,
+    // borderWidth: 1,
   },
 });

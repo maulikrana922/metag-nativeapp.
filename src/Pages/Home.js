@@ -244,9 +244,15 @@ export default function CreateProfile(props) {
               </Text>
             </View>
           </View>
-          <View style={styles.cardComponents}>
+          <View>
             <View style={styles.infoBox}>
-              <View style={styles.infoShadow}>
+              <View
+                style={styles.infoShadow}
+                shadowOffset={{height: 2, width: 0}}
+                shadowColor="#000"
+                shadowOpacity={0.25}
+                shadowRadius={3.84}
+                elevation={5}>
                 <TouchableOpacity
                   onPress={() => props.navigation.navigate('MyProfile')}
                   style={styles.eachInfo}>
@@ -287,7 +293,13 @@ export default function CreateProfile(props) {
                   )}
                 </View>
               </View>
-              <View style={styles.infoShadow}>
+              <View
+                style={styles.infoShadow}
+                shadowOffset={{height: 2, width: 0}}
+                shadowColor="#000"
+                shadowOpacity={0.25}
+                shadowRadius={3.84}
+                elevation={5}>
                 <View style={styles.productTitle}>
                   <Text style={styles.productsText}>Products</Text>
                   <View style={{display: 'flex', flexDirection: 'row'}}>
@@ -437,16 +449,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     paddingTop: 10,
     fontFamily: 'Poppins-Regular',
-    // fontWeight: '700',
     paddingBottom: 10,
     backgroundColor: 'black',
     borderWidth: 2,
-    // borderBottomColor: 'white',
-    // // alignContent:"center",
-    // textAlign:"center",
-    // width:150,
-
-    // width: "auto",
+    width: 'auto',
+    margin: 1,
   },
   header_parent: {
     backgroundColor: '#000000',
@@ -563,10 +570,10 @@ const styles = StyleSheet.create({
     height: 30,
   },
   infoShadow: {
-    shadowColor: '#000',
-    shadowOffset: {width: 5, height: 5},
-    shadowOpacity: 0.3,
-    shadowRadius: 1,
+    // shadowColor: '#000',
+    // shadowOffset: {width: 5, height: 5},
+    // shadowOpacity: 0.3,
+    // shadowRadius: 1,
     padding: 4,
     backgroundColor: 'white',
     borderRadius: 10,
@@ -574,5 +581,4 @@ const styles = StyleSheet.create({
     height: 100,
     alignItems: 'flex-start',
   },
-  cardComponents: {},
 });
