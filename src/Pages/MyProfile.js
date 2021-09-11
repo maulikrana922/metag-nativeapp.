@@ -1012,7 +1012,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: 'white',
     fontSize: 20,
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: 'Poppins_SemiBold',
     paddingBottom: 10,
     borderWidth: 3,
     borderBottomColor: 'white',

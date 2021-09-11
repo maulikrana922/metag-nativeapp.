@@ -364,7 +364,7 @@ export default function CreateProfile(props) {
                   // backgroundColor: 'red',
                 }}>
                 {flag === 'false' && (
-                  <View>
+                  <View style={{paddingBottom: 5}}>
                     <View style={styles.fieldInputView}>
                       <Image
                         source={require('../../assets/signup/lock.png')}
@@ -382,7 +382,7 @@ export default function CreateProfile(props) {
                     )}
                   </View>
                 )}
-                <View>
+                <View style={{paddingBottom: 5}}>
                   <View style={styles.fieldInputView}>
                     <Image
                       source={require('../../assets/signup/lock.png')}
@@ -399,7 +399,7 @@ export default function CreateProfile(props) {
                     <Text style={{color: 'white'}}>{error.newPassword}</Text>
                   )}
                 </View>
-                <View>
+                <View style={{paddingBottom: 5}}>
                   <View style={styles.fieldInputView}>
                     <Image
                       source={require('../../assets/signup/lock.png')}
@@ -622,6 +622,7 @@ const styles = StyleSheet.create({
     color: 'white',
     marginLeft: 10,
     fontSize: 18,
+    fontWeight: '500',
   },
 
   fieldInputView: {
@@ -636,7 +637,7 @@ const styles = StyleSheet.create({
   completeProfile: {
     alignSelf: 'center',
     color: 'white',
-    fontSize: 18,
+    fontSize: 20,
     fontFamily: 'Poppins-SemiBold',
     fontWeight: '700',
     backgroundColor: 'black',

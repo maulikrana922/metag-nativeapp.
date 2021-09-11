@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     margin: 5,
+    borderRadius: 5,
   },
   productView: {
     width: 40,
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginTop: 'auto',
     marginBottom: 'auto',
-    borderRadius: 10,
+    borderRadius: 5,
   },
   buyBtnBg: {
     backgroundColor: '#40A41D',
@@ -34,9 +35,9 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     paddingRight: 10,
     paddingLeft: 10,
-    borderTopLeftRadius: 20,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
   },
 });
 
@@ -56,8 +57,14 @@ export default function ProductList({price, title, image, key, currency}) {
           marginBottom: 'auto',
           marginLeft: 10,
         }}>
-        <Text style={{color: 'white'}}>{title}</Text>
-        <Text style={{color: '#9FAA11'}}>$ {price} USD</Text>
+        <View style={{paddingBottom: 5}}>
+          <Text style={{color: 'white', fontSize: 22, fontWeight: '500'}}>
+            {title}
+          </Text>
+        </View>
+        <Text style={{color: '#9FAA11', fontSize: 16, fontWeight: '400'}}>
+          $ {price} USD
+        </Text>
       </View>
       <View
         style={{
@@ -66,7 +73,9 @@ export default function ProductList({price, title, image, key, currency}) {
           alignSelf: 'center',
         }}>
         <TouchableOpacity style={styles.buyBtnBg}>
-          <Text style={{color: 'white'}}>Buy</Text>
+          <Text style={{color: 'white', fontSize: 16, fontWeight: '500'}}>
+            Buy
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

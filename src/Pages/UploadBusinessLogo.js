@@ -220,9 +220,11 @@ export default function CreateProfile(props) {
                   () => {
                     props.navigation.navigate('MediaAccount');
                   }
-                  // next === true
-                  //   ? props.navigation.navigate('Location')
-                  //   : setModalVisible(true)
+                  // () => {
+                  //   next === true
+                  //     ? props.navigation.navigate('Location')
+                  //     : setModalVisible(true);
+                  // }
                 }
                 style={styles.next}>
                 Next

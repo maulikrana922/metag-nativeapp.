@@ -199,98 +199,98 @@ export default function CreateProfile(props) {
           </View>
           <View style={styles.avtar_parent}>
             <Text style={styles.upload_text}>
-              Link your Social media accounts{' '}
+              Link your Social media accounts
             </Text>
             <View style={styles.avtar_bg}>
               <View style={styles.socialLogin}>
                 <TouchableOpacity onPress={() => setLText(true)}>
                   <Image source={linkedin} style={styles.logo}></Image>
                 </TouchableOpacity>
-                {lText && (
-                  <View style={{width: '60%'}}>
-                    <TextInput
-                      onChangeText={text => setLUrl(text.trim())}
-                      value={lUrl}
-                      underlineColorAndroid="transparent"
-                      style={styles.url}></TextInput>
-                  </View>
-                )}
-                {lText && (
-                  <View style={styles.checkBg}>
-                    <TouchableOpacity
-                      style={styles.tick}
-                      onPress={() => setLCheck(!lCheck)}>
-                      {lCheck && (
-                        <Tick
-                          height={10}
-                          width={10}
-                          fill="black"
-                          style={styles.tickCenter}
-                        />
-                      )}
-                    </TouchableOpacity>
-                  </View>
-                )}
+                {/* {lText && ( */}
+                <View style={{width: '60%'}}>
+                  <TextInput
+                    onChangeText={text => setLUrl(text.trim())}
+                    value={lUrl}
+                    underlineColorAndroid="transparent"
+                    style={styles.url}></TextInput>
+                </View>
+                {/* )} */}
+                {/* {lText && ( */}
+                <View style={styles.checkBg}>
+                  <TouchableOpacity
+                    style={styles.tick}
+                    onPress={() => setLCheck(!lCheck)}>
+                    {lCheck && (
+                      <Tick
+                        height={10}
+                        width={10}
+                        fill="black"
+                        style={styles.tickCenter}
+                      />
+                    )}
+                  </TouchableOpacity>
+                </View>
+                {/* )} */}
               </View>
               <View style={styles.socialLogin}>
                 <TouchableOpacity onPress={() => setTText(true)}>
                   <Image source={twitter} style={styles.logo}></Image>
                 </TouchableOpacity>
-                {tText && (
-                  <View style={{width: '60%'}}>
-                    <TextInput
-                      onChangeText={text => setTUrl(text.trim())}
-                      value={tUrl}
-                      underlineColorAndroid="transparent"
-                      style={styles.url}></TextInput>
-                  </View>
-                )}
-                {tText && (
-                  <View style={styles.checkBg}>
-                    <TouchableOpacity
-                      style={styles.tick}
-                      onPress={() => setTCheck(!tCheck)}>
-                      {tCheck && (
-                        <Tick
-                          height={10}
-                          width={10}
-                          fill="black"
-                          style={styles.tickCenter}
-                        />
-                      )}
-                    </TouchableOpacity>
-                  </View>
-                )}
+                {/* {tText && ( */}
+                <View style={{width: '60%'}}>
+                  <TextInput
+                    onChangeText={text => setTUrl(text.trim())}
+                    value={tUrl}
+                    underlineColorAndroid="transparent"
+                    style={styles.url}></TextInput>
+                </View>
+                {/* )} */}
+                {/* {tText && ( */}
+                <View style={styles.checkBg}>
+                  <TouchableOpacity
+                    style={styles.tick}
+                    onPress={() => setTCheck(!tCheck)}>
+                    {tCheck && (
+                      <Tick
+                        height={10}
+                        width={10}
+                        fill="black"
+                        style={styles.tickCenter}
+                      />
+                    )}
+                  </TouchableOpacity>
+                </View>
+                {/* )} */}
               </View>
               <View style={styles.socialLogin}>
                 <TouchableOpacity onPress={() => setIText(true)}>
                   <Image source={instagram} style={styles.logo}></Image>
                 </TouchableOpacity>
-                {iText && (
-                  <View style={{width: '60%'}}>
-                    <TextInput
-                      onChangeText={text => setIUrl(text.trim())}
-                      value={iUrl}
-                      underlineColorAndroid="transparent"
-                      style={styles.url}></TextInput>
-                  </View>
-                )}
-                {iText && (
-                  <View style={styles.checkBg}>
-                    <TouchableOpacity
-                      style={styles.tick}
-                      onPress={() => setICheck(!iCheck)}>
-                      {iCheck && (
-                        <Tick
-                          height={10}
-                          width={10}
-                          fill="black"
-                          style={styles.tickCenter}
-                        />
-                      )}
-                    </TouchableOpacity>
-                  </View>
-                )}
+                {/* {iText && ( */}
+                <View style={{width: '60%'}}>
+                  <TextInput
+                    onChangeText={text => setIUrl(text.trim())}
+                    value={iUrl}
+                    underlineColorAndroid="transparent"
+                    style={styles.url}></TextInput>
+                </View>
+                {/* )} */}
+                {/* {iText && ( */}
+                <View style={styles.checkBg}>
+                  <TouchableOpacity
+                    style={styles.tick}
+                    onPress={() => setICheck(!iCheck)}>
+                    {iCheck && (
+                      <Tick
+                        height={10}
+                        width={10}
+                        fill="black"
+                        style={styles.tickCenter}
+                      />
+                    )}
+                  </TouchableOpacity>
+                </View>
+                {/* )} */}
               </View>
               <View style={styles.socialLogin}>
                 <TouchableOpacity
@@ -299,31 +299,31 @@ export default function CreateProfile(props) {
                   }}>
                   <Image source={facebook} style={styles.logo}></Image>
                 </TouchableOpacity>
-                {fText && (
-                  <View style={{width: '60%'}}>
-                    <TextInput
-                      onChangeText={text => setFUrl(text.trim())}
-                      value={fUrl}
-                      underlineColorAndroid="transparent"
-                      style={styles.url}></TextInput>
-                  </View>
-                )}
-                {fText && (
-                  <View style={styles.checkBg}>
-                    <TouchableOpacity
-                      style={styles.tick}
-                      onPress={() => setFCheck(!fCheck)}>
-                      {fCheck && (
-                        <Tick
-                          height={10}
-                          width={10}
-                          fill="black"
-                          style={styles.tickCenter}
-                        />
-                      )}
-                    </TouchableOpacity>
-                  </View>
-                )}
+                {/* {fText && ( */}
+                <View style={{width: '60%'}}>
+                  <TextInput
+                    onChangeText={text => setFUrl(text.trim())}
+                    value={fUrl}
+                    underlineColorAndroid="transparent"
+                    style={styles.url}></TextInput>
+                </View>
+                {/* )} */}
+                {/* {fText && ( */}
+                <View style={styles.checkBg}>
+                  <TouchableOpacity
+                    style={styles.tick}
+                    onPress={() => setFCheck(!fCheck)}>
+                    {fCheck && (
+                      <Tick
+                        height={10}
+                        width={10}
+                        fill="black"
+                        style={styles.tickCenter}
+                      />
+                    )}
+                  </TouchableOpacity>
+                </View>
+                {/* )} */}
               </View>
             </View>
           </View>
@@ -443,7 +443,7 @@ const styles = StyleSheet.create({
   completeProfile: {
     alignSelf: 'center',
     color: 'white',
-    fontSize: 18,
+    fontSize: 20,
     fontFamily: 'Poppins-ExtraBold',
     fontWeight: '700',
     // paddingBottom: 10,
