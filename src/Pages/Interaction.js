@@ -119,19 +119,15 @@ export default function CreateProfile(props) {
           </View>
 
           {/* here */}
-          <View style={{padding: 12, margin: 2}}>
-            <View style={styles.shadow}>
-              <View
-                style={{
-                  backgroundColor: '#B8B8B8',
-                  padding: 10,
-                  margin: 10,
-                  width: 49,
-                  height: 'auto',
-                  display: 'flex',
-                  alignItems: 'center',
-                  borderRadius: 4,
-                }}>
+          <View style={{padding: 12, margin: 2, backgroundColor: 'white'}}>
+            <View
+              style={styles.shadow}
+              shadowOffset={{height: 2, width: 0}}
+              shadowColor="#000"
+              shadowOpacity={0.25}
+              shadowRadius={3.84}
+              elevation={5}>
+              <View style={styles.card}>
                 <Image
                   source={require('../../assets/interction/scan.png')}></Image>
 
@@ -220,7 +216,7 @@ export default function CreateProfile(props) {
             </svg> */}
               </View>
               <View style={{alignSelf: 'center'}}>
-                <Text style={{fontFamily: 'Poppins-Reguler', fontSize: 14}}>
+                <Text style={{fontFamily: 'Poppins-Reguler', fontSize: 16}}>
                   Contact/Device name
                 </Text>
                 <Text
@@ -234,23 +230,19 @@ export default function CreateProfile(props) {
               </View>
             </View>
             <View>
-              <View style={styles.shadow}>
-                <View
-                  style={{
-                    backgroundColor: '#B8B8B8',
-                    padding: 10,
-                    margin: 10,
-                    // width: 49,
-                    height: 'auto',
-                    display: 'flex',
-                    // alignItems: 'center',
-                    borderRadius: 4,
-                  }}>
+              <View
+                style={styles.shadow}
+                shadowOffset={{height: 2, width: 0}}
+                shadowColor="#000"
+                shadowOpacity={0.25}
+                shadowRadius={3.84}
+                elevation={5}>
+                <View style={styles.card}>
                   <Image
                     source={require('../../assets/interction/hotspot.png')}></Image>
                 </View>
                 <View style={{alignSelf: 'center'}}>
-                  <Text style={{fontFamily: 'Poppins-Reguler', fontSize: 14}}>
+                  <Text style={{fontFamily: 'Poppins-Reguler', fontSize: 16}}>
                     Contact/Device name
                   </Text>
                   <Text
@@ -542,11 +534,22 @@ const styles = StyleSheet.create({
   shadow: {
     display: 'flex',
     flexDirection: 'row',
-    borderRadius: 10,
-    shadowColor: 'black',
-    elevation: 4,
+    // borderRadius: 10,
+    // shadowColor: 'black',
+    // elevation: 4,
     padding: 4,
     margin: 8,
-    borderWidth: 1,
+    backgroundColor: 'white',
+    borderRadius: 5,
+  },
+  card: {
+    backgroundColor: '#B8B8B8',
+    padding: 10,
+    margin: 10,
+    width: 55,
+    height: 'auto',
+    display: 'flex',
+    alignItems: 'center',
+    borderRadius: 8,
   },
 });

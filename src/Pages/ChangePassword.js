@@ -452,18 +452,21 @@ export default function CreateProfile(props) {
             style={{
               margin: 14,
               borderRadius: 5,
-              shadowColor: 'black',
               padding: 4,
               margin: 8,
-              borderWidth: 1,
-              shadowOffset: {width: 1, height: 1},
-              shadowOpacity: 1,
-            }}>
+              backgroundColor: 'white',
+            }}
+            shadowOffset={{height: 2, width: 0}}
+            shadowColor="#000"
+            shadowOpacity={0.25}
+            shadowRadius={3.84}
+            elevation={5}>
             <Text
               style={{
                 fontFamily: 'Poppins-SemiBold',
-                fontSize: 18,
+                fontSize: 24,
                 padding: 8,
+                fontWeight: '600',
               }}>
               Manage Card
             </Text>
@@ -474,29 +477,45 @@ export default function CreateProfile(props) {
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 margin: 10,
-                borderRadius: 12,
+                borderRadius: 5,
               }}>
               <View
                 style={{
                   backgroundColor: 'black',
                   display: 'flex',
                   flexDirection: 'row',
-                  borderRadius: 12,
+                  borderRadius: 5,
                 }}>
                 <View
                   style={{
                     backgroundColor: 'white',
-                    width: 39,
+                    width: 'auto',
+                    height: 'auto',
                     margin: 10,
                     padding: 10,
                     display: 'flex',
                     alignItems: 'center',
+                    borderRadius: 5,
                   }}>
                   <Hotspot height={40} width={40} fill="black" />
                 </View>
-                <View style={{alignSelf: 'center'}}>
-                  <Text style={{color: 'white'}}>Product title</Text>
-                  <Text style={{color: '#9FAA11'}}>Currently in use</Text>
+                <View
+                  style={{
+                    alignSelf: 'center',
+                    borderWidth: 1,
+                    // borderColor: 'red',
+                  }}>
+                  <View style={{paddingBottom: 10}}>
+                    <Text
+                      style={{color: 'white', fontSize: 20, fontWeight: '500'}}>
+                      Product Title
+                    </Text>
+                  </View>
+                  <View style={{}}>
+                    <Text style={{color: '#9FAA11', fontSize: 18}}>
+                      Currently in use
+                    </Text>
+                  </View>
                 </View>
               </View>
               <TouchableOpacity
@@ -505,11 +524,11 @@ export default function CreateProfile(props) {
                 // uncheckedCheckBoxColor="yellow"
                 style={{
                   borderRadius: 50,
-                  width: 20,
-                  height: 20,
+                  width: 30,
+                  height: 30,
                   marginTop: 'auto',
                   marginBottom: 'auto',
-                  marginRight: 10,
+                  marginRight: 20,
                   // backgroundColor: 'black',
                   // backgroundColor: '#F5FCFF',
                   // checkedCheckBoxColor: 'pink',
@@ -524,9 +543,9 @@ export default function CreateProfile(props) {
                 // leftText={'CheckBox'}
               >
                 <Tick
-                  height={10}
-                  width={10}
-                  fill={checked ? 'black' : 'white'}
+                  height={15}
+                  width={15}
+                  fill={checked ? '#9FAA11' : 'white'}
                   style={{
                     marginTop: 'auto',
                     marginRight: 'auto',
@@ -562,6 +581,7 @@ const styles = StyleSheet.create({
     // marginBottom: 'auto',
     marginLeft: 20,
     // backgroundColor: 'white',
+    marginBottom: 40,
   },
   headerBackground: {
     flexDirection: 'row',

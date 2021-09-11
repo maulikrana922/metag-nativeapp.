@@ -75,7 +75,11 @@ export default function OrderDetails(props) {
   } else {
     return (
       <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
-        <View style={{flex: 1}}>
+        <View
+          style={{
+            flex: 1,
+            borderWidth: 1,
+          }}>
           <View style={styles.header_parent}>
             <View>
               <View style={styles.header}>
@@ -84,7 +88,7 @@ export default function OrderDetails(props) {
                   style={{
                     height: 'auto',
                     marginTop: 'auto',
-                    marginBottom: 'auto',
+                    marginBottom: 41,
                   }}>
                   <Image
                     source={require('../../assets/CreateProfile/back.png')}
@@ -99,7 +103,9 @@ export default function OrderDetails(props) {
                 </View>
                 <Text style={styles.next}></Text>
               </View>
-              <Text style={styles.completeProfile}>order Successfull</Text>
+              <View style={{paddingBottom: 15}}>
+                <Text style={styles.completeProfile}>Order Successful</Text>
+              </View>
               {/* <View style={styles.iconFlex}>
               <View style={styles.backgroundIcon}>
                 <Image
@@ -119,7 +125,7 @@ export default function OrderDetails(props) {
           </View>
 
           {/* here */}
-          <View style={{margin: 20}}>
+          <View style={{margin: 25}}>
             <View
               style={{
                 display: 'flex',
@@ -127,76 +133,98 @@ export default function OrderDetails(props) {
                 justifyContent: 'space-between',
               }}>
               <View>
-                <View>
-                  <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14}}>
+                <View style={{paddingBottom: 1}}>
+                  <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 16}}>
                     Product Title
                   </Text>
                 </View>
-                <View>
-                  <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14}}>
+                <View style={{paddingBottom: 2}}>
+                  <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 16}}>
                     Order No 84766132132
                   </Text>
                 </View>
-                <View style={{fontFamily: 'Poppins-Reguler', fontSize: 14}}>
+                <View style={{fontFamily: 'Poppins-Reguler', fontSize: 16}}>
                   <Text>09:13 PM 10 Jun 2019</Text>
                 </View>
               </View>
               <View
                 style={{
                   width: 70,
-                  height: 'auto',
-                  backgroundColor: '#B8B8B8',
-                  borderBottomLeftRadius: 20,
-                  borderBottomRightRadius: 20,
-                  borderTopRightRadius: 20,
-                  borderTopLeftRadius: 20,
-                  padding: 25,
+                  height: 70,
+                  backgroundColor: '#b8b8b8',
+                  // backgroundColor: 'red',
+                  color: 'pink',
+                  marginTop: 'auto',
+                  marginBottom: 'auto',
+                  borderRadius: 5,
                 }}></View>
             </View>
-            <Text
+            <View
               style={{
                 marginTop: 20,
                 paddingBottom: 20,
-                fontFamily: 'Poppins-Reguler',
-                borderBottomWidth: 2,
-                borderBottomColor: 'black',
-                fontSize: 14,
+                borderBottomWidth: 1,
               }}>
-              It is a long established fact that a reader will be distracted by
-              the readable content of a page when looking at its layout. The
-              point of using Lorem Ipsum is that it has a more-or-less normal
-              distribution of letters, As opposed to using 'Content here,
-              content here', making it look like readable English. Many desktop
-              publishing packages and web page editors now use Lorem Ipsum as
-              their default model text, and a search for 'lorem ipsum' will
-              uncover many web sites still in their infancy. Various versions
-              have evolved over the years, sometimes by accident, sometimes on
-              purpose (injected humour and the like).
-            </Text>
-            <Text
+              <Text
+                style={{
+                  fontFamily: 'Poppins-Reguler',
+                  borderBottomColor: 'black',
+                  borderWidth: 0,
+                  lineHeight: 20,
+                  fontSize: 14,
+                  padding: 1,
+                }}>
+                It is a long established fact that a reader will be distracted
+                by the readable content of a page when looking at its layout.
+                The point of using Lorem Ipsum is that it has a more-or-less
+                normal distribution of letters.{'\n'}
+                {'\n'}
+                {'\n'}
+                As opposed to using 'Content here, content here', making it look
+                like readable English. Many desktop publishing packages and web
+                page editors now use Lorem Ipsum as their default model text,
+                and a search for 'lorem ipsum' will uncover many web sites still
+                in their infancy. Various versions have evolved over the years,
+                sometimes by accident, sometimes on purpose (injected humour and
+                the like).
+              </Text>
+            </View>
+            <View
+              style={{
+                paddingTop: 15,
+              }}>
+              <Text
+                style={{
+                  fontFamily: 'Poppins-SemiBold',
+                  fontSize: 16,
+                }}>
+                Payment Mode
+              </Text>
+            </View>
+            <View
               style={{
                 paddingTop: 10,
-                fontFamily: 'Poppins-SemiBold',
-                fontSize: 14,
               }}>
-              Payment Mode
-            </Text>
-            <Text
+              <Text
+                style={{
+                  fontFamily: "'Poppins-Reguler",
+                  fontSize: 16,
+                }}>
+                Apple pay
+              </Text>
+            </View>
+            <View
               style={{
                 paddingTop: 10,
-                fontFamily: "'Poppins-Reguler",
-                fontSize: 14,
               }}>
-              Apple Pay
-            </Text>
-            <Text
-              style={{
-                paddingTop: 10,
-                fontFamily: "'Poppins-Reguler",
-                fontSize: 12,
-              }}>
-              Transaction ID: 12345678441654
-            </Text>
+              <Text
+                style={{
+                  fontFamily: "'Poppins-Reguler",
+                  fontSize: 14,
+                }}>
+                Transaction ID: 12345678441654
+              </Text>
+            </View>
             <View
               style={{
                 display: 'flex',
@@ -279,16 +307,13 @@ const styles = StyleSheet.create({
   completeProfile: {
     alignSelf: 'center',
     color: 'white',
-    fontSize: 15,
-    fontFamily: 'Poppins-SemiBold',
+    fontSize: 20,
+    fontFamily: 'Poppins-ExtraBold',
     fontWeight: '700',
-    paddingBottom: 20,
     backgroundColor: 'black',
-    // borderWidth: 2,
-    // borderBottomColor: 'white',
     // alignContent:"center",
     textAlign: 'center',
-    width: 150,
+    width: 200,
 
     // width: "auto",
   },

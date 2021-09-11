@@ -733,27 +733,14 @@ export default function MyProfile(props) {
           )}
           {input && (
             <View
-              style={{
-                display: 'flex',
-                alignSelf: 'center',
-                justifyContent: 'space-evenly',
-                height: '30%',
-                borderRadius: 1,
-                shadowColor: 'black',
-                elevation: 4,
-                padding: 20,
-                width: '90%',
-                // marginRight: 40,
-              }}>
+              style={styles.card}
+              shadowOffset={{height: 2, width: 0}}
+              shadowColor="#000"
+              shadowOpacity={0.25}
+              shadowRadius={3.84}
+              elevation={5}>
               <ScrollView>
-                <View
-                  style={{
-                    borderBottomWidth: 1,
-                    borderBottomColor: '#D3D3D3',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    marginTop: '5%',
-                  }}>
+                <View style={styles.cardInputInfo}>
                   <Work width={30} height={30} fill="black" />
                   <TextInput
                     style={{marginLeft: '10%', color: '#000000'}}
@@ -764,14 +751,7 @@ export default function MyProfile(props) {
                     }}></TextInput>
                   {console.log('printing business name input', businessName)}
                 </View>
-                <View
-                  style={{
-                    borderBottomWidth: 1,
-                    borderBottomColor: '#D3D3D3',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    marginTop: '5%',
-                  }}>
+                <View style={styles.cardInputInfo}>
                   <Email width={30} height={30} fill="black" />
                   <TextInput
                     style={{marginLeft: '10%', color: '#000000'}}
@@ -781,14 +761,7 @@ export default function MyProfile(props) {
                       setSocial({...social, email: text.trim()});
                     }}></TextInput>
                 </View>
-                <View
-                  style={{
-                    borderBottomWidth: 1,
-                    borderBottomColor: '#D3D3D3',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    marginTop: '5%',
-                  }}>
+                <View style={styles.cardInputInfo}>
                   <Iphone width={30} height={30} fill="black" />
 
                   <TextInput
@@ -800,14 +773,7 @@ export default function MyProfile(props) {
                     }}></TextInput>
                   {/* {console.log(userMobileNumber)} */}
                 </View>
-                <View
-                  style={{
-                    borderBottomWidth: 1,
-                    borderBottomColor: '#D3D3D3',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    marginTop: '5%',
-                  }}>
+                <View style={styles.cardInputInfo}>
                   <Gps width={30} height={30} fill="black" />
                   <TextInput
                     style={{
@@ -1266,30 +1232,35 @@ const styles = StyleSheet.create({
   card: {
     display: 'flex',
     alignSelf: 'center',
-    backgroundColor: '#fff',
+    justifyContent: 'space-evenly',
+    height: 'auto',
+    borderRadius: 1,
+    padding: 20,
+    width: '90%',
+    backgroundColor: 'white',
+  },
+  cardInputInfo: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#D3D3D3',
+    display: 'flex',
+    flexDirection: 'row',
+    marginTop: '5%',
+    paddingBottom: '2%',
   },
   cardDetails: {
     justifyContent: 'space-evenly',
     borderRadius: 5,
     borderWidth: 1,
     borderColor: 'white',
-    padding: 20,
+    padding: 15,
     width: '90%',
   },
   info: {
     display: 'flex',
     flexDirection: 'row',
-    shadowColor: 'white',
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    shadowOpacity: 0,
-    shadowRadius: 0,
-    elevation: 0,
   },
   infoPadding: {
-    paddingLeft: 18,
+    paddingLeft: 20,
     paddingRight: '5%',
     fontFamily: 'Poppins-Regular',
     color: '#000000',

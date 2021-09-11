@@ -339,7 +339,7 @@ export default function MyProfile(props) {
                 </View>
                 <View style={styles.productListView}>
                   <View style={styles.productView}>
-                    <Text>Product</Text>
+                    {/* <Text>Product</Text> */}
                   </View>
                   <View
                     style={{
@@ -404,9 +404,7 @@ export default function MyProfile(props) {
                   </Text>
                 </View>
                 <View style={styles.productListView}>
-                  <View style={styles.productView}>
-                    <Text>Something</Text>
-                  </View>
+                  <View style={styles.productView}></View>
                   <View
                     style={{
                       marginTop: 'auto',
@@ -686,15 +684,15 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     paddingRight: 10,
     paddingLeft: 10,
-    borderTopLeftRadius: 20,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
     // marginTop: 'auto',
     // alignItems: 'flex-end',
   },
   productView: {
-    width: 40,
-    height: 'auto',
+    width: 70,
+    height: 70,
     backgroundColor: '#b8b8b8',
     // backgroundColor: 'red',
     color: 'pink',
