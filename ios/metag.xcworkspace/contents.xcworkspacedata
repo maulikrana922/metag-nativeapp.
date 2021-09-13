@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:metag.xcodeproj">
+      location = "group:/Users/mac/Desktop/reactnative/new-metag-nativeapp/metag-nativeapp/ios/&#9;.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

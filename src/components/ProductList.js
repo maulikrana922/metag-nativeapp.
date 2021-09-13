@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
 });
 
 export default function ProductList({price, title, image, key, currency}) {
+  console.log('in the list');
   return (
     <View style={styles.productListView} Key={key}>
       {console.log(price, title, image)}

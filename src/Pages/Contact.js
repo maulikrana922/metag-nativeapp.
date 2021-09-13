@@ -262,7 +262,7 @@ export default function Contact(props) {
                       <Text
                         style={{
                           fontSize: 16,
-                          fontFamily: 'Poppins-Reguler',
+                          fontFamily: 'Poppins-Regular',
                         }}
                         onPress={() =>
                           props.navigation.navigate('ChangePassword')
@@ -282,7 +282,7 @@ export default function Contact(props) {
                         style={{
                           fontSize: 16,
                           paddingTop: '2%',
-                          fontFamily: 'Poppins-Reguler',
+                          fontFamily: 'Poppins-Regular',
                         }}>
                         Logout
                       </Text>
@@ -394,21 +394,21 @@ export default function Contact(props) {
                       Aqua system LLC
                     </Text>
                   </View>
+
                   <View
                     style={{
                       backgroundColor: '#676767',
-                      padding: 8,
+                      padding: 10,
                       marginTop: 'auto',
                       marginBottom: 'auto',
                       borderRadius: 100,
-                      marginLeft: '10%',
+                      marginLeft: '18%',
                     }}>
                     <Image
-                      source={require('../../assets/contact/bin.png')}
-                      resizeMode="contain"
+                      source={require('../../assets/contact/pen.png')}
                       style={{
-                        width: 15,
-                        height: 15,
+                        width: 20,
+                        height: 20,
                         marginLeft: 'auto',
                         marginRight: 'auto',
                       }}></Image>
@@ -416,17 +416,18 @@ export default function Contact(props) {
                   <View
                     style={{
                       backgroundColor: '#E61D1D',
-                      padding: 8,
+                      padding: 10,
                       marginTop: 'auto',
                       marginBottom: 'auto',
                       borderRadius: 100,
-                      marginLeft: '5%',
+                      marginLeft: '4%',
                     }}>
                     <Image
-                      source={require('../../assets/contact/pen.png')}
+                      source={require('../../assets/contact/bin.png')}
+                      resizeMode="contain"
                       style={{
-                        width: 15,
-                        height: 15,
+                        width: 20,
+                        height: 20,
                         marginLeft: 'auto',
                         marginRight: 'auto',
                       }}></Image>
@@ -473,7 +474,7 @@ const styles = StyleSheet.create({
     // paddingLeft: 20,
   },
   text_metag: {
-    fontFamily: 'Poppins-Reguler',
+    fontFamily: 'Poppins-Regular',
     fontSize: 34,
     color: 'white',
   },

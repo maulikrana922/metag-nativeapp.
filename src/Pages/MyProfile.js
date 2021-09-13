@@ -296,6 +296,16 @@ export default function MyProfile(props) {
         setShowLoader(false);
         if (response.data.status === 200) {
           // setNext(true);
+
+          setSocial({
+            ...social,
+            name: userName,
+            email: userEmail,
+            mobile: userMobileNumber,
+            location: location,
+          });
+          // setSocial({...social, });
+          //  setSocial({...social, mobile: text.trim()});
           console.log('upload data', response.data);
           // dispatch(
           //   getProfile({
@@ -451,7 +461,7 @@ export default function MyProfile(props) {
                           borderBottomColor: '#E5E5E5',
                           borderBottomWidth: 1,
                           paddingBottom: '2%',
-                          fontFamily: 'Poppins-Reguler',
+                          fontFamily: 'Poppins-Regular',
                         }}
                         onPress={() =>
                           props.navigation.navigate('ChangePassword')
@@ -469,7 +479,7 @@ export default function MyProfile(props) {
                         style={{
                           fontSize: 16,
                           paddingTop: '2%',
-                          fontFamily: 'Poppins-Reguler',
+                          fontFamily: 'Poppins-Regular',
                         }}>
                         Logout
                       </Text>
@@ -561,6 +571,7 @@ export default function MyProfile(props) {
             <Image source={{uri: image}} style={styles.profileImage}></Image>
           )} */}
           {console.log(image)}
+          {/* {console.log("link output"social)} */}
           {social.profilePic === null ? (
             <Image
               source={require('../../assets/myProfile/avatar.png')}
@@ -677,7 +688,7 @@ export default function MyProfile(props) {
             )}
           </View>
 
-          <View
+          {/* <View
             style={{
               display: 'flex',
               flexDirection: 'row',
@@ -692,7 +703,7 @@ export default function MyProfile(props) {
               // marginRight: '10%',
             }}>
             <Text>ICONS</Text>
-          </View>
+          </View> */}
 
           {!input && (
             <View
@@ -758,7 +769,7 @@ export default function MyProfile(props) {
                     value={userEmail}
                     onChangeText={text => {
                       setUseremail(text.trim());
-                      setSocial({...social, email: text.trim()});
+                      // setSocial({...social, email: text.trim()});
                     }}></TextInput>
                 </View>
                 <View style={styles.cardInputInfo}>
@@ -769,7 +780,6 @@ export default function MyProfile(props) {
                     value={String(userMobileNumber)}
                     onChangeText={text => {
                       setUserMobileNumber(text.trim());
-                      setSocial({...social, mobile: text.trim()});
                     }}></TextInput>
                   {/* {console.log(userMobileNumber)} */}
                 </View>
@@ -784,7 +794,6 @@ export default function MyProfile(props) {
                     value={location}
                     onChangeText={text => {
                       setLocation(text.trim());
-                      setSocial({...social, location: text.trim()});
                     }}></TextInput>
                 </View>
               </ScrollView>
@@ -990,7 +999,7 @@ const styles = StyleSheet.create({
     // paddingLeft: 20,
   },
   text_metag: {
-    fontFamily: 'Poppins-Reguler',
+    fontFamily: 'Poppins-Regular',
     fontSize: 34,
     color: 'white',
   },
@@ -1012,7 +1021,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: 'white',
     fontSize: 20,
-    fontFamily: 'Poppins_SemiBold',
+    fontFamily: 'Poppins-SemiBold',
     paddingBottom: 10,
     borderWidth: 3,
     borderBottomColor: 'white',

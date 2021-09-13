@@ -143,7 +143,7 @@ export default function OrderDetails(props) {
                     Order No 84766132132
                   </Text>
                 </View>
-                <View style={{fontFamily: 'Poppins-Reguler', fontSize: 16}}>
+                <View style={{fontFamily: 'Poppins-Regular', fontSize: 16}}>
                   <Text>09:13 PM 10 Jun 2019</Text>
                 </View>
               </View>
@@ -167,7 +167,7 @@ export default function OrderDetails(props) {
               }}>
               <Text
                 style={{
-                  fontFamily: 'Poppins-Reguler',
+                  fontFamily: 'Poppins-Regular',
                   borderBottomColor: 'black',
                   borderWidth: 0,
                   lineHeight: 20,
@@ -207,7 +207,7 @@ export default function OrderDetails(props) {
               }}>
               <Text
                 style={{
-                  fontFamily: "'Poppins-Reguler",
+                  fontFamily: "'Poppins-Regular",
                   fontSize: 16,
                 }}>
                 Apple pay
@@ -219,7 +219,7 @@ export default function OrderDetails(props) {
               }}>
               <Text
                 style={{
-                  fontFamily: "'Poppins-Reguler",
+                  fontFamily: "'Poppins-Regular",
                   fontSize: 14,
                 }}>
                 Transaction ID: 12345678441654

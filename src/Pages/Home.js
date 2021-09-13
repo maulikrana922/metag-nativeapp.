@@ -38,14 +38,38 @@ import MyProfile from './MyOrders';
 import NfcProxy from './NfcProxy';
 
 import url from '../BaseURl/baseurl.json';
+const data = [
+  {
+    title: 'abc',
+    price: '$13',
+    image:
+      'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.jkywKMQLRDYYuMkiOJLSHAHaFj%26pid%3DApi&f=1',
+    id: 1,
+  },
+  {
+    title: 'xyz',
+    price: '$13',
+    image:
+      'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.jkywKMQLRDYYuMkiOJLSHAHaFj%26pid%3DApi&f=1',
+    id: 2,
+  },
+  {
+    title: 'xyz',
+    price: '$13',
+    image:
+      'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.jkywKMQLRDYYuMkiOJLSHAHaFj%26pid%3DApi&f=1',
+    id: 3,
+  },
+];
 export default function CreateProfile(props) {
   const [isLoaded, setLoaded] = useState(true);
   const [count, setCount] = useState('3');
   const [start, setStart] = useState('0');
-  const [products, setProduct] = useState([]);
+  // const [products, setProduct] = useState([]);
   const [supportsNfc, setSupportsNfc] = useState(false);
   const dispatch = useDispatch();
   const {token, profile, link, flag} = useSelector(state => state);
+  const [products, setProduct] = useState(data);
 
   console.log('flag value', typeof flag);
   // const [apiToken, setToken] = useState(
@@ -107,7 +131,7 @@ export default function CreateProfile(props) {
         .then(response => {
           if (response.data.status == 200) {
             // console.log('200', response.data);
-            setProduct(response.data.data);
+            // setProduct(response.data.data);
           } else {
             console.log('false in Home', response.data);
           }
@@ -126,15 +150,14 @@ export default function CreateProfile(props) {
   //   headers: {
   //     Authorization: 'Bearer ' + profile.api_token,
   //   },
-  // })
-  //   .then(response => {
-  //     if (response.data.status === 200) {
-  //       // console.log('200', response.data);
-  //       setProduct(response.data.data);
-  //     } else {
-  //       console.log('false', response.data);
-  //     }
-  //   })
+  // }).then(response => {
+  //   if (response.data.status === 200) {
+  //     // console.log('200', response.data);
+  //     setProduct(response.data.data);
+  //   } else {
+  //     console.log('false', response.data);
+  //   }
+  // });
   //   .catch(e => console.log('error500', e));
 
   //This checks if the phone supports nfc feature
@@ -229,8 +252,8 @@ export default function CreateProfile(props) {
                   <View style={styles.backgroundIcon2}>
                     <TouchableOpacity
                       onPress={() => {
-                        props.navigation.navigate('CreateProfile');
-                        // props.navigation.navigate('Nfc');
+                        // props.navigation.navigate('CreateProfile');
+                        props.navigation.navigate('Nfc');
                       }}>
                       <Hotspot height={40} width={40} fill="black" />
                     </TouchableOpacity>
@@ -302,60 +325,30 @@ export default function CreateProfile(props) {
                 elevation={5}>
                 <View style={styles.productTitle}>
                   <Text style={styles.productsText}>Products</Text>
-                  <View style={{display: 'flex', flexDirection: 'row'}}>
-                    <Text>count</Text>
-                    <TextInput
-                      keyboardType="numeric"
-                      // placeholder="Password"
-                      // placeholderTextColor="white"
-                      // onChangeText={text => setPassword(text)}
-                      onChangeText={text => setCount(text.trim())}
-                      value={count}
-                      style={{marginTop: -12}}
-                    />
-                    <Text>start</Text>
-
-                    <TextInput
-                      style={{
-                        borderBottomWidth: 1,
-                        borderBottomColor: 'black',
-                      }}
-                      keyboardType="numeric"
-                      onChangeText={text => setStart(text.trim())}
-                      value={start}
-                      style={{marginTop: -12}}
-                    />
-
-                    <Text
-                      onPress={() => props.navigation.navigate('ViewAll')}
-                      // onPress={() => props.navigation.navigate('MyOrders')}
-                      style={styles.viewAll}>
-                      View All
-                    </Text>
-                  </View>
-                </View>
-                <View>
-                  <ScrollView>
-                    {/* <ProductList /> */}
-                    {products.length !== 0 &&
-                      products.map(element => {
-                        return (
-                          // <ScrollView>
-                          <ProductList
-                            // key={element.key}
-                            title={element.title}
-                            price={element.price}
-                            image={element.image}
-                            key={element.id}
-                            image={element.image}
-                            currency={element.currency}
-                          />
-                          // </ScrollView>
-                        );
-                      })}
-                  </ScrollView>
+                  <Text
+                    onPress={() => props.navigation.navigate('ViewAll')}
+                    style={styles.viewAllProduct}>
+                    View all
+                  </Text>
                 </View>
               </View>
+              <ScrollView>
+                {/* <ProductList /> */}
+                {products.length !== 0 &&
+                  products.map(element => {
+                    return (
+                      // <ScrollView>
+                      <ProductList
+                        // key={element.key}
+                        title={element.title}
+                        price={element.price}
+                        image={element.image}
+                        // key={element.id}
+                      />
+                      // </ScrollView>
+                    );
+                  })}
+              </ScrollView>
             </View>
           </View>
           {/* <Menu /> */}
@@ -403,7 +396,7 @@ const styles = StyleSheet.create({
     // paddingLeft: 20,
   },
   text_metag: {
-    fontFamily: 'Poppins-Reguler',
+    fontFamily: 'Poppins-Regular',
     fontSize: 34,
     color: 'white',
   },
@@ -500,7 +493,7 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     fontSize: 14,
-    fontFamily: 'Poppins-Reguler',
+    fontFamily: 'Poppins-Regular',
     marginTop: 15,
     marginBottom: 10,
   },
@@ -521,9 +514,12 @@ const styles = StyleSheet.create({
   productTitle: {
     display: 'flex',
     flexDirection: 'row',
-    margin: 8,
-    justifyContent: 'space-between',
+    marginLeft: 8,
+    marginRight: 8,
+    // justifyContent: 'space-between',
     marginTop: 8,
+    width: '100%',
+    // backgroundColor: 'red',
   },
   productsText: {
     fontFamily: 'Poppins-ExtraBold',
@@ -574,11 +570,19 @@ const styles = StyleSheet.create({
     // shadowOffset: {width: 5, height: 5},
     // shadowOpacity: 0.3,
     // shadowRadius: 1,
+    // height: 'auto',
+    // height: '100%',
     padding: 4,
     backgroundColor: 'white',
     borderRadius: 10,
     marginBottom: 15,
     height: 100,
     alignItems: 'flex-start',
+  },
+  viewAllProduct: {
+    color: '#020202',
+    fontFamily: 'Poppins-Regular',
+    marginLeft: 'auto',
+    marginRight: 8,
   },
 });

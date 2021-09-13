@@ -274,7 +274,7 @@ export default function MyProfile(props) {
                           borderBottomColor: '#E5E5E5',
                           borderBottomWidth: 1,
                           paddingBottom: '2%',
-                          fontFamily: 'Poppins-Reguler',
+                          fontFamily: 'Poppins-Regular',
                         }}
                         onPress={() =>
                           props.navigation.navigate('ChangePassword')
@@ -294,7 +294,7 @@ export default function MyProfile(props) {
                         style={{
                           fontSize: 16,
                           paddingTop: '2%',
-                          fontFamily: 'Poppins-Reguler',
+                          fontFamily: 'Poppins-Regular',
                         }}>
                         Logout
                       </Text>
@@ -333,7 +333,7 @@ export default function MyProfile(props) {
                     </Text>
                     <Text style={styles.orderTitleFont}>$50.00</Text>
                   </View>
-                  <Text style={{fontFamily: 'Poppins-Reguler', fontSize: 16}}>
+                  <Text style={{fontFamily: 'Poppins-Regular', fontSize: 16}}>
                     09:13 PM 10 Jun 2019
                   </Text>
                 </View>
@@ -399,7 +399,7 @@ export default function MyProfile(props) {
                     </Text>
                     <Text style={styles.orderTitleFont}>$50.00</Text>
                   </View>
-                  <Text style={{fontFamily: 'Poppins-Reguler', fontSize: 16}}>
+                  <Text style={{fontFamily: 'Poppins-Regular', fontSize: 16}}>
                     09:13 PM 10 Jun 2019
                   </Text>
                 </View>
@@ -479,7 +479,7 @@ const styles = StyleSheet.create({
     // paddingLeft: 20,
   },
   text_metag: {
-    fontFamily: 'Poppins-Reguler',
+    fontFamily: 'Poppins-Regular',
     fontSize: 34,
     color: 'white',
   },

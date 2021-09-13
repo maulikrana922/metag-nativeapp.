@@ -56,7 +56,8 @@ function ResetPassword(props) {
           console.log(e);
           setServerError(e);
         } else {
-          console.log('data', res.data);
+          console.log('data>>>>>>', res.data);
+
           // setVerifyKey(res.data.data.verify_key, res.data.data.id);
           props.navigation.navigate('Login');
         }

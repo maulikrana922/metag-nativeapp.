@@ -128,6 +128,10 @@ function StackNavigator() {
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Signup" component={Signup} />
                 <Stack.Screen name="TagDetail" component={TagDetail} />
+                <Stack.Screen
+                  name="ForgotPassword"
+                  component={ForgotPassword}
+                />
               </>
             )}
         {/* <Stack.Screen name=""

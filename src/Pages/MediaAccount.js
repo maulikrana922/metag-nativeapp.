@@ -421,7 +421,7 @@ const styles = StyleSheet.create({
     // paddingLeft: 20,
   },
   text_metag: {
-    fontFamily: 'Poppins-Reguler',
+    fontFamily: 'Poppins-Regular',
     fontSize: 34,
     color: 'white',
   },
@@ -499,7 +499,7 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
     marginRight: 'auto',
     fontFamily: 'Poppins-SemiBold',
-    // fontWeight: '700',
+    // fontWeight: '500',
     color: 'black',
     // marginBottom: 14,
     // marginTop: 20,

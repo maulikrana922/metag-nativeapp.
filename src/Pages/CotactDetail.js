@@ -36,6 +36,7 @@ import gps_i from '../../assets/ContactDetails/gps.png';
 import iphone_i from '../../assets/ContactDetails/iphone.png';
 import work_i from '../../assets/ContactDetails/work.png';
 import avatar from '../../assets/ContactDetails/avatar.png';
+import Logo from '../../assets/Logo/logo.svg';
 
 import bg from '../../assets/Logo/bg.png';
 
@@ -60,10 +61,11 @@ export default function MyProfile() {
 
                 {/* here */}
                 <View style={styles.headerBackground}>
-                  <Image
+                  {/* <Image
                     source={require('../../assets/logo.jpg')}
                     style={{width: 50, height: 'auto'}}
-                  />
+                  /> */}
+                  <Logo width={54} height={54} />
                   <View style={styles.header_text}>
                     <Text style={styles.text_metag}>meTAG</Text>
                     <Text style={styles.text_tagline}>I M ME,WHO ARE YOU</Text>
@@ -265,7 +267,7 @@ const styles = StyleSheet.create({
     // paddingLeft: 20,
   },
   text_metag: {
-    fontFamily: 'Poppins-Reguler',
+    fontFamily: 'Poppins-Regular',
     fontSize: 34,
     color: 'white',
   },

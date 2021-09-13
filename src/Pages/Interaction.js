@@ -216,12 +216,12 @@ export default function CreateProfile(props) {
             </svg> */}
               </View>
               <View style={{alignSelf: 'center'}}>
-                <Text style={{fontFamily: 'Poppins-Reguler', fontSize: 16}}>
+                <Text style={{fontFamily: 'Poppins-Regular', fontSize: 16}}>
                   Contact/Device name
                 </Text>
                 <Text
                   style={{
-                    fontFamily: 'Poppins-Reguler',
+                    fontFamily: 'Poppins-Regular',
                     color: '#9E9E9E',
                     paddingTop: 5,
                   }}>
@@ -242,12 +242,12 @@ export default function CreateProfile(props) {
                     source={require('../../assets/interction/hotspot.png')}></Image>
                 </View>
                 <View style={{alignSelf: 'center'}}>
-                  <Text style={{fontFamily: 'Poppins-Reguler', fontSize: 16}}>
+                  <Text style={{fontFamily: 'Poppins-Regular', fontSize: 16}}>
                     Contact/Device name
                   </Text>
                   <Text
                     style={{
-                      fontFamily: 'Poppins-Reguler',
+                      fontFamily: 'Poppins-Regular',
                       color: '#9E9E9E',
                       paddingTop: 5,
                     }}>
@@ -304,7 +304,7 @@ const styles = StyleSheet.create({
     // paddingLeft: 20,
   },
   text_metag: {
-    fontFamily: 'Poppins-Reguler',
+    fontFamily: 'Poppins-Regular',
     fontSize: 34,
     color: 'white',
   },
