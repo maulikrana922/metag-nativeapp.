@@ -80,6 +80,10 @@ export default function Contact(props) {
   const [isLoaded, setLoaded] = useState(true);
   const [show, setShow] = useState(false);
   const [remove, setRemove] = useState(false);
+  const [activeBtnAll, setAvtiveBtnAll] = useState(false);
+  const [activeBtnReceive, setAvtiveBtnReceive] = useState(false);
+  const [activeBtnSent, setAvtiveBtnSent] = useState(false);
+
   const apiToken =
     profile !== null && flag === 'true'
       ? profile.data[0].api_token
@@ -113,6 +117,7 @@ export default function Contact(props) {
   //     setNewImage(result.uri);
   //   }
   // };
+
   const removeValue = async () => {
     try {
       await AsyncStorage.removeItem('@storage_Key');
@@ -303,13 +308,39 @@ export default function Contact(props) {
                 marginLeft: 40,
                 marginRight: 40,
               }}>
-              <TouchableOpacity style={styles.choiceMenu}>
+              <TouchableOpacity
+                style={[
+                  !activeBtnAll ? styles.choiceMenuActive : styles.choiceMenu,
+                ]}
+                onPress={() => {
+                  setAvtiveBtnAll(!activeBtnAll);
+                  setAvtiveBtnReceive(!activeBtnReceive);
+                  setAvtiveBtnSent(!activeBtnSent);
+                }}>
                 <Text style={styles.choiceMenuText}>All</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.choiceMenu}>
-                <Text style={styles.choiceMenuText}>Recived</Text>
+              <TouchableOpacity
+                style={[
+                  activeBtnReceive
+                    ? styles.choiceMenuActive
+                    : styles.choiceMenu,
+                ]}
+                onPress={() => {
+                  setAvtiveBtnAll(!activeBtnAll);
+                  setAvtiveBtnReceive(!activeBtnReceive);
+                  // setAvtiveBtnSent(!activeBtnSent);
+                }}>
+                <Text style={styles.choiceMenuText}>Received</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.choiceMenu}>
+              <TouchableOpacity
+                style={[
+                  !activeBtnSent ? styles.choiceMenuActive : styles.choiceMenu,
+                ]}
+                onPress={() => {
+                  setAvtiveBtnAll(!activeBtnAll);
+                  setAvtiveBtnReceive(!activeBtnReceive);
+                  // setAvtiveBtnSent(!activeBtnSent);
+                }}>
                 <Text style={styles.choiceMenuText}>Sent</Text>
               </TouchableOpacity>
             </View>
@@ -726,14 +757,24 @@ const styles = StyleSheet.create({
   choiceMenuText: {
     color: 'black',
     textAlign: 'center',
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: 'Poppins-Regular',
     padding: 5,
   },
+  choiceMenuActive: {
+    width: '27.8%',
+    height: '50%',
+    backgroundColor: 'green',
+    borderRadius: 20,
+    marginTop: 20,
+    marginBottom: 20,
+    paddingTop: 5,
+    paddingBottom: 5,
+  },
   choiceMenu: {
-    width: '30%',
-    height: 'auto',
-    backgroundColor: '#FFFFFF',
+    width: '27.8%',
+    height: '50%',
+    backgroundColor: '#BFBFBF',
     borderRadius: 20,
     marginTop: 20,
     marginBottom: 20,

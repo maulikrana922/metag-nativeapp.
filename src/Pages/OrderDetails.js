@@ -41,6 +41,8 @@ export default function OrderDetails(props) {
   const [newImage, setNewImage] = useState(AvtarImage);
   const [isLoaded, setLoaded] = useState(true);
 
+  const DATA = props.route.params.element;
+
   // useEffect(() => {
   //   (async () => {
   //     if (Platform.OS !== 'web') {
@@ -71,7 +73,7 @@ export default function OrderDetails(props) {
   // };
 
   useEffect(() => {
-    console.log('Props......', props.route.params.id);
+    console.log('.....DATA.....', DATA);
   }, []);
 
   if (!isLoaded) {
@@ -144,11 +146,13 @@ export default function OrderDetails(props) {
                 </View>
                 <View style={{paddingBottom: 2}}>
                   <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 16}}>
-                    Order No 84766132132
+                    {DATA.title} {DATA.orderNo}
                   </Text>
                 </View>
                 <View style={{fontFamily: 'Poppins-Regular', fontSize: 16}}>
-                  <Text>09:13 PM 10 Jun 2019</Text>
+                  <Text>
+                    {DATA.time} {DATA.date}
+                  </Text>
                 </View>
               </View>
               <View
@@ -160,8 +164,17 @@ export default function OrderDetails(props) {
                   color: 'pink',
                   marginTop: 'auto',
                   marginBottom: 'auto',
-                  borderRadius: 5,
-                }}></View>
+                  borderRadius: 10,
+                  // position:"absolute",
+                }}>
+                <Image
+                  style={styles.productView}
+                  width={70}
+                  height={70}
+                  source={{uri: `${DATA.image}`}}
+                />
+                {/* <Text>something</Text> */}
+              </View>
             </View>
             <View
               style={{
@@ -178,7 +191,8 @@ export default function OrderDetails(props) {
                   fontSize: 14,
                   padding: 1,
                 }}>
-                It is a long established fact that a reader will be distracted
+                {DATA.info}
+                {/* It is a long established fact that a reader will be distracted
                 by the readable content of a page when looking at its layout.
                 The point of using Lorem Ipsum is that it has a more-or-less
                 normal distribution of letters.{'\n'}
@@ -190,7 +204,7 @@ export default function OrderDetails(props) {
                 and a search for 'lorem ipsum' will uncover many web sites still
                 in their infancy. Various versions have evolved over the years,
                 sometimes by accident, sometimes on purpose (injected humour and
-                the like).
+                the like). */}
               </Text>
             </View>
             <View
@@ -247,7 +261,7 @@ export default function OrderDetails(props) {
                   fontSize: 14,
                   alignSelf: 'center',
                 }}>
-                $50.00
+                {DATA.price}
               </Text>
             </View>
           </View>
@@ -498,12 +512,10 @@ const styles = StyleSheet.create({
     // alignSelf: 'flex-end',
   },
   productView: {
-    width: 40,
-    height: 40,
     backgroundColor: 'white',
     marginTop: 'auto',
     marginBottom: 'auto',
-    borderRadius: 10,
+    borderRadius: 5,
   },
   productListView: {
     height: 'auto',

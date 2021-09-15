@@ -12,6 +12,8 @@ import {
   TouchableOpacity,
   ImageBackground,
   Modal,
+  ScrollView,
+  Alert,
 } from 'react-native';
 // import AvtarImage from "../../assets/avtar.svg";
 //
@@ -135,6 +137,10 @@ export default function MyProfile(props) {
   // }
   // };
   // dispatch(getSocialFlag(false));
+
+  const Repeat = () => {
+    Alert.alert('Repeat Clicked');
+  };
 
   const removeValue = async () => {
     try {
@@ -309,8 +315,9 @@ export default function MyProfile(props) {
             </View>
           </View>
           {/* list  */}
-          <View style={{padding: 15}}>
-            {/* <View
+          <ScrollView>
+            <View style={{padding: 15}}>
+              {/* <View
               style={{backgroundColor: '#fff', marginBottom: 15}}
               shadowOffset={{height: 2, width: 0}}
               shadowColor="#000"
@@ -376,110 +383,114 @@ export default function MyProfile(props) {
               </TouchableOpacity>
             </View> */}
 
-            {/* // */}
-            {/* // */}
-            {/* // */}
-            {/* // */}
+              {/* // */}
+              {/* // */}
+              {/* // */}
+              {/* // */}
 
-            {DATA.map(element => {
-              return (
-                <View
-                  style={{backgroundColor: '#fff'}}
-                  shadowOffset={{height: 2, width: 0}}
-                  shadowColor="#000"
-                  shadowOpacity={0.25}
-                  shadowRadius={3.84}
-                  elevation={5}>
-                  <TouchableOpacity
-                    style={styles.shadow}
-                    onPress={() =>
-                      props.navigation.navigate('OrderDetails', {
-                        id: 1,
-                      })
-                    }>
-                    <View
-                      style={{
-                        paddingLeft: 15,
-                        paddingRight: 15,
-                        paddingTop: 15,
-                      }}>
+              {DATA.map(element => {
+                return (
+                  <View
+                    style={{backgroundColor: '#fff'}}
+                    shadowOffset={{height: 2, width: 0}}
+                    shadowColor="#000"
+                    shadowOpacity={0.25}
+                    shadowRadius={3.84}
+                    elevation={5}>
+                    <TouchableOpacity
+                      style={styles.shadow}
+                      onPress={() =>
+                        props.navigation.navigate('OrderDetails', {
+                          element: element,
+                        })
+                      }>
                       <View
                         style={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          justifyContent: 'space-between',
-                          paddingBottom: 3,
+                          paddingLeft: 15,
+                          paddingRight: 15,
+                          paddingTop: 15,
                         }}>
-                        <Text style={styles.orderTitleFont}>
-                          {element.title} {element.orderNo} &nbsp; ID &nbsp;
-                          {element.id}
-                        </Text>
-                        <Text style={styles.orderTitleFont}>$50.00</Text>
-                      </View>
-                      <Text
-                        style={{fontFamily: 'Poppins-Regular', fontSize: 16}}>
-                        {element.time} {element.date}
-                        {/* 09:13 PM 10 Jun 2019 */}
-                      </Text>
-                    </View>
-                    <View style={styles.productListView}>
-                      <Image
-                        style={styles.productView}
-                        source={{uri: `${element.image}`}}
-                      />
-
-                      <View
-                        style={{
-                          marginTop: 'auto',
-                          marginBottom: 'auto',
-                          marginLeft: 10,
-                          display: 'flex',
-                          flexWrap: 'wrap',
-                          flexDirection: 'row',
-                        }}>
-                        <Text
+                        <View
                           style={{
-                            color: 'black',
-                            fontSize: 14,
-                            width: 100,
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            paddingBottom: 3,
+                          }}>
+                          <Text style={styles.orderTitleFont}>
+                            {element.title} {element.orderNo}
+                          </Text>
+                          <Text style={styles.orderTitleFont}>
+                            {element.price}
+                          </Text>
+                        </View>
+                        <Text
+                          style={{fontFamily: 'Poppins-Regular', fontSize: 16}}>
+                          {element.time} {element.date}
+                          {/* 09:13 PM 10 Jun 2019 */}
+                        </Text>
+                      </View>
+                      <View style={styles.productListView}>
+                        <Image
+                          style={styles.productView}
+                          source={{uri: `${element.image}`}}
+                        />
+
+                        <View
+                          style={{
+                            marginTop: 'auto',
+                            marginBottom: 'auto',
+                            marginLeft: 10,
                             display: 'flex',
                             flexWrap: 'wrap',
                             flexDirection: 'row',
+                          }}>
+                          <Text
+                            style={{
+                              color: 'black',
+                              fontSize: 14,
+                              width: 100,
+                              display: 'flex',
+                              flexWrap: 'wrap',
+                              flexDirection: 'row',
 
-                            fontFamily: 'Poppins-Bold',
-                          }}>
-                          {element.status}
-                          {/* Successful */}
-                        </Text>
-                        <Text
-                          style={{
-                            color: 'black',
-                            fontFamily: 'Poppins-Regular',
-                          }}>
-                          {element.info}
-                          {/* Lorem Ipsum is simply dummy {`\n`}text of the printing and
+                              fontFamily: 'Poppins-Bold',
+                            }}>
+                            {element.status}
+                            {/* Successful */}
+                          </Text>
+                          <Text
+                            style={{
+                              color: 'black',
+                              fontFamily: 'Poppins-Regular',
+                            }}>
+                            {element.info}
+                            {/* Lorem Ipsum is simply dummy {`\n`}text of the printing and
                       type
                       {'\n'}setting industry. */}
-                        </Text>
+                          </Text>
+                        </View>
+                        <View
+                          style={{
+                            width: 'auto',
+                            marginLeft: 'auto',
+                            alignSelf: 'flex-end',
+                          }}>
+                          <TouchableOpacity
+                            style={styles.buyBtnBg}
+                            onPress={() => {
+                              Repeat();
+                            }}>
+                            <Text style={{color: 'white'}}>Repeat</Text>
+                          </TouchableOpacity>
+                        </View>
                       </View>
-                      <View
-                        style={{
-                          width: 'auto',
-                          marginLeft: 'auto',
-                          alignSelf: 'flex-end',
-                        }}>
-                        <TouchableOpacity
-                          style={styles.buyBtnBg}
-                          onPress={() => {}}>
-                          <Text style={{color: 'white'}}>Repeat</Text>
-                        </TouchableOpacity>
-                      </View>
-                    </View>
-                  </TouchableOpacity>
-                </View>
-              );
-            })}
-          </View>
+                    </TouchableOpacity>
+                  </View>
+                );
+              })}
+            </View>
+          </ScrollView>
           {/* <Menu /> */}
         </View>
       </ImageBackground>
@@ -811,19 +822,19 @@ const DATA = [
   {
     title: 'Order No',
     orderNo: '7572846141',
-    price: '$50',
+    price: '$50.00',
     time: '09:13 PM',
     date: '10 Jun 2019',
     status: 'successful',
     info: 'Lorem Ipsum is simply dummy text of the printing and type setting industry',
     image:
-      'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.jkywKMQLRDYYuMkiOJLSHAHaFj%26pid%3DApi&f=1',
+      'https://i.picsum.photos/id/465/200/200.jpg?hmac=66oxx-Qv8Bakk-7zPy6Kdv7t064QKKWhmDwQTWGZ7A0',
     id: 1,
   },
   {
     title: 'Order No',
     orderNo: '123456789',
-    price: '$50',
+    price: '$50.00',
     time: '09:13 PM',
     date: '10 Jun 2019',
     status: 'successful',
@@ -836,7 +847,7 @@ const DATA = [
   {
     title: 'Order No',
     orderNo: '987654321',
-    price: '$50',
+    price: '$50.00',
     time: '09:13 PM',
     date: '10 Jun 2019',
     status: 'successful',

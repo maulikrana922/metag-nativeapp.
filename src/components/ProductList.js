@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,7 +6,118 @@ import {
   Image,
   Button,
   TouchableOpacity,
+  Alert,
+  Modal,
+  Pressable,
+  ScrollView,
+  AsyncStorage,
 } from 'react-native';
+
+export default function ProductList({price, title, image, key, currency}) {
+  useEffect(async () => {
+    const val = await AsyncStorage.getItem('Key');
+    console.log('AsyncStorege value', val);
+  }, []);
+
+  const [showModal, setShowModal] = useState(false);
+
+  const setImage = async () => {
+    try {
+      await AsyncStorage.setItem('Key', `${image}`);
+    } catch (error) {
+      // Error saving data
+      console.log(error);
+    }
+  };
+  console.log('in the list');
+  return (
+    <ScrollView>
+      <View style={styles.productListView} Key={key}>
+        {console.log(price, title, image)}
+        {/* <View style={styles.productView}></View> */}
+        <Image
+          source={{uri: image}}
+          style={styles.productView}
+          width={40}
+          height={40}></Image>
+        <View
+          style={{
+            marginTop: 'auto',
+            marginBottom: 'auto',
+            marginLeft: 10,
+          }}>
+          <View style={{paddingBottom: 5}}>
+            <Text style={{color: 'white', fontSize: 22, fontWeight: '500'}}>
+              {title}
+            </Text>
+          </View>
+          <Text style={{color: '#9FAA11', fontSize: 16, fontWeight: '400'}}>
+            $ {price} USD
+          </Text>
+        </View>
+        <View
+          style={{
+            width: 'auto',
+            marginLeft: 'auto',
+            alignSelf: 'center',
+          }}>
+          <TouchableOpacity
+            style={styles.buyBtnBg}
+            onPress={() => {
+              // Alert.alert('Buy');
+              setImage();
+              setShowModal(true);
+            }}>
+            <Text style={{color: 'white', fontSize: 16, fontWeight: '500'}}>
+              Buy
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      {/* <Modal
+        animationType="slide"
+        transparent={true}
+        visible={showModal}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setShowModal(false);
+        }}>
+        <View
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            top: '40%',
+            marginLeft: '23%',
+            padding: 20,
+            zIndex: 999,
+            width: '40%',
+            position: 'absolute',
+            borderWidth: 1,
+            backgroundColor: 'lightpink',
+          }}>
+          <Text style={{fontSize: 18, fontWeight: 'bold', color: 'black'}}>
+            Buy Clicked
+          </Text>
+          <Pressable
+            onPress={() => setShowModal(!showModal)}
+            style={{marginTop: 20}}>
+            <View
+              style={{
+                borderRadius: 5,
+                backgroundColor: 'black',
+                width: 40,
+                height: 40,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text style={{color: 'white'}}>Okay</Text>
+            </View>
+          </Pressable>
+        </View>
+      </Modal> */}
+    </ScrollView>
+  );
+}
 
 const styles = StyleSheet.create({
   productListView: {
@@ -40,45 +151,3 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 10,
   },
 });
-
-export default function ProductList({price, title, image, key, currency}) {
-  console.log('in the list');
-  return (
-    <View style={styles.productListView} Key={key}>
-      {console.log(price, title, image)}
-      {/* <View style={styles.productView}></View> */}
-      <Image
-        source={{uri: image}}
-        style={styles.productView}
-        width={40}
-        height={40}></Image>
-      <View
-        style={{
-          marginTop: 'auto',
-          marginBottom: 'auto',
-          marginLeft: 10,
-        }}>
-        <View style={{paddingBottom: 5}}>
-          <Text style={{color: 'white', fontSize: 22, fontWeight: '500'}}>
-            {title}
-          </Text>
-        </View>
-        <Text style={{color: '#9FAA11', fontSize: 16, fontWeight: '400'}}>
-          $ {price} USD
-        </Text>
-      </View>
-      <View
-        style={{
-          width: 'auto',
-          marginLeft: 'auto',
-          alignSelf: 'center',
-        }}>
-        <TouchableOpacity style={styles.buyBtnBg}>
-          <Text style={{color: 'white', fontSize: 16, fontWeight: '500'}}>
-            Buy
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
-}

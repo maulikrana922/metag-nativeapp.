@@ -43,14 +43,14 @@ const data = [
     title: 'abc',
     price: '$13',
     image:
-      'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.jkywKMQLRDYYuMkiOJLSHAHaFj%26pid%3DApi&f=1',
+      'https://i.picsum.photos/id/237/200/300.jpg?hmac=TmmQSbShHz9CdQm0NkEjx1Dyh_Y984R9LpNrpvH2D_U',
     id: 1,
   },
   {
     title: 'xyz',
     price: '$13',
     image:
-      'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.jkywKMQLRDYYuMkiOJLSHAHaFj%26pid%3DApi&f=1',
+      'https://i.picsum.photos/id/465/200/200.jpg?hmac=66oxx-Qv8Bakk-7zPy6Kdv7t064QKKWhmDwQTWGZ7A0',
     id: 2,
   },
   {
@@ -205,13 +205,26 @@ export default function CreateProfile(props) {
   // };
   // console.log('profile name', profile.name);
 
+  useEffect(async () => {
+    const val = await AsyncStorage.getItem('Key');
+    console.log('home component.....................................', val);
+  }, []);
+
   if (!isLoaded) {
     return null;
   } else {
     return (
-      <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
+      <ImageBackground
+        source={{
+          uri: 'https://i.picsum.photos/id/237/200/300.jpg?hmac=TmmQSbShHz9CdQm0NkEjx1Dyh_Y984R9LpNrpvH2D_U',
+        }}
+        style={{
+          resizeMode: 'contain',
+          backgroundColor: 'red',
+          flex: 1,
+        }}>
         {/* {console.log('products',products)} */}
-        <View style={{flex: 1, backgroundColor: 'white'}}>
+        <View style={{}}>
           <StatusBar
             barStyle="light-content"
             backgroundColor="transparent"
@@ -334,7 +347,7 @@ export default function CreateProfile(props) {
               </View>
               <ScrollView>
                 {/* <ProductList /> */}
-                {products.length !== 0 &&
+                {/* {products.length !== 0 &&
                   products.map(element => {
                     return (
                       // <ScrollView>
@@ -347,7 +360,7 @@ export default function CreateProfile(props) {
                       />
                       // </ScrollView>
                     );
-                  })}
+                  })} */}
               </ScrollView>
             </View>
           </View>
@@ -405,7 +418,7 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
     fontSize: 10,
     marginTop: -3,
-    // backgroundColor: 'red',
+
     padding: 0,
     color: 'white',
   },
@@ -449,7 +462,7 @@ const styles = StyleSheet.create({
     margin: 1,
   },
   header_parent: {
-    backgroundColor: '#000000',
+    // backgroundColor: 'black',
     padding: 20,
     // height: 200,
     borderBottomLeftRadius: 20,
