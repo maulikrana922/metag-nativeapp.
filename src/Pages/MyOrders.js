@@ -135,6 +135,7 @@ export default function MyProfile(props) {
   // }
   // };
   // dispatch(getSocialFlag(false));
+
   const removeValue = async () => {
     try {
       await AsyncStorage.removeItem('@storage_Key');
@@ -309,7 +310,7 @@ export default function MyProfile(props) {
           </View>
           {/* list  */}
           <View style={{padding: 15}}>
-            <View
+            {/* <View
               style={{backgroundColor: '#fff', marginBottom: 15}}
               shadowOffset={{height: 2, width: 0}}
               shadowColor="#000"
@@ -329,7 +330,7 @@ export default function MyProfile(props) {
                       paddingBottom: 3,
                     }}>
                     <Text style={styles.orderTitleFont}>
-                      Order No 84766132132{' '}
+                      Order No 84766132132
                     </Text>
                     <Text style={styles.orderTitleFont}>$50.00</Text>
                   </View>
@@ -339,7 +340,6 @@ export default function MyProfile(props) {
                 </View>
                 <View style={styles.productListView}>
                   <View style={styles.productView}>
-                    {/* <Text>Product</Text> */}
                   </View>
                   <View
                     style={{
@@ -374,71 +374,111 @@ export default function MyProfile(props) {
                   </View>
                 </View>
               </TouchableOpacity>
-            </View>
-            <View
-              style={{backgroundColor: '#fff'}}
-              shadowOffset={{height: 2, width: 0}}
-              shadowColor="#000"
-              shadowOpacity={0.25}
-              shadowRadius={3.84}
-              elevation={5}>
-              <TouchableOpacity
-                style={styles.shadow}
-                onPress={() => props.navigation.navigate('OrderDetails')}>
+            </View> */}
+
+            {/* // */}
+            {/* // */}
+            {/* // */}
+            {/* // */}
+
+            {DATA.map(element => {
+              return (
                 <View
-                  style={{paddingLeft: 15, paddingRight: 15, paddingTop: 15}}>
-                  <View
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      paddingBottom: 3,
-                    }}>
-                    <Text style={styles.orderTitleFont}>
-                      Order No 84766132132{' '}
-                    </Text>
-                    <Text style={styles.orderTitleFont}>$50.00</Text>
-                  </View>
-                  <Text style={{fontFamily: 'Poppins-Regular', fontSize: 16}}>
-                    09:13 PM 10 Jun 2019
-                  </Text>
-                </View>
-                <View style={styles.productListView}>
-                  <View style={styles.productView}></View>
-                  <View
-                    style={{
-                      marginTop: 'auto',
-                      marginBottom: 'auto',
-                      marginLeft: 10,
-                    }}>
-                    <Text
+                  style={{backgroundColor: '#fff'}}
+                  shadowOffset={{height: 2, width: 0}}
+                  shadowColor="#000"
+                  shadowOpacity={0.25}
+                  shadowRadius={3.84}
+                  elevation={5}>
+                  <TouchableOpacity
+                    style={styles.shadow}
+                    onPress={() =>
+                      props.navigation.navigate('OrderDetails', {
+                        id: 1,
+                      })
+                    }>
+                    <View
                       style={{
-                        color: 'black',
-                        fontSize: 14,
-                        fontFamily: 'Poppins-Bold',
+                        paddingLeft: 15,
+                        paddingRight: 15,
+                        paddingTop: 15,
                       }}>
-                      Successful
-                    </Text>
-                    <Text
-                      style={{color: 'black', fontFamily: 'Poppins-Regular'}}>
-                      Lorem Ipsum is simply dummy {`\n`}text of the printing and
+                      <View
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                          paddingBottom: 3,
+                        }}>
+                        <Text style={styles.orderTitleFont}>
+                          {element.title} {element.orderNo} &nbsp; ID &nbsp;
+                          {element.id}
+                        </Text>
+                        <Text style={styles.orderTitleFont}>$50.00</Text>
+                      </View>
+                      <Text
+                        style={{fontFamily: 'Poppins-Regular', fontSize: 16}}>
+                        {element.time} {element.date}
+                        {/* 09:13 PM 10 Jun 2019 */}
+                      </Text>
+                    </View>
+                    <View style={styles.productListView}>
+                      <Image
+                        style={styles.productView}
+                        source={{uri: `${element.image}`}}
+                      />
+
+                      <View
+                        style={{
+                          marginTop: 'auto',
+                          marginBottom: 'auto',
+                          marginLeft: 10,
+                          display: 'flex',
+                          flexWrap: 'wrap',
+                          flexDirection: 'row',
+                        }}>
+                        <Text
+                          style={{
+                            color: 'black',
+                            fontSize: 14,
+                            width: 100,
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            flexDirection: 'row',
+
+                            fontFamily: 'Poppins-Bold',
+                          }}>
+                          {element.status}
+                          {/* Successful */}
+                        </Text>
+                        <Text
+                          style={{
+                            color: 'black',
+                            fontFamily: 'Poppins-Regular',
+                          }}>
+                          {element.info}
+                          {/* Lorem Ipsum is simply dummy {`\n`}text of the printing and
                       type
-                      {'\n'}setting industry.
-                    </Text>
-                  </View>
-                  <View
-                    style={{
-                      width: 'auto',
-                      marginLeft: 'auto',
-                      alignSelf: 'flex-end',
-                    }}>
-                    <TouchableOpacity style={styles.buyBtnBg}>
-                      <Text style={{color: 'white'}}>Repeat</Text>
-                    </TouchableOpacity>
-                  </View>
+                      {'\n'}setting industry. */}
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          width: 'auto',
+                          marginLeft: 'auto',
+                          alignSelf: 'flex-end',
+                        }}>
+                        <TouchableOpacity
+                          style={styles.buyBtnBg}
+                          onPress={() => {}}>
+                          <Text style={{color: 'white'}}>Repeat</Text>
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
                 </View>
-              </TouchableOpacity>
-            </View>
+              );
+            })}
           </View>
           {/* <Menu /> */}
         </View>
@@ -699,10 +739,11 @@ const styles = StyleSheet.create({
     marginTop: 'auto',
     marginBottom: 'auto',
     borderRadius: 5,
+    // position:"absolute",
   },
   productListView: {
     height: 'auto',
-    width: 'auto',
+    width: '100%',
     backgroundColor: 'white',
     paddingRight: 10,
     paddingLeft: 10,
@@ -765,3 +806,44 @@ const styles = StyleSheet.create({
     margin: 4,
   },
 });
+
+const DATA = [
+  {
+    title: 'Order No',
+    orderNo: '7572846141',
+    price: '$50',
+    time: '09:13 PM',
+    date: '10 Jun 2019',
+    status: 'successful',
+    info: 'Lorem Ipsum is simply dummy text of the printing and type setting industry',
+    image:
+      'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.jkywKMQLRDYYuMkiOJLSHAHaFj%26pid%3DApi&f=1',
+    id: 1,
+  },
+  {
+    title: 'Order No',
+    orderNo: '123456789',
+    price: '$50',
+    time: '09:13 PM',
+    date: '10 Jun 2019',
+    status: 'successful',
+    info: 'Lorem Ipsum is simply dummy text of the printing and type setting industry',
+
+    image:
+      'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.jkywKMQLRDYYuMkiOJLSHAHaFj%26pid%3DApi&f=1',
+    id: 2,
+  },
+  {
+    title: 'Order No',
+    orderNo: '987654321',
+    price: '$50',
+    time: '09:13 PM',
+    date: '10 Jun 2019',
+    status: 'successful',
+    info: 'Lorem Ipsum is simply dummy text of the printing and type setting industry',
+
+    image:
+      'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.jkywKMQLRDYYuMkiOJLSHAHaFj%26pid%3DApi&f=1',
+    id: 3,
+  },
+];

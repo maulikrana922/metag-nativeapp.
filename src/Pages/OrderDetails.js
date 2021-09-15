@@ -70,6 +70,10 @@ export default function OrderDetails(props) {
   //   }
   // };
 
+  useEffect(() => {
+    console.log('Props......', props.route.params.id);
+  }, []);
+
   if (!isLoaded) {
     return null;
   } else {
