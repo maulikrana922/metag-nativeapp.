@@ -6,6 +6,8 @@ export const GET_LINK = 'GET_LINK';
 export const GET_SOCIAL_LINK = 'GET_SOCIAL_LINK';
 export const REMOVE_PROFILE = 'REMOVE_PROFILE';
 export const GET_PRODUCT = 'GET_PRODUCT';
+export const GET_ORDER_HISTORY = 'GET_ORDER_HISTORY';
+// export const GET_PURCHASE = 'GET_PURCHASE';
 
 export const getAuthToken = token => ({
   type: GET_TOKEN,
@@ -52,6 +54,16 @@ export const getProduct = product => ({
   payload: product,
 });
 
+export const getOrderhistory = orderhistory => ({
+  type: GET_ORDER_HISTORY,
+  payload: orderhistory,
+});
+
+// export const getPurchase = purchase => ({
+//   type: GET_PURCHASE,
+//   payload: purchase,
+// });
+
 const initialState = {
   token: null,
   verifyKey: null,
@@ -61,6 +73,8 @@ const initialState = {
   flag: 'false',
   removeProfile: false,
   products: [],
+  orders: [],
+  // purchase: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -113,6 +127,19 @@ const rootReducer = (state = initialState, action) => {
         products: payload,
       };
     }
+
+    case GET_ORDER_HISTORY: {
+      return {
+        ...state,
+        orders: payload,
+      };
+    }
+    // case GET_PURCHASE: {
+    //   return {
+    //     ...state,
+    //     purchase: payload,
+    //   };
+    // }
 
     default:
       return state;

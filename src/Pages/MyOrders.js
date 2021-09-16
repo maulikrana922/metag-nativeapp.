@@ -61,24 +61,70 @@ import {
   getProfile,
   getSocialFlag,
   getRemoveProfile,
+  getOrderhistory,
 } from '../redux/reducer';
 
 import url from '../BaseURl/baseurl.json';
 
 export default function MyProfile(props) {
   const dispatch = useDispatch();
-  const {token, profile, link, flag} = useSelector(state => state);
+  const {token, profile, link, flag, orders} = useSelector(state => state);
   const [image, setImage] = useState(null);
   const [newImage, setNewImage] = useState(AvtarImage);
   const [isLoaded, setLoaded] = useState(true);
   const [show, setShow] = useState(false);
+  const [bgImage, setBgImage] = useState('');
 
   console.log(flag);
+
+  useEffect(() => {
+    console.log(
+      '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',
+      orders,
+    );
+  }, [orders]);
 
   const apiToken =
     profile !== null && flag === 'true'
       ? profile.data[0].api_token
       : profile !== null && profile.api_token;
+
+  useEffect(() => {
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', orders);
+
+    let data = JSON.stringify({
+      count: 10,
+      strat: 0,
+    });
+
+    let config = {
+      method: 'post',
+      url: 'https://testyourapp.online/metag-backend/api/order-history',
+      headers: {
+        Authorization: 'Bearer ' + profile.api_token,
+
+        'Content-Type': 'application/json',
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(
+          'Order History api>>>>',
+          JSON.stringify(response.data.data.order_data),
+        );
+        console.log(
+          'Order History api >>>>',
+          response.data.data.order_data.length,
+        );
+        dispatch(getOrderhistory(response.data.data.order_data));
+      })
+      .catch(function (error) {
+        console.log('Order history >>>>', error);
+      });
+  }, []);
+
   // useEffect(() => {
   //   ;(async () => {
   //     if (Platform.OS !== 'web') {
@@ -137,10 +183,6 @@ export default function MyProfile(props) {
   // }
   // };
   // dispatch(getSocialFlag(false));
-
-  const Repeat = () => {
-    Alert.alert('Repeat Clicked');
-  };
 
   const removeValue = async () => {
     try {
@@ -388,7 +430,7 @@ export default function MyProfile(props) {
               {/* // */}
               {/* // */}
 
-              {DATA.map(element => {
+              {orders.map(element => {
                 return (
                   <View
                     style={{backgroundColor: '#fff'}}
@@ -418,22 +460,24 @@ export default function MyProfile(props) {
                             paddingBottom: 3,
                           }}>
                           <Text style={styles.orderTitleFont}>
-                            {element.title} {element.orderNo}
+                            Order No {element.image_uploads.title}
                           </Text>
                           <Text style={styles.orderTitleFont}>
-                            {element.price}
+                            {element.image_uploads.price}
                           </Text>
                         </View>
                         <Text
                           style={{fontFamily: 'Poppins-Regular', fontSize: 16}}>
-                          {element.time} {element.date}
+                          {element.created_at}
                           {/* 09:13 PM 10 Jun 2019 */}
                         </Text>
                       </View>
                       <View style={styles.productListView}>
                         <Image
                           style={styles.productView}
-                          source={{uri: `${element.image}`}}
+                          source={{
+                            uri: `${element.image_uploads.url}`,
+                          }}
                         />
 
                         <View
@@ -464,7 +508,7 @@ export default function MyProfile(props) {
                               color: 'black',
                               fontFamily: 'Poppins-Regular',
                             }}>
-                            {element.info}
+                            {element.image_uploads.description}
                             {/* Lorem Ipsum is simply dummy {`\n`}text of the printing and
                       type
                       {'\n'}setting industry. */}
@@ -475,15 +519,7 @@ export default function MyProfile(props) {
                             width: 'auto',
                             marginLeft: 'auto',
                             alignSelf: 'flex-end',
-                          }}>
-                          <TouchableOpacity
-                            style={styles.buyBtnBg}
-                            onPress={() => {
-                              Repeat();
-                            }}>
-                            <Text style={{color: 'white'}}>Repeat</Text>
-                          </TouchableOpacity>
-                        </View>
+                          }}></View>
                       </View>
                     </TouchableOpacity>
                   </View>

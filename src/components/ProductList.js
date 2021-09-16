@@ -57,18 +57,8 @@ export default function ProductList({price, title, image, key, currency}) {
           }}>
           <TouchableOpacity
             style={styles.buyBtnBg}
-            onPress={async () => {
+            onPress={() => {
               // Alert.alert('Buy');
-              try {
-                const setImage = await AsyncStorage.setItem('Key', `${image}`);
-                console.log('image set', setImage);
-                // navigation.navigate('Home', {
-                //   image: image,
-                // });
-              } catch (error) {
-                // Error saving data
-                console.log(error);
-              }
 
               setShowModal(true);
             }}>

@@ -25,7 +25,7 @@ import avtar from '../../assets/avatar-home.svg';
 import contact from '../../assets/contact.svg';
 import list from '../../assets/list.svg';
 import home from '../../assets/home-run.svg';
-
+import {useSelector, useDispatch} from 'react-redux';
 import url from '../BaseURl/baseurl.json';
 
 // import {
@@ -40,8 +40,9 @@ export default function OrderDetails(props) {
   const [image, setImage] = useState(null);
   const [newImage, setNewImage] = useState(AvtarImage);
   const [isLoaded, setLoaded] = useState(true);
+  const {token, profile, link, flag, orders} = useSelector(state => state);
 
-  const DATA = props.route.params.element;
+  const element = props.route.params.element;
 
   // useEffect(() => {
   //   (async () => {
@@ -73,7 +74,7 @@ export default function OrderDetails(props) {
   // };
 
   useEffect(() => {
-    console.log('.....DATA.....', DATA);
+    console.log('.....element.....', element);
   }, []);
 
   if (!isLoaded) {
@@ -146,13 +147,11 @@ export default function OrderDetails(props) {
                 </View>
                 <View style={{paddingBottom: 2}}>
                   <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 16}}>
-                    {DATA.title} {DATA.orderNo}
+                    Order No {element.image_uploads.title}
                   </Text>
                 </View>
                 <View style={{fontFamily: 'Poppins-Regular', fontSize: 16}}>
-                  <Text>
-                    {DATA.time} {DATA.date}
-                  </Text>
+                  <Text>{element.created_at}</Text>
                 </View>
               </View>
               <View
@@ -171,7 +170,7 @@ export default function OrderDetails(props) {
                   style={styles.productView}
                   width={70}
                   height={70}
-                  source={{uri: `${DATA.image}`}}
+                  source={{uri: `${element.image_uploads.url}`}}
                 />
                 {/* <Text>something</Text> */}
               </View>
@@ -191,7 +190,8 @@ export default function OrderDetails(props) {
                   fontSize: 14,
                   padding: 1,
                 }}>
-                {DATA.info}
+                {element.image_uploads.description}
+
                 {/* It is a long established fact that a reader will be distracted
                 by the readable content of a page when looking at its layout.
                 The point of using Lorem Ipsum is that it has a more-or-less
@@ -261,7 +261,7 @@ export default function OrderDetails(props) {
                   fontSize: 14,
                   alignSelf: 'center',
                 }}>
-                {DATA.price}
+                {element.image_uploads.price}
               </Text>
             </View>
           </View>

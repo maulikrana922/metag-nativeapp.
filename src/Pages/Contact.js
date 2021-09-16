@@ -762,9 +762,9 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   choiceMenuActive: {
-    width: '27.8%',
+    width: '30%',
     height: '50%',
-    backgroundColor: 'green',
+    backgroundColor: 'white',
     borderRadius: 20,
     marginTop: 20,
     marginBottom: 20,
@@ -772,9 +772,9 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   choiceMenu: {
-    width: '27.8%',
+    width: '30%',
     height: '50%',
-    backgroundColor: '#BFBFBF',
+    backgroundColor: 'white',
     borderRadius: 20,
     marginTop: 20,
     marginBottom: 20,
