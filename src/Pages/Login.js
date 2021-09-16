@@ -53,7 +53,7 @@ import {
   GoogleSigninButton,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
-import InstagramLogin from 'react-native-instagram-login';
+// import InstagramLogin from 'react-native-instagram-login';
 // import InstagramLogin from 'react-native-instagram-login';
 // import CookieManager from '@react-native-community/cookies';
 import url from '../BaseURl/baseurl.json';
@@ -137,13 +137,25 @@ export default function Login(props) {
   // };
   // console.log(flag);
   const upload = data => {
-    // try {
-    axios
-      .post(`${url.baseurl}login`, {
-        email: data.email,
-        password: data.password,
-      })
-      .then(res => {
+    console.log('data>>>', data);
+    let data2 = JSON.stringify({
+      email: data.email,
+      password: data.password,
+    });
+    let config = {
+      method: 'post',
+      url: 'https://testyourapp.online/metag-backend/api/login',
+      headers: {
+        'Content-Type': 'application/json',
+        // Cookie:
+        //   'XSRF-TOKEN=eyJpdiI6IjloUGFWU3VIZFN3QUJSZUV4alpGUlE9PSIsInZhbHVlIjoiVy8zZUJJaG90elpETk11cTJVWFY2eUI4aGV1aElzQjh3bExEa0wweFdSbnlBUzg2ZTFNMUY1OEx4a0hBOVhnK2FOa0U0ZHlhR2hNOEpSL0xpYlFnR1lDUm9KMVh0UXVvdGdJbFRSa3UrRlQzTkxaZVFObm9JSGhxMGNSRUdjcXUiLCJtYWMiOiI4YmJlNWY4NjZkZDMzNjIzMzQ1NmFjOTgxMzQ3MjJlZWUzZWM4ZDljN2ZlZjdhZmFlM2JiNzdiZGNkNmJhOWNlIn0%3D; laravel_session=eyJpdiI6ImFwOUlsVlQrSmYzQmJDdFcxbHM3YVE9PSIsInZhbHVlIjoiUHp3MVJING0zYnFoS1ZxQVMyYTBzNFgrSDdKQTU0OGNLcGhWM1cxY1luRFVCMVZLTi9ieVhsZ1RqQ25kTmVpMDZoUDQ2MFJNcFZSVDJjNXZwbjJwdHFVekpWMXBseVl0MUd6Y1cxVXNja1pFZ0NkRjdsRUIwZXAwVjcwUlYwK3oiLCJtYWMiOiI4Y2UwNDc1YWI4NGEwZjkwNTBlOTdhZjFkYjU1ZGYwOWM5YmExNmEzNjYzMjY3YzMwYmFlZmQ2MGUxODY5ODJkIn0%3D',
+      },
+      data: data2,
+    };
+
+    axios(config)
+      .then(function (res) {
+        console.log('>>>res', JSON.stringify(res.data));
         setShowLoader(false);
         if (res.data.status !== 200) {
           console.log('errr', res.data.errors);
@@ -172,7 +184,50 @@ export default function Login(props) {
             props.navigation.navigate('Home');
           }
         }
+
+        //---
+        //--
+      })
+      .catch(function (error) {
+        console.log('err>>>>', error);
+        setShowLoader(false);
       });
+    // try {
+    // axios
+    //   .post(`${url.baseurl}login`, {
+    //     email: data.email,
+    //     password: data.password,
+    //   })
+    //   .then(res => {
+    //     setShowLoader(false);
+    //     if (res.data.status !== 200) {
+    //       console.log('errr', res.data.errors);
+    //       let e = [];
+    //       if (res.data.errors.email) {
+    //         e.push(res.data.errors.email);
+    //       }
+
+    //       console.log(modalVisible);
+    //       setModalVisible(true);
+    //       console.log(modalVisible);
+    //       console.log(e);
+    //       setServerError(e);
+    //     } else {
+    //       // setTokenBack(res.data.data.token);
+    //       // getProfileDetail(res.data.data.token);
+    //       dispatch(getProfile(res.data.data));
+    //       // dispatch(getProfile({...profile, name: 'hinalchanged'}));
+    //       // console.log
+    //       storeData(res.data.data);
+    //       storeFlag('false');
+    //       console.log('printing flag', res.data.data.flag);
+    //       if (res.data.data.flag === 'true') {
+    //         props.navigation.navigate('CreateProfile');
+    //       } else {
+    //         props.navigation.navigate('Home');
+    //       }
+    //     }
+    // });
     // .catch(error => {
     //   console.log(error);
     //   show();
@@ -248,11 +303,14 @@ export default function Login(props) {
           props.navigation.navigate('Home');
         } else {
           console.log('printing Response', response);
+          setShowLoader(false);
         }
         console.log(response);
+        setShowLoader(false);
       })
       .catch(error => {
         console.log('error log...', error);
+        setShowLoader(false);
       });
   };
 
@@ -513,7 +571,9 @@ export default function Login(props) {
                 flexDirection: 'row',
                 alignItems: 'center',
               }}>
-              <TouchableOpacity onPress={() => this.instagramLogin.show()}>
+              <TouchableOpacity
+              //  onPress={() => this.instagramLogin.show()}
+              >
                 <Image
                   source={require('../../assets/Login/instagram.png')}
                   style={styles.img_icon}></Image>
@@ -526,7 +586,7 @@ export default function Login(props) {
                   source={require('../../assets/Login/google.png')}
                   style={styles.img_icon}></Image>
               </TouchableOpacity>
-              <InstagramLogin
+              {/* <InstagramLogin
                 ref={ref => (this.instagramLogin = ref)}
                 appId="948203199310677"
                 appSecret="f1c766dbd42990d7ed9b8cc0d57ed24a"
@@ -534,7 +594,7 @@ export default function Login(props) {
                 scopes={['user_profile', 'user_media']}
                 onLoginSuccess={data => console.log(ImageData)}
                 onLoginFailure={data => console.log(data)}
-              />
+              /> */}
             </View>
           </View>
           <View style={styles.footer}>

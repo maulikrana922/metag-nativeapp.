@@ -191,12 +191,14 @@ export default function Signup(props) {
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
-        console.log(error);
+        console.log('google login error', error);
       } else if (error.code === statusCodes.IN_PROGRESS) {
+        console.log('google login error', error);
         // operation (e.g. sign in) is in progress already
         console.log(error);
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         console.log(error);
+        console.log('google login error', error);
         // play services not available or outdated
       } else {
         console.log(error);

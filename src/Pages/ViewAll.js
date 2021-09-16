@@ -31,8 +31,9 @@ const data = [
 function ViewAll(props) {
   const [count, setCount] = useState('3');
   const [start, setStart] = useState('0');
-  const [products, setProduct] = useState(data);
-  const {token, profile} = useSelector(state => state);
+  // const [products, setProduct] = useState(data);
+  const {token, profile, link, flag, products} = useSelector(state => state);
+  console.log('PRODUCTS >>>>>>>>>', products);
 
   // useEffect(() => {
   //   axios({
@@ -73,7 +74,7 @@ function ViewAll(props) {
                 // key={element.key}
                 title={element.title}
                 price={element.price}
-                image={element.image}
+                image={element.upload_image}
                 // key={element.id}
               />
               // </ScrollView>

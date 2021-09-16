@@ -76,13 +76,16 @@ export default function CreateProfile(props) {
           console.log('settignNext', next);
           console.log(showLoader);
           console.log('true', next);
+          setShowLoader(false);
         } else {
           console.log('false', next);
           // setNext(false);
+          setShowLoader(false);
         }
       })
       .catch(error => {
         console.log('error', error);
+        setShowLoader(false);
       });
     // .then(response => {
     //   console.log('upload succes', JSON.parse(response));

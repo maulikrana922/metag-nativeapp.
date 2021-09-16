@@ -5,6 +5,7 @@ export const GET_PROFILE = 'GET_PROFILE';
 export const GET_LINK = 'GET_LINK';
 export const GET_SOCIAL_LINK = 'GET_SOCIAL_LINK';
 export const REMOVE_PROFILE = 'REMOVE_PROFILE';
+export const GET_PRODUCT = 'GET_PRODUCT';
 
 export const getAuthToken = token => ({
   type: GET_TOKEN,
@@ -45,6 +46,12 @@ export const getRemoveProfile = removeProfile => ({
   type: REMOVE_PROFILE,
   payload: removeProfile,
 });
+
+export const getProduct = product => ({
+  type: GET_PRODUCT,
+  payload: product,
+});
+
 const initialState = {
   token: null,
   verifyKey: null,
@@ -53,6 +60,7 @@ const initialState = {
   link: null,
   flag: 'false',
   removeProfile: false,
+  products: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -98,6 +106,14 @@ const rootReducer = (state = initialState, action) => {
         removeProfile: payload,
       };
     }
+    case GET_PRODUCT: {
+      console.log('IN PROFILE REDUCER', payload);
+      return {
+        ...state,
+        products: payload,
+      };
+    }
+
     default:
       return state;
   }

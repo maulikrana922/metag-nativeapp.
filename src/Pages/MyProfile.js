@@ -177,6 +177,7 @@ export default function MyProfile(props) {
   };
 
   const removeValue = async () => {
+    console.log('inside remove >>>>');
     try {
       await AsyncStorage.removeItem('@storage_Key');
       await AsyncStorage.setItem('@flag_key', 'false');
@@ -231,6 +232,7 @@ export default function MyProfile(props) {
   // console.log(profile.api_token);
 
   const logout = () => {
+    removeValue();
     axios({
       method: 'POST',
       url: `${url.baseurl}logout`,

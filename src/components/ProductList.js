@@ -12,14 +12,16 @@ import {
   ScrollView,
   AsyncStorage,
 } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 export default function ProductList({price, title, image, key, currency}) {
-  useEffect(async () => {
-    const val = await AsyncStorage.getItem('Key');
-    console.log('AsyncStorege value', val);
-  }, []);
+  // useEffect(async () => {
+  //   const val = await AsyncStorage.getItem('Key');
+  //   console.log('AsyncStorege value', val);
+  // }, []);
 
   const [showModal, setShowModal] = useState(false);
+  const navigation = useNavigation();
 
   console.log('in the list');
   return (
@@ -60,6 +62,9 @@ export default function ProductList({price, title, image, key, currency}) {
               try {
                 const setImage = await AsyncStorage.setItem('Key', `${image}`);
                 console.log('image set', setImage);
+                // navigation.navigate('Home', {
+                //   image: image,
+                // });
               } catch (error) {
                 // Error saving data
                 console.log(error);

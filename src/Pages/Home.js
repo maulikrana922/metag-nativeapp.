@@ -16,7 +16,13 @@ import {
 } from 'react-native';
 // import {getAuthToken} from '../redux/reducer';
 // import {useSelector, useDispatch} from 'react-redux';
-import {getToken, getAuthToken, getProfile, getLink} from '../redux/reducer';
+import {
+  getToken,
+  getAuthToken,
+  getProfile,
+  getLink,
+  getProduct,
+} from '../redux/reducer';
 import {useSelector, useDispatch} from 'react-redux';
 import NfcManager from 'react-native-nfc-manager';
 
@@ -39,41 +45,24 @@ import MyProfile from './MyOrders';
 import NfcProxy from './NfcProxy';
 
 import url from '../BaseURl/baseurl.json';
-const data = [
-  {
-    title: 'abc',
-    price: '$13',
-    image:
-      'https://i.picsum.photos/id/237/200/300.jpg?hmac=TmmQSbShHz9CdQm0NkEjx1Dyh_Y984R9LpNrpvH2D_U',
-    id: 1,
-  },
-  {
-    title: 'xyz',
-    price: '$13',
-    image:
-      'https://i.picsum.photos/id/465/200/200.jpg?hmac=66oxx-Qv8Bakk-7zPy6Kdv7t064QKKWhmDwQTWGZ7A0',
-    id: 2,
-  },
-  {
-    title: 'xyz',
-    price: '$13',
-    image:
-      'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.jkywKMQLRDYYuMkiOJLSHAHaFj%26pid%3DApi&f=1',
-    id: 3,
-  },
-];
+
 export default function CreateProfile(props) {
+  // alert(JSON.stringify(props));
   const [isLoaded, setLoaded] = useState(true);
   const [count, setCount] = useState('3');
   const [start, setStart] = useState('0');
-  // const [products, setProduct] = useState([]);
   const [supportsNfc, setSupportsNfc] = useState(false);
   const dispatch = useDispatch();
-  const {token, profile, link, flag} = useSelector(state => state);
-  const [products, setProduct] = useState(data);
+  const {token, profile, link, flag, products} = useSelector(state => state);
+  console.log('PRODUCTS >>>>>>>>>', products);
+  // const [products, setProduct] = useState(data);
   const [image1, setImage] = useState('');
 
   console.log('flag value', typeof flag);
+
+  useEffect(() => {
+    console.log('PRODUCTS >>>>>>>>>', products);
+  }, [products]);
   // const [apiToken, setToken] = useState(
   //   flag === true ? profile.data[0].api_token : profile.api_token,
   // );
@@ -105,7 +94,7 @@ export default function CreateProfile(props) {
   // removeValue();
   console.log('flag....................', flag);
 
-  useEffect(() => {
+  useEffect(async () => {
     const apiToken =
       profile && flag == 'true'
         ? profile && profile.data[0].api_token
@@ -119,32 +108,66 @@ export default function CreateProfile(props) {
       }
     });
 
-    // axios({
+    //get Products
 
-    // })
-    profile !== null &&
-      axios({
-        method: 'post',
-        url: `${url.baseurl}productList`,
-        data: {
-          count: count,
-          start: start,
-        },
-        headers: {
-          Authorization: 'Bearer ' + apiToken,
-        },
+    //
+
+    profile !== null && console.log('profile check>>>');
+
+    let data = JSON.stringify({
+      count: 10,
+      strat: 0,
+    });
+
+    let config = {
+      method: 'post',
+      url: 'https://testyourapp.online/metag-backend/api/image-upload-data',
+      headers: {
+        Authorization: 'Bearer ' + profile.api_token,
+
+        'Content-Type': 'application/json',
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log('Product api>>>>', JSON.stringify(response.data.data));
+        console.log('Product api>>>>', response.data.data.length);
+        dispatch(getProduct(response.data.data));
       })
-        .then(response => {
-          if (response.data.status == 200) {
-            // console.log('200', response.data);
-            // setProduct(response.data.data);
-          } else {
-            console.log('false in Home', response.data);
-          }
-          console.log('response', response.data);
-        })
-        .catch(e => console.log('error500', e));
-  }, [count, start]);
+      .catch(function (error) {
+        console.log('Product Error >>>>', error);
+      });
+    // axios({
+    //   method: 'post',
+    //   url: `${url.baseurl}image-upload-data`,
+    //   data: {
+    //     count: count,
+    //     start: start,
+    //   },
+    //   headers: {
+    //     Authorization: 'Bearer ' + apiToken,
+    //   },
+    // })
+    //   .then(response => {
+    //     if (response.data.status == 200) {
+    //       // console.log('200', response.data);
+    //       // setProduct(response.data.data);
+    //     } else {
+    //       console.log('false in Home', response.data);
+    //     }
+    //     console.log('response', response.data);
+    //   })
+    //   .catch(e => console.log('error500', e));
+
+    const val = await AsyncStorage.getItem('Key');
+    // Alert.alert(val);
+    // alert('in home');
+    setImage(val);
+
+    console.log('home component.....................................', val);
+  }, []);
 
   // axios({
   //   method: 'post',
@@ -211,13 +234,37 @@ export default function CreateProfile(props) {
   // };
   // console.log('profile name', profile.name);
 
-  useEffect(async () => {
-    const val = await AsyncStorage.getItem('Key');
-    // Alert.alert(val);
-    setImage(val);
+  // useEffect(async () => {
+  // const val = await AsyncStorage.getItem('Key');
+  // // Alert.alert(val);
+  // setImage(val);
 
-    console.log('home component.....................................', val);
-  }, []);
+  // console.log('home component.....................................', val);
+
+  // axios({
+  //   method: 'post',
+  //   url: `${url.baseurl}image-upload-data`,
+  //   data: {
+  //     count: 10,
+  //     start: 0,
+  //   },
+  //   headers: {
+  //     Authorization: 'Bearer ' + apiToken,
+  //     // Content-Type:'application/json',
+  //   },
+  // });
+  // .then(response => {
+  //   if (response.data.status == 200) {
+  //     // console.log('200', response.data);
+  //     // setProduct(response.data.data);
+  //     console.log('NEW DATA API CALL', response.data);
+  //   } else {
+  //     console.log('false in Home', response.data);
+  //   }
+  //   console.log('response', response.data);
+  // })
+  // .catch(e => console.log('error500', e));
+  // }, []);
 
   if (!isLoaded) {
     return null;
@@ -384,7 +431,8 @@ const styles = StyleSheet.create({
     height: 40,
   },
   header: {
-    backgroundColor: '#000000',
+    // backgroundColor: '#000000',
+
     // backgroundColor: 'yellow',
     height: 'auto',
     display: 'flex',
@@ -437,7 +485,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   completeProfileView: {
-    borderWidth: 1,
+    // borderWidth: 1,
     borderBottomColor: 'white',
     alignSelf: 'center',
   },
@@ -449,7 +497,7 @@ const styles = StyleSheet.create({
     // fontWeight: '700',
     paddingBottom: 10,
     // backgroundColor: 'black',
-    borderWidth: 3,
+    // borderWidth: 3,
     borderBottomColor: 'white',
     // alignContent:"center",
     textAlign: 'center',
@@ -465,8 +513,8 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     fontFamily: 'Poppins-Regular',
     paddingBottom: 10,
-    backgroundColor: 'black',
-    borderWidth: 2,
+    // backgroundColor: 'black',
+    // borderWidth: 2,
     width: 'auto',
     margin: 1,
   },
