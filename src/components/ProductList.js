@@ -21,14 +21,6 @@ export default function ProductList({price, title, image, key, currency}) {
 
   const [showModal, setShowModal] = useState(false);
 
-  const setImage = async () => {
-    try {
-      await AsyncStorage.setItem('Key', `${image}`);
-    } catch (error) {
-      // Error saving data
-      console.log(error);
-    }
-  };
   console.log('in the list');
   return (
     <ScrollView>
@@ -63,9 +55,16 @@ export default function ProductList({price, title, image, key, currency}) {
           }}>
           <TouchableOpacity
             style={styles.buyBtnBg}
-            onPress={() => {
+            onPress={async () => {
               // Alert.alert('Buy');
-              setImage();
+              try {
+                const setImage = await AsyncStorage.setItem('Key', `${image}`);
+                console.log('image set', setImage);
+              } catch (error) {
+                // Error saving data
+                console.log(error);
+              }
+
               setShowModal(true);
             }}>
             <Text style={{color: 'white', fontSize: 16, fontWeight: '500'}}>

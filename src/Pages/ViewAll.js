@@ -9,7 +9,7 @@ const data = [
     title: 'abc',
     price: '$13',
     image:
-      'https://i.picsum.photos/id/465/200/200.jpg?hmac=66oxx-Qv8Bakk-7zPy6Kdv7t064QKKWhmDwQTWGZ7A0',
+      'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.jkywKMQLRDYYuMkiOJLSHAHaFj%26pid%3DApi&f=1',
     id: 1,
   },
   {

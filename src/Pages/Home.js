@@ -6,6 +6,7 @@ import {
   Image,
   TextInput,
   Button,
+  Alert,
   Platform,
   StatusBar,
   TouchableOpacity,
@@ -70,6 +71,7 @@ export default function CreateProfile(props) {
   const dispatch = useDispatch();
   const {token, profile, link, flag} = useSelector(state => state);
   const [products, setProduct] = useState(data);
+  const [image1, setImage] = useState('');
 
   console.log('flag value', typeof flag);
   // const [apiToken, setToken] = useState(
@@ -116,6 +118,10 @@ export default function CreateProfile(props) {
         setSupportsNfc(false);
       }
     });
+
+    // axios({
+
+    // })
     profile !== null &&
       axios({
         method: 'post',
@@ -207,6 +213,9 @@ export default function CreateProfile(props) {
 
   useEffect(async () => {
     const val = await AsyncStorage.getItem('Key');
+    // Alert.alert(val);
+    setImage(val);
+
     console.log('home component.....................................', val);
   }, []);
 
@@ -216,11 +225,11 @@ export default function CreateProfile(props) {
     return (
       <ImageBackground
         source={{
-          uri: 'https://i.picsum.photos/id/237/200/300.jpg?hmac=TmmQSbShHz9CdQm0NkEjx1Dyh_Y984R9LpNrpvH2D_U',
+          uri: image1,
         }}
         style={{
           resizeMode: 'contain',
-          backgroundColor: 'red',
+          // backgroundColor: 'red',
           flex: 1,
         }}>
         {/* {console.log('products',products)} */}
