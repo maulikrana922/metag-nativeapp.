@@ -68,7 +68,7 @@ export default function ProductList({price, title, image, key, currency}) {
           </TouchableOpacity>
         </View>
       </View>
-      {/* <Modal
+      <Modal
         animationType="slide"
         transparent={true}
         visible={showModal}
@@ -108,7 +108,7 @@ export default function ProductList({price, title, image, key, currency}) {
             </View>
           </Pressable>
         </View>
-      </Modal> */}
+      </Modal>
     </ScrollView>
   );
 }

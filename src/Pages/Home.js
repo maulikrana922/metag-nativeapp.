@@ -52,6 +52,7 @@ export default function CreateProfile(props) {
   const [count, setCount] = useState('3');
   const [start, setStart] = useState('0');
   const [supportsNfc, setSupportsNfc] = useState(false);
+  // const [img,setImg] = usestate()
   const dispatch = useDispatch();
   const {token, profile, link, flag, products} = useSelector(state => state);
   console.log('PRODUCTS >>>>>>>>>', products);

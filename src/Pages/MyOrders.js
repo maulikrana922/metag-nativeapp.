@@ -513,6 +513,16 @@ export default function MyProfile(props) {
                       type
                       {'\n'}setting industry. */}
                           </Text>
+                          <Button
+                            title="Click"
+                            onPress={async () => {
+                              Alert.alert('clicked');
+                              const bgImage = await AsyncStorage.setItem(
+                                'Key',
+                                `${element.image_uploads.url}`,
+                              );
+                            }}
+                          />
                         </View>
                         <View
                           style={{

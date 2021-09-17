@@ -263,6 +263,15 @@ export default function OrderDetails(props) {
                 }}>
                 {element.image_uploads.price}
               </Text>
+              <Text
+                onPress={async () => {
+                  await AsyncStorage.setItem(
+                    'Key',
+                    `${element.image_uploads.price}`,
+                  );
+                }}>
+                Chnage Image
+              </Text>
             </View>
           </View>
         </View>
