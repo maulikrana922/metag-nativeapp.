@@ -13,14 +13,67 @@ import {
   AsyncStorage,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
+import {useDispatch, useSelector} from 'react-redux';
+import {getPurchaseImage} from '../redux/reducer';
 
-export default function ProductList({price, title, image, key, currency}) {
+export default function ProductList({
+  price,
+  title,
+  image,
+  key,
+  currency,
+  id,
+  purchase_status,
+}) {
   // useEffect(async () => {
   //   const val = await AsyncStorage.getItem('Key');
   //   console.log('AsyncStorege value', val);
   // }, []);
 
+  const dispatch = useDispatch();
+
+  const {purchaseImage, products} = useSelector(state => state);
+  // const [purchaseImage, setPurchaseImage] = useState(products);
+  // useEffect(() => {
+  //   console.log(
+  //     '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++',
+  //     purchaseImage,
+  //   );
+  // }, []);
+
+  const getProductImages = async id => {
+    let data = JSON.stringify({
+      image_id: id,
+    });
+
+    var config = {
+      method: 'post',
+      url: 'https://testyourapp.online/metag-backend/api/purchase-image',
+      headers: {
+        Authorization: 'Bearer ' + product.api_token,
+        'Content-Type': 'application/json',
+        Cookie:
+          'XSRF-TOKEN=eyJpdiI6InA0a1F1TS9XUzVvVmYweFd2TUFTU2c9PSIsInZhbHVlIjoiUTdSSTRkME8vVEpsWThseUhzYVpYK0F1ZWNKeEc3NzNXSXFrb3ltcDR5STE0Yko1YVBLMVlSUUZXQ21YSmFhRVRubHFLbm1XVm94c2xGZ1VtdHl6bFBaVlBLYmRYb0FSejkxc3JjYWpQQ2hKWStJWG1oSlp4RUtHKytlZUVPZnoiLCJtYWMiOiJkY2MzNjcyOTA1ZTJlNzk5NDdmZDA0NGRkODM0NDRjNTJmMWI5NTJhNjA4MDY2NzAxN2NlNmIxNDc2Yjc4YjNkIn0%3D; laravel_session=eyJpdiI6IjlxbGxCMWdXZnJSdW83QThGa0xMNlE9PSIsInZhbHVlIjoiSjNReEI0eXllR3JiMGpaL0JUenk3bW1jMlRrdTZMSEwzRm1LNmhYa2NVWmlWdkNaaW9JSVB1eG5xSEFSZ3hPR1hXTlFKU3M1aW43Q2VaUmRvaTRRZXRvdVZyQ08zdDJUM0QrN2tuL1dYV3pYbkRZMWFDSUpzZ0VkZHlpZm1WV3IiLCJtYWMiOiJjYjEyNDM0NTQ1MDM2MjM1NmJiNDc4YjA3ZTE4ZjZjYWIxYzU4MzM2MmQ1NjE5NmIyMmU4ZDFlZmU3MmM5OTliIn0%3D',
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(async function (response) {
+        console.log(
+          'jfhskjfjsjfgsjfjsjfjsjfgjsjfgjsg',
+          JSON.stringify(response.data.data),
+        );
+        await dispatch(getPurchaseImage(response.data.data));
+      })
+      .catch(function (error) {
+        console.log('/skhijgsdgfugshudfgsufgusdgfsugfusu', error);
+      });
+  };
+
   const [showModal, setShowModal] = useState(false);
+
   const navigation = useNavigation();
 
   console.log('in the list');
@@ -59,11 +112,11 @@ export default function ProductList({price, title, image, key, currency}) {
             style={styles.buyBtnBg}
             onPress={() => {
               // Alert.alert('Buy');
-
+              getProductImages(id);
               setShowModal(true);
             }}>
             <Text style={{color: 'white', fontSize: 16, fontWeight: '500'}}>
-              Buy
+              {purchase_status === 0 ? 'Buy' : 'Purchased'}
             </Text>
           </TouchableOpacity>
         </View>
@@ -90,7 +143,7 @@ export default function ProductList({price, title, image, key, currency}) {
             backgroundColor: 'lightpink',
           }}>
           <Text style={{fontSize: 18, fontWeight: 'bold', color: 'black'}}>
-            Buy Clicked
+            Thank You for Purchasing..
           </Text>
           <Pressable
             onPress={() => setShowModal(!showModal)}

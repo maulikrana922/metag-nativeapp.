@@ -11,6 +11,7 @@ import {
   ImageBackground,
   Modal,
   Alert,
+  ScrollView,
   ActivityIndicator,
 } from 'react-native';
 // import AppLoading from 'expo-app-loading';
@@ -357,236 +358,237 @@ export default function Login(props) {
   } else {
     // const color = modalVisible ? 'rgba(255, 255, 255, 10)' : '';
     return (
-      <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
-        {/* {console.log(profile)}
+      <ScrollView>
+        <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
+          {/* {console.log(profile)}
         {}
         {console.log('prinitng profile', profile)} */}
-        <Modal
-          // style={{
-          //   backgroundColor: 'yellow',
-          //   // margin: '30%',
-          //   // width: '60%',
-          //   // height: '60%',
-          //   // margin: '40%',
-          // }}
-          statusBarTranslucent={true}
-          transparent={true}
-          visible={modalVisible}>
-          <View
-            style={{
-              height: '100%',
-              backgroundColor: 'rgba( 0, 0, 0, 0.6 )',
-            }}>
+          <Modal
+            // style={{
+            //   backgroundColor: 'yellow',
+            //   // margin: '30%',
+            //   // width: '60%',
+            //   // height: '60%',
+            //   // margin: '40%',
+            // }}
+            statusBarTranslucent={true}
+            transparent={true}
+            visible={modalVisible}>
             <View
               style={{
-                // backgroundColor: 'white',
-                marginLeft: 'auto',
-                marginRight: 'auto',
-                marginTop: 'auto',
-                marginBottom: 'auto',
-                width: '80%',
-                height: 'auto',
+                height: '100%',
+                backgroundColor: 'rgba( 0, 0, 0, 0.6 )',
               }}>
-              <TouchableOpacity
-                onPress={() => setModalVisible(!modalVisible)}
-                style={{
-                  // backgroundColor: 'red',
-                  width: '8%',
-                  height: '8%',
-                  marginLeft: 'auto',
-                  // marginRight: '5%',
-                  marginTop: '3%',
-                }}>
-                <Image
-                  source={close}
-                  resizeMode="contain"
-                  style={{width: '100%', height: '100%'}}></Image>
-              </TouchableOpacity>
               <View
                 style={{
-                  backgroundColor: 'white',
-                  // marginTop: '5%',
-                  padding: '5%',
-                  borderBottomLeftRadius: 10,
-                  borderBottomRightRadius: 10,
-                  borderTopLeftRadius: 10,
-                  borderTopRightRadius: 10,
-                  display: 'flex',
-                  justifyContent: 'space-evenly',
+                  // backgroundColor: 'white',
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                  marginTop: 'auto',
+                  marginBottom: 'auto',
+                  width: '80%',
+                  height: 'auto',
                 }}>
-                <Image
-                  source={loginFail}
-                  resizeMode="contain"
-                  style={{
-                    width: '50%',
-                    height: '50%',
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                  }}></Image>
-                <Text
-                  style={{
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                    // marginTop: 'auto',
-                    // marginBottom: 'auto',
-                    color: '#000000',
-                    fontSize: 17,
-                  }}>
-                  Oops! something went wrong.
-                </Text>
-                <Text
-                  style={{
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                    // marginTop: 'auto',
-                    // marginBottom: 'auto',
-                    color: '#808080',
-                    fontSize: 16,
-                    textAlign: 'center',
-                  }}>
-                  It seems you have typed an incorrect email or password.
-                </Text>
                 <TouchableOpacity
                   onPress={() => setModalVisible(!modalVisible)}
-                  // onPress={() => props.navigation.navigate('CreateProfile')}
                   style={{
-                    // marginTop: 20,
-                    alignItems: 'center',
-                    padding: 8,
+                    // backgroundColor: 'red',
+                    width: '8%',
+                    height: '8%',
                     marginLeft: 'auto',
-                    marginRight: 'auto',
-                    backgroundColor: 'black',
-                    borderBottomLeftRadius: 50,
-                    borderBottomRightRadius: 50,
-                    borderTopRightRadius: 0,
-                    borderTopLeftRadius: 50,
-                    width: '100%',
+                    // marginRight: '5%',
+                    marginTop: '3%',
                   }}>
+                  <Image
+                    source={close}
+                    resizeMode="contain"
+                    style={{width: '100%', height: '100%'}}></Image>
+                </TouchableOpacity>
+                <View
+                  style={{
+                    backgroundColor: 'white',
+                    // marginTop: '5%',
+                    padding: '5%',
+                    borderBottomLeftRadius: 10,
+                    borderBottomRightRadius: 10,
+                    borderTopLeftRadius: 10,
+                    borderTopRightRadius: 10,
+                    display: 'flex',
+                    justifyContent: 'space-evenly',
+                  }}>
+                  <Image
+                    source={loginFail}
+                    resizeMode="contain"
+                    style={{
+                      width: '50%',
+                      height: '50%',
+                      marginLeft: 'auto',
+                      marginRight: 'auto',
+                    }}></Image>
                   <Text
                     style={{
-                      color: 'white',
+                      marginLeft: 'auto',
+                      marginRight: 'auto',
+                      // marginTop: 'auto',
+                      // marginBottom: 'auto',
+                      color: '#000000',
+                      fontSize: 17,
+                    }}>
+                    Oops! something went wrong.
+                  </Text>
+                  <Text
+                    style={{
+                      marginLeft: 'auto',
+                      marginRight: 'auto',
+                      // marginTop: 'auto',
+                      // marginBottom: 'auto',
+                      color: '#808080',
+                      fontSize: 16,
+                      textAlign: 'center',
+                    }}>
+                    It seems you have typed an incorrect email or password.
+                  </Text>
+                  <TouchableOpacity
+                    onPress={() => setModalVisible(!modalVisible)}
+                    // onPress={() => props.navigation.navigate('CreateProfile')}
+                    style={{
+                      // marginTop: 20,
+                      alignItems: 'center',
+                      padding: 8,
+                      marginLeft: 'auto',
+                      marginRight: 'auto',
+                      backgroundColor: 'black',
+                      borderBottomLeftRadius: 50,
+                      borderBottomRightRadius: 50,
+                      borderTopRightRadius: 0,
+                      borderTopLeftRadius: 50,
+                      width: '100%',
+                    }}>
+                    <Text
+                      style={{
+                        color: 'white',
+                        fontFamily: 'Poppins-Regular',
+                        fontSize: 16,
+                      }}>
+                      Got it!
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </Modal>
+          <View style={styles.container}>
+            {showLoader && <Loader />}
+            <StatusBar
+              barStyle="dark-content"
+              backgroundColor="transparent"
+              translucent={true}
+            />
+            <View style={styles.headerBackground}>
+              <Logo width={100} height={100} />
+              <View style={styles.header}>
+                <Text style={styles.text_metag}>meTAG</Text>
+                <Text style={styles.text_tagline}>I M ME,WHO ARE YOU</Text>
+              </View>
+            </View>
+            <View style={styles.background}>
+              <Text style={styles.signin}>Sign in</Text>
+              {/* <Text>hii</Text> */}
+
+              <View style={styles.inputTextBg}>
+                <Image
+                  source={require('../../assets/signup/email.png')}
+                  style={styles.icon}
+                  resizeMode="contain"></Image>
+                <TextInput
+                  style={styles.inputEmail}
+                  placeholder="Email"
+                  placeholderTextColor="white"
+                  onChangeText={text => setEmail(text)}
+                  value={email}
+                />
+              </View>
+              {/* <Text style={{color: 'white'}}>Hint: example@domain.com</Text> */}
+              {error.email && <Text style={{color: 'red'}}>{error.email}</Text>}
+              <View style={styles.inputTextBg}>
+                <Image
+                  source={require('../../assets/signup/lock.png')}
+                  style={styles.icon}
+                  resizeMode="contain"></Image>
+                <TextInput
+                  style={styles.inputEmail}
+                  secureTextEntry={true}
+                  // keyboardType="numeric"
+                  placeholder="Password"
+                  placeholderTextColor="white"
+                  onChangeText={text => setPassword(text)}
+                  value={password}
+                />
+              </View>
+              {error.password && (
+                <Text style={{color: 'red'}}>{error.password}</Text>
+              )}
+              <View
+                style={{
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                  width: 'auto',
+                  flexDirection: 'row',
+                }}>
+                <TouchableOpacity
+                  onPress={() => {
+                    submit();
+                    // props.navigation.navigate('CreateProfile');
+                  }}
+                  // onPress={() => props.navigation.navigate('CreateProfile')}
+                  style={styles.signin_btn}>
+                  <Text
+                    style={{
+                      color: 'black',
                       fontFamily: 'Poppins-Regular',
                       fontSize: 16,
                     }}>
-                    Got it!
+                    Sign in
                   </Text>
                 </TouchableOpacity>
               </View>
-            </View>
-          </View>
-        </Modal>
-        <View style={styles.container}>
-          {showLoader && <Loader />}
-          <StatusBar
-            barStyle="dark-content"
-            backgroundColor="transparent"
-            translucent={true}
-          />
-          <View style={styles.headerBackground}>
-            <Logo width={100} height={100} />
-            <View style={styles.header}>
-              <Text style={styles.text_metag}>meTAG</Text>
-              <Text style={styles.text_tagline}>I M ME,WHO ARE YOU</Text>
-            </View>
-          </View>
-          <View style={styles.background}>
-            <Text style={styles.signin}>Sign in</Text>
-            {/* <Text>hii</Text> */}
 
-            <View style={styles.inputTextBg}>
-              <Image
-                source={require('../../assets/signup/email.png')}
-                style={styles.icon}
-                resizeMode="contain"></Image>
-              <TextInput
-                style={styles.inputEmail}
-                placeholder="Email"
-                placeholderTextColor="white"
-                onChangeText={text => setEmail(text)}
-                value={email}
-              />
-            </View>
-            {/* <Text style={{color: 'white'}}>Hint: example@domain.com</Text> */}
-            {error.email && <Text style={{color: 'red'}}>{error.email}</Text>}
-            <View style={styles.inputTextBg}>
-              <Image
-                source={require('../../assets/signup/lock.png')}
-                style={styles.icon}
-                resizeMode="contain"></Image>
-              <TextInput
-                style={styles.inputEmail}
-                secureTextEntry={true}
-                // keyboardType="numeric"
-                placeholder="Password"
-                placeholderTextColor="white"
-                onChangeText={text => setPassword(text)}
-                value={password}
-              />
-            </View>
-            {error.password && (
-              <Text style={{color: 'red'}}>{error.password}</Text>
-            )}
-            <View
-              style={{
-                display: 'flex',
-                justifyContent: 'flex-end',
-                width: 'auto',
-                flexDirection: 'row',
-              }}>
               <TouchableOpacity
-                onPress={() => {
-                  submit();
-                  // props.navigation.navigate('CreateProfile');
-                }}
-                // onPress={() => props.navigation.navigate('CreateProfile')}
-                style={styles.signin_btn}>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontFamily: 'Poppins-Regular',
-                    fontSize: 16,
-                  }}>
-                  Sign in
-                </Text>
+                onPress={() => props.navigation.navigate('ForgotPassword')}
+                style={styles.key_text_parent}>
+                <Image
+                  source={require('../../assets/Login/key.png')}
+                  style={styles.key_img}
+                  resizeMode="contain"></Image>
+                <Text style={styles.forgotpasword_text}>Forgot Password?</Text>
               </TouchableOpacity>
             </View>
+            <View style={styles.icon_parent}>
+              <Text style={styles.text}>Sign up with:</Text>
 
-            <TouchableOpacity
-              onPress={() => props.navigation.navigate('ForgotPassword')}
-              style={styles.key_text_parent}>
-              <Image
-                source={require('../../assets/Login/key.png')}
-                style={styles.key_img}
-                resizeMode="contain"></Image>
-              <Text style={styles.forgotpasword_text}>Forgot Password?</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.icon_parent}>
-            <Text style={styles.text}>Sign up with:</Text>
-
-            <View
-              style={{
-                width: 'auto',
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <TouchableOpacity
-              //  onPress={() => this.instagramLogin.show()}
-              >
+              <View
+                style={{
+                  width: 'auto',
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <TouchableOpacity
+                //  onPress={() => this.instagramLogin.show()}
+                >
+                  <Image
+                    source={require('../../assets/Login/instagram.png')}
+                    style={styles.img_icon}></Image>
+                </TouchableOpacity>
                 <Image
-                  source={require('../../assets/Login/instagram.png')}
+                  source={require('../../assets/Login/linkedin.png')}
                   style={styles.img_icon}></Image>
-              </TouchableOpacity>
-              <Image
-                source={require('../../assets/Login/linkedin.png')}
-                style={styles.img_icon}></Image>
-              <TouchableOpacity onPress={() => signIn()}>
-                <Image
-                  source={require('../../assets/Login/google.png')}
-                  style={styles.img_icon}></Image>
-              </TouchableOpacity>
-              {/* <InstagramLogin
+                <TouchableOpacity onPress={() => signIn()}>
+                  <Image
+                    source={require('../../assets/Login/google.png')}
+                    style={styles.img_icon}></Image>
+                </TouchableOpacity>
+                {/* <InstagramLogin
                 ref={ref => (this.instagramLogin = ref)}
                 appId="948203199310677"
                 appSecret="f1c766dbd42990d7ed9b8cc0d57ed24a"
@@ -595,18 +597,19 @@ export default function Login(props) {
                 onLoginSuccess={data => console.log(ImageData)}
                 onLoginFailure={data => console.log(data)}
               /> */}
+              </View>
+            </View>
+            <View style={styles.footer}>
+              <Text style={styles.footer_normal_text}>New User? </Text>
+              <Text
+                onPress={() => props.navigation.navigate('Signup')}
+                style={styles.footer_bold_text}>
+                SIGN UP
+              </Text>
             </View>
           </View>
-          <View style={styles.footer}>
-            <Text style={styles.footer_normal_text}>New User? </Text>
-            <Text
-              onPress={() => props.navigation.navigate('Signup')}
-              style={styles.footer_bold_text}>
-              SIGN UP
-            </Text>
-          </View>
-        </View>
-      </ImageBackground>
+        </ImageBackground>
+      </ScrollView>
     );
   }
 }

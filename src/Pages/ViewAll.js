@@ -8,8 +8,12 @@ function ViewAll(props) {
   const [count, setCount] = useState('3');
   const [start, setStart] = useState('0');
   const {token, profile, link, flag, products} = useSelector(state => state);
+  const [product, setProduct] = useState(products);
   console.log('PRODUCTS >>>>>>>>>', products);
-
+  useEffect(() => {
+    console.log('changed>>>>>>>>>123', product);
+    setProduct(products);
+  }, [products]);
   return (
     <View
       style={{
@@ -21,8 +25,10 @@ function ViewAll(props) {
       }}>
       <ScrollView>
         {/* <ProductList /> */}
-        {products.length !== 0 &&
-          products.map(element => {
+        {product.length !== 0 &&
+          product.map(element => {
+            // console.log('**', element);
+
             return (
               // <ScrollView>
               <ProductList
@@ -30,6 +36,8 @@ function ViewAll(props) {
                 title={element.title}
                 price={element.price}
                 image={element.upload_image}
+                id={element.id}
+                purchase_status={element.purchase_status}
                 // key={element.id}
               />
               // </ScrollView>

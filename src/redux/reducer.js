@@ -7,7 +7,7 @@ export const GET_SOCIAL_LINK = 'GET_SOCIAL_LINK';
 export const REMOVE_PROFILE = 'REMOVE_PROFILE';
 export const GET_PRODUCT = 'GET_PRODUCT';
 export const GET_ORDER_HISTORY = 'GET_ORDER_HISTORY';
-// export const GET_PURCHASE = 'GET_PURCHASE';
+export const GET_PURCHASE_IMAGE = 'GET_PURCHASE_IMAGE';
 
 export const getAuthToken = token => ({
   type: GET_TOKEN,
@@ -59,11 +59,14 @@ export const getOrderhistory = orderhistory => ({
   payload: orderhistory,
 });
 
-// export const getPurchase = purchase => ({
-//   type: GET_PURCHASE,
-//   payload: purchase,
-// });
+export const getPurchaseImage = purchaseImage => {
+  console.log('function called.....');
 
+  return {
+    type: GET_PURCHASE_IMAGE,
+    payload: purchaseImage,
+  };
+};
 const initialState = {
   token: null,
   verifyKey: null,
@@ -74,7 +77,7 @@ const initialState = {
   removeProfile: false,
   products: [],
   orders: [],
-  // purchase: [],
+  purchaseImage: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -121,7 +124,8 @@ const rootReducer = (state = initialState, action) => {
       };
     }
     case GET_PRODUCT: {
-      console.log('IN PROFILE REDUCER', payload);
+      console.log('IN PROFILE REDUCER >>>', payload);
+      // console.log('IN PROFILE REDUCER', payload);
       return {
         ...state,
         products: payload,
@@ -134,12 +138,13 @@ const rootReducer = (state = initialState, action) => {
         orders: payload,
       };
     }
-    // case GET_PURCHASE: {
-    //   return {
-    //     ...state,
-    //     purchase: payload,
-    //   };
-    // }
+
+    case GET_PURCHASE_IMAGE: {
+      return {
+        ...state,
+        purchaseImage: payload,
+      };
+    }
 
     default:
       return state;

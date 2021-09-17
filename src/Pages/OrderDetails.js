@@ -40,7 +40,8 @@ export default function OrderDetails(props) {
   const [image, setImage] = useState(null);
   const [newImage, setNewImage] = useState(AvtarImage);
   const [isLoaded, setLoaded] = useState(true);
-  const {token, profile, link, flag, orders} = useSelector(state => state);
+
+  // const {token, profile, link, flag, orders} = useSelector(state => state);
 
   const element = props.route.params.element;
 
@@ -181,6 +182,16 @@ export default function OrderDetails(props) {
                 paddingBottom: 20,
                 borderBottomWidth: 1,
               }}>
+              <Button
+                title="Click"
+                onPress={async () => {
+                  Alert.alert('clicked');
+                  const bgImage = await AsyncStorage.setItem(
+                    'Key',
+                    `${element.image_uploads.url}`,
+                  );
+                }}
+              />
               <Text
                 style={{
                   fontFamily: 'Poppins-Regular',
@@ -190,7 +201,7 @@ export default function OrderDetails(props) {
                   fontSize: 14,
                   padding: 1,
                 }}>
-                {element.image_uploads.description}
+                {element.response}
 
                 {/* It is a long established fact that a reader will be distracted
                 by the readable content of a page when looking at its layout.

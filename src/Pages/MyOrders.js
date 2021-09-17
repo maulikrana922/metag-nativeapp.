@@ -508,21 +508,11 @@ export default function MyProfile(props) {
                               color: 'black',
                               fontFamily: 'Poppins-Regular',
                             }}>
-                            {element.image_uploads.description}
+                            {element.response}
                             {/* Lorem Ipsum is simply dummy {`\n`}text of the printing and
                       type
                       {'\n'}setting industry. */}
                           </Text>
-                          <Button
-                            title="Click"
-                            onPress={async () => {
-                              Alert.alert('clicked');
-                              const bgImage = await AsyncStorage.setItem(
-                                'Key',
-                                `${element.image_uploads.url}`,
-                              );
-                            }}
-                          />
                         </View>
                         <View
                           style={{
