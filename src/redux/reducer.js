@@ -8,6 +8,7 @@ export const REMOVE_PROFILE = 'REMOVE_PROFILE';
 export const GET_PRODUCT = 'GET_PRODUCT';
 export const GET_ORDER_HISTORY = 'GET_ORDER_HISTORY';
 export const GET_PURCHASE_IMAGE = 'GET_PURCHASE_IMAGE';
+export const UPDATE_IMAGE = 'UPDATE_IMAGE';
 
 export const getAuthToken = token => ({
   type: GET_TOKEN,
@@ -59,14 +60,16 @@ export const getOrderhistory = orderhistory => ({
   payload: orderhistory,
 });
 
-export const getPurchaseImage = purchaseImage => {
-  console.log('function called.....');
+export const getPurchaseImage = purchaseImage => ({
+  type: GET_PURCHASE_IMAGE,
+  payload: purchaseImage,
+});
 
-  return {
-    type: GET_PURCHASE_IMAGE,
-    payload: purchaseImage,
-  };
-};
+export const updateIMAGE = img => ({
+  type: UPDATE_IMAGE,
+  payload: img,
+});
+
 const initialState = {
   token: null,
   verifyKey: null,
@@ -78,6 +81,7 @@ const initialState = {
   products: [],
   orders: [],
   purchaseImage: [],
+  updateImg: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -143,6 +147,13 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         purchaseImage: payload,
+      };
+    }
+
+    case UPDATE_IMAGE: {
+      return {
+        ...state,
+        updateImg: payload,
       };
     }
 

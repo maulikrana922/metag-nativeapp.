@@ -165,7 +165,8 @@ export default function CreateProfile(props) {
     //   })
     //   .catch(e => console.log('error500', e));
 
-    const val = await AsyncStorage.getItem('Key');
+    const val = await AsyncStorage.getItem('@Image');
+    console.log('from storage', val);
     // Alert.alert(val);
     // alert('in home');
     setImage(val);

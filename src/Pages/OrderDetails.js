@@ -13,6 +13,7 @@ import {
 import Logo from '../../assets/Logo/logo.svg';
 // import AvtarImage from "../../assets/avtar.svg";
 import bg from '../../assets/Logo/bg.png';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 //
 import AvtarImage from '../../assets/work-suitcase.svg';
 import applePay from '../../assets/orderDetails/apple_pay_1170221.png';
@@ -27,6 +28,8 @@ import list from '../../assets/list.svg';
 import home from '../../assets/home-run.svg';
 import {useSelector, useDispatch} from 'react-redux';
 import url from '../BaseURl/baseurl.json';
+import axios from 'axios';
+import {updateIMAGE} from '../redux/reducer';
 
 // import {
 //   useFonts,
@@ -40,8 +43,12 @@ export default function OrderDetails(props) {
   const [image, setImage] = useState(null);
   const [newImage, setNewImage] = useState(AvtarImage);
   const [isLoaded, setLoaded] = useState(true);
+  const dispatch = useDispatch();
+  const {updateImg} = useSelector(state => state);
 
-  // const {token, profile, link, flag, orders} = useSelector(state => state);
+  useEffect(() => {
+    console.log('SELECTOR ', updateImg);
+  });
 
   const element = props.route.params.element;
 
@@ -73,6 +80,35 @@ export default function OrderDetails(props) {
   //     setNewImage(result.uri);
   //   }
   // };
+
+  const userUpdateImageAPICall = () => {
+    let data = JSON.stringify({
+      image_id: 99,
+    });
+
+    var config = {
+      method: 'post',
+      url: 'https://testyourapp.online/metag-backend/api/user-purchase-image',
+      headers: {
+        Authorization:
+          'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NDY2YzFhZS0wZTA4LTRmNjctOGZiYy1kNTMyMDI5MzEzNDQiLCJqdGkiOiIxNTZlMDBiNDUzODRlNDdkMmJmMWI0YWU3YjgyOThjYzVkY2NiZjM0YjEzMjMyMmRiYTE2M2NhOGFmNzIyN2FhMmVkNmY5YTFiZGVhMjBiZiIsImlhdCI6MTYzMTc4MjA0OSwibmJmIjoxNjMxNzgyMDQ5LCJleHAiOjE2NjMzMTgwNDksInN1YiI6IjI0NiIsInNjb3BlcyI6W119.dS_sehmOIOLEFqDxfHBND0LMfg8Zvs4dMvC2-4LqiI20bjw0y4rN6oWpYn4pVbowfoh6pPzmBk1wSUclaEA4khFpGlX_bW0y3DfQZqVWXy3wCUYkQN3MBsegc1d-OOqaEb-gUM02a-9UL7CCOTgd5Fmz3sDHOHh_sAhpuzg7WkIu4MFRg-NPBLrbsP8Nq37m2v-AwOLO36f_ELvgIQB0OyiivFzcJGgz6gbXTYNIlUyeM-QCAjhUM3ft9sShMmbZNA7E6ruIJyOLERxOUYVqHZwSHKtq_zPiAi7_bUtRiS8KAYBBTcRj15_-5P1Kh10gkbuyr0NuFtpdXD6Evxku_DZ3x7RR92LMk9wCxCsZUacwtjVYOIyv9JGoYOxGIbBOIncyXK1aQacuXubeJdLSp5SsE_c8ErC6m2mMAPA1K0KhMWfCXXbLHmwbrdy1x7Pix6mSSpIuo4A2eOUG-Z9AD7UePF4JioLTjR-gOFjHpHUg4cIjuiZu_nTc5901CbPTro5d-OsxEFTSjRKWuG2arMqF1_ur4qamMc7Itobr29_YZWuca60xsnNejykWckyLIGNRaeGkTbYC67ybJWXnIkJH84wrDgVlegjOz8x2X0dLScPeH4jmTjVYPK8aqEA0Gxrfxv38fgKphAPAQm8E1woyHfrB8D_IhWRjtAsUP0w',
+        'Content-Type': 'application/json',
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(
+          'API CALL........................',
+          JSON.stringify(response.data.data),
+        );
+        dispatch(updateIMAGE(response.data.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
     console.log('.....element.....', element);
@@ -185,11 +221,22 @@ export default function OrderDetails(props) {
               <Button
                 title="Click"
                 onPress={async () => {
-                  Alert.alert('clicked');
-                  const bgImage = await AsyncStorage.setItem(
-                    'Key',
-                    `${element.image_uploads.url}`,
+                  // Alert.alert('clicked');
+                  userUpdateImageAPICall();
+
+                  console.log(
+                    'string>>>>>>>>>>>>>>>',
+                    element.image_uploads.url,
                   );
+                  try {
+                    const bgImage = await AsyncStorage.setItem(
+                      '@Image',
+                      element.image_uploads.url,
+                    );
+                    console.log('Image store//', bgImage);
+                  } catch (e) {
+                    console.log('ERROR while storing', e);
+                  }
                 }}
               />
               <Text
@@ -273,15 +320,6 @@ export default function OrderDetails(props) {
                   alignSelf: 'center',
                 }}>
                 {element.image_uploads.price}
-              </Text>
-              <Text
-                onPress={async () => {
-                  await AsyncStorage.setItem(
-                    'Key',
-                    `${element.image_uploads.price}`,
-                  );
-                }}>
-                Chnage Image
               </Text>
             </View>
           </View>
