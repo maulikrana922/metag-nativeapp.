@@ -8,15 +8,9 @@ export const REMOVE_PROFILE = 'REMOVE_PROFILE';
 export const GET_PRODUCT = 'GET_PRODUCT';
 export const GET_ORDER_HISTORY = 'GET_ORDER_HISTORY';
 export const GET_PURCHASE_IMAGE = 'GET_PURCHASE_IMAGE';
-<<<<<<< HEAD
-// export const UPDATE_IMAGE = 'UPDATE_IMAGE';
-export const CHECK_UPDATE = 'CHECK_UPDATE';
-=======
 export const UPDATE_IMAGE = 'UPDATE_IMAGE';
-export const UPDATE_PRODUCT='UPDATE_PRODUCT'
-export const IS_IMAGE_UPDATED = "IS_IMAGE_UPDATED"
-
->>>>>>> 23ee3c6e07f515521f4bc07c7cebb9623d56a2e5
+export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
+export const IS_IMAGE_UPDATED = 'IS_IMAGE_UPDATED';
 
 export const getAuthToken = token => ({
   type: GET_TOKEN,
@@ -64,9 +58,9 @@ export const getProduct = product => ({
 });
 
 export const updateProduct = id => ({
-  type:UPDATE_PRODUCT,
-  payload:id
-})
+  type: UPDATE_PRODUCT,
+  payload: id,
+});
 export const getOrderhistory = orderhistory => ({
   type: GET_ORDER_HISTORY,
   payload: orderhistory,
@@ -87,8 +81,8 @@ export const check_update = () => ({
 });
 
 export const isImageUpdated = () => ({
-  type:IS_IMAGE_UPDATED,
-})
+  type: IS_IMAGE_UPDATED,
+});
 
 const initialState = {
   token: null,
@@ -149,7 +143,7 @@ const rootReducer = (state = initialState, action) => {
       };
     }
     case GET_PRODUCT: {
-      console.log('IN PROFILE REDUCER >>>', payload ,">>",);
+      console.log('IN PROFILE REDUCER >>>', payload, '>>');
       // console.log('IN PROFILE REDUCER', payload);
       return {
         ...state,
@@ -157,25 +151,25 @@ const rootReducer = (state = initialState, action) => {
       };
     }
     case UPDATE_PRODUCT: {
-     console.log("update product")
-      console.log("Before Products >>>>>>>>>>>>",)
+      console.log('update product');
+      console.log('Before Products >>>>>>>>>>>>');
       const newProduct = state.products.map(e => {
-        if(e.id == payload){
-          let obj = e
-          obj.purchase_status = 1
-          return obj
-        }else{
-          return e
+        if (e.id == payload) {
+          let obj = e;
+          obj.purchase_status = 1;
+          return obj;
+        } else {
+          return e;
         }
-      })
-      console.log("payload >>>>>>>>>>>",payload)
-      console.log("newProduct>>>>>",newProduct)
+      });
+      console.log('payload >>>>>>>>>>>', payload);
+      console.log('newProduct>>>>>', newProduct);
       // console.log(">>new product",newProduct)
       // console.log("OUR NEW PRODUCT",newProduct)
       return {
         ...state,
-        products:newProduct
-      }
+        products: newProduct,
+      };
     }
     case GET_ORDER_HISTORY: {
       return {

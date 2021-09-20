@@ -14,14 +14,8 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {useDispatch, useSelector} from 'react-redux';
-<<<<<<< HEAD
-import {getPurchaseImage} from '../redux/reducer';
-import close from '../../assets/close.png';
-
-=======
 // import {getPurchaseImage,updateProduct} from '../redux/reducer';
-import { updateProduct } from '../redux/reducer';
->>>>>>> 23ee3c6e07f515521f4bc07c7cebb9623d56a2e5
+import {updateProduct} from '../redux/reducer';
 export default function ProductList({
   price,
   title,
@@ -48,7 +42,6 @@ export default function ProductList({
   // }, []);
   const {token, profile, link, flag, products} = useSelector(state => state);
   const getProductImages = async id => {
-
     // console.log("profile token ??????????",profile.api_token )
     let data = JSON.stringify({
       image_id: id,
@@ -60,7 +53,6 @@ export default function ProductList({
       headers: {
         Authorization: 'Bearer ' + profile.api_token,
         'Content-Type': 'application/json',
-
       },
       data: data,
     };
@@ -71,7 +63,7 @@ export default function ProductList({
           'jfhskjfjsjfgsjfjsjfjsjfgjsjfgjsg',
           JSON.stringify(response.data.data),
         );
-         await dispatch(updateProduct(id))
+        await dispatch(updateProduct(id));
         // await dispatch(getPurchaseImage(response.data.data));
       })
       .catch(function (error) {
