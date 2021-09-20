@@ -32,14 +32,7 @@ import url from '../BaseURl/baseurl.json';
 import axios from 'axios';
 import {check_update} from '../redux/reducer';
 import close from '../../assets/close.png';
-
-// import {
-//   useFonts,
-//   Poppins_800ExtraBold_Italic,
-//   Poppins_400Regular,
-//   Poppins_700Bold,
-// } from "@expo-google-fonts/poppins";
-// import { AppLoading, ImagePicker } from "expo";
+import {useNavigation} from '@react-navigation/native';
 
 export default function OrderDetails(props) {
   const [image, setImage] = useState(null);
@@ -48,6 +41,7 @@ export default function OrderDetails(props) {
   const dispatch = useDispatch();
   const {updateImg} = useSelector(state => state);
   const [showModal, setShowModal] = useState(false);
+  const navigation = useNavigation();
 
   useEffect(() => {
     console.log('SELECTOR ', updateImg);
@@ -55,37 +49,7 @@ export default function OrderDetails(props) {
 
   const element = props.route.params.element;
 
-  // useEffect(() => {
-  //   (async () => {
-  //     if (Platform.OS !== 'web') {
-  //       const {
-  //         status,
-  //       } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-  //       if (status !== 'granted') {
-  //         alert('Sorry, we need camera roll permissions to make this work!');
-  //       }
-  //     }
-  //   })();
-  // }, []);
-
-  // const pickImage = async () => {
-  //   let result = await ImagePicker.launchImageLibraryAsync({
-  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
-  //     allowsEditing: true,
-  //     aspect: [4, 3],
-  //     quality: 1,
-  //   });
-
-  //   console.log(result);
-
-  //   if (!result.cancelled) {
-  //     // setImage(result.uri);
-  //     setNewImage(result.uri);
-  //   }
-  // };
   const setImageInRedux = async () => {
-    // dispatch(updateIMAGE(element.image_uploads.url));
-
     console.log('string>>>>>>>>>>>>>>>', element.image_uploads.url);
     try {
       const bgImage = await AsyncStorage.setItem(
@@ -169,21 +133,6 @@ export default function OrderDetails(props) {
               <View style={{paddingBottom: 15}}>
                 <Text style={styles.completeProfile}>Order Successful</Text>
               </View>
-              {/* <View style={styles.iconFlex}>
-              <View style={styles.backgroundIcon}>
-                <Image
-                  source={qrCode}
-                  style={{ backgroundColor: 'white', height: 40, width: 40 }}
-                ></Image>
-              </View>
-              <View style={styles.backgroundIcon2}>
-                <Image
-                  source={wifi}
-                  style={{ backgroundColor: 'white', height: 40, width: 40 }}
-                ></Image>
-              </View>
-            </View>
-            <Text style={styles.underlineText}>Interaction History </Text> */}
             </View>
           </View>
 
@@ -216,17 +165,11 @@ export default function OrderDetails(props) {
                 style={{
                   flexDirection: 'column',
                   alignItems: 'flex-end',
-                  // backgroundColor: 'green',
                 }}>
                 <View
                   style={{
-                    // width: 70,
-                    // height: 70,
-                    // flex: 1,
                     color: 'pink',
                     right: 0,
-                    // marginTop: 'auto',
-                    // marginBottom: 'auto',
                     borderRadius: 10,
                     marginBottom: 20,
                   }}>
@@ -236,20 +179,15 @@ export default function OrderDetails(props) {
                     height={100}
                     source={{uri: `${element.image_uploads.url}`}}
                   />
-                  {/* <Text>something</Text> */}
                 </View>
                 <View
                   style={{
-                    // flex: 1,
-                    // display: 'flex',
-                    // justifyContent: 'flex-start',
                     height: '25%',
                     marginRight: 5,
                   }}>
                   <TouchableOpacity
                     style={styles.buyBtnBg}
                     onPress={() => {
-                      // Alert.alert('clicked');
                       userUpdateImageAPICall();
                       setShowModal(true);
                       setImageInRedux();
@@ -283,20 +221,6 @@ export default function OrderDetails(props) {
                   padding: 1,
                 }}>
                 {element.response}
-
-                {/* It is a long established fact that a reader will be distracted
-                by the readable content of a page when looking at its layout.
-                The point of using Lorem Ipsum is that it has a more-or-less
-                normal distribution of letters.{'\n'}
-                {'\n'}
-                {'\n'}
-                As opposed to using 'Content here, content here', making it look
-                like readable English. Many desktop publishing packages and web
-                page editors now use Lorem Ipsum as their default model text,
-                and a search for 'lorem ipsum' will uncover many web sites still
-                in their infancy. Various versions have evolved over the years,
-                sometimes by accident, sometimes on purpose (injected humour and
-                the like). */}
               </Text>
             </View>
             <View
@@ -365,11 +289,9 @@ export default function OrderDetails(props) {
               style={{
                 height: '100%',
                 backgroundColor: 'rgba( 0, 0, 0, 0.6 )',
-                // backgroundColor: 'green',
               }}>
               <View
                 style={{
-                  // backgroundColor: 'white',
                   marginLeft: 'auto',
                   marginRight: 'auto',
                   marginTop: 'auto',
@@ -379,13 +301,13 @@ export default function OrderDetails(props) {
                   justifyContent: 'center',
                 }}>
                 <TouchableOpacity
-                  onPress={() => setShowModal(!showModal)}
+                  onPress={() => {
+                    setShowModal(!showModal);
+                  }}
                   style={{
-                    // backgroundColor: 'red',
                     width: '8%',
                     height: '8%',
                     marginLeft: 'auto',
-                    // marginRight: '5%',
                     marginTop: '3%',
                   }}>
                   <Image
@@ -426,8 +348,10 @@ export default function OrderDetails(props) {
                   </Text>
 
                   <TouchableOpacity
-                    onPress={() => setShowModal(!showModal)}
-                    // onPress={() => props.navigation.navigate('CreateProfile')}
+                    onPress={() => {
+                      setShowModal(!showModal);
+                      // navigation.navigate('Home');
+                    }}
                     style={{
                       // marginTop: 20,
                       alignItems: 'center',
@@ -461,38 +385,27 @@ export default function OrderDetails(props) {
 }
 const styles = StyleSheet.create({
   header: {
-    // backgroundColor: '#000000',
-    // backgroundColor: 'yellow',
     height: 'auto',
     display: 'flex',
     flexDirection: 'row',
-    // alignItems: 'center',
     justifyContent: 'space-between',
     paddingLeft: 20,
     paddingRight: 20,
   },
   arrowback: {
-    // backgroundColor: "beige",
     width: 20,
     height: 20,
     alignSelf: 'center',
-    // backgroundColor: 'pink',
-    // color: 'white',
   },
   headerBackground: {
     flexDirection: 'row',
-    // flexWrap: 'wrap',
     paddingBottom: 20,
     alignSelf: 'center',
-    // backgroundColor: 'yellow',
-    // borderBottomColor: 'white',
-    // paddingRight: 40,
     justifyContent: 'space-around',
   },
   header_text: {
     display: 'flex',
     flexDirection: 'column',
-    // paddingLeft: 20,
   },
   text_metag: {
     fontFamily: 'Poppins-ExtraBold',

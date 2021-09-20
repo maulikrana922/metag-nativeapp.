@@ -180,9 +180,12 @@ export default function ProductList({
               marginBottom: 'auto',
               width: '80%',
               height: 'auto',
+              justifyContent: 'center',
             }}>
             <TouchableOpacity
-              onPress={() => setShowModal(!showModal)}
+              onPress={() => {
+                setShowModal(!showModal);
+              }}
               style={{
                 // backgroundColor: 'red',
                 width: '8%',
@@ -229,7 +232,10 @@ export default function ProductList({
               </Text>
 
               <TouchableOpacity
-                onPress={() => setShowModal(!showModal)}
+                onPress={() => {
+                  setShowModal(!showModal);
+                  navigation.navigate('MyOrders');
+                }}
                 // onPress={() => props.navigation.navigate('CreateProfile')}
                 style={{
                   // marginTop: 20,
