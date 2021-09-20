@@ -61,9 +61,19 @@ export default function CreateProfile(props) {
 
   console.log('flag value', typeof flag);
 
-  useEffect(() => {
-    console.log('PRODUCTS >>>>>>>>>', products);
-  }, [products]);
+  // try {
+  //   const bgImage = await AsyncStorage.setItem(
+  //     '@Image',
+  //     element.image_uploads.url,
+  //   );
+  //   console.log('Image store//', bgImage);
+  // } catch (e) {
+  //   console.log('ERROR while storing', e);
+  // }
+
+  // useEffect(() => {
+  //   console.log('PRODUCTS >>>>>>>>>', products);
+  // }, [products]);
   // const [apiToken, setToken] = useState(
   //   flag === true ? profile.data[0].api_token : profile.api_token,
   // );
