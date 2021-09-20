@@ -9,11 +9,11 @@ function ViewAll(props) {
   const [start, setStart] = useState('0');
   const {token, profile, link, flag, products} = useSelector(state => state);
   const [product, setProduct] = useState(products);
-  console.log('PRODUCTS >>>>>>>>>', products);
-  useEffect(() => {
-    console.log('changed>>>>>>>>>123', product);
-    setProduct(products);
-  }, [products]);
+  // console.log('PRODUCTS >>>>>>>>>', products);
+  // useEffect(() => {
+  //   console.log('changed>>>>>>>>>123', product);
+  //   setProduct(products);
+  // }, [products]);
   return (
     <View
       style={{

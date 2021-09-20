@@ -14,9 +14,14 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {useDispatch, useSelector} from 'react-redux';
+<<<<<<< HEAD
 import {getPurchaseImage} from '../redux/reducer';
 import close from '../../assets/close.png';
 
+=======
+// import {getPurchaseImage,updateProduct} from '../redux/reducer';
+import { updateProduct } from '../redux/reducer';
+>>>>>>> 23ee3c6e07f515521f4bc07c7cebb9623d56a2e5
 export default function ProductList({
   price,
   title,
@@ -33,7 +38,7 @@ export default function ProductList({
 
   const dispatch = useDispatch();
 
-  const {purchaseImage, products} = useSelector(state => state);
+  // const {purchaseImage, products} = useSelector(state => state);
   // const [purchaseImage, setPurchaseImage] = useState(products);
   // useEffect(() => {
   //   console.log(
@@ -41,8 +46,10 @@ export default function ProductList({
   //     purchaseImage,
   //   );
   // }, []);
-
+  const {token, profile, link, flag, products} = useSelector(state => state);
   const getProductImages = async id => {
+
+    // console.log("profile token ??????????",profile.api_token )
     let data = JSON.stringify({
       image_id: id,
     });
@@ -51,10 +58,9 @@ export default function ProductList({
       method: 'post',
       url: 'https://testyourapp.online/metag-backend/api/purchase-image',
       headers: {
-        Authorization: 'Bearer ' + product.api_token,
+        Authorization: 'Bearer ' + profile.api_token,
         'Content-Type': 'application/json',
-        Cookie:
-          'XSRF-TOKEN=eyJpdiI6InA0a1F1TS9XUzVvVmYweFd2TUFTU2c9PSIsInZhbHVlIjoiUTdSSTRkME8vVEpsWThseUhzYVpYK0F1ZWNKeEc3NzNXSXFrb3ltcDR5STE0Yko1YVBLMVlSUUZXQ21YSmFhRVRubHFLbm1XVm94c2xGZ1VtdHl6bFBaVlBLYmRYb0FSejkxc3JjYWpQQ2hKWStJWG1oSlp4RUtHKytlZUVPZnoiLCJtYWMiOiJkY2MzNjcyOTA1ZTJlNzk5NDdmZDA0NGRkODM0NDRjNTJmMWI5NTJhNjA4MDY2NzAxN2NlNmIxNDc2Yjc4YjNkIn0%3D; laravel_session=eyJpdiI6IjlxbGxCMWdXZnJSdW83QThGa0xMNlE9PSIsInZhbHVlIjoiSjNReEI0eXllR3JiMGpaL0JUenk3bW1jMlRrdTZMSEwzRm1LNmhYa2NVWmlWdkNaaW9JSVB1eG5xSEFSZ3hPR1hXTlFKU3M1aW43Q2VaUmRvaTRRZXRvdVZyQ08zdDJUM0QrN2tuL1dYV3pYbkRZMWFDSUpzZ0VkZHlpZm1WV3IiLCJtYWMiOiJjYjEyNDM0NTQ1MDM2MjM1NmJiNDc4YjA3ZTE4ZjZjYWIxYzU4MzM2MmQ1NjE5NmIyMmU4ZDFlZmU3MmM5OTliIn0%3D',
+
       },
       data: data,
     };
@@ -65,7 +71,8 @@ export default function ProductList({
           'jfhskjfjsjfgsjfjsjfjsjfgjsjfgjsg',
           JSON.stringify(response.data.data),
         );
-        await dispatch(getPurchaseImage(response.data.data));
+         await dispatch(updateProduct(id))
+        // await dispatch(getPurchaseImage(response.data.data));
       })
       .catch(function (error) {
         console.log('/skhijgsdgfugshudfgsufgusdgfsugfusu', error);
