@@ -10,12 +10,12 @@ import {
   Modal,
   Pressable,
   ScrollView,
-  AsyncStorage,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {useDispatch, useSelector} from 'react-redux';
 import {getPurchaseImage} from '../redux/reducer';
+import close from '../../assets/close.png';
 
 export default function ProductList({
   price,
@@ -121,7 +121,7 @@ export default function ProductList({
           </TouchableOpacity>
         </View>
       </View>
-      <Modal
+      {/* <Modal
         animationType="slide"
         transparent={true}
         visible={showModal}
@@ -160,6 +160,101 @@ export default function ProductList({
               <Text style={{color: 'white'}}>Okay</Text>
             </View>
           </Pressable>
+        </View>
+      </Modal> */}
+
+      {/* Modal  */}
+
+      <Modal statusBarTranslucent={true} transparent={true} visible={showModal}>
+        <View
+          style={{
+            height: '100%',
+            backgroundColor: 'rgba( 0, 0, 0, 0.6 )',
+          }}>
+          <View
+            style={{
+              // backgroundColor: 'white',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              marginTop: 'auto',
+              marginBottom: 'auto',
+              width: '80%',
+              height: 'auto',
+            }}>
+            <TouchableOpacity
+              onPress={() => setShowModal(!showModal)}
+              style={{
+                // backgroundColor: 'red',
+                width: '8%',
+                height: '8%',
+                marginLeft: 'auto',
+                // marginRight: '5%',
+                marginTop: '3%',
+              }}>
+              <Image
+                source={close}
+                resizeMode="contain"
+                style={{width: '100%', height: '100%'}}></Image>
+            </TouchableOpacity>
+            <View
+              style={{
+                backgroundColor: 'white',
+                // marginTop: '5%',
+                padding: '5%',
+                borderBottomLeftRadius: 10,
+                borderBottomRightRadius: 10,
+                borderTopLeftRadius: 10,
+                borderTopRightRadius: 10,
+                display: 'flex',
+                justifyContent: 'space-evenly',
+              }}>
+              <Image
+                source={{uri: image}}
+                resizeMode="contain"
+                style={{
+                  width: '50%',
+                  height: '50%',
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                }}></Image>
+              <Text
+                style={{
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+
+                  color: '#000000',
+                  fontSize: 15,
+                }}>
+                Thank you for purchasing our image.
+              </Text>
+
+              <TouchableOpacity
+                onPress={() => setShowModal(!showModal)}
+                // onPress={() => props.navigation.navigate('CreateProfile')}
+                style={{
+                  // marginTop: 20,
+                  alignItems: 'center',
+                  padding: 8,
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                  backgroundColor: 'black',
+                  borderBottomLeftRadius: 50,
+                  borderBottomRightRadius: 50,
+                  borderTopRightRadius: 0,
+                  borderTopLeftRadius: 50,
+                  width: '100%',
+                }}>
+                <Text
+                  style={{
+                    color: 'white',
+                    fontFamily: 'Poppins-Regular',
+                    fontSize: 16,
+                  }}>
+                  Thank You
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
       </Modal>
     </ScrollView>

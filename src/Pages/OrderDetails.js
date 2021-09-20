@@ -9,6 +9,7 @@ import {
   Platform,
   TouchableOpacity,
   ImageBackground,
+  Modal,
 } from 'react-native';
 import Logo from '../../assets/Logo/logo.svg';
 // import AvtarImage from "../../assets/avtar.svg";
@@ -29,7 +30,8 @@ import home from '../../assets/home-run.svg';
 import {useSelector, useDispatch} from 'react-redux';
 import url from '../BaseURl/baseurl.json';
 import axios from 'axios';
-import {updateIMAGE} from '../redux/reducer';
+import {check_update} from '../redux/reducer';
+import close from '../../assets/close.png';
 
 // import {
 //   useFonts,
@@ -45,6 +47,7 @@ export default function OrderDetails(props) {
   const [isLoaded, setLoaded] = useState(true);
   const dispatch = useDispatch();
   const {updateImg} = useSelector(state => state);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     console.log('SELECTOR ', updateImg);
@@ -80,6 +83,21 @@ export default function OrderDetails(props) {
   //     setNewImage(result.uri);
   //   }
   // };
+  const setImageInRedux = async () => {
+    // dispatch(updateIMAGE(element.image_uploads.url));
+
+    console.log('string>>>>>>>>>>>>>>>', element.image_uploads.url);
+    try {
+      const bgImage = await AsyncStorage.setItem(
+        '@Image',
+        element.image_uploads.url,
+      );
+      await dispatch(check_update());
+      console.log('Image store//', bgImage);
+    } catch (e) {
+      console.log('ERROR while storing', e);
+    }
+  };
 
   const userUpdateImageAPICall = () => {
     let data = JSON.stringify({
@@ -103,7 +121,8 @@ export default function OrderDetails(props) {
           'API CALL........................',
           JSON.stringify(response.data.data),
         );
-        dispatch(updateIMAGE(response.data.data));
+        // dispatch(check_update());
+        // dispatch(updateIMAGE(response.data.data));
       })
       .catch(function (error) {
         console.log(error);
@@ -175,6 +194,8 @@ export default function OrderDetails(props) {
                 display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'space-between',
+
+                height: 160,
               }}>
               <View>
                 <View style={{paddingBottom: 1}}>
@@ -188,28 +209,61 @@ export default function OrderDetails(props) {
                   </Text>
                 </View>
                 <View style={{fontFamily: 'Poppins-Regular', fontSize: 16}}>
-                  <Text>{element.created_at}</Text>
+                  <Text>{element.creted_at}</Text>
                 </View>
               </View>
               <View
                 style={{
-                  width: 70,
-                  height: 70,
-                  backgroundColor: '#b8b8b8',
-                  // backgroundColor: 'red',
-                  color: 'pink',
-                  marginTop: 'auto',
-                  marginBottom: 'auto',
-                  borderRadius: 10,
-                  // position:"absolute",
+                  flexDirection: 'column',
+                  alignItems: 'flex-end',
+                  // backgroundColor: 'green',
                 }}>
-                <Image
-                  style={styles.productView}
-                  width={70}
-                  height={70}
-                  source={{uri: `${element.image_uploads.url}`}}
-                />
-                {/* <Text>something</Text> */}
+                <View
+                  style={{
+                    // width: 70,
+                    // height: 70,
+                    // flex: 1,
+                    color: 'pink',
+                    right: 0,
+                    // marginTop: 'auto',
+                    // marginBottom: 'auto',
+                    borderRadius: 10,
+                    marginBottom: 20,
+                  }}>
+                  <Image
+                    style={styles.productView}
+                    width={100}
+                    height={100}
+                    source={{uri: `${element.image_uploads.url}`}}
+                  />
+                  {/* <Text>something</Text> */}
+                </View>
+                <View
+                  style={{
+                    // flex: 1,
+                    // display: 'flex',
+                    // justifyContent: 'flex-start',
+                    height: '25%',
+                    marginRight: 5,
+                  }}>
+                  <TouchableOpacity
+                    style={styles.buyBtnBg}
+                    onPress={() => {
+                      // Alert.alert('clicked');
+                      userUpdateImageAPICall();
+                      setShowModal(true);
+                      setImageInRedux();
+                    }}>
+                    <Text
+                      style={{
+                        color: '#fff',
+                        flex: 1,
+                        fontSize: 16,
+                      }}>
+                      Buy Image
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
             <View
@@ -217,28 +271,8 @@ export default function OrderDetails(props) {
                 marginTop: 20,
                 paddingBottom: 20,
                 borderBottomWidth: 1,
+                // borderWidth: 1,
               }}>
-              <Button
-                title="Click"
-                onPress={async () => {
-                  // Alert.alert('clicked');
-                  userUpdateImageAPICall();
-
-                  console.log(
-                    'string>>>>>>>>>>>>>>>',
-                    element.image_uploads.url,
-                  );
-                  try {
-                    const bgImage = await AsyncStorage.setItem(
-                      '@Image',
-                      element.image_uploads.url,
-                    );
-                    console.log('Image store//', bgImage);
-                  } catch (e) {
-                    console.log('ERROR while storing', e);
-                  }
-                }}
-              />
               <Text
                 style={{
                   fontFamily: 'Poppins-Regular',
@@ -319,10 +353,107 @@ export default function OrderDetails(props) {
                   fontSize: 14,
                   alignSelf: 'center',
                 }}>
-                {element.image_uploads.price}
+                $ {element.image_uploads.price}
               </Text>
             </View>
           </View>
+          <Modal
+            statusBarTranslucent={true}
+            transparent={true}
+            visible={showModal}>
+            <View
+              style={{
+                height: '100%',
+                backgroundColor: 'rgba( 0, 0, 0, 0.6 )',
+                // backgroundColor: 'green',
+              }}>
+              <View
+                style={{
+                  // backgroundColor: 'white',
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                  marginTop: 'auto',
+                  marginBottom: 'auto',
+                  width: '80%',
+                  height: 'auto',
+                  justifyContent: 'center',
+                }}>
+                <TouchableOpacity
+                  onPress={() => setShowModal(!showModal)}
+                  style={{
+                    // backgroundColor: 'red',
+                    width: '8%',
+                    height: '8%',
+                    marginLeft: 'auto',
+                    // marginRight: '5%',
+                    marginTop: '3%',
+                  }}>
+                  <Image
+                    source={close}
+                    resizeMode="contain"
+                    style={{width: '100%', height: '100%'}}></Image>
+                </TouchableOpacity>
+                <View
+                  style={{
+                    backgroundColor: 'white',
+                    // marginTop: '5%',
+                    padding: '5%',
+                    borderBottomLeftRadius: 10,
+                    borderBottomRightRadius: 10,
+                    borderTopLeftRadius: 10,
+                    borderTopRightRadius: 10,
+                    display: 'flex',
+                    justifyContent: 'space-evenly',
+                  }}>
+                  <Image
+                    source={{uri: `${element.image_uploads.url}`}}
+                    resizeMode="contain"
+                    style={{
+                      width: '50%',
+                      height: '50%',
+                      marginLeft: 'auto',
+                      marginRight: 'auto',
+                    }}></Image>
+                  <Text
+                    style={{
+                      marginLeft: 'auto',
+                      marginRight: 'auto',
+
+                      color: '#000000',
+                      fontSize: 15,
+                    }}>
+                    Thank you for using this image.
+                  </Text>
+
+                  <TouchableOpacity
+                    onPress={() => setShowModal(!showModal)}
+                    // onPress={() => props.navigation.navigate('CreateProfile')}
+                    style={{
+                      // marginTop: 20,
+                      alignItems: 'center',
+                      padding: 8,
+                      marginLeft: 'auto',
+                      marginRight: 'auto',
+                      backgroundColor: 'black',
+                      borderBottomLeftRadius: 50,
+                      borderBottomRightRadius: 50,
+                      borderTopRightRadius: 0,
+                      borderTopLeftRadius: 50,
+                      width: '100%',
+                    }}>
+                    <Text
+                      style={{
+                        color: 'white',
+                        fontFamily: 'Poppins-Regular',
+                        fontSize: 16,
+                      }}>
+                      Thank You
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </Modal>
         </View>
       </ImageBackground>
     );
@@ -556,19 +687,6 @@ const styles = StyleSheet.create({
   viewAll: {
     textDecorationLine: 'underline',
   },
-  buyBtnBg: {
-    backgroundColor: '#40A41D',
-    width: 'auto',
-    height: 'auto',
-    paddingTop: 5,
-    paddingBottom: 5,
-    paddingRight: 10,
-    paddingLeft: 10,
-    borderTopLeftRadius: 20,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    // alignSelf: 'flex-end',
-  },
   productView: {
     backgroundColor: 'white',
     marginTop: 'auto',
@@ -587,5 +705,16 @@ const styles = StyleSheet.create({
   menuIcon: {
     width: 30,
     height: 30,
+  },
+  buyBtnBg: {
+    backgroundColor: '#40A41D',
+    color: 'white',
+    marginVertical: 5,
+    // alignItems: 'baseline',
+    borderTopLeftRadius: 10,
+    flex: 1,
+    paddingHorizontal: 5,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
   },
 });

@@ -8,7 +8,8 @@ export const REMOVE_PROFILE = 'REMOVE_PROFILE';
 export const GET_PRODUCT = 'GET_PRODUCT';
 export const GET_ORDER_HISTORY = 'GET_ORDER_HISTORY';
 export const GET_PURCHASE_IMAGE = 'GET_PURCHASE_IMAGE';
-export const UPDATE_IMAGE = 'UPDATE_IMAGE';
+// export const UPDATE_IMAGE = 'UPDATE_IMAGE';
+export const CHECK_UPDATE = 'CHECK_UPDATE';
 
 export const getAuthToken = token => ({
   type: GET_TOKEN,
@@ -65,9 +66,13 @@ export const getPurchaseImage = purchaseImage => ({
   payload: purchaseImage,
 });
 
-export const updateIMAGE = img => ({
-  type: UPDATE_IMAGE,
-  payload: img,
+// export const updateIMAGE = img => ({
+//   type: UPDATE_IMAGE,
+//   payload: img,
+// });
+
+export const check_update = () => ({
+  type: CHECK_UPDATE,
 });
 
 const initialState = {
@@ -81,7 +86,8 @@ const initialState = {
   products: [],
   orders: [],
   purchaseImage: [],
-  updateImg: [],
+  // updateImg: '',
+  check_update: false,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -150,13 +156,20 @@ const rootReducer = (state = initialState, action) => {
       };
     }
 
-    case UPDATE_IMAGE: {
+    // case UPDATE_IMAGE: {
+    //   return {
+    //     ...state,
+    //     updateImg: payload,
+    //   };
+    // }
+
+    case CHECK_UPDATE: {
+      console.log('REDUCER >?????????????????');
       return {
         ...state,
-        updateImg: payload,
+        check_update: !state.check_update,
       };
     }
-
     default:
       return state;
   }

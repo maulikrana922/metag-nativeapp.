@@ -65,6 +65,7 @@ import {
 } from '../redux/reducer';
 
 import url from '../BaseURl/baseurl.json';
+import LoaderTwo from '../components/LoaderTwo';
 
 export default function MyProfile(props) {
   const dispatch = useDispatch();
@@ -463,12 +464,16 @@ export default function MyProfile(props) {
                             Order No {element.image_uploads.title}
                           </Text>
                           <Text style={styles.orderTitleFont}>
-                            {element.image_uploads.price}
+                            $ {element.image_uploads.price}
                           </Text>
                         </View>
                         <Text
-                          style={{fontFamily: 'Poppins-Regular', fontSize: 16}}>
-                          {element.created_at}
+                          style={{
+                            fontFamily: 'Poppins-Regular',
+                            fontSize: 16,
+                            // backgroundColor: 'red',
+                          }}>
+                          {element.creted_at}
                           {/* 09:13 PM 10 Jun 2019 */}
                         </Text>
                       </View>
@@ -486,6 +491,8 @@ export default function MyProfile(props) {
                             marginBottom: 'auto',
                             marginLeft: 10,
                             display: 'flex',
+                            flex: 1,
+                            //backgroundColor: 'red',
                             flexWrap: 'wrap',
                             flexDirection: 'row',
                           }}>
@@ -504,9 +511,14 @@ export default function MyProfile(props) {
                             {/* Successful */}
                           </Text>
                           <Text
+                            numberOfLines={2}
+                            ellipsizeMode="tail"
                             style={{
                               color: 'black',
                               fontFamily: 'Poppins-Regular',
+                              marginRight: 10,
+                              // backgroundColor: 'red',
+                              // width: 100,
                             }}>
                             {element.response}
                             {/* Lorem Ipsum is simply dummy {`\n`}text of the printing and
@@ -790,12 +802,13 @@ const styles = StyleSheet.create({
   },
   productListView: {
     height: 'auto',
-    width: '100%',
-    backgroundColor: 'white',
+    backgroundColor: '#fff',
+    //width: '100%',
     paddingRight: 10,
     paddingLeft: 10,
     paddingBottom: 10,
     display: 'flex',
+    flex: 1,
     flexDirection: 'row',
     margin: 5,
   },
@@ -853,44 +866,3 @@ const styles = StyleSheet.create({
     margin: 4,
   },
 });
-
-const DATA = [
-  {
-    title: 'Order No',
-    orderNo: '7572846141',
-    price: '$50.00',
-    time: '09:13 PM',
-    date: '10 Jun 2019',
-    status: 'successful',
-    info: 'Lorem Ipsum is simply dummy text of the printing and type setting industry',
-    image:
-      'https://i.picsum.photos/id/465/200/200.jpg?hmac=66oxx-Qv8Bakk-7zPy6Kdv7t064QKKWhmDwQTWGZ7A0',
-    id: 1,
-  },
-  {
-    title: 'Order No',
-    orderNo: '123456789',
-    price: '$50.00',
-    time: '09:13 PM',
-    date: '10 Jun 2019',
-    status: 'successful',
-    info: 'Lorem Ipsum is simply dummy text of the printing and type setting industry',
-
-    image:
-      'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.jkywKMQLRDYYuMkiOJLSHAHaFj%26pid%3DApi&f=1',
-    id: 2,
-  },
-  {
-    title: 'Order No',
-    orderNo: '987654321',
-    price: '$50.00',
-    time: '09:13 PM',
-    date: '10 Jun 2019',
-    status: 'successful',
-    info: 'Lorem Ipsum is simply dummy text of the printing and type setting industry',
-
-    image:
-      'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.jkywKMQLRDYYuMkiOJLSHAHaFj%26pid%3DApi&f=1',
-    id: 3,
-  },
-];

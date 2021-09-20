@@ -54,7 +54,9 @@ export default function CreateProfile(props) {
   const [supportsNfc, setSupportsNfc] = useState(false);
   // const [img,setImg] = usestate()
   const dispatch = useDispatch();
-  const {token, profile, link, flag, products} = useSelector(state => state);
+  const {token, profile, link, flag, products, check_update} = useSelector(
+    state => state,
+  );
   console.log('PRODUCTS >>>>>>>>>', products);
   // const [products, setProduct] = useState(data);
   const [image1, setImage] = useState('');
@@ -164,7 +166,10 @@ export default function CreateProfile(props) {
     //     console.log('response', response.data);
     //   })
     //   .catch(e => console.log('error500', e));
+  }, []);
 
+  useEffect(async () => {
+    console.log('In use effect for  image change');
     const val = await AsyncStorage.getItem('@Image');
     console.log('from storage', val);
     // Alert.alert(val);
@@ -172,7 +177,7 @@ export default function CreateProfile(props) {
     setImage(val);
 
     console.log('home component.....................................', val);
-  }, []);
+  }, [check_update]);
 
   // axios({
   //   method: 'post',

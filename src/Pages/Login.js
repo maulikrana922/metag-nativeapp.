@@ -364,13 +364,6 @@ export default function Login(props) {
         {}
         {console.log('prinitng profile', profile)} */}
           <Modal
-            // style={{
-            //   backgroundColor: 'yellow',
-            //   // margin: '30%',
-            //   // width: '60%',
-            //   // height: '60%',
-            //   // margin: '40%',
-            // }}
             statusBarTranslucent={true}
             transparent={true}
             visible={modalVisible}>

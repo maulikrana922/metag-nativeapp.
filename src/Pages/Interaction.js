@@ -543,7 +543,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   card: {
-    backgroundColor: '#B8B8B8',
+    backgroundColor: '#b8b8b8',
     padding: 10,
     margin: 10,
     width: 55,
