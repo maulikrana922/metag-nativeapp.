@@ -162,8 +162,7 @@ export default function Signup(props) {
     })
       .then(response => {
         if (response.data.status === 200) {
-          // setShowLoader(false),
-          console.log('printing response', response.data);
+          setShowLoader(false), console.log('printing response', response.data);
           dispatch(getProfile(response.data));
           dispatch(getSocialFlag('true'));
           storeData(response.data);
@@ -650,7 +649,9 @@ export default function Signup(props) {
                   flexDirection: 'row',
                 }}>
                 <TouchableOpacity
-                  onPress={() => submit()}
+                  onPress={() => {
+                    submit();
+                  }}
                   // onPress={() => {
                   //   dispatch(getAuthToken('AuthToken'));
                   //   console.log('printing token', token);

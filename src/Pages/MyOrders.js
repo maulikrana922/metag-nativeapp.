@@ -460,9 +460,7 @@ export default function MyProfile(props) {
                             justifyContent: 'space-between',
                             paddingBottom: 3,
                           }}>
-                          <Text style={styles.orderTitleFont}>
-                            Order No {element.image_uploads.title}
-                          </Text>
+                          <Text style={styles.orderTitleFont}>Order No</Text>
                           <Text style={styles.orderTitleFont}>
                             $ {element.image_uploads.price}
                           </Text>

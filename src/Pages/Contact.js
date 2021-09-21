@@ -433,13 +433,13 @@ export default function Contact(props) {
                       marginTop: 'auto',
                       marginBottom: 'auto',
                       borderRadius: 100,
-                      marginLeft: '18%',
+                      marginLeft: '5%',
                     }}>
                     <Image
                       source={require('../../assets/contact/pen.png')}
                       style={{
-                        width: 20,
-                        height: 20,
+                        width: 15,
+                        height: 15,
                         marginLeft: 'auto',
                         marginRight: 'auto',
                       }}></Image>
@@ -457,8 +457,8 @@ export default function Contact(props) {
                       source={require('../../assets/contact/bin.png')}
                       resizeMode="contain"
                       style={{
-                        width: 20,
-                        height: 20,
+                        width: 15,
+                        height: 15,
                         marginLeft: 'auto',
                         marginRight: 'auto',
                       }}></Image>

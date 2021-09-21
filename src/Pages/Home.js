@@ -296,7 +296,12 @@ export default function CreateProfile(props) {
             backgroundColor="transparent"
             translucent={true}
           />
-          <View style={styles.header_parent}>
+          <View
+            style={[
+              image1 !== null
+                ? styles.header_parent_with_image
+                : styles.header_parent_without_image,
+            ]}>
             <View>
               <View style={styles.header}>
                 <TouchableOpacity
@@ -528,8 +533,15 @@ const styles = StyleSheet.create({
     width: 'auto',
     margin: 1,
   },
-  header_parent: {
+  header_parent_with_image: {
     // backgroundColor: 'black',
+    padding: 20,
+    // height: 200,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+  },
+  header_parent_without_image: {
+    backgroundColor: 'black',
     padding: 20,
     // height: 200,
     borderBottomLeftRadius: 20,

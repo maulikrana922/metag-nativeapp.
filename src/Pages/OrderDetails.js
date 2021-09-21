@@ -32,6 +32,7 @@ import url from '../BaseURl/baseurl.json';
 import axios from 'axios';
 import {check_update} from '../redux/reducer';
 import close from '../../assets/close.png';
+import {useNavigation} from '@react-navigation/native';
 
 // import {
 //   useFonts,
@@ -46,12 +47,9 @@ export default function OrderDetails(props) {
   const [newImage, setNewImage] = useState(AvtarImage);
   const [isLoaded, setLoaded] = useState(true);
   const dispatch = useDispatch();
-  const {updateImg} = useSelector(state => state);
   const [showModal, setShowModal] = useState(false);
 
-  useEffect(() => {
-    console.log('SELECTOR ', updateImg);
-  });
+  const navigation = useNavigation();
 
   const element = props.route.params.element;
 
@@ -84,9 +82,6 @@ export default function OrderDetails(props) {
   //   }
   // };
   const setImageInRedux = async () => {
-    // dispatch(updateIMAGE(element.image_uploads.url));
-
-    console.log('string>>>>>>>>>>>>>>>', element.image_uploads.url);
     try {
       const bgImage = await AsyncStorage.setItem(
         '@Image',
@@ -121,8 +116,6 @@ export default function OrderDetails(props) {
           'API CALL........................',
           JSON.stringify(response.data.data),
         );
-        // dispatch(check_update());
-        // dispatch(updateIMAGE(response.data.data));
       })
       .catch(function (error) {
         console.log(error);
@@ -205,7 +198,7 @@ export default function OrderDetails(props) {
                 </View>
                 <View style={{paddingBottom: 2}}>
                   <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 16}}>
-                    Order No {element.image_uploads.title}
+                    Order No
                   </Text>
                 </View>
                 <View style={{fontFamily: 'Poppins-Regular', fontSize: 16}}>
@@ -353,7 +346,7 @@ export default function OrderDetails(props) {
                   fontSize: 14,
                   alignSelf: 'center',
                 }}>
-                $ {element.image_uploads.price}
+                $ {element.price}
               </Text>
             </View>
           </View>
@@ -426,7 +419,10 @@ export default function OrderDetails(props) {
                   </Text>
 
                   <TouchableOpacity
-                    onPress={() => setShowModal(!showModal)}
+                    onPress={() => {
+                      setShowModal(!showModal);
+                      navigation.navigate('Home');
+                    }}
                     // onPress={() => props.navigation.navigate('CreateProfile')}
                     style={{
                       // marginTop: 20,
