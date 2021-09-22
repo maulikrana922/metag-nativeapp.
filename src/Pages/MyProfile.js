@@ -492,7 +492,7 @@ export default function MyProfile(props) {
               <View
                 style={{
                   borderWidth: 1,
-                  borderBottomColor: 'white',
+                  borderBottomColor: '#fff',
                   alignSelf: 'center',
                 }}>
                 <Text style={styles.completeProfile}>My Profile</Text>
@@ -509,7 +509,7 @@ export default function MyProfile(props) {
                 <TouchableOpacity
                   onPress={() =>
                     ShareMethod.share({
-                      message: `http://testyourapp.online/metag/userDetails/${social.id} \n\n\n\nClick on link to see  userprofile.`,
+                      message: `https://testyourapp.online/metag-backend/userDetails/${social.id} \n\n\n\nClick on link to see  userprofile.`,
                     })
                   }>
                   <Share />
@@ -735,12 +735,12 @@ export default function MyProfile(props) {
                     {social.mobile !== 0 && social.mobile}
                   </Text>
                 </View>
-                <View style={styles.info}>
+                {/* <View style={styles.info}>
                   <Gps width={30} height={30} fill="black" />
                   <Text style={styles.infoPadding}>
                     {social.location !== 'null' && social.location}
                   </Text>
-                </View>
+                </View> */}
               </View>
             </View>
           )}
@@ -785,7 +785,7 @@ export default function MyProfile(props) {
                     }}></TextInput>
                   {/* {console.log(userMobileNumber)} */}
                 </View>
-                <View style={styles.cardInputInfo}>
+                {/* <View style={styles.cardInputInfo}>
                   <Gps width={30} height={30} fill="black" />
                   <TextInput
                     style={{
@@ -797,7 +797,7 @@ export default function MyProfile(props) {
                     onChangeText={text => {
                       setLocation(text.trim());
                     }}></TextInput>
-                </View>
+                </View> */}
               </ScrollView>
             </View>
           )}
@@ -1025,11 +1025,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: 'Poppins-SemiBold',
     paddingBottom: 10,
-    borderWidth: 3,
+    // borderWidth: 3,
     borderBottomColor: 'white',
     textAlign: 'center',
-
-    width: 230,
+    // width: 230,
   },
   connectedByProfile: {
     alignSelf: 'center',

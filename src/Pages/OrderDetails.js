@@ -421,7 +421,8 @@ export default function OrderDetails(props) {
                   <TouchableOpacity
                     onPress={() => {
                       setShowModal(!showModal);
-                      navigation.navigate('Home');
+                      props.navigation.navigate('Home2');
+                      // navigation.navigate('Contact');
                     }}
                     // onPress={() => props.navigation.navigate('CreateProfile')}
                     style={{

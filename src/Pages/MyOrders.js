@@ -88,6 +88,7 @@ export default function MyProfile(props) {
           response.data.data.order_data.length,
         );
         dispatch(getOrderhistory(response.data.data.order_data));
+        setLoaded(false);
       })
       .catch(function (error) {
         console.log('Order history >>>>', error);
@@ -138,8 +139,8 @@ export default function MyProfile(props) {
       })
       .catch(error => console.log('logout data', error));
   };
-  if (!isLoaded) {
-    return null;
+  if (isLoaded) {
+    return <LoaderIndicator />;
   } else {
     return (
       <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
@@ -267,7 +268,8 @@ export default function MyProfile(props) {
             </View>
           </View>
           {/* list  */}
-          {orders === null ? (
+
+          {orders === null || orders === undefined || orders === 'null' ? (
             <LoaderIndicator />
           ) : (
             <ScrollView>

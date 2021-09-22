@@ -25,7 +25,7 @@ export default function TabNavigator() {
         keyboardHidesTabBar: true,
       }}>
       <Tab.Screen
-        name="Home"
+        name="Home2"
         component={Home}
         options={{
           tabBarLabel: '',
