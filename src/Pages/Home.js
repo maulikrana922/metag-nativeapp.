@@ -13,6 +13,7 @@ import {
   ImageBackground,
   FlatList,
   ScrollView,
+  Pressable,
 } from 'react-native';
 // import {getAuthToken} from '../redux/reducer';
 // import {useSelector, useDispatch} from 'react-redux';
@@ -401,27 +402,36 @@ export default function CreateProfile(props) {
                 </View>
               </View>
               <View
-                style={styles.infoShadow}
+                style={styles.infoShadowViewAllProducts}
                 shadowOffset={{height: 2, width: 0}}
                 shadowColor="#000"
                 shadowOpacity={0.25}
                 shadowRadius={3.84}
                 elevation={5}>
-                <View style={styles.productTitle}>
-                  <Text style={styles.productsText}>Products</Text>
-                  {/* <Button
+                {/* <View style={styles.productTitle}> */}
+                {/* <Text style={styles.productsText}>Products</Text> */}
+                {/* <Button
                     onPress={() => props.navigation.navigate('ViewAll')}
                     style={styles.viewAllProduct}>
                     title="View All"
                   /> */}
-                  <View style={{marginLeft: '48%'}}>
-                    <Button
-                      title="View All"
-                      color="#000"
-                      onPress={() => props.navigation.navigate('ViewAll')}
-                    />
-                  </View>
+                <View>
+                  <Pressable
+                    style={{
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      paddingVertical: 12,
+                      paddingHorizontal: 32,
+                      borderRadius: 10,
+                      backgroundColor: 'black',
+                    }}
+                    onPress={() => props.navigation.navigate('ViewAll')}>
+                    <Text style={{color: 'white', fontSize: 18}}>
+                      View All Products
+                    </Text>
+                  </Pressable>
                 </View>
+                {/* </View> */}
               </View>
               <ScrollView>
                 {/* <ProductList /> */}
@@ -618,7 +628,7 @@ const styles = StyleSheet.create({
     // justifyContent: 'space-between',
     marginTop: 8,
     width: '100%',
-    // backgroundColor: 'red',
+    backgroundColor: 'red',
   },
   productsText: {
     fontFamily: 'Poppins-ExtraBold',
@@ -665,18 +675,22 @@ const styles = StyleSheet.create({
     height: 30,
   },
   infoShadow: {
-    // shadowColor: '#000',
-    // shadowOffset: {width: 5, height: 5},
-    // shadowOpacity: 0.3,
-    // shadowRadius: 1,
-    // height: 'auto',
-    // height: '100%',
     padding: 4,
     backgroundColor: 'white',
     borderRadius: 10,
     marginBottom: 15,
     height: 100,
     alignItems: 'flex-start',
+  },
+  infoShadowViewAllProducts: {
+    padding: 4,
+    paddingBottom: 10,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    marginBottom: 15,
+    height: 150,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   viewAllProduct: {
     color: '#020202',

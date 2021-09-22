@@ -237,7 +237,7 @@ export default function OrderDetails(props) {
                     // display: 'flex',
                     // justifyContent: 'flex-start',
                     height: '25%',
-                    marginRight: 5,
+                    marginRight: 'auto',
                   }}>
                   <TouchableOpacity
                     style={styles.buyBtnBg}
@@ -251,7 +251,9 @@ export default function OrderDetails(props) {
                       style={{
                         color: '#fff',
                         flex: 1,
-                        fontSize: 16,
+                        fontSize: 20,
+                        fontWeight: '600',
+                        padding: 2,
                       }}>
                       Buy Image
                     </Text>
