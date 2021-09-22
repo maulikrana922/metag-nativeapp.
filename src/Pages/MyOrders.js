@@ -6,66 +6,27 @@ import {
   Text,
   View,
   Image,
-  TextInput,
-  Button,
-  Platform,
   TouchableOpacity,
   ImageBackground,
-  Modal,
   ScrollView,
-  Alert,
+  ActivityIndicator,
 } from 'react-native';
-// import AvtarImage from "../../assets/avtar.svg";
-//
 import AvtarImage from '../../assets/work-suitcase.svg';
-import wifi from '../../assets/mobile-phone-with-wifi.png';
-import qrCode from '../../assets/qr-code.png';
-import exampleImg from '../../assets/splash.png';
-import userIcon from '../../assets/user.svg';
-import suitecaseIcon from '../../assets/work.svg';
-import avtar from '../../assets/avatar-home.svg';
-import contact from '../../assets/contact.svg';
-import list from '../../assets/list.svg';
-import home from '../../assets/home-run.svg';
-// import more from '../../assets/myProfile/more.svg'
-import linkedin from '../../assets/linkedin.png';
-import twitter from '../../assets/twitter.png';
-import facebook from '../../assets/facebook.png';
-import google from '../../assets/google-plus.png';
-import instagram from '../../assets/instagram.png';
-import more from '../../assets/myOrders/more.png';
 import More from '../../assets/myProfile/more.svg';
 
-import Menu from '../../src/components/Menu';
 import Logo from '../../assets/Logo/logo.svg';
 import bg from '../../assets/Logo/bg.png';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {
-  GoogleSignin,
-  GoogleSigninButton,
-  statusCodes,
-} from '@react-native-google-signin/google-signin';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {useSelector, useDispatch} from 'react-redux';
-
-// import {
-//   useFonts,
-//   Poppins_800ExtraBold_Italic,
-//   Poppins_400Regular,
-//   Poppins_700Bold,
-// } from "@expo-google-fonts/poppins";
-// import { AppLoading, ImagePicker } from "expo";
 import {
-  getToken,
-  getAuthToken,
-  getProfile,
   getSocialFlag,
   getRemoveProfile,
   getOrderhistory,
 } from '../redux/reducer';
 
 import url from '../BaseURl/baseurl.json';
-import LoaderTwo from '../components/LoaderTwo';
 
 export default function MyProfile(props) {
   const dispatch = useDispatch();
@@ -74,7 +35,14 @@ export default function MyProfile(props) {
   const [newImage, setNewImage] = useState(AvtarImage);
   const [isLoaded, setLoaded] = useState(true);
   const [show, setShow] = useState(false);
-  const [bgImage, setBgImage] = useState('');
+
+  const LoaderIndicator = () => {
+    return (
+      <View style={[styles.container, styles.horizontal]}>
+        <ActivityIndicator size="large" color="gray" />
+      </View>
+    );
+  };
 
   console.log(flag);
 
@@ -125,65 +93,6 @@ export default function MyProfile(props) {
         console.log('Order history >>>>', error);
       });
   }, []);
-
-  // useEffect(() => {
-  //   ;(async () => {
-  //     if (Platform.OS !== 'web') {
-  //       const {
-  //         status,
-  //       } = await ImagePicker.requestMediaLibraryPermissionsAsync()
-  //       if (status !== 'granted') {
-  //         alert('Sorry, we need camera roll permissions to make this work!')
-  //       }
-  //     }
-  //   })()
-  // }, [])
-
-  // const pickImage = async () => {
-  //   let result = await ImagePicker.launchImageLibraryAsync({
-  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
-  //     allowsEditing: true,
-  //     aspect: [4, 3],
-  //     quality: 1,
-  //   })
-
-  //   console.log(result)
-
-  //   if (!result.cancelled) {
-  //     // setImage(result.uri);
-  //     setNewImage(result.uri)
-  //   }
-  // }
-  // const logout = async () => {
-  // axios({
-  //   method: 'POST',
-  //   url: 'http://testyourapp.online/metag/api/logout',
-  //   headers: {
-  //     Authorization: 'Bearer ' + profile.api_token,
-  //   },
-  // })
-  //   .then(response => {
-  //     if (response.data.status === 200) {
-  //       // setNext(true);
-  //       console.log('success', response.data);
-  //       removeValue();
-
-  //       // removeData();
-  //     } else {
-  //       console.log('Failed', response.data);
-  //     }
-  //   })
-  //   .catch(error => console.log('logout data', error));
-  // try {
-  //   await GoogleSignin.revokeAccess();
-  //   await GoogleSignin.signOut();
-  //   props.navigation.navigate('Signup');
-  //   // this.setState({user: null}); // Remember to remove the user from your app's state as well
-  // } catch (error) {
-  //   console.error(error);
-  // }
-  // };
-  // dispatch(getSocialFlag(false));
 
   const removeValue = async () => {
     try {
@@ -358,185 +267,119 @@ export default function MyProfile(props) {
             </View>
           </View>
           {/* list  */}
-          <ScrollView>
-            <View style={{padding: 15}}>
-              {/* <View
-              style={{backgroundColor: '#fff', marginBottom: 15}}
-              shadowOffset={{height: 2, width: 0}}
-              shadowColor="#000"
-              shadowOpacity={0.25}
-              shadowRadius={3.84}
-              elevation={5}>
-              <TouchableOpacity
-                style={styles.shadow}
-                onPress={() => props.navigation.navigate('OrderDetails')}>
-                <View
-                  style={{paddingLeft: 15, paddingRight: 15, paddingTop: 15}}>
-                  <View
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      paddingBottom: 3,
-                    }}>
-                    <Text style={styles.orderTitleFont}>
-                      Order No 84766132132
-                    </Text>
-                    <Text style={styles.orderTitleFont}>$50.00</Text>
-                  </View>
-                  <Text style={{fontFamily: 'Poppins-Regular', fontSize: 16}}>
-                    09:13 PM 10 Jun 2019
-                  </Text>
-                </View>
-                <View style={styles.productListView}>
-                  <View style={styles.productView}>
-                  </View>
-                  <View
-                    style={{
-                      marginTop: 'auto',
-                      marginBottom: 'auto',
-                      marginLeft: 10,
-                    }}>
-                    <Text
-                      style={{
-                        color: 'black',
-                        fontFamily: 'Poppins-Bold',
-                        fontSize: 14,
-                      }}>
-                      Successful
-                    </Text>
-                    <Text
-                      style={{color: 'black', fontFamily: 'Poppins-Regular'}}>
-                      Lorem Ipsum is simply dummy {`\n`}text of the printing and
-                      type
-                      {'\n'}setting industry.
-                    </Text>
-                  </View>
-                  <View
-                    style={{
-                      width: 'auto',
-                      marginLeft: 'auto',
-                      alignSelf: 'flex-end',
-                    }}>
-                    <TouchableOpacity style={styles.buyBtnBg}>
-                      <Text style={{color: 'white'}}>Repeat</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            </View> */}
-
-              {/* // */}
-              {/* // */}
-              {/* // */}
-              {/* // */}
-
-              {orders.map(element => {
-                return (
-                  <View
-                    style={{backgroundColor: '#fff'}}
-                    shadowOffset={{height: 2, width: 0}}
-                    shadowColor="#000"
-                    shadowOpacity={0.25}
-                    shadowRadius={3.84}
-                    elevation={5}>
-                    <TouchableOpacity
-                      style={styles.shadow}
-                      onPress={() =>
-                        props.navigation.navigate('OrderDetails', {
-                          element: element,
-                        })
-                      }>
-                      <View
-                        style={{
-                          paddingLeft: 15,
-                          paddingRight: 15,
-                          paddingTop: 15,
-                        }}>
+          {orders === null ? (
+            <LoaderIndicator />
+          ) : (
+            <ScrollView>
+              <View style={{padding: 15}}>
+                {orders.map(element => {
+                  return (
+                    <View
+                      style={{backgroundColor: '#fff'}}
+                      shadowOffset={{height: 2, width: 0}}
+                      shadowColor="#000"
+                      shadowOpacity={0.25}
+                      shadowRadius={3.84}
+                      elevation={5}>
+                      <TouchableOpacity
+                        style={styles.shadow}
+                        onPress={() =>
+                          props.navigation.navigate('OrderDetails', {
+                            element: element,
+                          })
+                        }>
                         <View
                           style={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            paddingBottom: 3,
+                            paddingLeft: 15,
+                            paddingRight: 15,
+                            paddingTop: 15,
                           }}>
-                          <Text style={styles.orderTitleFont}>Order No</Text>
-                          <Text style={styles.orderTitleFont}>
-                            $ {element.image_uploads.price}
-                          </Text>
-                        </View>
-                        <Text
-                          style={{
-                            fontFamily: 'Poppins-Regular',
-                            fontSize: 16,
-                            // backgroundColor: 'red',
-                          }}>
-                          {element.creted_at}
-                          {/* 09:13 PM 10 Jun 2019 */}
-                        </Text>
-                      </View>
-                      <View style={styles.productListView}>
-                        <Image
-                          style={styles.productView}
-                          source={{
-                            uri: `${element.image_uploads.url}`,
-                          }}
-                        />
-
-                        <View
-                          style={{
-                            marginTop: 'auto',
-                            marginBottom: 'auto',
-                            marginLeft: 10,
-                            display: 'flex',
-                            flex: 1,
-                            //backgroundColor: 'red',
-                            flexWrap: 'wrap',
-                            flexDirection: 'row',
-                          }}>
+                          <View
+                            style={{
+                              display: 'flex',
+                              flexDirection: 'row',
+                              justifyContent: 'space-between',
+                              paddingBottom: 3,
+                            }}>
+                            <Text style={styles.orderTitleFont}>Order No</Text>
+                            <Text style={styles.orderTitleFont}>
+                              $ {element.image_uploads.price}
+                            </Text>
+                          </View>
                           <Text
                             style={{
-                              color: 'black',
-                              fontSize: 14,
-                              width: 100,
+                              fontFamily: 'Poppins-Regular',
+                              fontSize: 16,
+                              // backgroundColor: 'red',
+                            }}>
+                            {element.creted_at}
+                            {/* 09:13 PM 10 Jun 2019 */}
+                          </Text>
+                        </View>
+                        <View style={styles.productListView}>
+                          <Image
+                            style={styles.productView}
+                            source={{
+                              uri: `${element.image_uploads.url}`,
+                            }}
+                          />
+
+                          <View
+                            style={{
+                              marginTop: 'auto',
+                              marginBottom: 'auto',
+                              marginLeft: 10,
                               display: 'flex',
+                              flex: 1,
+                              //backgroundColor: 'red',
                               flexWrap: 'wrap',
                               flexDirection: 'row',
+                            }}>
+                            <Text
+                              style={{
+                                color: 'black',
+                                fontSize: 14,
+                                width: 100,
+                                display: 'flex',
+                                flexWrap: 'wrap',
+                                flexDirection: 'row',
 
-                              fontFamily: 'Poppins-Bold',
-                            }}>
-                            {element.status}
-                            {/* Successful */}
-                          </Text>
-                          <Text
-                            numberOfLines={2}
-                            ellipsizeMode="tail"
-                            style={{
-                              color: 'black',
-                              fontFamily: 'Poppins-Regular',
-                              marginRight: 10,
-                              // backgroundColor: 'red',
-                              // width: 100,
-                            }}>
-                            {element.response}
-                            {/* Lorem Ipsum is simply dummy {`\n`}text of the printing and
+                                fontFamily: 'Poppins-Bold',
+                              }}>
+                              {element.status}
+                              {/* Successful */}
+                            </Text>
+                            <Text
+                              numberOfLines={2}
+                              ellipsizeMode="tail"
+                              style={{
+                                color: 'black',
+                                fontFamily: 'Poppins-Regular',
+                                marginRight: 10,
+                                // backgroundColor: 'red',
+                                // width: 100,
+                              }}>
+                              {element.response}
+                              {/* Lorem Ipsum is simply dummy {`\n`}text of the printing and
                       type
                       {'\n'}setting industry. */}
-                          </Text>
+                            </Text>
+                          </View>
+                          <View
+                            style={{
+                              width: 'auto',
+                              marginLeft: 'auto',
+                              alignSelf: 'flex-end',
+                            }}></View>
                         </View>
-                        <View
-                          style={{
-                            width: 'auto',
-                            marginLeft: 'auto',
-                            alignSelf: 'flex-end',
-                          }}></View>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                );
-              })}
-            </View>
-          </ScrollView>
+                      </TouchableOpacity>
+                    </View>
+                  );
+                })}
+              </View>
+            </ScrollView>
+          )}
+
           {/* <Menu /> */}
         </View>
       </ImageBackground>
@@ -862,5 +705,14 @@ const styles = StyleSheet.create({
     elevation: 4,
     padding: 0,
     margin: 4,
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
   },
 });
