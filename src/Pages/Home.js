@@ -409,11 +409,18 @@ export default function CreateProfile(props) {
                 elevation={5}>
                 <View style={styles.productTitle}>
                   <Text style={styles.productsText}>Products</Text>
-                  <Text
+                  {/* <Button
                     onPress={() => props.navigation.navigate('ViewAll')}
                     style={styles.viewAllProduct}>
-                    View all
-                  </Text>
+                    title="View All"
+                  /> */}
+                  <View style={{marginLeft: '48%'}}>
+                    <Button
+                      title="View All"
+                      color="#000"
+                      onPress={() => props.navigation.navigate('ViewAll')}
+                    />
+                  </View>
                 </View>
               </View>
               <ScrollView>

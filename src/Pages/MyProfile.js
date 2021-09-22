@@ -461,7 +461,7 @@ export default function MyProfile(props) {
                         style={{
                           fontSize: 16,
                           borderBottomColor: '#E5E5E5',
-                          borderBottomWidth: 1,
+                          // borderBottomWidth: 1,
                           paddingBottom: '2%',
                           fontFamily: 'Poppins-Regular',
                         }}
@@ -1025,10 +1025,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: 'Poppins-SemiBold',
     paddingBottom: 10,
-    // borderWidth: 3,
+    borderWidth: 1,
     borderBottomColor: 'white',
     textAlign: 'center',
-    // width: 230,
+    width: 230,
+    borderBottomColor: '#fff',
   },
   connectedByProfile: {
     alignSelf: 'center',
