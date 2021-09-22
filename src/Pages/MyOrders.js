@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   ScrollView,
+  SafeAreaView,
   ActivityIndicator,
 } from 'react-native';
 import AvtarImage from '../../assets/work-suitcase.svg';

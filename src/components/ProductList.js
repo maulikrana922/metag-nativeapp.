@@ -10,6 +10,7 @@ import {
   Modal,
   Pressable,
   ScrollView,
+  SafeAreaView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
@@ -31,6 +32,18 @@ export default function ProductList({
   // }, []);
 
   const dispatch = useDispatch();
+
+  const [disabled, setDisabled] = useState(false);
+
+  const checkDisable = () => {
+    if (purchase_status === 0) {
+      getProductImages(id);
+      setShowModal(true);
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  };
 
   // const {purchaseImage, products} = useSelector(state => state);
   // const [purchaseImage, setPurchaseImage] = useState(products);
@@ -77,146 +90,153 @@ export default function ProductList({
 
   console.log('in the list');
   return (
-    <ScrollView>
-      <View style={styles.productListView} Key={key}>
-        {console.log(price, title, image)}
-        {/* <View style={styles.productView}></View> */}
-        <Image
-          source={{uri: image}}
-          style={styles.productView}
-          width={40}
-          height={40}></Image>
-        <View
-          style={{
-            marginTop: 'auto',
-            marginBottom: 'auto',
-            marginLeft: 10,
-          }}>
-          <View style={{paddingBottom: 5}}>
-            <Text style={{color: 'white', fontSize: 22, fontWeight: '500'}}>
-              {title}
-            </Text>
-          </View>
-          <Text style={{color: '#9FAA11', fontSize: 16, fontWeight: '400'}}>
-            $ {price} USD
-          </Text>
-        </View>
-        <View
-          style={{
-            width: 'auto',
-            marginLeft: 'auto',
-            alignSelf: 'center',
-          }}>
-          <TouchableOpacity
-            style={styles.buyBtnBg}
-            onPress={() => {
-              // Alert.alert('Buy');
-              getProductImages(id);
-              setShowModal(true);
-            }}>
-            <Text style={{color: 'white', fontSize: 16, fontWeight: '500'}}>
-              {purchase_status === 0 ? 'Buy' : 'Purchased'}
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-      <Modal statusBarTranslucent={true} transparent={true} visible={showModal}>
-        <View
-          style={{
-            height: '100%',
-            backgroundColor: 'rgba( 0, 0, 0, 0.6 )',
-          }}>
+    <SafeAreaView>
+      <ScrollView>
+        <View style={styles.productListView} Key={key}>
+          {console.log(price, title, image)}
+          {/* <View style={styles.productView}></View> */}
+          <Image
+            source={{uri: image}}
+            style={styles.productView}
+            width={40}
+            height={40}></Image>
           <View
             style={{
-              // backgroundColor: 'white',
-              marginLeft: 'auto',
-              marginRight: 'auto',
               marginTop: 'auto',
               marginBottom: 'auto',
-              width: '80%',
-              height: 'auto',
-              justifyContent: 'center',
+              marginLeft: 10,
+            }}>
+            <View style={{paddingBottom: 5}}>
+              <Text style={{color: 'white', fontSize: 22, fontWeight: '500'}}>
+                {title}
+              </Text>
+            </View>
+            <Text style={{color: '#9FAA11', fontSize: 16, fontWeight: '400'}}>
+              $ {price} USD
+            </Text>
+          </View>
+          <View
+            style={{
+              width: 'auto',
+              marginLeft: 'auto',
+              alignSelf: 'center',
             }}>
             <TouchableOpacity
-              onPress={() => setShowModal(!showModal)}
-              style={{
-                // backgroundColor: 'red',
-                width: '8%',
-                height: '8%',
-                marginLeft: 'auto',
-                // marginRight: '5%',
-                marginTop: '3%',
-              }}>
-              <Image
-                source={close}
-                resizeMode="contain"
-                style={{width: '100%', height: '100%'}}></Image>
-            </TouchableOpacity>
-            <View
-              style={{
-                backgroundColor: 'white',
-                // marginTop: '5%',
-                padding: '5%',
-                borderBottomLeftRadius: 10,
-                borderBottomRightRadius: 10,
-                borderTopLeftRadius: 10,
-                borderTopRightRadius: 10,
-                display: 'flex',
-                justifyContent: 'space-evenly',
-              }}>
-              <Image
-                source={{uri: image}}
-                resizeMode="contain"
-                style={{
-                  width: '50%',
-                  height: '50%',
-                  marginLeft: 'auto',
-                  marginRight: 'auto',
-                }}></Image>
-              <Text
-                style={{
-                  marginLeft: 'auto',
-                  marginRight: 'auto',
-
-                  color: '#000000',
-                  fontSize: 15,
-                }}>
-                Thank you for purchasing our image.
+              style={styles.buyBtnBg}
+              disabled={disabled}
+              // onPress={() => {
+              //   // Alert.alert('Buy');
+              // getProductImages(id);
+              // setShowModal(true);
+              // }}
+              onPress={checkDisable}>
+              <Text style={{color: 'white', fontSize: 16, fontWeight: '500'}}>
+                {purchase_status === 0 ? 'Buy' : 'Purchased'}
               </Text>
-
-              <TouchableOpacity
-                onPress={() => {
-                  setShowModal(!showModal);
-                  navigation.navigate('MyOrders');
-                }}
-                // onPress={() => props.navigation.navigate('CreateProfile')}
-                style={{
-                  // marginTop: 20,
-                  alignItems: 'center',
-                  padding: 8,
-                  marginLeft: 'auto',
-                  marginRight: 'auto',
-                  backgroundColor: 'black',
-                  borderBottomLeftRadius: 50,
-                  borderBottomRightRadius: 50,
-                  borderTopRightRadius: 0,
-                  borderTopLeftRadius: 50,
-                  width: '100%',
-                }}>
-                <Text
-                  style={{
-                    color: 'white',
-                    fontFamily: 'Poppins-Regular',
-                    fontSize: 16,
-                  }}>
-                  Thank You
-                </Text>
-              </TouchableOpacity>
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
-      </Modal>
-    </ScrollView>
+        <Modal
+          statusBarTranslucent={true}
+          transparent={true}
+          visible={showModal}>
+          <View
+            style={{
+              height: '100%',
+              backgroundColor: 'rgba( 0, 0, 0, 0.6 )',
+            }}>
+            <View
+              style={{
+                // backgroundColor: 'white',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                marginTop: 'auto',
+                marginBottom: 'auto',
+                width: '80%',
+                height: 'auto',
+                justifyContent: 'center',
+              }}>
+              <TouchableOpacity
+                onPress={() => setShowModal(!showModal)}
+                style={{
+                  // backgroundColor: 'red',
+                  width: '8%',
+                  height: '8%',
+                  marginLeft: 'auto',
+                  // marginRight: '5%',
+                  marginTop: '3%',
+                }}>
+                <Image
+                  source={close}
+                  resizeMode="contain"
+                  style={{width: '100%', height: '100%'}}></Image>
+              </TouchableOpacity>
+              <View
+                style={{
+                  backgroundColor: 'white',
+                  // marginTop: '5%',
+                  padding: '5%',
+                  borderBottomLeftRadius: 10,
+                  borderBottomRightRadius: 10,
+                  borderTopLeftRadius: 10,
+                  borderTopRightRadius: 10,
+                  display: 'flex',
+                  justifyContent: 'space-evenly',
+                }}>
+                <Image
+                  source={{uri: image}}
+                  resizeMode="contain"
+                  style={{
+                    width: '50%',
+                    height: '50%',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                  }}></Image>
+                <Text
+                  style={{
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+
+                    color: '#000000',
+                    fontSize: 15,
+                  }}>
+                  Thank you for purchasing our image.
+                </Text>
+
+                <TouchableOpacity
+                  onPress={() => {
+                    setShowModal(!showModal);
+                    navigation.navigate('MyOrders');
+                  }}
+                  // onPress={() => props.navigation.navigate('CreateProfile')}
+                  style={{
+                    // marginTop: 20,
+                    alignItems: 'center',
+                    padding: 8,
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    backgroundColor: 'black',
+                    borderBottomLeftRadius: 50,
+                    borderBottomRightRadius: 50,
+                    borderTopRightRadius: 0,
+                    borderTopLeftRadius: 50,
+                    width: '100%',
+                  }}>
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontFamily: 'Poppins-Regular',
+                      fontSize: 16,
+                    }}>
+                    Thank You
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </Modal>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 

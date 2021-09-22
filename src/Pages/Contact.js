@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   Animated,
+  SafeAreaView,
 } from 'react-native';
 
 // import * as ImagePicker from 'expo-image-picker';
@@ -193,282 +194,293 @@ export default function Contact(props) {
     return null;
   } else {
     return (
-      <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
-        <View style={{flex: 1}}>
-          <View style={styles.header_parent}>
-            <View>
-              <View style={styles.header}>
-                {/* <View style={styles.arrowback}></View> */}
-                {/* <Image
+      <SafeAreaView>
+        <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
+          <View style={{flex: 1}}>
+            <View style={styles.header_parent}>
+              <View>
+                <View style={styles.header}>
+                  {/* <View style={styles.arrowback}></View> */}
+                  {/* <Image
                 source={require('../../assets/arrow-back.svg')} 
                 style={styles.arrowback}
               ></Image> */}
 
-                <Scan style={{alignSelf: 'center'}} />
-                <View style={styles.headerBackground}>
-                  <Logo width={54} height={54} />
-                  <View style={styles.header_text}>
-                    <Text style={styles.text_metag}>meTAG</Text>
-                    <Text style={styles.text_tagline}>I M ME,WHO ARE YOU</Text>
+                  <Scan style={{alignSelf: 'center'}} />
+                  <View style={styles.headerBackground}>
+                    <Logo width={54} height={54} />
+                    <View style={styles.header_text}>
+                      <Text style={styles.text_metag}>meTAG</Text>
+                      <Text style={styles.text_tagline}>
+                        I M ME,WHO ARE YOU
+                      </Text>
+                    </View>
                   </View>
+                  {/* <Text style={styles.next}>  </Text> */}
+                  {/* <Image source={more} style={{ height: 60, width: 30 }}></Image> */}
+                  {/* <More style={{alignSelf: 'center'}} /> */}
+                  <TouchableOpacity
+                    // onPress={() => props.navigation.navigate('Contact')}
+                    onPress={() => setShow(!show)}
+                    style={{
+                      alignSelf: 'center',
+                      padding: 10,
+                      // backgroundColor: 'red',
+                    }}>
+                    <More />
+                  </TouchableOpacity>
                 </View>
-                {/* <Text style={styles.next}>  </Text> */}
-                {/* <Image source={more} style={{ height: 60, width: 30 }}></Image> */}
-                {/* <More style={{alignSelf: 'center'}} /> */}
-                <TouchableOpacity
-                  // onPress={() => props.navigation.navigate('Contact')}
-                  onPress={() => setShow(!show)}
-                  style={{
-                    alignSelf: 'center',
-                    padding: 10,
-                    // backgroundColor: 'red',
-                  }}>
-                  <More />
-                </TouchableOpacity>
-              </View>
-              {show && (
-                <View
-                  style={{
-                    backgroundColor: '#FFFFFF',
-                    width: 'auto',
-                    height: 'auto',
-                    borderRadius: 10,
-                    marginLeft: 'auto',
-                    // marginRight: -10,
-                    // marginRight: '10%',
-                    marginTop: -20,
-                    marginRight: 12,
-                  }}>
+                {show && (
                   <View
                     style={{
-                      transform: [{rotate: '-45deg'}],
                       backgroundColor: '#FFFFFF',
-                      width: 15,
-                      height: 15,
-                      position: 'relative',
-                      bottom: 5,
+                      width: 'auto',
+                      height: 'auto',
+                      borderRadius: 10,
                       marginLeft: 'auto',
-                      marginRight: 10,
-                    }}></View>
-                  <View
-                    style={{
-                      paddingRight: 10,
-                      paddingLeft: 10,
-                      paddingBottom: 10,
-                      width: 120,
+                      // marginRight: -10,
+                      // marginRight: '10%',
+                      marginTop: -20,
+                      marginRight: 12,
                     }}>
                     <View
                       style={{
-                        borderBottomColor: '#E5E5E5',
-                        borderBottomWidth: 1,
-                        padding: 1,
-                        paddingBottom: '10%',
-                      }}>
-                      <Text
-                        style={{
-                          fontSize: 16,
-                          fontFamily: 'Poppins-Regular',
-                        }}
-                        onPress={() =>
-                          props.navigation.navigate('ChangePassword')
-                        }>
-                        Settings
-                      </Text>
-                    </View>
+                        transform: [{rotate: '-45deg'}],
+                        backgroundColor: '#FFFFFF',
+                        width: 15,
+                        height: 15,
+                        position: 'relative',
+                        bottom: 5,
+                        marginLeft: 'auto',
+                        marginRight: 10,
+                      }}></View>
                     <View
                       style={{
-                        paddingTop: '10%',
-                        padding: 1,
+                        paddingRight: 10,
+                        paddingLeft: 10,
+                        paddingBottom: 10,
+                        width: 120,
                       }}>
-                      <Text
-                        onPress={() => {
-                          logout();
-                        }}
-                        style={{
-                          fontSize: 16,
-                          paddingTop: '2%',
-                          fontFamily: 'Poppins-Regular',
-                        }}>
-                        Logout
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-              )}
-              <View style={styles.completeProfileView}>
-                <Text style={styles.completeProfile}>Contacts</Text>
-              </View>
-            </View>
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                width: 'auto',
-                justifyContent: 'space-around',
-                marginLeft: 40,
-                marginRight: 40,
-              }}>
-              <TouchableOpacity
-                style={[
-                  !activeBtnAll ? styles.choiceMenuActive : styles.choiceMenu,
-                ]}
-                onPress={() => {
-                  setAvtiveBtnAll(!activeBtnAll);
-                  setAvtiveBtnReceive(!activeBtnReceive);
-                  setAvtiveBtnSent(!activeBtnSent);
-                }}>
-                <Text style={styles.choiceMenuText}>All</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  activeBtnReceive
-                    ? styles.choiceMenuActive
-                    : styles.choiceMenu,
-                ]}
-                onPress={() => {
-                  setAvtiveBtnAll(!activeBtnAll);
-                  setAvtiveBtnReceive(!activeBtnReceive);
-                  // setAvtiveBtnSent(!activeBtnSent);
-                }}>
-                <Text style={styles.choiceMenuText}>Received</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  !activeBtnSent ? styles.choiceMenuActive : styles.choiceMenu,
-                ]}
-                onPress={() => {
-                  setAvtiveBtnAll(!activeBtnAll);
-                  setAvtiveBtnReceive(!activeBtnReceive);
-                  // setAvtiveBtnSent(!activeBtnSent);
-                }}>
-                <Text style={styles.choiceMenuText}>Sent</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          {/* list  */}
-          <View style={{margin: 20}}>
-            <View style={{display: 'flex'}}>
-              {remove === false && (
-                <Swipeable renderLeftActions={renderLeftActions}>
-                  <TouchableOpacity
-                    onPress={() => props.navigation.navigate('ContactDetails')}>
-                    <View
-                      style={styles.shadow}
-                      shadowOffset={{height: 2, width: 0}}
-                      shadowColor="#000"
-                      shadowOpacity={0.25}
-                      shadowRadius={3.84}
-                      elevation={5}>
-                      <View style={styles.avatarBg}>
-                        <Image
-                          source={require('../../assets/contact/avatar.png')}
-                          style={{
-                            width: 40,
-                            height: 40,
-                            backgroundColor: '#f2f2f2',
-                            marginLeft: 'auto',
-                            marginRight: 'auto',
-                          }}></Image>
-                      </View>
-
                       <View
                         style={{
-                          marginTop: 'auto',
-                          marginBottom: 'auto',
-                          paddingLeft: 10,
+                          borderBottomColor: '#E5E5E5',
+                          borderBottomWidth: 1,
+                          padding: 1,
+                          paddingBottom: '10%',
                         }}>
-                        <Text style={{fontFamily: 'Poppins-Regular'}}>
-                          James wink
-                        </Text>
                         <Text
                           style={{
+                            fontSize: 16,
                             fontFamily: 'Poppins-Regular',
-                            color: '#9E9E9E',
+                          }}
+                          onPress={() =>
+                            props.navigation.navigate('ChangePassword')
+                          }>
+                          Settings
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          paddingTop: '10%',
+                          padding: 1,
+                        }}>
+                        <Text
+                          onPress={() => {
+                            logout();
+                          }}
+                          style={{
+                            fontSize: 16,
+                            paddingTop: '2%',
+                            fontFamily: 'Poppins-Regular',
                           }}>
-                          Aqua system LLC
+                          Logout
                         </Text>
                       </View>
                     </View>
-                  </TouchableOpacity>
-                </Swipeable>
-              )}
-              <TouchableOpacity>
-                <View
-                  style={styles.shadow}
-                  shadowOffset={{height: 2, width: 0}}
-                  shadowColor="#000"
-                  shadowOpacity={0.25}
-                  shadowRadius={3.84}
-                  elevation={5}>
-                  <View style={styles.avatarBg}>
-                    <Image
-                      source={require('../../assets/contact/avatar.png')}
-                      style={{
-                        width: 40,
-                        height: 40,
-                        backgroundColor: '#f2f2f2',
-                        marginLeft: 'auto',
-                        marginRight: 'auto',
-                      }}></Image>
                   </View>
-                  <View
-                    style={{
-                      marginTop: 'auto',
-                      marginBottom: 'auto',
-                      paddingLeft: 10,
-                    }}>
-                    <Text style={{fontFamily: 'Poppins-Regular'}}>
-                      James wink
-                    </Text>
-                    <Text
-                      style={{fontFamily: 'Poppins-Regular', color: '#9E9E9E'}}>
-                      Aqua system LLC
-                    </Text>
-                  </View>
-
-                  <View
-                    style={{
-                      backgroundColor: '#676767',
-                      padding: 10,
-                      marginTop: 'auto',
-                      marginBottom: 'auto',
-                      borderRadius: 100,
-                      marginLeft: '5%',
-                    }}>
-                    <Image
-                      source={require('../../assets/contact/pen.png')}
-                      style={{
-                        width: 15,
-                        height: 15,
-                        marginLeft: 'auto',
-                        marginRight: 'auto',
-                      }}></Image>
-                  </View>
-                  <View
-                    style={{
-                      backgroundColor: '#E61D1D',
-                      padding: 10,
-                      marginTop: 'auto',
-                      marginBottom: 'auto',
-                      borderRadius: 100,
-                      marginLeft: '4%',
-                    }}>
-                    <Image
-                      source={require('../../assets/contact/bin.png')}
-                      resizeMode="contain"
-                      style={{
-                        width: 15,
-                        height: 15,
-                        marginLeft: 'auto',
-                        marginRight: 'auto',
-                      }}></Image>
-                  </View>
+                )}
+                <View style={styles.completeProfileView}>
+                  <Text style={styles.completeProfile}>Contacts</Text>
                 </View>
-              </TouchableOpacity>
+              </View>
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  width: 'auto',
+                  justifyContent: 'space-around',
+                  marginLeft: 40,
+                  marginRight: 40,
+                }}>
+                <TouchableOpacity
+                  style={[
+                    !activeBtnAll ? styles.choiceMenuActive : styles.choiceMenu,
+                  ]}
+                  onPress={() => {
+                    setAvtiveBtnAll(!activeBtnAll);
+                    setAvtiveBtnReceive(!activeBtnReceive);
+                    setAvtiveBtnSent(!activeBtnSent);
+                  }}>
+                  <Text style={styles.choiceMenuText}>All</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    activeBtnReceive
+                      ? styles.choiceMenuActive
+                      : styles.choiceMenu,
+                  ]}
+                  onPress={() => {
+                    setAvtiveBtnAll(!activeBtnAll);
+                    setAvtiveBtnReceive(!activeBtnReceive);
+                    // setAvtiveBtnSent(!activeBtnSent);
+                  }}>
+                  <Text style={styles.choiceMenuText}>Received</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    !activeBtnSent
+                      ? styles.choiceMenuActive
+                      : styles.choiceMenu,
+                  ]}
+                  onPress={() => {
+                    setAvtiveBtnAll(!activeBtnAll);
+                    setAvtiveBtnReceive(!activeBtnReceive);
+                    // setAvtiveBtnSent(!activeBtnSent);
+                  }}>
+                  <Text style={styles.choiceMenuText}>Sent</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            {/* list  */}
+            <View style={{margin: 20}}>
+              <View style={{display: 'flex'}}>
+                {remove === false && (
+                  <Swipeable renderLeftActions={renderLeftActions}>
+                    <TouchableOpacity
+                      onPress={() =>
+                        props.navigation.navigate('ContactDetails')
+                      }>
+                      <View
+                        style={styles.shadow}
+                        shadowOffset={{height: 2, width: 0}}
+                        shadowColor="#000"
+                        shadowOpacity={0.25}
+                        shadowRadius={3.84}
+                        elevation={5}>
+                        <View style={styles.avatarBg}>
+                          <Image
+                            source={require('../../assets/contact/avatar.png')}
+                            style={{
+                              width: 40,
+                              height: 40,
+                              backgroundColor: '#f2f2f2',
+                              marginLeft: 'auto',
+                              marginRight: 'auto',
+                            }}></Image>
+                        </View>
+
+                        <View
+                          style={{
+                            marginTop: 'auto',
+                            marginBottom: 'auto',
+                            paddingLeft: 10,
+                          }}>
+                          <Text style={{fontFamily: 'Poppins-Regular'}}>
+                            James wink
+                          </Text>
+                          <Text
+                            style={{
+                              fontFamily: 'Poppins-Regular',
+                              color: '#9E9E9E',
+                            }}>
+                            Aqua system LLC
+                          </Text>
+                        </View>
+                      </View>
+                    </TouchableOpacity>
+                  </Swipeable>
+                )}
+                <TouchableOpacity>
+                  <View
+                    style={styles.shadow}
+                    shadowOffset={{height: 2, width: 0}}
+                    shadowColor="#000"
+                    shadowOpacity={0.25}
+                    shadowRadius={3.84}
+                    elevation={5}>
+                    <View style={styles.avatarBg}>
+                      <Image
+                        source={require('../../assets/contact/avatar.png')}
+                        style={{
+                          width: 40,
+                          height: 40,
+                          backgroundColor: '#f2f2f2',
+                          marginLeft: 'auto',
+                          marginRight: 'auto',
+                        }}></Image>
+                    </View>
+                    <View
+                      style={{
+                        marginTop: 'auto',
+                        marginBottom: 'auto',
+                        paddingLeft: 10,
+                      }}>
+                      <Text style={{fontFamily: 'Poppins-Regular'}}>
+                        James wink
+                      </Text>
+                      <Text
+                        style={{
+                          fontFamily: 'Poppins-Regular',
+                          color: '#9E9E9E',
+                        }}>
+                        Aqua system LLC
+                      </Text>
+                    </View>
+
+                    <View
+                      style={{
+                        backgroundColor: '#676767',
+                        padding: 10,
+                        marginTop: 'auto',
+                        marginBottom: 'auto',
+                        borderRadius: 100,
+                        marginLeft: '5%',
+                      }}>
+                      <Image
+                        source={require('../../assets/contact/pen.png')}
+                        style={{
+                          width: 15,
+                          height: 15,
+                          marginLeft: 'auto',
+                          marginRight: 'auto',
+                        }}></Image>
+                    </View>
+                    <View
+                      style={{
+                        backgroundColor: '#E61D1D',
+                        padding: 10,
+                        marginTop: 'auto',
+                        marginBottom: 'auto',
+                        borderRadius: 100,
+                        marginLeft: '4%',
+                      }}>
+                      <Image
+                        source={require('../../assets/contact/bin.png')}
+                        resizeMode="contain"
+                        style={{
+                          width: 15,
+                          height: 15,
+                          marginLeft: 'auto',
+                          marginRight: 'auto',
+                        }}></Image>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-        </View>
-      </ImageBackground>
+        </ImageBackground>
+      </SafeAreaView>
     );
   }
 }
