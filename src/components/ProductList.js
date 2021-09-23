@@ -90,7 +90,7 @@ export default function ProductList({
 
   console.log('in the list');
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1}}>
       <ScrollView>
         <View style={styles.productListView} Key={key}>
           {console.log(price, title, image)}

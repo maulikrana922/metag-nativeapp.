@@ -12,6 +12,7 @@ export const UPDATE_IMAGE = 'UPDATE_IMAGE';
 export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 export const IS_IMAGE_UPDATED = 'IS_IMAGE_UPDATED';
 export const CHECK_UPDATE = 'CHECK_UPDATE';
+// export const
 
 export const getAuthToken = token => ({
   type: GET_TOKEN,

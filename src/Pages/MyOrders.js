@@ -69,7 +69,7 @@ export default function MyProfile(props) {
 
     let config = {
       method: 'post',
-      url: 'https://testyourapp.online/metag-backend/api/order-history',
+      url: 'https://testyourapp.online/metag-backend/api/p-history',
       headers: {
         Authorization: 'Bearer ' + profile.api_token,
 
@@ -144,248 +144,254 @@ export default function MyProfile(props) {
     return <LoaderIndicator />;
   } else {
     return (
-      <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
-        <View style={{flex: 1}}>
-          <View style={styles.header_parent}>
-            <View>
-              <View style={styles.header}>
-                {/* <View style={styles.arrowback}></View> */}
-                {/* <Image
+      <SafeAreaView style={{flex: 1}}>
+        <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
+          <View style={{flex: 1}}>
+            <View style={styles.header_parent}>
+              <View>
+                <View style={styles.header}>
+                  {/* <View style={styles.arrowback}></View> */}
+                  {/* <Image
                 source={require('../../assets/arrow-back.svg')} 
                 style={styles.arrowback}
               ></Image> */}
 
-                {/* here */}
-                <View style={styles.headerBackground}>
-                  {/* <Image
+                  {/* here */}
+                  <View style={styles.headerBackground}>
+                    {/* <Image
                   source={require('../../assets/logo.jpg')}
                   style={{width: 50, height: 'auto'}}
                 /> */}
-                  <Logo width={54} height={54} />
-                  <View style={styles.header_text}>
-                    <Text style={styles.text_metag}>meTAG</Text>
-                    <Text style={styles.text_tagline}>I M ME,WHO ARE YOU</Text>
+                    <Logo width={54} height={54} />
+                    <View style={styles.header_text}>
+                      <Text style={styles.text_metag}>meTAG</Text>
+                      <Text style={styles.text_tagline}>
+                        I M ME,WHO ARE YOU
+                      </Text>
+                    </View>
                   </View>
-                </View>
-                {/* <Text style={styles.next}>  </Text> */}
-                {/* <Image source={more} style={{ height: 60, width: 30 }}></Image> */}
-                <View
-                  style={{
-                    alignSelf: 'center',
-                    // marginLeft: '30%',
-                    position: 'absolute',
-                    // left: 60,
-                    right: 20,
-                    // backgroundColor: 'yellow',
-                  }}>
-                  {/* <Image source={more}></Image> */}
-                  <TouchableOpacity
-                    // onPress={() => props.navigation.navigate('Contact')}
-                    onPress={() => setShow(!show)}
-                    style={{
-                      // alignSelf: 'center',
-                      padding: 10,
-                      // backgroundColor: 'red',
-                      marginBottom: 30,
-                      // paddingLeft: 40,
-                    }}>
-                    <More />
-                  </TouchableOpacity>
-                </View>
-              </View>
-              {show && (
-                <View
-                  style={{
-                    backgroundColor: '#FFFFFF',
-                    width: 'auto',
-                    height: 'auto',
-                    borderRadius: 10,
-                    marginLeft: 'auto',
-                    marginRight: 16,
-                    marginTop: -30,
-                  }}>
+                  {/* <Text style={styles.next}>  </Text> */}
+                  {/* <Image source={more} style={{ height: 60, width: 30 }}></Image> */}
                   <View
                     style={{
-                      transform: [{rotate: '-45deg'}],
+                      alignSelf: 'center',
+                      // marginLeft: '30%',
+                      position: 'absolute',
+                      // left: 60,
+                      right: 20,
+                      // backgroundColor: 'yellow',
+                    }}>
+                    {/* <Image source={more}></Image> */}
+                    <TouchableOpacity
+                      // onPress={() => props.navigation.navigate('Contact')}
+                      onPress={() => setShow(!show)}
+                      style={{
+                        // alignSelf: 'center',
+                        padding: 10,
+                        // backgroundColor: 'red',
+                        marginBottom: 30,
+                        // paddingLeft: 40,
+                      }}>
+                      <More />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                {show && (
+                  <View
+                    style={{
                       backgroundColor: '#FFFFFF',
-                      width: 15,
-                      height: 15,
-                      position: 'relative',
-                      bottom: 5,
+                      width: 'auto',
+                      height: 'auto',
+                      borderRadius: 10,
                       marginLeft: 'auto',
-                      marginRight: 10,
-                    }}></View>
-                  <View
-                    style={{
-                      paddingRight: 10,
-                      paddingLeft: 10,
-                      paddingBottom: 10,
-                      width: 120,
+                      marginRight: 16,
+                      marginTop: -30,
                     }}>
                     <View
                       style={{
-                        borderBottomColor: '#E5E5E5',
-                        borderBottomWidth: 1,
-                        padding: 1,
-                        paddingBottom: '10%',
-                      }}>
-                      <Text
-                        style={{
-                          fontSize: 16,
-                          borderBottomColor: '#E5E5E5',
-                          // borderBottomWidth: 1,
-                          paddingBottom: '2%',
-                          fontFamily: 'Poppins-Regular',
-                        }}
-                        onPress={() =>
-                          props.navigation.navigate('ChangePassword')
-                        }>
-                        Settings
-                      </Text>
-                    </View>
+                        transform: [{rotate: '-45deg'}],
+                        backgroundColor: '#FFFFFF',
+                        width: 15,
+                        height: 15,
+                        position: 'relative',
+                        bottom: 5,
+                        marginLeft: 'auto',
+                        marginRight: 10,
+                      }}></View>
                     <View
                       style={{
-                        paddingTop: '10%',
-                        padding: 1,
+                        paddingRight: 10,
+                        paddingLeft: 10,
+                        paddingBottom: 10,
+                        width: 120,
                       }}>
-                      <Text
-                        onPress={() => {
-                          logout();
-                        }}
+                      <View
                         style={{
-                          fontSize: 16,
-                          paddingTop: '2%',
-                          fontFamily: 'Poppins-Regular',
+                          borderBottomColor: '#E5E5E5',
+                          borderBottomWidth: 1,
+                          padding: 1,
+                          paddingBottom: '10%',
                         }}>
-                        Logout
-                      </Text>
+                        <Text
+                          style={{
+                            fontSize: 16,
+                            borderBottomColor: '#E5E5E5',
+                            // borderBottomWidth: 1,
+                            paddingBottom: '2%',
+                            fontFamily: 'Poppins-Regular',
+                          }}
+                          onPress={() =>
+                            props.navigation.navigate('ChangePassword')
+                          }>
+                          Settings
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          paddingTop: '10%',
+                          padding: 1,
+                        }}>
+                        <Text
+                          onPress={() => {
+                            logout();
+                          }}
+                          style={{
+                            fontSize: 16,
+                            paddingTop: '2%',
+                            fontFamily: 'Poppins-Regular',
+                          }}>
+                          Logout
+                        </Text>
+                      </View>
                     </View>
                   </View>
+                )}
+                <View style={styles.completeProfileView}>
+                  <Text style={styles.completeProfile}>My Orders</Text>
                 </View>
-              )}
-              <View style={styles.completeProfileView}>
-                <Text style={styles.completeProfile}>My Orders</Text>
               </View>
             </View>
-          </View>
-          {/* list  */}
+            {/* list  */}
 
-          {orders === null || orders === undefined || orders === 'null' ? (
-            <LoaderIndicator />
-          ) : (
-            <ScrollView>
-              <View style={{padding: 15}}>
-                {orders.map(element => {
-                  return (
-                    <View
-                      style={{backgroundColor: '#fff'}}
-                      shadowOffset={{height: 2, width: 0}}
-                      shadowColor="#000"
-                      shadowOpacity={0.25}
-                      shadowRadius={3.84}
-                      elevation={5}>
-                      <TouchableOpacity
-                        style={styles.shadow}
-                        onPress={() =>
-                          props.navigation.navigate('OrderDetails', {
-                            element: element,
-                          })
-                        }>
-                        <View
-                          style={{
-                            paddingLeft: 15,
-                            paddingRight: 15,
-                            paddingTop: 15,
-                          }}>
+            {orders === null || orders === undefined || orders === 'null' ? (
+              <LoaderIndicator />
+            ) : (
+              <ScrollView>
+                <View style={{padding: 15}}>
+                  {orders.map(element => {
+                    return (
+                      <View
+                        style={{backgroundColor: '#fff'}}
+                        shadowOffset={{height: 2, width: 0}}
+                        shadowColor="#000"
+                        shadowOpacity={0.25}
+                        shadowRadius={3.84}
+                        elevation={5}>
+                        <TouchableOpacity
+                          style={styles.shadow}
+                          onPress={() =>
+                            props.navigation.navigate('OrderDetails', {
+                              element: element,
+                            })
+                          }>
                           <View
                             style={{
-                              display: 'flex',
-                              flexDirection: 'row',
-                              justifyContent: 'space-between',
-                              paddingBottom: 3,
+                              paddingLeft: 15,
+                              paddingRight: 15,
+                              paddingTop: 15,
                             }}>
-                            <Text style={styles.orderTitleFont}>Order No</Text>
-                            <Text style={styles.orderTitleFont}>
-                              $ {element.image_uploads.price}
-                            </Text>
-                          </View>
-                          <Text
-                            style={{
-                              fontFamily: 'Poppins-Regular',
-                              fontSize: 16,
-                              // backgroundColor: 'red',
-                            }}>
-                            {element.creted_at}
-                            {/* 09:13 PM 10 Jun 2019 */}
-                          </Text>
-                        </View>
-                        <View style={styles.productListView}>
-                          <Image
-                            style={styles.productView}
-                            source={{
-                              uri: `${element.image_uploads.url}`,
-                            }}
-                          />
-
-                          <View
-                            style={{
-                              marginTop: 'auto',
-                              marginBottom: 'auto',
-                              marginLeft: 10,
-                              display: 'flex',
-                              flex: 1,
-                              //backgroundColor: 'red',
-                              flexWrap: 'wrap',
-                              flexDirection: 'row',
-                            }}>
+                            <View
+                              style={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                justifyContent: 'space-between',
+                                paddingBottom: 3,
+                              }}>
+                              <Text style={styles.orderTitleFont}>
+                                Order No
+                              </Text>
+                              <Text style={styles.orderTitleFont}>
+                                $ {element.image_uploads.price}
+                              </Text>
+                            </View>
                             <Text
                               style={{
-                                color: 'black',
-                                fontSize: 14,
-                                width: 100,
+                                fontFamily: 'Poppins-Regular',
+                                fontSize: 16,
+                                // backgroundColor: 'red',
+                              }}>
+                              {element.creted_at}
+                              {/* 09:13 PM 10 Jun 2019 */}
+                            </Text>
+                          </View>
+                          <View style={styles.productListView}>
+                            <Image
+                              style={styles.productView}
+                              source={{
+                                uri: `${element.image_uploads.url}`,
+                              }}
+                            />
+
+                            <View
+                              style={{
+                                marginTop: 'auto',
+                                marginBottom: 'auto',
+                                marginLeft: 10,
                                 display: 'flex',
+                                flex: 1,
+                                //backgroundColor: 'red',
                                 flexWrap: 'wrap',
                                 flexDirection: 'row',
+                              }}>
+                              <Text
+                                style={{
+                                  color: 'black',
+                                  fontSize: 14,
+                                  width: 100,
+                                  display: 'flex',
+                                  flexWrap: 'wrap',
+                                  flexDirection: 'row',
 
-                                fontFamily: 'Poppins-Bold',
-                              }}>
-                              {element.status}
-                              {/* Successful */}
-                            </Text>
-                            <Text
-                              numberOfLines={2}
-                              ellipsizeMode="tail"
-                              style={{
-                                color: 'black',
-                                fontFamily: 'Poppins-Regular',
-                                marginRight: 10,
-                                // backgroundColor: 'red',
-                                // width: 100,
-                              }}>
-                              {element.response}
-                              {/* Lorem Ipsum is simply dummy {`\n`}text of the printing and
+                                  fontFamily: 'Poppins-Bold',
+                                }}>
+                                {element.status}
+                                {/* Successful */}
+                              </Text>
+                              <Text
+                                numberOfLines={2}
+                                ellipsizeMode="tail"
+                                style={{
+                                  color: 'black',
+                                  fontFamily: 'Poppins-Regular',
+                                  marginRight: 10,
+                                  // backgroundColor: 'red',
+                                  // width: 100,
+                                }}>
+                                {element.response}
+                                {/* Lorem Ipsum is simply dummy {`\n`}text of the printing and
                       type
                       {'\n'}setting industry. */}
-                            </Text>
+                              </Text>
+                            </View>
+                            <View
+                              style={{
+                                width: 'auto',
+                                marginLeft: 'auto',
+                                alignSelf: 'flex-end',
+                              }}></View>
                           </View>
-                          <View
-                            style={{
-                              width: 'auto',
-                              marginLeft: 'auto',
-                              alignSelf: 'flex-end',
-                            }}></View>
-                        </View>
-                      </TouchableOpacity>
-                    </View>
-                  );
-                })}
-              </View>
-            </ScrollView>
-          )}
+                        </TouchableOpacity>
+                      </View>
+                    );
+                  })}
+                </View>
+              </ScrollView>
+            )}
 
-          {/* <Menu /> */}
-        </View>
-      </ImageBackground>
+            {/* <Menu /> */}
+          </View>
+        </ImageBackground>
+      </SafeAreaView>
     );
   }
 }
@@ -474,7 +480,7 @@ const styles = StyleSheet.create({
   },
   header_parent: {
     paddingTop: '10%',
-    backgroundColor: '#000000',
+    backgroundColor: 'red',
     // height: 200,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
