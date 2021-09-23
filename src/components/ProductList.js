@@ -39,7 +39,7 @@ export default function ProductList({
     if (purchase_status === 0) {
       getProductImages(id);
       setShowModal(true);
-      setDisabled(false);
+      // setDisabled(false);
     } else {
       setDisabled(true);
     }

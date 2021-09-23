@@ -188,13 +188,14 @@ const Nfc = () => {
             const tag = await NfcProxy.readTag();
             console.log('readingTag',tag)
             if (tag) {
-
+        
               // const techs = await getTechList(tag);
               const ndef =
               await Array.isArray(tag.ndefMessage) && tag.ndefMessage.length > 0
                 ? tag.ndefMessage[0]
                 : null;
               let text = await Ndef.text.decodePayload(ndef.payload);
+              console.log("text>>>>>>>>>",text)
               const newText = await JSON.parse(text)
               await setobj2(newText)
               await setVisible(true)
