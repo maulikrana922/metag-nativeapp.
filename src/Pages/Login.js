@@ -671,10 +671,8 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   inputEmail: {
-    // borderBottomColor: 'white',
-    // borderWidth: 1,
-    // height: 43,
-    // color: 'white',
+    // backgroundColor: 'red',
+    width: '100%',
     fontSize: 20,
     color: 'white',
   },

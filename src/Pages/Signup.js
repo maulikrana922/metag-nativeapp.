@@ -804,15 +804,11 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   inputEmail: {
-    // borderBottomColor: 'white',
-    // borderWidth: 1,
-    // height: 41,
     fontSize: 18,
     color: 'white',
     paddingTop: 5,
-
-    // alignSelf: 'stretch',
-    // flex: 1,
+    // backgroundColor: 'red',
+    width: '100%',
   },
   signin_btn: {
     marginTop: 20,

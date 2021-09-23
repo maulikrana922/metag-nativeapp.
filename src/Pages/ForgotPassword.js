@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   StatusBar,
   ImageBackground,
+  SafeAreaView,
   Modal,
 } from 'react-native';
 // import { useFonts } from '@use-expo/font'
@@ -88,141 +89,145 @@ function ForgotPassword(props) {
     return null;
   } else {
     return (
-      <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
-        <Modal
-          // style={{
-          //   backgroundColor: 'yellow',
-          //   // margin: '30%',
-          //   // width: '60%',
-          //   // height: '60%',
-          //   // margin: '40%',
-          // }}
-          statusBarTranslucent={true}
-          transparent={true}
-          visible={modalVisible}>
-          <View
-            style={{
-              height: '100%',
-              backgroundColor: 'rgba( 0, 0, 0, 0.6 )',
-            }}>
+      <SafeAreaView style={{flex: 1}}>
+        <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
+          <Modal
+            // style={{
+            //   backgroundColor: 'yellow',
+            //   // margin: '30%',
+            //   // width: '60%',
+            //   // height: '60%',
+            //   // margin: '40%',
+            // }}
+            statusBarTranslucent={true}
+            transparent={true}
+            visible={modalVisible}>
             <View
               style={{
-                backgroundColor: '#eeeeee',
-                marginLeft: 'auto',
-                marginRight: 'auto',
-                marginTop: 'auto',
-                marginBottom: 'auto',
-                width: '80%',
-                height: '10%',
-                borderBottomLeftRadius: 10,
-                borderBottomRightRadius: 10,
-                borderTopLeftRadius: 10,
-                borderTopRightRadius: 10,
+                height: '100%',
+                backgroundColor: 'rgba( 0, 0, 0, 0.6 )',
               }}>
-              <TouchableOpacity
-                onPress={() => setModalVisible(!modalVisible)}
+              <View
                 style={{
-                  // backgroundColor: 'red',
-                  width: '17%',
-                  height: '17%',
-                  marginLeft: 'auto',
-                  // marginRight: '5%',
-                  marginTop: '3%',
-                }}>
-                <Image
-                  source={cancel}
-                  resizeMode="contain"
-                  style={{width: '100%', height: '100%'}}></Image>
-              </TouchableOpacity>
-              <Text
-                style={{
+                  backgroundColor: '#eeeeee',
                   marginLeft: 'auto',
                   marginRight: 'auto',
                   marginTop: 'auto',
                   marginBottom: 'auto',
-                  color: 'red',
-                  fontSize: 17,
+                  width: '80%',
+                  height: '10%',
+                  borderBottomLeftRadius: 10,
+                  borderBottomRightRadius: 10,
+                  borderTopLeftRadius: 10,
+                  borderTopRightRadius: 10,
                 }}>
-                {serverError}
-              </Text>
+                <TouchableOpacity
+                  onPress={() => setModalVisible(!modalVisible)}
+                  style={{
+                    // backgroundColor: 'red',
+                    width: '17%',
+                    height: '17%',
+                    marginLeft: 'auto',
+                    // marginRight: '5%',
+                    marginTop: '3%',
+                  }}>
+                  <Image
+                    source={cancel}
+                    resizeMode="contain"
+                    style={{width: '100%', height: '100%'}}></Image>
+                </TouchableOpacity>
+                <Text
+                  style={{
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    marginTop: 'auto',
+                    marginBottom: 'auto',
+                    color: 'red',
+                    fontSize: 17,
+                  }}>
+                  {serverError}
+                </Text>
+              </View>
             </View>
-          </View>
-        </Modal>
-        <View style={styles.container}>
-          <StatusBar
-            barStyle="dark-content"
-            backgroundColor="transparent"
-            translucent={true}
-          />
-          <View style={styles.headerBackground}>
-            {/* <Image
+          </Modal>
+          <View style={styles.container}>
+            <StatusBar
+              barStyle="dark-content"
+              backgroundColor="transparent"
+              translucent={true}
+            />
+            <View style={styles.headerBackground}>
+              {/* <Image
             source={require('../../assets/logo.jpg')}
             style={{width: 50, height: 'auto'}}
           /> */}
-            <Logo width={100} height={100} />
-            <View style={styles.header}>
-              <Text style={styles.text_metag}>meTAG</Text>
-              <Text style={styles.text_tagline}>I M ME,WHO ARE YOU</Text>
+              <Logo width={100} height={100} />
+              <View style={styles.header}>
+                <Text style={styles.text_metag}>meTAG</Text>
+                <Text style={styles.text_tagline}>I M ME,WHO ARE YOU</Text>
+              </View>
             </View>
-          </View>
-          <View style={styles.background}>
-            <Text style={styles.forgot}>Forgot</Text>
-            <Text style={styles.password}>password</Text>
+            <View style={styles.background}>
+              <Text style={styles.forgot}>Forgot</Text>
+              <Text style={styles.password}>password</Text>
 
-            {/* <TextInput
+              {/* <TextInput
             style={styles.inputEmail}
             onChangeText={text => setEmail(text)}
             value={email}
           /> */}
-            <View style={styles.inputTextBg}>
-              <Image
-                source={require('../../assets/signup/email.png')}
-                style={styles.icon}
-                resizeMode="contain"></Image>
-              <TextInput
-                style={styles.inputEmail}
-                placeholder="Email/Mobile number"
-                placeholderTextColor="white"
-                onChangeText={text => setEmail(text)}
-                value={email}
-              />
-            </View>
-            {error.email && <Text style={{color: 'white'}}>{error.email}</Text>}
-            {/* <View style={styles.signin_btn}>
+              <View style={styles.inputTextBg}>
+                <Image
+                  source={require('../../assets/signup/email.png')}
+                  style={styles.icon}
+                  resizeMode="contain"></Image>
+                <TextInput
+                  style={styles.inputEmail}
+                  placeholder="Email/Mobile number"
+                  placeholderTextColor="white"
+                  onChangeText={text => setEmail(text)}
+                  value={email}
+                />
+              </View>
+              {error.email && (
+                <Text style={{color: 'white'}}>{error.email}</Text>
+              )}
+              {/* <View style={styles.signin_btn}>
             <Button title="Sign in" color="white" />
           </View> */}
-            <View
-              style={{
-                display: 'flex',
-                justifyContent: 'flex-end',
-                width: 'auto',
-                flexDirection: 'row',
-              }}>
-              <TouchableOpacity
-                style={styles.signin_btn}
-                onPress={() => submit()}
-                // onPress={() => props.navigation.navigate('VerifyOTP')}
-              >
-                <Text
-                  style={{
-                    color: 'black',
-                    fontFamily: 'Poppins-Regular',
-                    fontSize: 16,
-                  }}>
-                  Send now
-                </Text>
-              </TouchableOpacity>
+              <View
+                style={{
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                  width: 'auto',
+                  flexDirection: 'row',
+                }}>
+                <TouchableOpacity
+                  style={styles.signin_btn}
+                  onPress={() => submit()}
+                  // onPress={() => props.navigation.navigate('VerifyOTP')}
+                >
+                  <Text
+                    style={{
+                      color: 'black',
+                      fontFamily: 'Poppins-Regular',
+                      fontSize: 16,
+                    }}>
+                    Send now
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('Login')}
+              style={{flex: 1, justifyContent: 'flex-end'}}>
+              <View style={styles.footer}>
+                <Text style={styles.footer_bold_text}>Back to Login</Text>
+              </View>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate('Login')}
-            style={{flex: 1, justifyContent: 'flex-end'}}>
-            <View style={styles.footer}>
-              <Text style={styles.footer_bold_text}>Back to Login</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </ImageBackground>
+        </ImageBackground>
+      </SafeAreaView>
     );
   }
 }
@@ -371,11 +376,10 @@ const styles = StyleSheet.create({
     // width: 25,
   },
   inputEmail: {
-    // borderBottomColor: 'white',
-    // borderWidth: 1,
-    // height: 41,
+    // backgroundColor: 'red',
     fontSize: 20,
     color: 'white',
+    width: '100%',
 
     // alignSelf: 'stretch',
     // flex: 1,
