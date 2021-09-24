@@ -245,11 +245,11 @@ export default function Login(props) {
 
     const errorTemplate = {};
     if (email === '') {
-      errorTemplate.email = "email can't be empty";
+      errorTemplate.email = "Email can't be empty";
     }
 
     if (password === '') {
-      errorTemplate.password = "password can't be empty";
+      errorTemplate.password = "Password can't be empty";
     }
 
     // if () {

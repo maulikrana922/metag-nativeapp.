@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   StatusBar,
   ImageBackground,
+  SafeAreaView,
   Modal,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
@@ -69,13 +70,14 @@ function ResetPassword(props) {
 
     const errorTemplate = {};
     if (newPassword === '') {
-      errorTemplate.newPassword = "newPassword can't be empty";
+      errorTemplate.newPassword = "New Password can't be empty";
     }
     if (confirmPassword === '') {
-      errorTemplate.confirmPassword = "confirmPassword can't be empty";
+      errorTemplate.confirmPassword = "Confirm Password can't be empty";
     }
     if (newPassword !== confirmPassword) {
-      errorTemplate.passwordMatch = 'password and confirmPassword should match';
+      errorTemplate.passwordMatch =
+        'Password and Confirm Password should match';
     }
     const val = Object.entries(errorTemplate).length;
     if (val) {
@@ -94,77 +96,78 @@ function ResetPassword(props) {
     return null;
   } else {
     return (
-      <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
-        <Modal
-          // style={{
-          //   backgroundColor: 'yellow',
-          //   // margin: '30%',
-          //   // width: '60%',
-          //   // height: '60%',
-          //   // margin: '40%',
-          // }}
-          transparent={true}
-          visible={modalVisible}>
-          <View
-            style={{
-              backgroundColor: '#eeeeee',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              marginTop: 'auto',
-              marginBottom: 'auto',
-              width: '80%',
-              height: '80%',
-            }}>
-            <TouchableOpacity
-              onPress={() => setModalVisible(!modalVisible)}
+      <SafeAreaView style={{flex: 1}}>
+        <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
+          <Modal
+            // style={{
+            //   backgroundColor: 'yellow',
+            //   // margin: '30%',
+            //   // width: '60%',
+            //   // height: '60%',
+            //   // margin: '40%',
+            // }}
+            transparent={true}
+            visible={modalVisible}>
+            <View
               style={{
-                // backgroundColor: 'red',
-                width: '5%',
-                height: '5%',
-                marginLeft: 'auto',
-                marginRight: '5%',
-                marginTop: '3%',
-              }}>
-              <Image
-                source={cancel}
-                resizeMode="contain"
-                style={{width: '100%', height: '100%'}}></Image>
-            </TouchableOpacity>
-            <Text
-              style={{
+                backgroundColor: '#eeeeee',
                 marginLeft: 'auto',
                 marginRight: 'auto',
                 marginTop: 'auto',
                 marginBottom: 'auto',
+                width: '80%',
+                height: '80%',
               }}>
-              {serverError}
-            </Text>
-          </View>
-        </Modal>
-        {/* {console.log(verifyKey)} */}
-        {console.log('printID', id)}
-        <View style={styles.container}>
-          <StatusBar
-            barStyle="dark-content"
-            backgroundColor="transparent"
-            translucent={true}
-          />
-          <View style={styles.headerBackground}>
-            {/* <Image
+              <TouchableOpacity
+                onPress={() => setModalVisible(!modalVisible)}
+                style={{
+                  // backgroundColor: 'red',
+                  width: '5%',
+                  height: '5%',
+                  marginLeft: 'auto',
+                  marginRight: '5%',
+                  marginTop: '3%',
+                }}>
+                <Image
+                  source={cancel}
+                  resizeMode="contain"
+                  style={{width: '100%', height: '100%'}}></Image>
+              </TouchableOpacity>
+              <Text
+                style={{
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                  marginTop: 'auto',
+                  marginBottom: 'auto',
+                }}>
+                {serverError}
+              </Text>
+            </View>
+          </Modal>
+          {/* {console.log(verifyKey)} */}
+          {console.log('printID', id)}
+          <View style={styles.container}>
+            <StatusBar
+              barStyle="dark-content"
+              backgroundColor="transparent"
+              translucent={true}
+            />
+            <View style={styles.headerBackground}>
+              {/* <Image
             source={require('../../assets/logo.jpg')}
             style={{width: 50, height: 'auto'}}
           /> */}
-            <Logo width={100} height={100} />
-            <View style={styles.header}>
-              <Text style={styles.text_metag}>meTAG</Text>
-              <Text style={styles.text_tagline}>I M ME,WHO ARE YOU</Text>
+              <Logo width={100} height={100} />
+              <View style={styles.header}>
+                <Text style={styles.text_metag}>meTAG</Text>
+                <Text style={styles.text_tagline}>I M ME,WHO ARE YOU</Text>
+              </View>
             </View>
-          </View>
-          <View style={styles.background}>
-            <Text style={styles.forgot}>Reset</Text>
-            <Text style={styles.password}>Password</Text>
+            <View style={styles.background}>
+              <Text style={styles.forgot}>Reset</Text>
+              <Text style={styles.password}>Password</Text>
 
-            {/* <TextInput
+              {/* <TextInput
             style={styles.inputEmail}
             onChangeText={text => setNewPassword(text)}
             value={newPassword}
@@ -174,75 +177,105 @@ function ResetPassword(props) {
             onChangeText={text => setConfirmPassword(text)}
             value={confirmPassword}
           /> */}
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                borderBottomColor: 'white',
-                borderWidth: 1,
-
-                paddingBottom: 10,
-                marginBottom: 40,
-                // justifyContent: 'space-between',
-              }}>
-              <Image
-                source={require('../../assets/signup/lock.png')}
-                style={styles.icon}
-                resizeMode="contain"></Image>
-              <TextInput
-                style={styles.inputEmail}
-                placeholder="New Password"
-                placeholderTextColor="white"
-                onChangeText={text => setNewPassword(text)}
-                value={newPassword}
-                secureTextEntry={true}
-              />
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  borderBottomColor: 'white',
+                  borderWidth: 1,
+                  paddingBottom: 10,
+                  // marginTop: 20,
+                  // marginBottom: 40,
+                  // justifyContent: 'space-between',
+                }}>
+                <Image
+                  source={require('../../assets/signup/lock.png')}
+                  style={styles.icon}
+                  resizeMode="contain"></Image>
+                <TextInput
+                  style={styles.inputEmail}
+                  placeholder="New Password"
+                  placeholderTextColor="white"
+                  onChangeText={text => setNewPassword(text)}
+                  value={newPassword}
+                  secureTextEntry={true}
+                />
+              </View>
+              {error.newPassword && (
+                <Text
+                  style={{
+                    color: 'red',
+                    borderWidth: 1,
+                    // borderColor: 'yellow',
+                    marginBottom: 5,
+                    marginTop: 5,
+                    fontSize: 14,
+                  }}>
+                  {error.newPassword}
+                </Text>
+              )}
+              <View style={styles.inputTextBg}>
+                <Image
+                  source={require('../../assets/signup/lock.png')}
+                  style={styles.icon}
+                  resizeMode="contain"></Image>
+                <TextInput
+                  style={styles.inputEmail}
+                  placeholder="Confirm Password"
+                  placeholderTextColor="white"
+                  onChangeText={text => setConfirmPassword(text)}
+                  value={confirmPassword}
+                  secureTextEntry={true}
+                />
+              </View>
+              {error.confirmPassword && (
+                <Text
+                  style={{
+                    color: 'red',
+                    borderWidth: 1,
+                    // borderColor: 'yellow',
+                    marginBottom: 5,
+                    marginTop: 5,
+                    fontSize: 14,
+                  }}>
+                  {error.confirmPassword}
+                </Text>
+              )}
+              {error.passwordMatch && (
+                <Text style={{color: 'white'}}>{error.passwordMatch}</Text>
+              )}
+              <View
+                style={{
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                  width: 'auto',
+                  flexDirection: 'row',
+                  marginBottom: 40,
+                }}>
+                <TouchableOpacity
+                  style={styles.signin_btn}
+                  onPress={() => submit()}>
+                  <Text
+                    style={{color: 'black', fontSize: 18, fontWeight: '600'}}>
+                    Submit
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
-            {error.newPassword && (
-              <Text style={{color: 'white'}}>{error.newPassword}</Text>
-            )}
-            <View style={styles.inputTextBg}>
-              <Image
-                source={require('../../assets/signup/lock.png')}
-                style={styles.icon}
-                resizeMode="contain"></Image>
-              <TextInput
-                style={styles.inputEmail}
-                placeholder="Confirm Password"
-                placeholderTextColor="white"
-                onChangeText={text => setConfirmPassword(text)}
-                value={confirmPassword}
-                secureTextEntry={true}
-              />
-            </View>
-            {error.confirmPassword && (
-              <Text style={{color: 'white'}}>{error.confirmPassword}</Text>
-            )}
-            {error.passwordMatch && (
-              <Text style={{color: 'white'}}>{error.passwordMatch}</Text>
-            )}
-            <View
-              style={{
-                display: 'flex',
-                justifyContent: 'flex-end',
-                width: 'auto',
-                flexDirection: 'row',
-                marginBottom: 40,
-              }}>
-              <TouchableOpacity
-                style={styles.signin_btn}
-                onPress={() => submit()}>
-                <Text style={{color: 'black'}}>Submit</Text>
-              </TouchableOpacity>
+            <View style={{flex: 1, justifyContent: 'flex-end'}}>
+              <View style={styles.footer}>
+                <Text
+                  style={styles.footer_bold_text}
+                  onPress={() => {
+                    props.navigation.navigate('Login');
+                  }}>
+                  Back to Login
+                </Text>
+              </View>
             </View>
           </View>
-          <View style={{flex: 1, justifyContent: 'flex-end'}}>
-            <View style={styles.footer}>
-              <Text style={styles.footer_bold_text}>Back to Login</Text>
-            </View>
-          </View>
-        </View>
-      </ImageBackground>
+        </ImageBackground>
+      </SafeAreaView>
     );
   }
 }
@@ -350,6 +383,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     paddingBottom: 4,
+    // borderColor: 'red',
+    // borderWidth: 1,
 
     // paddingTop: 60,
   },
@@ -359,9 +394,7 @@ const styles = StyleSheet.create({
   },
   footer_bold_text: {
     fontFamily: 'Poppins-ExtraBold',
-    marginTop: 'auto',
-    paddingTop: 170,
-    fontSize: 16,
+    fontSize: 18,
   },
   password: {
     fontFamily: 'Poppins-Regular',
@@ -379,11 +412,14 @@ const styles = StyleSheet.create({
   // },
   inputEmail: {
     // borderBottomColor: 'white',
-    // borderWidth: 1,
+    borderWidth: 1,
     // height: 41,
-    fontSize: 16,
+    fontSize: 18,
+    height: 'auto',
     color: 'white',
-
+    fontWeight: '600',
+    // borderColor: 'blue',
+    width: '100%',
     // alignSelf: 'stretch',
     // flex: 1,
   },

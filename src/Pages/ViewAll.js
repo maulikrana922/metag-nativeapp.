@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {View, ScrollView, Button, Text} from 'react-native';
+import {View, ScrollView, Text, TouchableOpacity} from 'react-native';
 import ProductList from '../../src/components/ProductList.js';
 import axios from 'axios';
 import {useSelector, useDispatch} from 'react-redux';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-
+import {useNavigation} from '@react-navigation/native';
 function ViewAll(props) {
   const [count, setCount] = useState('3');
   const [start, setStart] = useState('0');
   const {token, profile, link, flag, products} = useSelector(state => state);
   const [product, setProduct] = useState(products);
+
+  const navigation = useNavigation();
   console.log('PRODUCTS >>>>>>>>>', products);
   useEffect(() => {
     console.log('changed>>>>>>>>>123', product);
@@ -25,8 +25,13 @@ function ViewAll(props) {
         backgroundColor: 'white',
         flex: 1,
       }}>
-      <View style={{height: 'auto', width: 'auto', backgroundColor: 'red'}}>
-        {/* <Icon name="facebook" size={20} /> */}
+      <View style={{height: 'auto', width: 'auto'}}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Home');
+          }}>
+          <Text style={{fontSize: 20, fontWeight: '700'}}>Back</Text>
+        </TouchableOpacity>
       </View>
       <ScrollView>
         {/* <ProductList /> */}
