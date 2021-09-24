@@ -25,6 +25,8 @@ export default function ProductList({
   currency,
   id,
   purchase_status,
+  description,
+  owner_name,
 }) {
   // useEffect(async () => {
   //   const val = await AsyncStorage.getItem('Key');
@@ -95,45 +97,75 @@ export default function ProductList({
         <View style={styles.productListView} Key={key}>
           {console.log(price, title, image)}
           {/* <View style={styles.productView}></View> */}
-          <Image
-            source={{uri: image}}
-            style={styles.productView}
-            width={40}
-            height={40}></Image>
-          <View
-            style={{
-              marginTop: 'auto',
-              marginBottom: 'auto',
-              marginLeft: 10,
-            }}>
-            <View style={{paddingBottom: 5}}>
-              <Text style={{color: 'white', fontSize: 22, fontWeight: '500'}}>
-                {title}
+          <View style={{display: 'flex', flexDirection: 'row'}}>
+            <Image
+              source={{uri: image}}
+              style={styles.productView}
+              width={40}
+              height={40}></Image>
+            <View
+              style={{
+                marginTop: 'auto',
+                marginBottom: 'auto',
+                marginLeft: 10,
+              }}>
+              <View style={{paddingBottom: 5}}>
+                <Text style={{color: 'white', fontSize: 22, fontWeight: '500'}}>
+                  {title}
+                </Text>
+              </View>
+              <Text style={{color: '#9FAA11', fontSize: 16, fontWeight: '400'}}>
+                $ {price} USD
               </Text>
             </View>
-            <Text style={{color: '#9FAA11', fontSize: 16, fontWeight: '400'}}>
-              $ {price} USD
+            <View
+              style={{
+                width: 'auto',
+                marginLeft: 'auto',
+                alignSelf: 'center',
+              }}>
+              <TouchableOpacity
+                style={styles.buyBtnBg}
+                disabled={disabled}
+                // onPress={() => {
+                //   // Alert.alert('Buy');
+                // getProductImages(id);
+                // setShowModal(true);
+                // }}
+                onPress={checkDisable}>
+                <Text style={{color: 'white', fontSize: 16, fontWeight: '500'}}>
+                  {purchase_status === 0 ? 'Buy' : 'Purchased'}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View
+            style={{
+              height: 'auto',
+              width: 'auto',
+              // backgroundColor: 'red',
+              alignItems: 'flex-start',
+              marginBottom: '3%',
+              marginTop: '1%',
+            }}>
+            <Text style={{color: '#fff', fontSize: 16, fontWeight: '600'}}>
+              Owner Name: {owner_name}
             </Text>
           </View>
           <View
             style={{
+              flex: 1,
+              height: 'auto',
               width: 'auto',
-              marginLeft: 'auto',
-              alignSelf: 'center',
+              // backgroundColor: 'red',
+              alignItems: 'flex-start',
             }}>
-            <TouchableOpacity
-              style={styles.buyBtnBg}
-              disabled={disabled}
-              // onPress={() => {
-              //   // Alert.alert('Buy');
-              // getProductImages(id);
-              // setShowModal(true);
-              // }}
-              onPress={checkDisable}>
-              <Text style={{color: 'white', fontSize: 16, fontWeight: '500'}}>
-                {purchase_status === 0 ? 'Buy' : 'Purchased'}
-              </Text>
-            </TouchableOpacity>
+            <Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              style={{color: '#fff', fontSize: 16, fontWeight: '600'}}>
+              Description : {description}
+            </Text>
           </View>
         </View>
         <Modal
@@ -244,10 +276,12 @@ const styles = StyleSheet.create({
   productListView: {
     height: 'auto',
     width: 'auto',
-    backgroundColor: 'black',
+    backgroundColor: '#000',
+    // borderColor: 'red',
     padding: 10,
     display: 'flex',
-    flexDirection: 'row',
+    borderWidth: 1,
+    flexDirection: 'column',
     margin: 5,
     borderRadius: 5,
   },

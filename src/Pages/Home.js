@@ -423,7 +423,7 @@ export default function CreateProfile(props) {
                       paddingVertical: 12,
                       paddingHorizontal: 32,
                       borderRadius: 10,
-                      backgroundColor: 'black',
+                      backgroundColor: '#000',
                     }}
                     onPress={() => props.navigation.navigate('ViewAll')}>
                     <Text style={{color: 'white', fontSize: 18}}>

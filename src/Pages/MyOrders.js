@@ -69,7 +69,7 @@ export default function MyProfile(props) {
 
     let config = {
       method: 'post',
-      url: 'https://testyourapp.online/metag-backend/api/p-history',
+      url: 'https://testyourapp.online/metag-backend/api/order-history',
       headers: {
         Authorization: 'Bearer ' + profile.api_token,
 
@@ -480,7 +480,7 @@ const styles = StyleSheet.create({
   },
   header_parent: {
     paddingTop: '10%',
-    backgroundColor: 'red',
+    backgroundColor: '#000',
     // height: 200,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,

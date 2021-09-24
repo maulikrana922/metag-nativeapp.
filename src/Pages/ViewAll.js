@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {View, ScrollView} from 'react-native';
+import {View, ScrollView, Button, Text} from 'react-native';
 import ProductList from '../../src/components/ProductList.js';
 import axios from 'axios';
 import {useSelector, useDispatch} from 'react-redux';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 function ViewAll(props) {
   const [count, setCount] = useState('3');
@@ -23,6 +25,9 @@ function ViewAll(props) {
         backgroundColor: 'white',
         flex: 1,
       }}>
+      <View style={{height: 'auto', width: 'auto', backgroundColor: 'red'}}>
+        {/* <Icon name="facebook" size={20} /> */}
+      </View>
       <ScrollView>
         {/* <ProductList /> */}
         {product.length !== 0 &&
@@ -38,6 +43,9 @@ function ViewAll(props) {
                 image={element.upload_image}
                 id={element.id}
                 purchase_status={element.purchase_status}
+                owner_name={element.owner_name}
+                description={element.description}
+
                 // key={element.id}
               />
               // </ScrollView>
