@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -12,11 +12,11 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import close from '../../assets/close.png';
-import {updateProduct} from '../redux/reducer';
+import { updateProduct } from '../redux/reducer';
 export default function ProductList({
   price,
   title,
@@ -37,6 +37,7 @@ export default function ProductList({
 
   const [disabled, setDisabled] = useState(false);
 
+
   const checkDisable = () => {
     if (purchase_status === 0) {
       getProductImages(id);
@@ -55,7 +56,8 @@ export default function ProductList({
   //     purchaseImage,
   //   );
   // }, []);
-  const {token, profile, link, flag, products} = useSelector(state => state);
+  const { token, profile, link, flag, products } = useSelector(state => state);
+
   const getProductImages = async id => {
     // console.log("profile token ??????????",profile.api_token )
     let data = JSON.stringify({
@@ -92,14 +94,14 @@ export default function ProductList({
 
   console.log('in the list');
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.productListView} Key={key}>
-        <View style={{flex: 1}}>
-          <View style={{flex: 1}}>
-            <View style={{flex: 1, flexDirection: 'row'}}>
-              <View style={{paddingVertical: 5}}>
+        <View style={{ flex: 1 }}>
+          <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, flexDirection: 'row' }}>
+              <View style={{ paddingVertical: 5 }}>
                 <Image
-                  source={{uri: image}}
+                  source={{ uri: image }}
                   style={styles.productView}
                   width={65}
                   height={65}></Image>
@@ -112,46 +114,66 @@ export default function ProductList({
                 <Text
                   numberOfLines={1}
                   ellipsizeMode="tail"
-                  style={{color: 'white', fontSize: 16, fontWeight: '500'}}>
+                  style={{ color: 'white', fontSize: 16, fontWeight: '500' }}>
                   {title}
                 </Text>
               </View>
-              <View style={{padding: 5}}>
-                <TouchableOpacity
-                  style={styles.buyBtnBg}
-                  disabled={disabled}
-                  // onPress={() => {
-                  //   // Alert.alert('Buy');
-                  // getProductImages(id);
-                  // setShowModal(true);
-                  // }}
-                  onPress={checkDisable}>
-                  <Text
-                    style={{color: 'white', fontSize: 16, fontWeight: '500'}}>
-                    {purchase_status === 0 ? 'Buy' : 'Purchased'}
-                  </Text>
-                </TouchableOpacity>
+              <View style={{ padding: 5 }}>
+                {
+                  profile.status == 0 ?
+                    <TouchableOpacity
+                      style={[styles.buyBtnBg, { backgroundColor: '#40A41D', }]}
+                      disabled={disabled}
+                      onPress={() => {
+                        // Alert.alert('Buy');
+                        getProductImages(id);
+                        setShowModal(true);
+                      }}
+                    >
+                      <Text
+                        style={{ color: 'white', fontSize: 16, fontWeight: '500' }}>
+                        {/*purchase_status === 0 ? 'Buy' : 'Purchased'*/}
+                        Buy
+                      </Text>
+                    </TouchableOpacity>
+                    :
+                    <TouchableOpacity
+                      style={[styles.buyBtnBg, { backgroundColor: '#40A41D', }]}
+                      disabled={disabled}
+                      // onPress={() => {
+                      //   // Alert.alert('Buy');
+                      // getProductImages(id);
+                      // setShowModal(true);
+                      // }}
+                      onPress={() => navigation.navigate('BuyProductWebViewScreen')}>
+                      <Text
+                        style={{ color: 'white', fontSize: 16, fontWeight: '500' }}>
+                        {purchase_status === 0 ? 'Buy' : 'Purchased'}
+                      </Text>
+                    </TouchableOpacity>
+                }
+
               </View>
             </View>
           </View>
-          <View style={{flex: 1}}>
-            <Text style={{color: '#9FAA11', fontSize: 16, fontWeight: '400'}}>
+          <View style={{ flex: 1 }}>
+            <Text style={{ color: '#9FAA11', fontSize: 16, fontWeight: '400' }}>
               $ {price} USD
             </Text>
           </View>
-          <View style={{flex: 1}}>
+          <View style={{ flex: 1 }}>
             <Text
               numberOfLines={1}
               ellipsizeMode="tail"
-              style={{color: '#fff', fontSize: 16, fontWeight: '600'}}>
+              style={{ color: '#fff', fontSize: 16, fontWeight: '600' }}>
               Owner Name: {owner_name}
             </Text>
           </View>
-          <View style={{flex: 1}}>
+          <View style={{ flex: 1 }}>
             <Text
               numberOfLines={1}
               ellipsizeMode="tail"
-              style={{color: '#fff', fontSize: 16, fontWeight: '600'}}>
+              style={{ color: '#fff', fontSize: 16, fontWeight: '600' }}>
               Description : {description}
             </Text>
           </View>
@@ -187,7 +209,7 @@ export default function ProductList({
               <Image
                 source={close}
                 resizeMode="contain"
-                style={{width: '100%', height: '100%'}}></Image>
+                style={{ width: '100%', height: '100%' }}></Image>
             </TouchableOpacity>
             <View
               style={{
@@ -202,7 +224,7 @@ export default function ProductList({
                 justifyContent: 'space-evenly',
               }}>
               <Image
-                source={{uri: image}}
+                source={{ uri: image }}
                 resizeMode="contain"
                 style={{
                   width: '50%',
@@ -218,7 +240,8 @@ export default function ProductList({
                   color: '#000000',
                   fontSize: 15,
                 }}>
-                Thank you for purchasing our image.
+
+                Before Buying click on above to connect Your Stripe
               </Text>
 
               <TouchableOpacity
@@ -278,7 +301,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   buyBtnBg: {
-    backgroundColor: '#40A41D',
+
     width: 'auto',
     height: 'auto',
     paddingTop: 5,

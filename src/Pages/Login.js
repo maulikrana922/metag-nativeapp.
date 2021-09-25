@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -44,7 +44,7 @@ import {
   getSocialFlag,
   getRemoveProfile,
 } from '../redux/reducer';
-import {useSelector, useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Loader from '../components/Loader';
 import close from '../../assets/close.png';
 import loginFail from '../../assets/loginFail.png';
@@ -70,13 +70,14 @@ export default function Login(props) {
   // const [tokenback, setTokenBack] = useState('');
 
   const dispatch = useDispatch();
-  const {token, profile, removeProfile} = useSelector(state => state);
+  const { token, profile, removeProfile } = useSelector(state => state);
+
 
   const storeData = async value => {
     try {
       const jsonValue = JSON.stringify(value);
       await AsyncStorage.setItem('@storage_Key', jsonValue);
-    } catch (e) {}
+    } catch (e) { }
   };
   // const getData = async () => {
   //   try {
@@ -100,7 +101,7 @@ export default function Login(props) {
   const storeFlag = async value => {
     try {
       await AsyncStorage.setItem('@flag_Key', value);
-    } catch (e) {}
+    } catch (e) { }
   };
 
   // const removeValue = async () => {
@@ -359,7 +360,7 @@ export default function Login(props) {
     // const color = modalVisible ? 'rgba(255, 255, 255, 10)' : '';
     return (
       // <ScrollView style={{flex: 1}}>
-      <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
+      <ImageBackground source={bg} style={{ flex: 1, resizeMode: 'contain' }}>
         {/* {console.log(profile)}
         {}
         {console.log('prinitng profile', profile)} */}
@@ -395,7 +396,7 @@ export default function Login(props) {
                 <Image
                   source={close}
                   resizeMode="contain"
-                  style={{width: '100%', height: '100%'}}></Image>
+                  style={{ width: '100%', height: '100%' }}></Image>
               </TouchableOpacity>
               <View
                 style={{
@@ -504,7 +505,7 @@ export default function Login(props) {
               />
             </View>
             {/* <Text style={{color: 'white'}}>Hint: example@domain.com</Text> */}
-            {error.email && <Text style={{color: 'red'}}>{error.email}</Text>}
+            {error.email && <Text style={{ color: 'red' }}>{error.email}</Text>}
             <View style={styles.inputTextBg}>
               <Image
                 source={require('../../assets/signup/lock.png')}
@@ -523,7 +524,7 @@ export default function Login(props) {
               />
             </View>
             {error.password && (
-              <Text style={{color: 'red'}}>{error.password}</Text>
+              <Text style={{ color: 'red' }}>{error.password}</Text>
             )}
             <View
               style={{
