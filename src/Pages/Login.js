@@ -494,6 +494,8 @@ export default function Login(props) {
                 style={styles.icon}
                 resizeMode="contain"></Image>
               <TextInput
+                numberOfLines={1}
+                ellipsizeMode="tail"
                 style={styles.inputEmail}
                 placeholder="Email"
                 placeholderTextColor="white"
@@ -509,6 +511,8 @@ export default function Login(props) {
                 style={styles.icon}
                 resizeMode="contain"></Image>
               <TextInput
+                numberOfLines={1}
+                ellipsizeMode="tail"
                 style={styles.inputEmail}
                 secureTextEntry={true}
                 // keyboardType="numeric"
@@ -672,7 +676,7 @@ const styles = StyleSheet.create({
   },
   inputEmail: {
     // backgroundColor: 'red',
-    width: '100%',
+    width: '90%',
     fontSize: 20,
     color: 'white',
   },

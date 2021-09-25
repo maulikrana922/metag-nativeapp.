@@ -82,7 +82,7 @@ export default function ProductList({
         // await dispatch(getPurchaseImage(response.data.data));
       })
       .catch(function (error) {
-        console.log('/skhijgsdgfugshudfgsufgusdgfsugfusu', error);
+        console.log('skhijgsdgfugshudfgsufgusdgfsugfusu', error);
       });
   };
 
@@ -95,15 +95,14 @@ export default function ProductList({
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.productListView} Key={key}>
         <View style={{flex: 1}}>
-          {/* <Text>djsj</Text> */}
           <View style={{flex: 1}}>
             <View style={{flex: 1, flexDirection: 'row'}}>
-              <View>
+              <View style={{paddingVertical: 5}}>
                 <Image
                   source={{uri: image}}
                   style={styles.productView}
-                  width={50}
-                  height={50}></Image>
+                  width={65}
+                  height={65}></Image>
               </View>
               <View
                 style={{
@@ -113,11 +112,11 @@ export default function ProductList({
                 <Text
                   numberOfLines={1}
                   ellipsizeMode="tail"
-                  style={{color: 'white', fontSize: 14, fontWeight: '500'}}>
+                  style={{color: 'white', fontSize: 16, fontWeight: '500'}}>
                   {title}
                 </Text>
               </View>
-              <View>
+              <View style={{padding: 5}}>
                 <TouchableOpacity
                   style={styles.buyBtnBg}
                   disabled={disabled}
