@@ -18,7 +18,7 @@ import url from '../BaseURl/baseurl.json';
 import {useSelector, useDispatch} from 'react-redux';
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
-import {getUrl, GET_ID} from '../redux/reducer';
+import {getUrl} from '../redux/reducer';
 
 const Nfc = () => {
   const dispatch = useDispatch();
