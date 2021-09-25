@@ -17,11 +17,11 @@ import NfcProxy from './NfcProxy';
 import url from '../BaseURl/baseurl.json';
 import {useSelector, useDispatch} from 'react-redux';
 import axios from 'axios';
-import { useNavigation } from '@react-navigation/native';
-import { url } from '../redux/reducer'
+import {useNavigation} from '@react-navigation/native';
+import {getUrl} from '../redux/reducer';
 
 const Nfc = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   // const { token, profile, link, flag } = useSelector(state => state);
   // const apiToken =p

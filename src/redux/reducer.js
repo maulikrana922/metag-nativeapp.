@@ -87,7 +87,7 @@ export const check_update = () => ({
   type: CHECK_UPDATE,
 });
 
-export const url = data => ({
+export const getUrl = data => ({
   type: URL,
   payload: data,
 });
