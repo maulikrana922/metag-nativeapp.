@@ -351,10 +351,13 @@ export default function MyProfile(props) {
                                   display: 'flex',
                                   flexWrap: 'wrap',
                                   flexDirection: 'row',
+                                  // borderWidth: 1,
+                                  // borderColor: 'yellow',
 
                                   fontFamily: 'Poppins-Bold',
                                 }}>
                                 {element.status}
+
                                 {/* Successful */}
                               </Text>
                               <Text
@@ -373,12 +376,6 @@ export default function MyProfile(props) {
                       {'\n'}setting industry. */}
                               </Text>
                             </View>
-                            <View
-                              style={{
-                                width: 'auto',
-                                marginLeft: 'auto',
-                                alignSelf: 'flex-end',
-                              }}></View>
                           </View>
                         </TouchableOpacity>
                       </View>

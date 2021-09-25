@@ -82,7 +82,7 @@ export default function ProductList({
         // await dispatch(getPurchaseImage(response.data.data));
       })
       .catch(function (error) {
-        console.log('/skhijgsdgfugshudfgsufgusdgfsugfusu', error);
+        console.log('skhijgsdgfugshudfgsufgusdgfsugfusu', error);
       });
   };
 
@@ -93,73 +93,61 @@ export default function ProductList({
   console.log('in the list');
   return (
     <SafeAreaView style={{flex: 1}}>
-      <ScrollView>
-        <View style={styles.productListView} Key={key}>
-          {console.log(price, title, image)}
-          {/* <View style={styles.productView}></View> */}
-          <View style={{display: 'flex', flexDirection: 'row'}}>
-            <Image
-              source={{uri: image}}
-              style={styles.productView}
-              width={40}
-              height={40}></Image>
-            <View
-              style={{
-                marginTop: 'auto',
-                marginBottom: 'auto',
-                marginLeft: 10,
-              }}>
-              <View style={{paddingBottom: 5}}>
-                <Text style={{color: 'white', fontSize: 22, fontWeight: '500'}}>
+      <View style={styles.productListView} Key={key}>
+        <View style={{flex: 1}}>
+          <View style={{flex: 1}}>
+            <View style={{flex: 1, flexDirection: 'row'}}>
+              <View style={{paddingVertical: 5}}>
+                <Image
+                  source={{uri: image}}
+                  style={styles.productView}
+                  width={65}
+                  height={65}></Image>
+              </View>
+              <View
+                style={{
+                  flex: 1,
+                  paddingLeft: '3%',
+                }}>
+                <Text
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                  style={{color: 'white', fontSize: 16, fontWeight: '500'}}>
                   {title}
                 </Text>
               </View>
-              <Text style={{color: '#9FAA11', fontSize: 16, fontWeight: '400'}}>
-                $ {price} USD
-              </Text>
-            </View>
-            <View
-              style={{
-                width: 'auto',
-                marginLeft: 'auto',
-                alignSelf: 'center',
-              }}>
-              <TouchableOpacity
-                style={styles.buyBtnBg}
-                disabled={disabled}
-                // onPress={() => {
-                //   // Alert.alert('Buy');
-                // getProductImages(id);
-                // setShowModal(true);
-                // }}
-                onPress={checkDisable}>
-                <Text style={{color: 'white', fontSize: 16, fontWeight: '500'}}>
-                  {purchase_status === 0 ? 'Buy' : 'Purchased'}
-                </Text>
-              </TouchableOpacity>
+              <View style={{padding: 5}}>
+                <TouchableOpacity
+                  style={styles.buyBtnBg}
+                  disabled={disabled}
+                  // onPress={() => {
+                  //   // Alert.alert('Buy');
+                  // getProductImages(id);
+                  // setShowModal(true);
+                  // }}
+                  onPress={checkDisable}>
+                  <Text
+                    style={{color: 'white', fontSize: 16, fontWeight: '500'}}>
+                    {purchase_status === 0 ? 'Buy' : 'Purchased'}
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-          <View
-            style={{
-              height: 'auto',
-              width: 'auto',
-              // backgroundColor: 'red',
-              alignItems: 'flex-start',
-              marginBottom: '3%',
-              marginTop: '1%',
-            }}>
-            <Text style={{color: '#fff', fontSize: 16, fontWeight: '600'}}>
+          <View style={{flex: 1}}>
+            <Text style={{color: '#9FAA11', fontSize: 16, fontWeight: '400'}}>
+              $ {price} USD
+            </Text>
+          </View>
+          <View style={{flex: 1}}>
+            <Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              style={{color: '#fff', fontSize: 16, fontWeight: '600'}}>
               Owner Name: {owner_name}
             </Text>
           </View>
-          <View
-            style={{
-              flex: 1,
-              height: 'auto',
-              width: 'auto',
-              // backgroundColor: 'red',
-              alignItems: 'flex-start',
-            }}>
+          <View style={{flex: 1}}>
             <Text
               numberOfLines={1}
               ellipsizeMode="tail"
@@ -168,106 +156,103 @@ export default function ProductList({
             </Text>
           </View>
         </View>
-        <Modal
-          statusBarTranslucent={true}
-          transparent={true}
-          visible={showModal}>
+      </View>
+      <Modal statusBarTranslucent={true} transparent={true} visible={showModal}>
+        <View
+          style={{
+            height: '100%',
+            backgroundColor: 'rgba( 0, 0, 0, 0.6 )',
+          }}>
           <View
             style={{
-              height: '100%',
-              backgroundColor: 'rgba( 0, 0, 0, 0.6 )',
+              // backgroundColor: 'white',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              marginTop: 'auto',
+              marginBottom: 'auto',
+              width: '80%',
+              height: 'auto',
+              justifyContent: 'center',
             }}>
+            <TouchableOpacity
+              onPress={() => setShowModal(!showModal)}
+              style={{
+                // backgroundColor: 'red',
+                width: '8%',
+                height: '8%',
+                marginLeft: 'auto',
+                // marginRight: '5%',
+                marginTop: '3%',
+              }}>
+              <Image
+                source={close}
+                resizeMode="contain"
+                style={{width: '100%', height: '100%'}}></Image>
+            </TouchableOpacity>
             <View
               style={{
-                // backgroundColor: 'white',
-                marginLeft: 'auto',
-                marginRight: 'auto',
-                marginTop: 'auto',
-                marginBottom: 'auto',
-                width: '80%',
-                height: 'auto',
-                justifyContent: 'center',
+                backgroundColor: 'white',
+                // marginTop: '5%',
+                padding: '5%',
+                borderBottomLeftRadius: 10,
+                borderBottomRightRadius: 10,
+                borderTopLeftRadius: 10,
+                borderTopRightRadius: 10,
+                display: 'flex',
+                justifyContent: 'space-evenly',
               }}>
-              <TouchableOpacity
-                onPress={() => setShowModal(!showModal)}
+              <Image
+                source={{uri: image}}
+                resizeMode="contain"
                 style={{
-                  // backgroundColor: 'red',
-                  width: '8%',
-                  height: '8%',
+                  width: '50%',
+                  height: '50%',
                   marginLeft: 'auto',
-                  // marginRight: '5%',
-                  marginTop: '3%',
-                }}>
-                <Image
-                  source={close}
-                  resizeMode="contain"
-                  style={{width: '100%', height: '100%'}}></Image>
-              </TouchableOpacity>
-              <View
+                  marginRight: 'auto',
+                }}></Image>
+              <Text
                 style={{
-                  backgroundColor: 'white',
-                  // marginTop: '5%',
-                  padding: '5%',
-                  borderBottomLeftRadius: 10,
-                  borderBottomRightRadius: 10,
-                  borderTopLeftRadius: 10,
-                  borderTopRightRadius: 10,
-                  display: 'flex',
-                  justifyContent: 'space-evenly',
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+
+                  color: '#000000',
+                  fontSize: 15,
                 }}>
-                <Image
-                  source={{uri: image}}
-                  resizeMode="contain"
-                  style={{
-                    width: '50%',
-                    height: '50%',
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                  }}></Image>
+                Thank you for purchasing our image.
+              </Text>
+
+              <TouchableOpacity
+                onPress={() => {
+                  setShowModal(!showModal);
+                  navigation.navigate('MyOrders');
+                }}
+                // onPress={() => props.navigation.navigate('CreateProfile')}
+                style={{
+                  // marginTop: 20,
+                  alignItems: 'center',
+                  padding: 8,
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                  backgroundColor: 'black',
+                  borderBottomLeftRadius: 50,
+                  borderBottomRightRadius: 50,
+                  borderTopRightRadius: 0,
+                  borderTopLeftRadius: 50,
+                  width: '100%',
+                }}>
                 <Text
                   style={{
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-
-                    color: '#000000',
-                    fontSize: 15,
+                    color: 'white',
+                    fontFamily: 'Poppins-Regular',
+                    fontSize: 16,
                   }}>
-                  Thank you for purchasing our image.
+                  Thank You
                 </Text>
-
-                <TouchableOpacity
-                  onPress={() => {
-                    setShowModal(!showModal);
-                    navigation.navigate('MyOrders');
-                  }}
-                  // onPress={() => props.navigation.navigate('CreateProfile')}
-                  style={{
-                    // marginTop: 20,
-                    alignItems: 'center',
-                    padding: 8,
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                    backgroundColor: 'black',
-                    borderBottomLeftRadius: 50,
-                    borderBottomRightRadius: 50,
-                    borderTopRightRadius: 0,
-                    borderTopLeftRadius: 50,
-                    width: '100%',
-                  }}>
-                  <Text
-                    style={{
-                      color: 'white',
-                      fontFamily: 'Poppins-Regular',
-                      fontSize: 16,
-                    }}>
-                    Thank You
-                  </Text>
-                </TouchableOpacity>
-              </View>
+              </TouchableOpacity>
             </View>
           </View>
-        </Modal>
-      </ScrollView>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -279,11 +264,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     // borderColor: 'red',
     padding: 10,
-    display: 'flex',
     borderWidth: 1,
-    flexDirection: 'column',
     margin: 5,
     borderRadius: 5,
+    flexDirection: 'row',
   },
   productView: {
     width: 40,

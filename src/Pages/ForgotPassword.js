@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -31,7 +31,7 @@ function ForgotPassword(props) {
   const [email, setEmail] = useState('');
   const [isLoaded, setLoaded] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
-  const [serverError, setServerError] = useState([]);
+  const [serverError, setServerError] = useState();
   const [error, setError] = useState('');
 
   const upload = data => {
@@ -43,7 +43,8 @@ function ForgotPassword(props) {
       .then(res => {
         // console.log(res.data);
         if (res.data.errors) {
-          console.log('errr', res.data.errors);
+          console.log('errr', res.data.errors.error);
+          setServerError(res.data.errors.error);
           let e = [];
           if (res.data.errors.email) {
             e.push(res.data.errors.email);
@@ -53,7 +54,7 @@ function ForgotPassword(props) {
           setModalVisible(true);
           console.log(modalVisible);
           console.log(e);
-          setServerError(e);
+          //setServerError(e);
         } else {
           // setTokenBack(res.data.data.token);
           props.navigation.navigate('VerifyOTP');
@@ -70,7 +71,7 @@ function ForgotPassword(props) {
 
     const errorTemplate = {};
     if (email === '') {
-      errorTemplate.email = "email can't be empty";
+      errorTemplate.email = "Email can't be empty";
     }
 
     // if () {
@@ -100,10 +101,12 @@ function ForgotPassword(props) {
                 height: '100%',
                 width: '100%',
                 backgroundColor: 'rgba( 0, 0, 0, 0.6 )',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}>
               <View
                 style={{
-                  backgroundColor: '#eeeeee',
+                  backgroundColor: '#fff',
                   marginLeft: 'auto',
                   marginRight: 'auto',
                   marginTop: 'auto',
@@ -136,8 +139,12 @@ function ForgotPassword(props) {
                     marginRight: 'auto',
                     marginTop: 'auto',
                     marginBottom: 'auto',
-                    color: 'red',
-                    fontSize: 17,
+                    color: '#000',
+                    fontSize: 20,
+                    fontWeight: '700',
+                    padding: 5,
+                    justifyContent: 'center',
+                    alignItems: 'center',
                   }}>
                   {serverError}
                 </Text>
