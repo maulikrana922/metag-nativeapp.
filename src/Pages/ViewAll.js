@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, ScrollView, Text, TouchableOpacity } from 'react-native';
+import { View, ScrollView, Text, Image, TouchableOpacity } from 'react-native';
 import ProductList from '../../src/components/ProductList.js';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
@@ -25,7 +25,7 @@ function ViewAll(props) {
         backgroundColor: 'white',
         flex: 1,
       }}>
-      <View style={{ height: 'auto', width: 'auto' }}>
+      <View style={{ height: 'auto', width: 'auto', paddingBottom: 4 }}>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('Home');
@@ -38,6 +38,14 @@ function ViewAll(props) {
             navigation.navigate('StripeWebViewScreen');
           }}>
           <Text style={{ fontSize: 20, fontWeight: '700', }}>Stripe Connect</Text>
+          {
+            /*
+           <Image
+            source={require('../../assets/CreateProfile/leftarrow.png')}
+            style={{width: 30, height: 20, alignSelf: 'flex-start'}}
+          />
+            */
+          }
         </TouchableOpacity>
       </View>
       <ScrollView>

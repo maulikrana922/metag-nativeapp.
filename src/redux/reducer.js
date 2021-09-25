@@ -87,7 +87,7 @@ export const check_update = () => ({
   type: CHECK_UPDATE,
 });
 
-export const url = data => ({
+export const getUrl = data => ({
   type: URL,
   payload: data,
 });
@@ -210,10 +210,13 @@ const rootReducer = (state = initialState, action) => {
     }
 
     case URL: {
-      console.log('updating url');
+      console.log('updating url', payload);
+      let arr = state.url;
+      arr.push(payload);
+      console.log(arr);
       return {
         ...state,
-        url: url,
+        url: arr,
       };
     }
     default:

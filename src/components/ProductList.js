@@ -148,7 +148,7 @@ export default function ProductList({
                       onPress={() => navigation.navigate('BuyProductWebViewScreen')}>
                       <Text
                         style={{ color: 'white', fontSize: 16, fontWeight: '500' }}>
-                        {purchase_status === 0 ? 'Buy' : 'Purchased'}
+                        Buy
                       </Text>
                     </TouchableOpacity>
                 }
@@ -247,7 +247,7 @@ export default function ProductList({
               <TouchableOpacity
                 onPress={() => {
                   setShowModal(!showModal);
-                  navigation.navigate('MyOrders');
+                  // navigation.navigate('MyOrders');
                 }}
                 // onPress={() => props.navigation.navigate('CreateProfile')}
                 style={{
