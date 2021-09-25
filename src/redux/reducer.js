@@ -12,6 +12,7 @@ export const UPDATE_IMAGE = 'UPDATE_IMAGE';
 export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 export const IS_IMAGE_UPDATED = 'IS_IMAGE_UPDATED';
 export const CHECK_UPDATE = 'CHECK_UPDATE';
+export const URL = 'URL';
 // export const
 
 export const getAuthToken = token => ({
@@ -86,6 +87,11 @@ export const check_update = () => ({
   type: CHECK_UPDATE,
 });
 
+export const url = data => ({
+  type: URL,
+  payload: data,
+});
+
 const initialState = {
   token: null,
   verifyKey: null,
@@ -99,6 +105,7 @@ const initialState = {
   purchaseImage: [],
   updateImg: [],
   check_update: false,
+  url: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -202,6 +209,13 @@ const rootReducer = (state = initialState, action) => {
       };
     }
 
+    case URL: {
+      console.log('updating url');
+      return {
+        ...state,
+        url: url,
+      };
+    }
     default:
       return state;
   }
