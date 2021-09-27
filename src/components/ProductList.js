@@ -58,6 +58,7 @@ export default function ProductList({
   //   );
   // }, []);
   const {token, profile, link, flag, products} = useSelector(state => state);
+
   const getProductImages = async id => {
     // console.log("profile token ??????????",profile.api_token )
     let data = JSON.stringify({
@@ -95,70 +96,100 @@ export default function ProductList({
   console.log('in the list');
   return (
     <SafeAreaView style={{flex: 1}}>
-      <View style={styles.productListView} Key={key}>
-        <View style={{flex: 1}}>
+      <ScrollView>
+        <View style={styles.productListView} Key={key}>
           <View style={{flex: 1}}>
-            <View style={{flex: 1, flexDirection: 'row'}}>
-              <View style={{paddingVertical: 5}}>
-                <Image
-                  source={{uri: image}}
-                  style={styles.productView}
-                  width={65}
-                  height={65}></Image>
-              </View>
-              <View
-                style={{
-                  flex: 1,
-                  paddingLeft: '3%',
-                }}>
-                <Text
-                  numberOfLines={1}
-                  ellipsizeMode="tail"
-                  style={{color: 'white', fontSize: 16, fontWeight: '500'}}>
-                  {title}
-                </Text>
-              </View>
-              <View style={{padding: 5}}>
-                <TouchableOpacity
-                  style={styles.buyBtnBg}
-                  disabled={disabled}
-                  // onPress={() => {
-                  //   // Alert.alert('Buy');
-                  // getProductImages(id);
-                  // setShowModal(true);
-                  // }}
-                  onPress={checkDisable}>
+            <View style={{flex: 1}}>
+              <View style={{flex: 1, flexDirection: 'row'}}>
+                <View style={{paddingVertical: 5}}>
+                  <Image
+                    source={{uri: image}}
+                    style={styles.productView}
+                    width={65}
+                    height={65}></Image>
+                </View>
+                <View
+                  style={{
+                    flex: 1,
+                    paddingLeft: '3%',
+                  }}>
                   <Text
+                    numberOfLines={1}
+                    ellipsizeMode="tail"
                     style={{color: 'white', fontSize: 16, fontWeight: '500'}}>
-                    {purchase_status === 0 ? 'Buy' : 'Purchased'}
+                    {title}
                   </Text>
-                </TouchableOpacity>
+                </View>
+                <View style={{padding: 5}}>
+                  {profile.status == 0 ? (
+                    <TouchableOpacity
+                      style={[styles.buyBtnBg, {backgroundColor: '#40A41D'}]}
+                      disabled={disabled}
+                      onPress={() => {
+                        // Alert.alert('Buy');
+                        getProductImages(id);
+                        setShowModal(true);
+                      }}>
+                      <Text
+                        style={{
+                          color: 'white',
+                          fontSize: 16,
+                          fontWeight: '500',
+                        }}>
+                        {/*purchase_status === 0 ? 'Buy' : 'Purchased'*/}
+                        Buy
+                      </Text>
+                    </TouchableOpacity>
+                  ) : (
+                    <TouchableOpacity
+                      style={[styles.buyBtnBg, {backgroundColor: '#40A41D'}]}
+                      disabled={disabled}
+                      // onPress={() => {
+                      //   // Alert.alert('Buy');
+                      // getProductImages(id);
+                      // setShowModal(true);
+                      // }}
+                      onPress={() =>
+                        navigation.navigate('BuyProductWebViewScreen')
+                      }>
+                      <Text
+                        style={{
+                          color: 'white',
+                          fontSize: 16,
+                          fontWeight: '500',
+                        }}>
+                        Buy
+                      </Text>
+                    </TouchableOpacity>
+                  )}
+                </View>
               </View>
             </View>
-          </View>
-          <View style={{flex: 1}}>
-            <Text style={{color: '#9FAA11', fontSize: 16, fontWeight: '400'}}>
-              $ {price} USD
-            </Text>
-          </View>
-          <View style={{flex: 1}}>
-            <Text
-              numberOfLines={1}
-              ellipsizeMode="tail"
-              style={{color: '#fff', fontSize: 16, fontWeight: '600'}}>
-              Owner Name: {owner_name}
-            </Text>
-          </View>
-          <View style={{flex: 1}}>
-            <Text
-              numberOfLines={1}
-              ellipsizeMode="tail"
-              style={{color: '#fff', fontSize: 16, fontWeight: '600'}}>
-              Description : {description}
-            </Text>
+            <View style={{flex: 1}}>
+              <Text style={{color: '#9FAA11', fontSize: 16, fontWeight: '400'}}>
+                $ {price} USD
+              </Text>
+            </View>
+            <View style={{flex: 1}}>
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={{color: '#fff', fontSize: 16, fontWeight: '600'}}>
+                Owner Name: {owner_name}
+              </Text>
+            </View>
+            <View style={{flex: 1}}>
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={{color: '#fff', fontSize: 16, fontWeight: '600'}}>
+                Description : {description}
+              </Text>
+            </View>
           </View>
         </View>
-      </View>
+      </ScrollView>
+
       <Modal statusBarTranslucent={true} transparent={true} visible={showModal}>
         <View
           style={{
@@ -211,6 +242,7 @@ export default function ProductList({
                   height: '50%',
                   marginLeft: 'auto',
                   marginRight: 'auto',
+                  borderRadius: 8,
                 }}></Image>
               <Text
                 style={{
@@ -220,13 +252,13 @@ export default function ProductList({
                   color: '#000000',
                   fontSize: 15,
                 }}>
-                Thank you for purchasing our image.
+                Before Buying click on above to connect Your Stripe
               </Text>
 
               <TouchableOpacity
                 onPress={() => {
                   setShowModal(!showModal);
-                  navigation.navigate('MyOrders');
+                  // navigation.navigate('MyOrders');
                 }}
                 // onPress={() => props.navigation.navigate('CreateProfile')}
                 style={{
@@ -248,7 +280,7 @@ export default function ProductList({
                     fontFamily: 'Poppins-Regular',
                     fontSize: 16,
                   }}>
-                  Thank You
+                  Okay
                 </Text>
               </TouchableOpacity>
             </View>
@@ -280,7 +312,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   buyBtnBg: {
-    backgroundColor: '#40A41D',
     width: 'auto',
     height: 'auto',
     paddingTop: 5,

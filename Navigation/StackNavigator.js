@@ -1,7 +1,7 @@
 // In App.js in a new project
 
-import React, {useEffect, useState} from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import React, { useEffect, useState } from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
 import Login from '../src/Pages/Login';
 import Signup from '../src/Pages/Signup';
 import ForgotPassword from '../src/Pages/ForgotPassword';
@@ -22,11 +22,12 @@ import ChangePassword from '../src/Pages/ChangePassword';
 import Location from '../src/Pages/Location';
 import ViewAll from '../src/Pages/ViewAll';
 import TabNavigator from './tabs/TabNavigator';
-
+import StripeWebViewScreen from '../src/Pages/StripeWebViewScreen'
+import BuyProductWebViewScreen from '../src/Pages/BuyProductWebViewScreen'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useSelector, useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
-import {StyleSheet, View, Modal, ActivityIndicator} from 'react-native';
+import { StyleSheet, View, Modal, ActivityIndicator } from 'react-native';
 
 import {
   getToken,
@@ -43,7 +44,7 @@ const Stack = createStackNavigator();
 
 function StackNavigator() {
   const dispatch = useDispatch();
-  const {token, flag, profile, removeProfile} = useSelector(state => state);
+  const { token, flag, profile, removeProfile } = useSelector(state => state);
   console.log('printing profile', profile);
   const [loading, setLoading] = useState(true);
 
@@ -87,53 +88,55 @@ function StackNavigator() {
       <Stack.Navigator headerMode="none">
         {profile == null
           ? loading == false && (
-              <>
-                <Stack.Screen name="Signup" component={Signup} />
-                <Stack.Screen name="Login" component={Login} />
-                <Stack.Screen
-                  name="ForgotPassword"
-                  component={ForgotPassword}
-                />
-                <Stack.Screen name="VerifyOTP" component={VerifyOTP} />
-                <Stack.Screen name="ResetPassword" component={ResetPassword} />
-              </>
-            )
+            <>
+              <Stack.Screen name="Signup" component={Signup} />
+              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen
+                name="ForgotPassword"
+                component={ForgotPassword}
+              />
+              <Stack.Screen name="VerifyOTP" component={VerifyOTP} />
+              <Stack.Screen name="ResetPassword" component={ResetPassword} />
+            </>
+          )
           : loading == false && (
-              <>
-                <Stack.Screen name="Home" component={TabNavigator} />
-                <Stack.Screen
-                  name="ChangePassword"
-                  component={ChangePassword}
-                />
-                <Stack.Screen name="Interaction" component={Interaction} />
-                <Stack.Screen name="OrderDetails" component={OrderDetails} />
-                <Stack.Screen name="MyOrders" component={MyOrders} />
-                <Stack.Screen
-                  name="ContactDetails"
-                  component={ContactDetails}
-                />
-                <Stack.Screen name="Contact" component={Contact} />
-                <Stack.Screen name="MyProfile" component={MyProfile} />
-                <Stack.Screen name="MediaAccount" component={MediaAccount} />
-                <Stack.Screen
-                  name="UploadBusinessLogo"
-                  component={UploadBusinessLogo}
-                />
-                <Stack.Screen name="CreateProfile" component={CreateProfile} />
-                <Stack.Screen name="VerifyOTP" component={VerifyOTP} />
-                <Stack.Screen name="ResetPassword" component={ResetPassword} />
-                <Stack.Screen name="Location" component={Location} />
-                <Stack.Screen name="ViewAll" component={ViewAll} />
-                <Stack.Screen name="Nfc" component={Nfc} />
-                <Stack.Screen name="Login" component={Login} />
-                <Stack.Screen name="Signup" component={Signup} />
-                <Stack.Screen name="TagDetail" component={TagDetail} />
-                <Stack.Screen
-                  name="ForgotPassword"
-                  component={ForgotPassword}
-                />
-              </>
-            )}
+            <>
+              <Stack.Screen name="Home" component={TabNavigator} />
+              <Stack.Screen
+                name="ChangePassword"
+                component={ChangePassword}
+              />
+              <Stack.Screen name="Interaction" component={Interaction} />
+              <Stack.Screen name="OrderDetails" component={OrderDetails} />
+              <Stack.Screen name="MyOrders" component={MyOrders} />
+              <Stack.Screen
+                name="ContactDetails"
+                component={ContactDetails}
+              />
+              <Stack.Screen name="Contact" component={Contact} />
+              <Stack.Screen name="MyProfile" component={MyProfile} />
+              <Stack.Screen name="MediaAccount" component={MediaAccount} />
+              <Stack.Screen
+                name="UploadBusinessLogo"
+                component={UploadBusinessLogo}
+              />
+              <Stack.Screen name="CreateProfile" component={CreateProfile} />
+              <Stack.Screen name="VerifyOTP" component={VerifyOTP} />
+              <Stack.Screen name="ResetPassword" component={ResetPassword} />
+              <Stack.Screen name="Location" component={Location} />
+              <Stack.Screen name="ViewAll" component={ViewAll} />
+              <Stack.Screen name="Nfc" component={Nfc} />
+              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="Signup" component={Signup} />
+              <Stack.Screen name="TagDetail" component={TagDetail} />
+              <Stack.Screen name="StripeWebViewScreen" component={StripeWebViewScreen} />
+              <Stack.Screen name="BuyProductWebViewScreen" component={BuyProductWebViewScreen} />
+              <Stack.Screen
+                name="ForgotPassword"
+                component={ForgotPassword}
+              />
+            </>
+          )}
         {/* <Stack.Screen name=""
       {/* <Stack.Screen name="order " component={ChangePassword} /> */}
       </Stack.Navigator>

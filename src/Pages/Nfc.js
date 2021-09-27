@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Modal,
   View,
@@ -11,11 +11,11 @@ import {
   Keyboard,
   TouchableOpacity,
 } from 'react-native';
-import {SafeAreaView} from 'react-navigation';
-import NfcManager, {NfcTech, Ndef} from 'react-native-nfc-manager';
+import { SafeAreaView } from 'react-navigation';
+import NfcManager, { NfcTech, Ndef } from 'react-native-nfc-manager';
 import NfcProxy from './NfcProxy';
-import url from '../BaseURl/baseurl.json';
-import {useSelector, useDispatch} from 'react-redux';
+// import url from '../BaseURl/baseurl.json';
+import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
 import {getUrl} from '../redux/reducer';
@@ -92,7 +92,7 @@ const Nfc = () => {
               onPress: () => console.log('Cancel Pressed'),
               style: 'cancel',
             },
-            {text: 'OK', onPress: () => console.log('OK Pressed')},
+            { text: 'OK', onPress: () => console.log('OK Pressed') },
           ]);
         }
       }
@@ -155,7 +155,7 @@ const Nfc = () => {
   const [obj2, setobj2] = useState('');
 
   return (
-    <SafeAreaView style={{marginTop: 'auto', marginBottom: 'auto'}}>
+    <SafeAreaView style={{ marginTop: 'auto', marginBottom: 'auto' }}>
       {/* {visible === true && (
         <Modal transparent={true} visible={visible}>
           {console.log('vvv', visible)}
@@ -197,7 +197,7 @@ const Nfc = () => {
       )} */}
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View>
-          <Text style={{marginBottom: 20, marginLeft: 10}}>Testing NFC</Text>
+          <Text style={{ marginBottom: 20, marginLeft: 10 }}>Testing NFC</Text>
           <Text style={styles.marginLeft}>URL</Text>
           <TextInput
             onChangeText={setText}
@@ -239,7 +239,7 @@ const Nfc = () => {
                 // const techs = await getTechList(tag);
                 const ndef =
                   (await Array.isArray(tag.ndefMessage)) &&
-                  tag.ndefMessage.length > 0
+                    tag.ndefMessage.length > 0
                     ? tag.ndefMessage[0]
                     : null;
                 let text = await Ndef.text.decodePayload(ndef.payload);
@@ -263,7 +263,7 @@ const Nfc = () => {
             color="#841584"
             accessibilityLabel="Learn more about this purple button"
           />
-          <View style={{height: 20}}></View>
+          <View style={{ height: 20 }}></View>
 
           <Button
             onPress={() => fn()}

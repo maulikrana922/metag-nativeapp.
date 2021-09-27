@@ -1,8 +1,8 @@
 import React from 'react';
-import {StyleSheet, View, Modal, ActivityIndicator} from 'react-native';
+import { StyleSheet, View, Modal, ActivityIndicator } from 'react-native';
 
-const Loader = () => {
-  // const {loading, ...attributes} = props;
+const Loader = (props) => {
+  // const { loading, ...attributes } = props;
 
   return (
     <Modal transparent={true} statusBarTranslucent={true}>
