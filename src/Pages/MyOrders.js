@@ -152,17 +152,33 @@ export default function MyProfile(props) {
                 <View style={styles.header}>
                   {/* <View style={styles.arrowback}></View> */}
                   {/* <Image
-                source={require('../../assets/arrow-back.svg')} 
-                style={styles.arrowback}
-              ></Image> */}
+                    source={require('../../assets/arrow-back.svg')}
+                    style={styles.arrowback}></Image> */}
 
                   {/* here */}
+                  <TouchableOpacity
+                    onPress={() => props.navigation.goBack()}
+                    style={{
+                      top: -8,
+                      // height: 'auto',
+                      // marginTop: 'auto',
+                      // marginBottom: 'auto',
+                      // backgroundColor: 'red',
+                      // position: 'absolute',
+                      // padding: 4,
+                      // textAlign: 'left',
+                      // zIndex: 100,
+                    }}>
+                    <Image
+                      source={require('../../assets/CreateProfile/back.png')}
+                      style={styles.arrowback}></Image>
+                  </TouchableOpacity>
                   <View style={styles.headerBackground}>
                     {/* <Image
                   source={require('../../assets/logo.jpg')}
                   style={{width: 50, height: 'auto'}}
                 /> */}
-                    <Logo width={54} height={54} />
+                    <Logo width={60} height={70} />
                     <View style={styles.header_text}>
                       <Text style={styles.text_metag}>meTAG</Text>
                       <Text style={styles.text_tagline}>
@@ -173,14 +189,16 @@ export default function MyProfile(props) {
                   {/* <Text style={styles.next}>  </Text> */}
                   {/* <Image source={more} style={{ height: 60, width: 30 }}></Image> */}
                   <View
-                    style={{
-                      alignSelf: 'center',
-                      // marginLeft: '30%',
-                      position: 'absolute',
-                      // left: 60,
-                      right: 20,
-                      // backgroundColor: 'yellow',
-                    }}>
+                    style={
+                      {
+                        // alignSelf: 'center',
+                        // marginLeft: '30%',
+                        // position: 'absolute',
+                        // left: 60,
+                        // right: 0,
+                        // backgroundColor: 'yellow',
+                      }
+                    }>
                     {/* <Image source={more}></Image> */}
                     <TouchableOpacity
                       // onPress={() => props.navigation.navigate('Contact')}
@@ -394,21 +412,24 @@ export default function MyProfile(props) {
 }
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: '#000000',
-    height: 100,
+    // backgroundColor: 'pink',
+    // height: 100,
     display: 'flex',
     flexDirection: 'row',
+    width: '100%',
+    marginTop: 25,
     // borderBottomLeftRadius: 20,
     // borderBottomRightRadius: 20,
     // justifyContent: 'space-around',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
+    alignItems: 'center',
   },
   arrowback: {
     // backgroundColor: "beige",
-    width: 20,
+    width: 25,
     height: 20,
     alignSelf: 'center',
-    marginLeft: 20,
+    // marginLeft: 20,
     // color: "white",
   },
   headerBackground: {
@@ -423,6 +444,7 @@ const styles = StyleSheet.create({
     // flex: 1,
     flexDirection: 'column',
     // paddingLeft: 20,
+    marginLeft: 5,
   },
   text_metag: {
     fontFamily: 'Poppins-Regular',

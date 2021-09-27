@@ -17,6 +17,8 @@ import axios from 'axios';
 import {useDispatch, useSelector} from 'react-redux';
 import close from '../../assets/close.png';
 import {updateProduct} from '../redux/reducer';
+import cancel from '../../assets/CreateProfile/cancel.png';
+
 export default function ProductList({
   price,
   title,
@@ -174,21 +176,6 @@ export default function ProductList({
               height: 'auto',
               justifyContent: 'center',
             }}>
-            <TouchableOpacity
-              onPress={() => setShowModal(!showModal)}
-              style={{
-                // backgroundColor: 'red',
-                width: '8%',
-                height: '8%',
-                marginLeft: 'auto',
-                // marginRight: '5%',
-                marginTop: '3%',
-              }}>
-              <Image
-                source={close}
-                resizeMode="contain"
-                style={{width: '100%', height: '100%'}}></Image>
-            </TouchableOpacity>
             <View
               style={{
                 backgroundColor: 'white',
@@ -201,6 +188,21 @@ export default function ProductList({
                 display: 'flex',
                 justifyContent: 'space-evenly',
               }}>
+              <TouchableOpacity
+                onPress={() => setShowModal(!showModal)}
+                style={{
+                  // backgroundColor: 'red',
+                  width: '8%',
+                  height: '8%',
+                  marginLeft: 'auto',
+                  // marginRight: '5%',
+                  // marginTop: '1%',
+                }}>
+                <Image
+                  source={cancel}
+                  resizeMode="contain"
+                  style={{width: '100%', height: '100%'}}></Image>
+              </TouchableOpacity>
               <Image
                 source={{uri: image}}
                 resizeMode="contain"

@@ -402,7 +402,8 @@ export default function MyProfile(props) {
                   source={require('../../assets/logo.jpg')}
                   style={{width: 50, height: 'auto'}}
                 /> */}
-                  <Logo width={54} height={54} />
+                  <Logo width={60} height={70} />
+
                   <View style={styles.header_text}>
                     <Text style={styles.text_metag}>meTAG</Text>
                     <Text style={styles.text_tagline}>I M ME,WHO ARE YOU</Text>
@@ -999,6 +1000,7 @@ const styles = StyleSheet.create({
     // flex: 1,
     flexDirection: 'column',
     // paddingLeft: 20,
+    marginLeft: 5,
   },
   text_metag: {
     fontFamily: 'Poppins-Regular',

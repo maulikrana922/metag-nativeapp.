@@ -135,16 +135,11 @@ function ForgotPassword(props) {
                 </TouchableOpacity>
                 <Text
                   style={{
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                    marginTop: 'auto',
-                    marginBottom: 'auto',
                     color: '#000',
                     fontSize: 20,
                     fontWeight: '700',
                     padding: 5,
-                    justifyContent: 'center',
-                    alignItems: 'center',
+                    textAlign: 'center',
                   }}>
                   {serverError}
                 </Text>
@@ -191,7 +186,9 @@ function ForgotPassword(props) {
                 />
               </View>
               {error.email && (
-                <Text style={{color: 'white'}}>{error.email}</Text>
+                <Text style={{color: 'red', paddingTop: 10}}>
+                  {error.email}
+                </Text>
               )}
               {/* <View style={styles.signin_btn}>
             <Button title="Sign in" color="white" />
@@ -267,11 +264,13 @@ const styles = StyleSheet.create({
   headerBackground: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    paddingTop: '10%',
+    paddingTop: '5%',
+    paddingLeft: 15,
     marginTop: 10,
-    justifyContent: 'flex-start',
+    // justifyContent: 'flex-start',
     alignItems: 'center',
     // paddingBottom: 20,
+    // borderWidth: 1,
   },
   text: {
     fontFamily: 'Poppins-Regular',
@@ -380,7 +379,7 @@ const styles = StyleSheet.create({
     // backgroundColor: 'red',
     fontSize: 20,
     color: 'white',
-    width: '100%',
+    width: '90%',
 
     // alignSelf: 'stretch',
     // flex: 1,

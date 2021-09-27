@@ -311,13 +311,16 @@ export default function CreateProfile(props) {
                     height: 'auto',
                     marginTop: 'auto',
                     marginBottom: 'auto',
+                    // backgroundColor: 'red',
+                    // padding: 4,
                   }}>
                   <Image
                     source={require('../../assets/CreateProfile/back.png')}
                     style={styles.arrowback}></Image>
                 </TouchableOpacity>
                 <View style={styles.headerBackground}>
-                  <Logo width={54} height={54} />
+                  <Logo width={65} height={70} />
+
                   <View style={styles.header_text}>
                     <Text style={styles.text_metag}>meTAG</Text>
                     <Text style={styles.text_tagline}>I M ME,WHO ARE YOU</Text>
@@ -474,7 +477,7 @@ const styles = StyleSheet.create({
   },
   arrowback: {
     // backgroundColor: "beige",
-    width: 20,
+    width: 25,
     height: 20,
     alignSelf: 'center',
     // backgroundColor: 'pink',
@@ -496,6 +499,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     // paddingLeft: 20,
+    marginLeft: 5,
   },
   text_metag: {
     fontFamily: 'Poppins-Regular',
