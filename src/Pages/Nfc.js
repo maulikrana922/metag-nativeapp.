@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Modal,
   View,
@@ -8,14 +8,15 @@ import {
   TextInput,
   StyleSheet,
   TouchableWithoutFeedback,
+  Pressable,
   Keyboard,
   TouchableOpacity,
 } from 'react-native';
-import { SafeAreaView } from 'react-navigation';
-import NfcManager, { NfcTech, Ndef } from 'react-native-nfc-manager';
+import {SafeAreaView} from 'react-navigation';
+import NfcManager, {NfcTech, Ndef} from 'react-native-nfc-manager';
 import NfcProxy from './NfcProxy';
 // import url from '../BaseURl/baseurl.json';
-import { useSelector, useDispatch } from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
 import {getUrl} from '../redux/reducer';
@@ -92,7 +93,7 @@ const Nfc = () => {
               onPress: () => console.log('Cancel Pressed'),
               style: 'cancel',
             },
-            { text: 'OK', onPress: () => console.log('OK Pressed') },
+            {text: 'OK', onPress: () => console.log('OK Pressed')},
           ]);
         }
       }
@@ -135,6 +136,35 @@ const Nfc = () => {
   //   });
   // }
 
+  const Read = () => {
+    async () => {
+      const tag = await NfcProxy.readTag();
+
+      if (tag) {
+        // const techs = await getTechList(tag);
+        const ndef =
+          (await Array.isArray(tag.ndefMessage)) && tag.ndefMessage.length > 0
+            ? tag.ndefMessage[0]
+            : null;
+        let text = await Ndef.text.decodePayload(ndef.payload);
+        // console.log("text>>>>>>>>>", text)
+        // console.log('readingTag >>>>>>', tag.id, text);
+        const newText = await JSON.parse(text);
+        await setobj2(newText);
+        await setVisible(true);
+        newText.tagId = tag.id;
+        console.log('text...', newText);
+        dispatch(getUrl(newText));
+        navigation.navigate('Contact');
+
+        // navigation.navigate('TagDetail', {tag});
+        // console.log("tag....",tag)
+        //  const res = await JSON.parse(tag)
+        //  alert(res)
+      }
+    };
+  };
+
   const fn = async () => {
     const obj = await JSON.stringify({
       url: text,
@@ -155,7 +185,7 @@ const Nfc = () => {
   const [obj2, setobj2] = useState('');
 
   return (
-    <SafeAreaView style={{ marginTop: 'auto', marginBottom: 'auto' }}>
+    <SafeAreaView style={{marginTop: 'auto', marginBottom: 'auto'}}>
       {/* {visible === true && (
         <Modal transparent={true} visible={visible}>
           {console.log('vvv', visible)}
@@ -197,8 +227,10 @@ const Nfc = () => {
       )} */}
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View>
-          <Text style={{ marginBottom: 20, marginLeft: 10 }}>Testing NFC</Text>
-          <Text style={styles.marginLeft}>URL</Text>
+          <Text style={{marginBottom: 70, marginLeft: 10, fontSize: 20}}>
+            Testing NFC
+          </Text>
+          <Text style={{marginLeft: 20}}>URL</Text>
           <TextInput
             onChangeText={setText}
             value={text}
@@ -207,6 +239,8 @@ const Nfc = () => {
               margin: 12,
               borderWidth: 1,
               color: 'black',
+              marginLeft: 20,
+              marginRight: 20,
             }}
           />
           {/* <Text style={styles.marginLeft}>Full Address</Text>
@@ -231,46 +265,48 @@ const Nfc = () => {
               color: 'black',
             }}
           /> */}
-          <Button
-            onPress={async () => {
-              const tag = await NfcProxy.readTag();
-
-              if (tag) {
-                // const techs = await getTechList(tag);
-                const ndef =
-                  (await Array.isArray(tag.ndefMessage)) &&
-                    tag.ndefMessage.length > 0
-                    ? tag.ndefMessage[0]
-                    : null;
-                let text = await Ndef.text.decodePayload(ndef.payload);
-                // console.log("text>>>>>>>>>", text)
-                // console.log('readingTag >>>>>>', tag.id, text);
-                const newText = await JSON.parse(text);
-                await setobj2(newText);
-                await setVisible(true);
-                newText.tagId = tag.id;
-                console.log('text...', newText);
-                dispatch(getUrl(newText));
-                navigation.navigate('Contact');
-
-                // navigation.navigate('TagDetail', {tag});
-                // console.log("tag....",tag)
-                //  const res = await JSON.parse(tag)
-                //  alert(res)
-              }
-            }}
+          <View style={{marginTop: '30%'}}>
+            {/* <Button
+            onPress={Read()}
             title="read"
             color="#841584"
             accessibilityLabel="Learn more about this purple button"
-          />
-          <View style={{ height: 20 }}></View>
+          /> */}
+            <Pressable
+              onPress={Read()}
+              style={{
+                backgroundColor: '#841584',
+                marginRight: 70,
+                paddingVertical: 10,
+                marginLeft: 70,
+                alignItems: 'center',
+                height: 'auto',
+                // textAlign: 'center',
+              }}>
+              <Text style={{color: 'white', fontSize: 18}}>Read</Text>
+            </Pressable>
+            <View style={{height: 20}}></View>
 
-          <Button
+            {/* <Button
             onPress={() => fn()}
             title="write"
             color="#841584"
             accessibilityLabel="Learn more about this purple button"
-          />
+          /> */}
+            <Pressable
+              onPress={fn()}
+              style={{
+                backgroundColor: '#841584',
+                marginRight: 70,
+                paddingVertical: 10,
+                marginLeft: 70,
+                alignItems: 'center',
+                height: 'auto',
+                // textAlign: 'center',
+              }}>
+              <Text style={{color: 'white', fontSize: 18}}>Write</Text>
+            </Pressable>
+          </View>
         </View>
       </TouchableWithoutFeedback>
     </SafeAreaView>

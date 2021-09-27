@@ -9,6 +9,7 @@ import {
   Platform,
   TouchableOpacity,
   ImageBackground,
+  ScrollView,
   Modal,
   SafeAreaView,
 } from 'react-native';
@@ -187,94 +188,95 @@ export default function CreateProfile(props) {
     return null;
   } else {
     return (
-      <SafeAreaView>
-        <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
-          <Modal
-            // style={{
-            //   backgroundColor: 'yellow',
-            //   // margin: '30%',
-            //   // width: '60%',
-            //   // height: '60%',
-            //   // margin: '40%',
-            // }}
-            transparent={true}
-            visible={modalVisible}>
-            <View
-              style={{
-                backgroundColor: '#eeeeee',
-                marginLeft: 'auto',
-                marginRight: 'auto',
-                marginTop: 'auto',
-                marginBottom: 'auto',
-                width: '80%',
-                height: '80%',
-              }}>
-              <TouchableOpacity
-                onPress={() => setModalVisible(!modalVisible)}
-                style={{
-                  // backgroundColor: 'red',
-                  width: '5%',
-                  height: '5%',
-                  marginLeft: 'auto',
-                  marginRight: '5%',
-                  marginTop: '3%',
-                }}>
-                <Image
-                  source={cancel}
-                  resizeMode="contain"
-                  style={{width: '100%', height: '100%'}}></Image>
-              </TouchableOpacity>
+      <SafeAreaView style={{flex: 1}}>
+        <ScrollView style={{flex: 1}}>
+          <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
+            <Modal
+              // style={{
+              //   backgroundColor: 'yellow',
+              //   // margin: '30%',
+              //   // width: '60%',
+              //   // height: '60%',
+              //   // margin: '40%',
+              // }}
+              transparent={true}
+              visible={modalVisible}>
               <View
                 style={{
-                  marginLeft: 'auto',
-                  marginRight: 'auto',
-                  marginTop: 'auto',
-                  marginBottom: 'auto',
-                }}>
-                {list()}
-              </View>
-            </View>
-          </Modal>
-          <Modal
-            // style={{
-            //   backgroundColor: 'yellow',
-            //   // margin: '30%',
-            //   // width: '60%',
-            //   // height: '60%',
-            //   // margin: '40%',
-            // }}
-            statusBarTranslucent={true}
-            transparent={true}
-            visible={modalVisible2}>
-            <View
-              style={{
-                height: '100%',
-                backgroundColor: 'rgba( 0, 0, 0, 0.6 )',
-              }}>
-              <View
-                style={{
+                  backgroundColor: '#eeeeee',
                   marginLeft: 'auto',
                   marginRight: 'auto',
                   marginTop: 'auto',
                   marginBottom: 'auto',
                   width: '80%',
-                  height: 'auto',
+                  height: '80%',
                 }}>
                 <TouchableOpacity
-                  onPress={() => setModalVisible2(!modalVisible2)}
+                  onPress={() => setModalVisible(!modalVisible)}
                   style={{
-                    width: '8%',
-                    height: '8%',
+                    // backgroundColor: 'red',
+                    width: '5%',
+                    height: '5%',
                     marginLeft: 'auto',
-                    // marginRight: '5%',
+                    marginRight: '5%',
                     marginTop: '3%',
                   }}>
                   <Image
-                    source={close}
+                    source={cancel}
                     resizeMode="contain"
                     style={{width: '100%', height: '100%'}}></Image>
                 </TouchableOpacity>
-                {/* <Text
+                <View
+                  style={{
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    marginTop: 'auto',
+                    marginBottom: 'auto',
+                  }}>
+                  {list()}
+                </View>
+              </View>
+            </Modal>
+            <Modal
+              // style={{
+              //   backgroundColor: 'yellow',
+              //   // margin: '30%',
+              //   // width: '60%',
+              //   // height: '60%',
+              //   // margin: '40%',
+              // }}
+              statusBarTranslucent={true}
+              transparent={true}
+              visible={modalVisible2}>
+              <View
+                style={{
+                  height: '100%',
+                  backgroundColor: 'rgba( 0, 0, 0, 0.6 )',
+                }}>
+                <View
+                  style={{
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    marginTop: 'auto',
+                    marginBottom: 'auto',
+                    width: '80%',
+                    height: 'auto',
+                  }}>
+                  <TouchableOpacity
+                    onPress={() => setModalVisible2(!modalVisible2)}
+                    style={{
+                      width: '8%',
+                      height: '8%',
+                      marginLeft: 'auto',
+                      // marginRight: '5%',
+                      marginTop: '3%',
+                    }}>
+                    <Image
+                      source={close}
+                      resizeMode="contain"
+                      style={{width: '100%', height: '100%'}}></Image>
+                  </TouchableOpacity>
+                  {/* <Text
                   style={{
                     marginLeft: 'auto',
                     marginRight: 'auto',
@@ -284,90 +286,105 @@ export default function CreateProfile(props) {
                   }}>
                   {list()}
                 </Text> */}
-                <View
-                  style={{
-                    backgroundColor: 'white',
-                    // marginTop: '5%',
-                    padding: '5%',
-                    borderBottomLeftRadius: 10,
-                    borderBottomRightRadius: 10,
-                    borderTopLeftRadius: 10,
-                    borderTopRightRadius: 10,
-                    display: 'flex',
-                    justifyContent: 'space-evenly',
-                  }}>
-                  <Image
-                    source={loginFail}
-                    resizeMode="contain"
+                  <View
                     style={{
-                      width: '50%',
-                      height: '50%',
-                      marginLeft: 'auto',
-                      marginRight: 'auto',
-                    }}></Image>
-                  <Text
-                    style={{
-                      marginLeft: 'auto',
-                      marginRight: 'auto',
-                      // marginTop: 'auto',
-                      // marginBottom: 'auto',
-                      color: '#000000',
-                      fontSize: 17,
+                      backgroundColor: 'white',
+                      // marginTop: '5%',
+                      padding: '5%',
+                      borderBottomLeftRadius: 10,
+                      borderBottomRightRadius: 10,
+                      borderTopLeftRadius: 10,
+                      borderTopRightRadius: 10,
+                      display: 'flex',
+                      justifyContent: 'space-evenly',
                     }}>
-                    Your password updated successfully
-                  </Text>
+                    <Image
+                      source={loginFail}
+                      resizeMode="contain"
+                      style={{
+                        width: '50%',
+                        height: '50%',
+                        marginLeft: 'auto',
+                        marginRight: 'auto',
+                      }}></Image>
+                    <Text
+                      style={{
+                        marginLeft: 'auto',
+                        marginRight: 'auto',
+                        // marginTop: 'auto',
+                        // marginBottom: 'auto',
+                        color: '#000000',
+                        fontSize: 17,
+                      }}>
+                      Your password updated successfully
+                    </Text>
+                  </View>
                 </View>
               </View>
-            </View>
-          </Modal>
-          <View>
-            <View style={styles.header_parent}>
-              <View>
-                <View style={styles.header}>
-                  {/* <View style={styles.arrowback}></View> */}
-                  <TouchableOpacity
-                    onPress={() => props.navigation.goBack()}
-                    style={styles.arrowback}>
-                    <Image
-                      source={require('../../assets/CreateProfile/back.png')}></Image>
-                  </TouchableOpacity>
-                  <View style={styles.headerBackground}>
-                    {/* <Image
-                    source={require('../../assets/logo.jpg')}
-                    style={{width: 50, height: 'auto'}}
-                  /> */}
-                    <Logo width={54} height={54} />
-
-                    <View style={styles.header_text}>
-                      <Text style={styles.text_metag}>meTAG</Text>
-                      <Text style={styles.text_tagline}>
-                        I M ME,WHO ARE YOU
-                      </Text>
+            </Modal>
+            <View>
+              <View style={styles.header_parent}>
+                <View>
+                  <View style={styles.header}>
+                    {/* <View style={styles.arrowback}></View> */}
+                    <TouchableOpacity
+                      onPress={() => props.navigation.goBack()}
+                      style={styles.arrowback}>
+                      <Image
+                        source={require('../../assets/CreateProfile/back.png')}></Image>
+                    </TouchableOpacity>
+                    <View style={styles.headerBackground}>
+                      <Logo width={60} height={70} />
+                      <View style={styles.header_text}>
+                        <Text style={styles.text_metag}>meTAG</Text>
+                        <Text style={styles.text_tagline}>
+                          I M ME,WHO ARE YOU
+                        </Text>
+                      </View>
                     </View>
+                    <Text style={styles.next}></Text>
                   </View>
-                  <Text style={styles.next}></Text>
-                </View>
-                <View
-                  style={{
-                    width: 'auto',
-                    height: 'auto',
-                    borderWidth: 1,
-                    paddingBottom: 20,
-                  }}>
-                  <Text style={styles.completeProfile}>Change Password</Text>
-                </View>
-                <View
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    height: 'auto',
-                    paddingLeft: 50,
-                    paddingRight: 50,
-                    paddingTop: 0,
-                    // paddingBottom: 50,
-                    // backgroundColor: 'red',
-                  }}>
-                  {flag === 'false' && (
+                  <View
+                    style={{
+                      width: 'auto',
+                      height: 'auto',
+                      borderWidth: 1,
+                      paddingBottom: 20,
+                    }}>
+                    <Text style={styles.completeProfile}>Change Password</Text>
+                  </View>
+                  <View
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      height: 'auto',
+                      paddingLeft: 50,
+                      paddingRight: 50,
+                      paddingTop: 0,
+                      // paddingBottom: 50,
+                      // backgroundColor: 'red',
+                    }}>
+                    {flag === 'false' && (
+                      <View style={{paddingBottom: 5}}>
+                        <View style={styles.fieldInputView}>
+                          <Image
+                            source={require('../../assets/signup/lock.png')}
+                            style={styles.icon}
+                            resizeMode="contain"></Image>
+                          <TextInput
+                            placeholder="Old Password"
+                            value={oldPassword}
+                            onChangeText={text => setOldPassword(text.trim())}
+                            placeholderTextColor="white"
+                            style={styles.fieldInputText}></TextInput>
+                        </View>
+                        {error.oldPassword && (
+                          <Text style={{color: 'red', paddingTop: 3}}>
+                            {error.oldPassword}
+                          </Text>
+                        )}
+                      </View>
+                    )}
                     <View style={{paddingBottom: 5}}>
                       <View style={styles.fieldInputView}>
                         <Image
@@ -375,199 +392,182 @@ export default function CreateProfile(props) {
                           style={styles.icon}
                           resizeMode="contain"></Image>
                         <TextInput
-                          placeholder="Old Password"
-                          value={oldPassword}
-                          onChangeText={text => setOldPassword(text.trim())}
+                          value={newPassword}
+                          onChangeText={text => setNewPassword(text.trim())}
+                          placeholder="New Password"
                           placeholderTextColor="white"
                           style={styles.fieldInputText}></TextInput>
                       </View>
-                      {error.oldPassword && (
-                        <Text style={{color: 'white'}}>
-                          {error.oldPassword}
+                      {error.newPassword && (
+                        <Text style={{color: 'red', paddingTop: 3}}>
+                          {error.newPassword}
                         </Text>
                       )}
                     </View>
-                  )}
-                  <View style={{paddingBottom: 5}}>
-                    <View style={styles.fieldInputView}>
-                      <Image
-                        source={require('../../assets/signup/lock.png')}
-                        style={styles.icon}
-                        resizeMode="contain"></Image>
-                      <TextInput
-                        value={newPassword}
-                        onChangeText={text => setNewPassword(text.trim())}
-                        placeholder="New Password"
-                        placeholderTextColor="white"
-                        style={styles.fieldInputText}></TextInput>
+                    <View style={{paddingBottom: 5}}>
+                      <View style={styles.fieldInputView}>
+                        <Image
+                          source={require('../../assets/signup/lock.png')}
+                          style={styles.icon}
+                          resizeMode="contain"></Image>
+                        <TextInput
+                          value={confirmPassword}
+                          onChangeText={text => setConfirmPassword(text.trim())}
+                          placeholderTextColor="white"
+                          placeholder="Confirm New Password"
+                          style={styles.fieldInputText}></TextInput>
+                      </View>
+                      {error.confirmPassword && (
+                        <Text style={{color: 'red', paddingTop: 3}}>
+                          {error.confirmPassword}
+                        </Text>
+                      )}
+                      {error.match && (
+                        <Text style={{color: 'red'}}>{error.match}</Text>
+                      )}
                     </View>
-                    {error.newPassword && (
-                      <Text style={{color: 'white'}}>{error.newPassword}</Text>
-                    )}
-                  </View>
-                  <View style={{paddingBottom: 5}}>
-                    <View style={styles.fieldInputView}>
-                      <Image
-                        source={require('../../assets/signup/lock.png')}
-                        style={styles.icon}
-                        resizeMode="contain"></Image>
-                      <TextInput
-                        value={confirmPassword}
-                        onChangeText={text => setConfirmPassword(text.trim())}
-                        placeholderTextColor="white"
-                        placeholder="Confirm New Password"
-                        style={styles.fieldInputText}></TextInput>
-                    </View>
-                    {error.confirmPassword && (
-                      <Text style={{color: 'white'}}>
-                        {error.confirmPassword}
-                      </Text>
-                    )}
-                    {error.match && (
-                      <Text style={{color: 'white'}}>{error.match}</Text>
-                    )}
                   </View>
                 </View>
+                <TouchableOpacity
+                  onPress={() => submit()}
+                  style={{
+                    marginLeft: 'auto',
+                    backgroundColor: 'red',
+                    marginRight: 50,
+                    marginTop: 20,
+                    marginBottom: 20,
+                    backgroundColor: 'white',
+                    borderBottomLeftRadius: 20,
+                    borderBottomRightRadius: 20,
+                    borderTopRightRadius: 0,
+                    borderTopLeftRadius: 20,
+                    paddingLeft: '3%',
+                    padddingRight: '3%',
+                    height: 40,
+                    width: 80,
+                  }}>
+                  <Text style={{padding: 5, color: 'black', fontSize: 16}}>
+                    Save
+                  </Text>
+                </TouchableOpacity>
               </View>
-              <TouchableOpacity
-                onPress={() => submit()}
-                style={{
-                  marginLeft: 'auto',
-                  backgroundColor: 'red',
-                  marginRight: 50,
-                  marginTop: 20,
-                  marginBottom: 20,
-                  backgroundColor: 'white',
-                  borderBottomLeftRadius: 20,
-                  borderBottomRightRadius: 20,
-                  borderTopRightRadius: 0,
-                  borderTopLeftRadius: 20,
-                  paddingLeft: '3%',
-                  padddingRight: '3%',
-                  height: 40,
-                  width: 80,
-                }}>
-                <Text style={{padding: 10, color: 'black', fontSize: 16}}>
-                  Save
-                </Text>
-              </TouchableOpacity>
-            </View>
 
-            {/* here */}
-            <View
-              style={{
-                margin: 14,
-                borderRadius: 5,
-                padding: 4,
-                margin: 8,
-                backgroundColor: 'white',
-              }}
-              shadowOffset={{height: 2, width: 0}}
-              shadowColor="#000"
-              shadowOpacity={0.25}
-              shadowRadius={3.84}
-              elevation={5}>
-              <Text
-                style={{
-                  fontFamily: 'Poppins-SemiBold',
-                  fontSize: 24,
-                  padding: 8,
-                  fontWeight: '600',
-                }}>
-                Manage Card
-              </Text>
+              {/* here */}
               <View
                 style={{
-                  backgroundColor: 'black',
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  margin: 10,
+                  margin: 14,
                   borderRadius: 5,
-                }}>
+                  padding: 4,
+                  margin: 8,
+                  backgroundColor: 'white',
+                }}
+                shadowOffset={{height: 2, width: 0}}
+                shadowColor="#000"
+                shadowOpacity={0.25}
+                shadowRadius={3.84}
+                elevation={5}>
+                <Text
+                  style={{
+                    fontFamily: 'Poppins-SemiBold',
+                    fontSize: 24,
+                    padding: 8,
+                    fontWeight: '600',
+                  }}>
+                  Manage Card
+                </Text>
                 <View
                   style={{
                     backgroundColor: 'black',
                     display: 'flex',
                     flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    margin: 10,
                     borderRadius: 5,
                   }}>
                   <View
                     style={{
-                      backgroundColor: 'white',
-                      width: 'auto',
-                      height: 'auto',
-                      margin: 10,
-                      padding: 10,
+                      backgroundColor: 'black',
                       display: 'flex',
-                      alignItems: 'center',
+                      flexDirection: 'row',
                       borderRadius: 5,
                     }}>
-                    <Hotspot height={40} width={40} fill="black" />
-                  </View>
-                  <View
-                    style={{
-                      alignSelf: 'center',
-                      borderWidth: 1,
-                      // borderColor: 'red',
-                    }}>
-                    <View style={{paddingBottom: 10}}>
-                      <Text
-                        style={{
-                          color: 'white',
-                          fontSize: 20,
-                          fontWeight: '500',
-                        }}>
-                        Product Title
-                      </Text>
+                    <View
+                      style={{
+                        backgroundColor: 'white',
+                        width: 'auto',
+                        height: 'auto',
+                        margin: 10,
+                        padding: 10,
+                        display: 'flex',
+                        alignItems: 'center',
+                        borderRadius: 5,
+                      }}>
+                      <Hotspot height={40} width={40} fill="black" />
                     </View>
-                    <View style={{}}>
-                      <Text style={{color: '#9FAA11', fontSize: 18}}>
-                        Currently in use
-                      </Text>
+                    <View
+                      style={{
+                        alignSelf: 'center',
+                        borderWidth: 1,
+                        // borderColor: 'red',
+                      }}>
+                      <View style={{paddingBottom: 10}}>
+                        <Text
+                          style={{
+                            color: 'white',
+                            fontSize: 20,
+                            fontWeight: '500',
+                          }}>
+                          Product Title
+                        </Text>
+                      </View>
+                      <View style={{}}>
+                        <Text style={{color: '#9FAA11', fontSize: 18}}>
+                          Currently in use
+                        </Text>
+                      </View>
                     </View>
                   </View>
-                </View>
-                <TouchableOpacity
-                  // checkBoxColor="orange"
-                  // checkedCheckBoxColor="red"
-                  // uncheckedCheckBoxColor="yellow"
-                  style={{
-                    borderRadius: 50,
-                    width: 30,
-                    height: 30,
-                    marginTop: 'auto',
-                    marginBottom: 'auto',
-                    marginRight: 20,
-                    // backgroundColor: 'black',
-                    // backgroundColor: '#F5FCFF',
-                    // checkedCheckBoxColor: 'pink',
-                    // uncheckedCheckBoxColor: 'red',
-                    // checkBoxColor: 'pink',
-
-                    // color: 'black',
-                    backgroundColor: 'white',
-                  }}
-                  onPress={() => setChecked(!checked)}
-                  isChecked={checked}
-                  // leftText={'CheckBox'}
-                >
-                  <Tick
-                    height={15}
-                    width={15}
-                    fill={checked ? '#9FAA11' : 'white'}
+                  <TouchableOpacity
+                    // checkBoxColor="orange"
+                    // checkedCheckBoxColor="red"
+                    // uncheckedCheckBoxColor="yellow"
                     style={{
+                      borderRadius: 50,
+                      width: 30,
+                      height: 30,
                       marginTop: 'auto',
-                      marginRight: 'auto',
                       marginBottom: 'auto',
-                      marginLeft: 'auto',
+                      marginRight: 20,
+                      // backgroundColor: 'black',
+                      // backgroundColor: '#F5FCFF',
+                      // checkedCheckBoxColor: 'pink',
+                      // uncheckedCheckBoxColor: 'red',
+                      // checkBoxColor: 'pink',
+
+                      // color: 'black',
+                      backgroundColor: 'white',
                     }}
-                  />
-                </TouchableOpacity>
+                    onPress={() => setChecked(!checked)}
+                    isChecked={checked}
+                    // leftText={'CheckBox'}
+                  >
+                    <Tick
+                      height={15}
+                      width={15}
+                      fill={checked ? '#9FAA11' : 'white'}
+                      style={{
+                        marginTop: 'auto',
+                        marginRight: 'auto',
+                        marginBottom: 'auto',
+                        marginLeft: 'auto',
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
-          </View>
-        </ImageBackground>
+          </ImageBackground>
+        </ScrollView>
       </SafeAreaView>
     );
   }
@@ -599,16 +599,14 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     paddingBottom: 20,
     alignSelf: 'center',
-    // backgroundColor: 'pink',
-    width: 200,
     // borderBottomColor: 'white',
     // paddingRight: 40,
   },
   header_text: {
     // flex: 1,
-    display: 'flex',
     flexDirection: 'column',
     // paddingLeft: 20,
+    marginLeft: 5,
   },
   text_metag: {
     fontFamily: 'Poppins-Regular',

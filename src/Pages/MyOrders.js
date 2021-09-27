@@ -174,10 +174,6 @@ export default function MyProfile(props) {
                       style={styles.arrowback}></Image>
                   </TouchableOpacity>
                   <View style={styles.headerBackground}>
-                    {/* <Image
-                  source={require('../../assets/logo.jpg')}
-                  style={{width: 50, height: 'auto'}}
-                /> */}
                     <Logo width={60} height={70} />
                     <View style={styles.header_text}>
                       <Text style={styles.text_metag}>meTAG</Text>
@@ -443,6 +439,7 @@ const styles = StyleSheet.create({
   header_text: {
     // flex: 1,
     flexDirection: 'column',
+    marginBottom: 6,
     // paddingLeft: 20,
     marginLeft: 5,
   },

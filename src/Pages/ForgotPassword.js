@@ -197,7 +197,8 @@ function ForgotPassword(props) {
                 style={{
                   display: 'flex',
                   justifyContent: 'flex-end',
-                  width: 'auto',
+                  // width: 'auto',
+                  // width: '100%',
                   flexDirection: 'row',
                 }}>
                 <TouchableOpacity
@@ -209,6 +210,7 @@ function ForgotPassword(props) {
                     style={{
                       color: 'black',
                       fontFamily: 'Poppins-Regular',
+                      // width: '100%',
                       fontSize: 16,
                     }}>
                     Send now

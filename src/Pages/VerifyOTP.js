@@ -73,7 +73,7 @@ function VerifyOTP(props) {
 
     const errorTemplate = {};
     if (otp === '') {
-      errorTemplate.otp = "otp can't be empty";
+      errorTemplate.otp = "OTP can't be empty.";
     }
 
     const val = Object.entries(errorTemplate).length;
@@ -178,8 +178,8 @@ function VerifyOTP(props) {
                 flexDirection: 'row',
                 borderBottomColor: 'white',
                 borderWidth: 1,
-                paddingTop: 50,
-                paddingBottom: 10,
+                paddingTop: 40,
+                marginBottom: 8,
 
                 // justifyContent: 'space-between',
               }}>
@@ -195,7 +195,7 @@ function VerifyOTP(props) {
                 value={otp}
               />
             </View>
-            {error.otp && <Text style={{color: 'white'}}>{error.otp}</Text>}
+            {error.otp && <Text style={{color: 'red'}}>{error.otp}</Text>}
             <View
               style={{
                 display: 'flex',
@@ -299,18 +299,7 @@ const styles = StyleSheet.create({
     padding: 0,
     color: 'black',
   },
-  // inputEmail: {
-  //   borderBottomColor: 'white',
-  //   borderWidth: 1,
-  //   height: 40,
-  //   color: 'white',
-  //   paddingTop: 20,
-  // },
   inputEmail: {
-    // borderBottomColor: 'white',
-    // borderWidth: 1,
-    // height: 43,
-    // color: 'white',
     fontSize: 18,
     color: 'white',
   },

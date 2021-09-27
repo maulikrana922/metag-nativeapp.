@@ -33,6 +33,7 @@ import axios from 'axios';
 import {check_update} from '../redux/reducer';
 import close from '../../assets/close.png';
 import {useNavigation} from '@react-navigation/native';
+import cancel from '../../assets/CreateProfile/cancel.png';
 
 // import {
 //   useFonts,
@@ -252,7 +253,7 @@ export default function OrderDetails(props) {
                       style={{
                         color: '#fff',
                         flex: 1,
-                        fontSize: 20,
+                        fontSize: 16,
                         fontWeight: '600',
                         padding: 2,
                       }}>
@@ -374,33 +375,31 @@ export default function OrderDetails(props) {
                   height: 'auto',
                   justifyContent: 'center',
                 }}>
-                <TouchableOpacity
-                  onPress={() => setShowModal(!showModal)}
-                  style={{
-                    // backgroundColor: 'red',
-                    width: '8%',
-                    height: '8%',
-                    marginLeft: 'auto',
-                    // marginRight: '5%',
-                    marginTop: '3%',
-                  }}>
-                  <Image
-                    source={close}
-                    resizeMode="contain"
-                    style={{width: '100%', height: '100%'}}></Image>
-                </TouchableOpacity>
                 <View
                   style={{
                     backgroundColor: 'white',
                     // marginTop: '5%',
-                    padding: '5%',
-                    borderBottomLeftRadius: 10,
-                    borderBottomRightRadius: 10,
-                    borderTopLeftRadius: 10,
-                    borderTopRightRadius: 10,
+                    paddingHorizontal: '5%',
+                    paddingVertical: '0%',
+                    borderRadius: 10,
                     display: 'flex',
                     justifyContent: 'space-evenly',
                   }}>
+                  <TouchableOpacity
+                    onPress={() => setShowModal(!showModal)}
+                    style={{
+                      // backgroundColor: 'red',
+                      width: '8%',
+                      height: '8%',
+                      marginLeft: 'auto',
+                      // marginRight: '5%',
+                      // marginTop: '3%',
+                    }}>
+                    <Image
+                      source={cancel}
+                      resizeMode="contain"
+                      style={{width: '100%', height: '100%'}}></Image>
+                  </TouchableOpacity>
                   <Image
                     source={{uri: `${element.image_uploads.url}`}}
                     resizeMode="contain"
@@ -409,6 +408,7 @@ export default function OrderDetails(props) {
                       height: '50%',
                       marginLeft: 'auto',
                       marginRight: 'auto',
+                      borderRadius: 5,
                     }}></Image>
                   <Text
                     style={{
