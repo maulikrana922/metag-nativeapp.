@@ -216,11 +216,13 @@ function ForgotPassword(props) {
                 </TouchableOpacity>
               </View>
             </View>
-            <TouchableOpacity
-              onPress={() => props.navigation.navigate('Login')}
-              style={{flex: 1, justifyContent: 'flex-end'}}>
+            <TouchableOpacity style={{flex: 1, justifyContent: 'flex-end'}}>
               <View style={styles.footer}>
-                <Text style={styles.footer_bold_text}>Back to Login</Text>
+                <Text
+                  style={styles.footer_bold_text}
+                  onPress={() => props.navigation.navigate('Login')}>
+                  Back to Login
+                </Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -344,6 +346,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     // paddingTop: 60,
+    // backgroundColor: 'yellow',
   },
   footer_normal_text: {
     fontFamily: 'Poppins-Regular',
@@ -352,8 +355,8 @@ const styles = StyleSheet.create({
   footer_bold_text: {
     fontFamily: 'Poppins-ExtraBold',
     marginTop: 'auto',
-    paddingTop: 170,
     fontSize: 18,
+    // backgroundColor: 'red',
   },
   password: {
     fontFamily: 'Poppins-Regular',

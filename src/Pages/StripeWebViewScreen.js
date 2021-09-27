@@ -23,7 +23,7 @@ const StripeWebViewScreen = ({navigation}) => {
   const {token, profile, link, flag, products} = useSelector(state => state);
   const [isModalVisible, setModalVisible] = useState(false);
   const uri = `https://connect.stripe.com/oauth/v2/authorize?response_type=code&client_id=ca_KI3F2gwYcY50PRG56IBByypySbzPXA99&scope=read_write&state=${profile.id}`;
-
+  console.log('Profile Id :', profile.id);
   // const uri = `https://connect.stripe.com/oauth/v2/authorize?response_type=code&client_id=ca_JqM2jw0UuIhLjMmFk4uNJ9IiNv6cFmvf&scope=read_write&state=${profile.id}`;
   const dispatch = useDispatch();
   const onBack = () => {

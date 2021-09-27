@@ -49,30 +49,32 @@ function ViewAll(props) {
               />
             </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              alignSelf: 'center',
-              width: 150,
+          {profile.stripe_flag === 0 && (
+            <TouchableOpacity
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                alignSelf: 'center',
+                width: 150,
 
-              height: 50,
-              backgroundColor: '#d4d4d4',
-              borderRadius: 8,
-            }}
-            onPress={() => {
-              navigation.navigate('StripeWebViewScreen');
-            }}>
-            <Text style={{fontSize: 20, fontWeight: '700'}}>
-              Stripe Connect
-            </Text>
-            {/*
+                height: 50,
+                backgroundColor: '#d4d4d4',
+                borderRadius: 8,
+              }}
+              onPress={() => {
+                navigation.navigate('StripeWebViewScreen');
+              }}>
+              <Text style={{fontSize: 20, fontWeight: '700'}}>
+                Stripe Connect
+              </Text>
+              {/*
            <Image
             source={require('../../assets/CreateProfile/leftarrow.png')}
             style={{width: 30, height: 20, alignSelf: 'flex-start'}}
           />
             */}
-          </TouchableOpacity>
+            </TouchableOpacity>
+          )}
         </View>
         <ScrollView>
           {/* <ProductList /> */}

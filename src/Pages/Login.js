@@ -554,14 +554,14 @@ export default function Login(props) {
                   </TouchableOpacity>
                 </View>
 
-                <TouchableOpacity
-                  onPress={() => props.navigation.navigate('ForgotPassword')}
-                  style={styles.key_text_parent}>
+                <TouchableOpacity style={styles.key_text_parent}>
                   <Image
                     source={require('../../assets/Login/key.png')}
                     style={styles.key_img}
                     resizeMode="contain"></Image>
-                  <Text style={styles.forgotpasword_text}>
+                  <Text
+                    style={styles.forgotpasword_text}
+                    onPress={() => props.navigation.navigate('ForgotPassword')}>
                     Forgot Password?
                   </Text>
                 </TouchableOpacity>
@@ -711,6 +711,7 @@ const styles = StyleSheet.create({
   forgotpasword_text: {
     color: 'white',
     fontSize: 18,
+    // backgroundColor: 'red',
   },
   key_img: {
     width: 20,

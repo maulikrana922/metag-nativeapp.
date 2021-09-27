@@ -16,6 +16,7 @@ import {
   Share as ShareMethod,
   ActivityIndicator,
   Linking,
+  KeyboardAvoidingView,
   Alert,
 } from 'react-native';
 // import AvtarImage from "../../assets/avtar.svg";
@@ -754,17 +755,20 @@ export default function MyProfile(props) {
               shadowRadius={3.84}
               elevation={5}>
               <ScrollView>
-                <View style={styles.cardInputInfo}>
-                  <Work width={30} height={30} fill="black" />
-                  <TextInput
-                    style={{marginLeft: '10%', color: '#000000'}}
-                    value={businessName}
-                    onChangeText={text => {
-                      setBusinessName(text.trim());
-                      setSocial({...social, business_name: text.trim()});
-                    }}></TextInput>
-                  {console.log('printing business name input', businessName)}
-                </View>
+                <KeyboardAvoidingView
+                  behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+                  <View style={styles.cardInputInfo}>
+                    <Work width={30} height={30} fill="black" />
+                    <TextInput
+                      style={{marginLeft: '10%', color: '#000000'}}
+                      value={businessName}
+                      onChangeText={text => {
+                        setBusinessName(text.trim());
+                        setSocial({...social, business_name: text.trim()});
+                      }}></TextInput>
+                    {console.log('printing business name input', businessName)}
+                  </View>
+                </KeyboardAvoidingView>
                 <View style={styles.cardInputInfo}>
                   <Email width={30} height={30} fill="black" />
                   <TextInput

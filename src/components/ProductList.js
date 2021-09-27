@@ -77,11 +77,16 @@ export default function ProductList({
 
     axios(config)
       .then(async function (response) {
+        console.log(response);
         console.log(
           'jfhskjfjsjfgsjfjsjfjsjfgjsjfgjsg',
           JSON.stringify(response.data.data),
         );
-        await dispatch(updateProduct(id));
+        navigation.navigate('BuyProductWebViewScreen', {
+          url: response.data.data,
+        });
+
+        // await dispatch(updateProduct(id));
         // await dispatch(getPurchaseImage(response.data.data));
       })
       .catch(function (error) {
@@ -92,6 +97,12 @@ export default function ProductList({
   const [showModal, setShowModal] = useState(false);
 
   const navigation = useNavigation();
+
+  console.log('Stripe Flag', profile.stripe_flag);
+
+  // const Buy = () => {
+  //   navigation.navigate('BuyProductWebViewScreen');
+  // };
 
   console.log('in the list');
   return (
@@ -121,13 +132,13 @@ export default function ProductList({
                   </Text>
                 </View>
                 <View style={{padding: 5}}>
-                  {profile.status == 0 ? (
+                  {profile.stripe_flag === 0 ? (
                     <TouchableOpacity
                       style={[styles.buyBtnBg, {backgroundColor: '#40A41D'}]}
                       disabled={disabled}
                       onPress={() => {
                         // Alert.alert('Buy');
-                        getProductImages(id);
+
                         setShowModal(true);
                       }}>
                       <Text
@@ -149,9 +160,9 @@ export default function ProductList({
                       // getProductImages(id);
                       // setShowModal(true);
                       // }}
-                      onPress={() =>
-                        navigation.navigate('BuyProductWebViewScreen')
-                      }>
+                      onPress={() => {
+                        getProductImages(id);
+                      }}>
                       <Text
                         style={{
                           color: 'white',
@@ -206,12 +217,14 @@ export default function ProductList({
               width: '80%',
               height: 'auto',
               justifyContent: 'center',
+              borderWidth: 1,
             }}>
             <View
               style={{
                 backgroundColor: 'white',
                 // marginTop: '5%',
-                padding: '5%',
+                paddingVertical: '0%',
+                paddingHorizontal: '5%',
                 borderBottomLeftRadius: 10,
                 borderBottomRightRadius: 10,
                 borderTopLeftRadius: 10,
@@ -219,21 +232,24 @@ export default function ProductList({
                 display: 'flex',
                 justifyContent: 'space-evenly',
               }}>
-              <TouchableOpacity
-                onPress={() => setShowModal(!showModal)}
-                style={{
-                  // backgroundColor: 'red',
-                  width: '8%',
-                  height: '8%',
-                  marginLeft: 'auto',
-                  // marginRight: '5%',
-                  // marginTop: '1%',
-                }}>
-                <Image
-                  source={cancel}
-                  resizeMode="contain"
-                  style={{width: '100%', height: '100%'}}></Image>
-              </TouchableOpacity>
+              <View style={{alignItems: 'flex-end'}}>
+                <TouchableOpacity
+                  onPress={() => setShowModal(!showModal)}
+                  style={{
+                    width: 20,
+                    height: 20,
+                    alignItems: 'flex-end',
+                    // backgroundColor: 'red',
+                  }}>
+                  <Image
+                    source={cancel}
+                    resizeMode="contain"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                    }}></Image>
+                </TouchableOpacity>
+              </View>
               <Image
                 source={{uri: image}}
                 resizeMode="contain"

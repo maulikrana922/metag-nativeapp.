@@ -305,7 +305,7 @@ export default function CreateProfile(props) {
             ]}>
             <View>
               <View style={styles.header}>
-                <TouchableOpacity
+                {/* <TouchableOpacity
                   onPress={() => props.navigation.goBack()}
                   style={{
                     height: 'auto',
@@ -317,7 +317,7 @@ export default function CreateProfile(props) {
                   <Image
                     source={require('../../assets/CreateProfile/back.png')}
                     style={styles.arrowback}></Image>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 <View style={styles.headerBackground}>
                   <Logo width={65} height={70} />
 
@@ -473,7 +473,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     // alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
   },
   arrowback: {
     // backgroundColor: "beige",
@@ -487,12 +487,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     // flexWrap: 'wrap',
     paddingBottom: 20,
+    // backgroundColor: 'red',
     alignSelf: 'center',
     // backgroundColor: 'yellow',
     // borderBottomColor: 'white',
     // paddingRight: 40,
     paddingTop: '15%',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
   },
   header_text: {
     // flex: 1,
