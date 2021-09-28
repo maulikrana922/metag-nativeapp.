@@ -20,7 +20,7 @@ import axios from 'axios';
 import cancel from '../../assets/CreateProfile/cancel.png';
 
 import url from '../BaseURl/baseurl.json';
-const initialTimerValue = 10;
+const initialTimerValue = 30;
 function VerifyOTP(props) {
   const [otp, setOtp] = useState('');
   const [isLoaded, setLoaded] = useState(true);
@@ -30,6 +30,7 @@ function VerifyOTP(props) {
   const [timer, setTimer] = useState(initialTimerValue);
   const [disableSubmit, setDisableSubmit] = useState(false);
   const [disableResend, setDisableResend] = useState(true);
+  const [emailOTP, setEmailOTP] = useState(props.route.params.email);
   const dispatch = useDispatch();
   useEffect(() => {
     timer <= 1 ? setDisableSubmit(true) : setDisableSubmit(false);
@@ -41,6 +42,44 @@ function VerifyOTP(props) {
 
     return () => clearInterval(interval);
   });
+
+  const ResendOTP = () => {
+    axios.post(`${url.baseurl}forgot-password`, {
+      email: emailOTP,
+    });
+
+    console.log('RESEND OTP', emailOTP);
+
+    // .then(res => {
+    //   // console.log(res.data);
+    //   if (res.data.errors) {
+    //     // setDisable(false);
+    //     // console.log('errr', res.data.errors.error);
+    //     // setServerError(res.data.errors.error);
+    //     // let e = [];
+    //     // if (res.data.errors.email) {
+    //     //   e.push(res.data.errors.email);
+    //     // }
+    //     // console.log(modalVisible);
+    //     // setModalVisible(true);
+    //     // console.log(modalVisible);
+    //     // console.log(e);
+    //     //setServerError(e);
+    //   } else {
+    //     // setTokenBack(res.data.data.token);
+    //     setDisable(true);
+    //     props.navigation.navigate('VerifyOTP', {
+    //       email: data.email,
+    //     });
+    //   }
+    // }
+
+    // );
+    // .catch(error => {
+    //   console.log(error);
+    //   show();
+    // });
+  };
   const {verifyKey, id} = useSelector(state => state);
 
   const setVerifyKey = (key, id) => {
@@ -222,6 +261,7 @@ function VerifyOTP(props) {
                 disabled={disableResend}
                 onPress={() => {
                   setTimer(initialTimerValue);
+                  ResendOTP();
                 }}>
                 <Text
                   style={

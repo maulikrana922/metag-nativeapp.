@@ -59,7 +59,9 @@ function ForgotPassword(props) {
         } else {
           // setTokenBack(res.data.data.token);
           setDisable(true);
-          props.navigation.navigate('VerifyOTP');
+          props.navigation.navigate('VerifyOTP', {
+            email: data.email,
+          });
         }
       });
     // .catch(error => {
