@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {WebView} from 'react-native-webview';
+import url from '../BaseURl/baseurl.json';
+
 // import Back from '../assets/images/back-arrow.png';
 // import Logo from '../assets/images/splashlogo.png';
 import Loader from '../components/Loader';
@@ -75,23 +77,29 @@ const StripeWebViewScreen = ({navigation}) => {
         source={{uri: uri}}
         onNavigationStateChange={webViewState => {
           if (
-            webViewState.url == 'https://eventsnapshot.com/payment/done' ||
-            webViewState.url == 'https://eventsnapshot.com/payment/done/'
+            webViewState.url ==
+              'https://testyourapp.online/metag-backend/payment/done/' ||
+            webViewState.url ==
+              'https://testyourapp.online/metag-backend/payment/done'
           ) {
             // dispatch(getStripeStatusAction());
             navigation.navigate('ViewAll');
           }
           if (
-            webViewState.url == 'https://eventsnapshot.com/payment/success' ||
-            webViewState.url == 'https://eventsnapshot.com/payment/success/'
+            webViewState.url ==
+              'https://testyourapp.online/metag-backend/payment/done' ||
+            webViewState.url ==
+              'https://testyourapp.online/metag-backend/payment/done/'
           ) {
             console.log('=================22', webViewState.url);
             // dispatch(getStripeStatusAction());
             navigation.navigate('ViewAll');
           }
           if (
-            webViewState.url == 'https://eventsnapshot.com/payment/failed' ||
-            webViewState.url == 'https://eventsnapshot.com/payment/failed/'
+            webViewState.url ==
+              'https://testyourapp.online/metag-backend/payment/error' ||
+            webViewState.url ==
+              'https://testyourapp.online/metag-backend/payment/error/'
           ) {
             console.log('=================33', webViewState.url);
             // dispatch(getStripeStatusAction());

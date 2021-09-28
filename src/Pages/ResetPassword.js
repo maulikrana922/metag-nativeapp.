@@ -72,6 +72,25 @@ function ResetPassword(props) {
     if (newPassword === '') {
       errorTemplate.newPassword = "New Password can't be empty";
     }
+    if (newPassword.length < 8) {
+      errorTemplate.passwordLength =
+        'Password should be at least 8 characters long';
+    }
+    if (/[a-z]/.test(newPassword) === false) {
+      errorTemplate.lowerCase = 'Must contain lowercase';
+    }
+    if (/[A-Z]/.test(newPassword) === false) {
+      errorTemplate.upperCase = 'Must contain uppercase';
+    }
+    if (/\d/g.test(newPassword) === false) {
+      errorTemplate.passwordNumber = 'Must conain number';
+    }
+    if (
+      /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(newPassword) === false
+    ) {
+      errorTemplate.specialSymbol = 'Must contain special symbol';
+    }
+
     if (confirmPassword === '') {
       errorTemplate.confirmPassword = "Confirm Password can't be empty";
     }
@@ -214,6 +233,21 @@ function ResetPassword(props) {
                   {error.newPassword}
                 </Text>
               )}
+              {error.passwordLength && (
+                <Text style={{color: 'red'}}>{error.passwordLength}</Text>
+              )}
+              {error.lowerCase && (
+                <Text style={{color: 'red'}}>{error.lowerCase}</Text>
+              )}
+              {error.upperCase && (
+                <Text style={{color: 'red'}}>{error.upperCase}</Text>
+              )}
+              {error.passwordNumber && (
+                <Text style={{color: 'red'}}>{error.passwordNumber}</Text>
+              )}
+              {error.specialSymbol && (
+                <Text style={{color: 'red'}}>{error.specialSymbol}</Text>
+              )}
               <View style={styles.inputTextBg}>
                 <Image
                   source={require('../../assets/signup/lock.png')}
@@ -242,7 +276,7 @@ function ResetPassword(props) {
                 </Text>
               )}
               {error.passwordMatch && (
-                <Text style={{color: 'white'}}>{error.passwordMatch}</Text>
+                <Text style={{color: 'red'}}>{error.passwordMatch}</Text>
               )}
               <View
                 style={{

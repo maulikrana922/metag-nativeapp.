@@ -33,7 +33,7 @@ function ForgotPassword(props) {
   const [modalVisible, setModalVisible] = useState(false);
   const [serverError, setServerError] = useState();
   const [error, setError] = useState('');
-
+  const [disable, setDisable] = useState(false);
   const upload = data => {
     // try {
     axios
@@ -43,6 +43,7 @@ function ForgotPassword(props) {
       .then(res => {
         // console.log(res.data);
         if (res.data.errors) {
+          setDisable(false);
           console.log('errr', res.data.errors.error);
           setServerError(res.data.errors.error);
           let e = [];
@@ -57,6 +58,7 @@ function ForgotPassword(props) {
           //setServerError(e);
         } else {
           // setTokenBack(res.data.data.token);
+          setDisable(true);
           props.navigation.navigate('VerifyOTP');
         }
       });
@@ -72,8 +74,9 @@ function ForgotPassword(props) {
     const errorTemplate = {};
     if (email === '') {
       errorTemplate.email = "Email can't be empty";
+      setDisable(false);
     }
-
+    setDisable(false);
     // if () {
     //   console.log(errorTemplate);
     // }
@@ -81,8 +84,12 @@ function ForgotPassword(props) {
     if (val) {
       // console.log(errorTemplate);
       setError(errorTemplate);
+      setDisable(false);
     } else {
+      setDisable(true);
       (data.email = email), upload(data);
+      console.log('data email' + data.email);
+      console.log('email' + email);
     }
   };
 
@@ -202,8 +209,15 @@ function ForgotPassword(props) {
                   flexDirection: 'row',
                 }}>
                 <TouchableOpacity
-                  style={styles.signin_btn}
-                  onPress={() => submit()}
+                  style={
+                    disable === false
+                      ? styles.signin_btn
+                      : {...styles.signin_btn, backgroundColor: 'grey'}
+                  }
+                  onPress={() => {
+                    submit();
+                  }}
+                  disabled={disable}
                   // onPress={() => props.navigation.navigate('VerifyOTP')}
                 >
                   <Text

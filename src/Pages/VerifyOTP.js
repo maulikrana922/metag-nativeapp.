@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -20,15 +20,27 @@ import axios from 'axios';
 import cancel from '../../assets/CreateProfile/cancel.png';
 
 import url from '../BaseURl/baseurl.json';
-
+const initialTimerValue = 10;
 function VerifyOTP(props) {
   const [otp, setOtp] = useState('');
   const [isLoaded, setLoaded] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [serverError, setServerError] = useState([]);
   const [error, setError] = useState('');
+  const [timer, setTimer] = useState(initialTimerValue);
+  const [disableSubmit, setDisableSubmit] = useState(false);
+  const [disableResend, setDisableResend] = useState(true);
   const dispatch = useDispatch();
+  useEffect(() => {
+    timer <= 1 ? setDisableSubmit(true) : setDisableSubmit(false);
+    timer <= 1 ? setDisableResend(false) : setDisableResend(true);
+    const interval = setInterval(() => {
+      timer > 0 && setTimer(timer - 1);
+      console.log(timer);
+    }, 1000);
 
+    return () => clearInterval(interval);
+  });
   const {verifyKey, id} = useSelector(state => state);
 
   const setVerifyKey = (key, id) => {
@@ -89,7 +101,7 @@ function VerifyOTP(props) {
   } else {
     return (
       <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
-        {console.log('verigyOTPLog', verifyKey, id)}
+        {/* {console.log('verigyOTPLog', verifyKey, id)} */}
         <Modal
           // style={{
           //   backgroundColor: 'yellow',
@@ -165,7 +177,7 @@ function VerifyOTP(props) {
           <View style={styles.background}>
             <Text style={styles.forgot}>Verify OTP</Text>
             <Text style={styles.password}>Will be expired in</Text>
-            <Text style={styles.password}>01:08</Text>
+            <Text style={styles.password}>{timer}</Text>
 
             {/* <TextInput
             style={styles.inputEmail}
@@ -206,20 +218,37 @@ function VerifyOTP(props) {
                 marginTop: 30,
                 alignItems: 'center',
               }}>
-              <Text
-                style={{
-                  color: 'white',
-                  alignContent: 'center',
-                  // alignSelf: 'center',
-                  // marginTop: 'auto',
-                  // marginBottom: 'auto',
-                  fontFamily: 'Poppins-Regular',
-                  fontSize: 16,
-                }}>
-                Resend OTP
-              </Text>
               <TouchableOpacity
-                style={styles.signin_btn}
+                disabled={disableResend}
+                onPress={() => {
+                  setTimer(initialTimerValue);
+                }}>
+                <Text
+                  style={
+                    disableResend === false
+                      ? {
+                          color: 'white',
+                          alignContent: 'center',
+                          fontFamily: 'Poppins-Regular',
+                          fontSize: 16,
+                        }
+                      : {
+                          color: 'grey',
+                          alignContent: 'center',
+                          fontFamily: 'Poppins-Regular',
+                          fontSize: 16,
+                        }
+                  }>
+                  Resend OTP
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                disabled={disableSubmit}
+                style={
+                  disableSubmit === false
+                    ? styles.signin_btn
+                    : {...styles.signin_btn, backgroundColor: 'grey'}
+                }
                 // onPress={() => props.navigation.navigate('ResetPassword')}
                 onPress={() => submit()}>
                 <Text style={{color: 'black', fontSize: 16}}>Submit</Text>
