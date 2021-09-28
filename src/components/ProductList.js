@@ -86,7 +86,6 @@ export default function ProductList({
           url: response.data.data,
         });
 
-        // await dispatch(updateProduct(id));
         // await dispatch(getPurchaseImage(response.data.data));
       })
       .catch(function (error) {

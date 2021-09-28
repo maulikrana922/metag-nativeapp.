@@ -76,7 +76,7 @@ const BuyProductWebViewScreen = props => {
       <WebView
         onLoad={() => setLoading(false)}
         source={{uri: uri}}
-        onNavigationStateChange={webViewState => {
+        onNavigationStateChange={async webViewState => {
           if (
             webViewState.url ==
               'https://testyourapp.online/metag-backend/payment/done/' ||
@@ -84,6 +84,8 @@ const BuyProductWebViewScreen = props => {
               'https://testyourapp.online/metag-backend/payment/done'
           ) {
             // dispatch(getStripeStatusAction());
+            await dispatch(updateProduct(id));
+
             navigation.navigate('ViewAll');
           }
           if (
@@ -94,6 +96,8 @@ const BuyProductWebViewScreen = props => {
           ) {
             console.log('=================22', webViewState.url);
             // dispatch(getStripeStatusAction());
+            await dispatch(updateProduct(id));
+
             navigation.navigate('ViewAll');
           }
           if (

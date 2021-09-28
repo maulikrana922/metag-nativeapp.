@@ -75,7 +75,7 @@ const StripeWebViewScreen = ({navigation}) => {
       <WebView
         onLoad={() => setLoading(false)}
         source={{uri: uri}}
-        onNavigationStateChange={webViewState => {
+        onNavigationStateChange={async webViewState => {
           if (
             webViewState.url ==
               'https://testyourapp.online/metag-backend/payment/done/' ||
@@ -83,6 +83,8 @@ const StripeWebViewScreen = ({navigation}) => {
               'https://testyourapp.online/metag-backend/payment/done'
           ) {
             // dispatch(getStripeStatusAction());
+            await dispatch(updateProduct(id));
+
             navigation.navigate('ViewAll');
           }
           if (
@@ -93,6 +95,8 @@ const StripeWebViewScreen = ({navigation}) => {
           ) {
             console.log('=================22', webViewState.url);
             // dispatch(getStripeStatusAction());
+            await dispatch(updateProduct(id));
+
             navigation.navigate('ViewAll');
           }
           if (

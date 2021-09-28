@@ -231,15 +231,20 @@ export default function Contact(props) {
               {show && (
                 <View
                   style={{
-                    backgroundColor: '#FFFFFF',
+                    backgroundColor: '#ffffff',
                     width: 'auto',
                     height: 'auto',
                     borderRadius: 10,
                     marginLeft: 'auto',
                     // marginRight: -10,
                     // marginRight: '10%',
-                    marginTop: -20,
+                    // marginTop: -20,
                     marginRight: 12,
+                    zIndex: 10,
+                    display: 'flex',
+                    position: 'absolute',
+                    right: 5,
+                    marginTop: 80,
                   }}>
                   <View
                     style={{

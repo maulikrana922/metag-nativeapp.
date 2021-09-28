@@ -213,13 +213,20 @@ export default function MyProfile(props) {
                 {show && (
                   <View
                     style={{
-                      backgroundColor: '#FFFFFF',
+                      backgroundColor: '#ffffff',
                       width: 'auto',
                       height: 'auto',
                       borderRadius: 10,
                       marginLeft: 'auto',
-                      marginRight: 16,
-                      marginTop: -30,
+                      // marginRight: -10,
+                      // marginRight: '10%',
+                      // marginTop: -20,
+                      marginRight: 12,
+                      zIndex: 10,
+                      display: 'flex',
+                      position: 'absolute',
+                      right: 2,
+                      marginTop: 85,
                     }}>
                     <View
                       style={{
@@ -500,6 +507,7 @@ const styles = StyleSheet.create({
     // height: 200,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
+    paddingBottom: 20,
   },
   avtarImage: {
     height: 100,
