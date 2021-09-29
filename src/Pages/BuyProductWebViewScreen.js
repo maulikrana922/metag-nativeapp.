@@ -13,6 +13,7 @@ import {WebView} from 'react-native-webview';
 // import Logo from '../assets/images/splashlogo.png';
 import Loader from '../components/Loader';
 import {useNavigation} from '@react-navigation/native';
+import {updateProduct} from '../redux/reducer';
 
 // import {
 //   disconnectStripeAction,
@@ -96,7 +97,7 @@ const BuyProductWebViewScreen = props => {
           ) {
             console.log('=================22', webViewState.url);
             // dispatch(getStripeStatusAction());
-            await dispatch(updateProduct(id));
+            await dispatch(updateProduct(props.route.params.id));
 
             navigation.navigate('ViewAll');
           }

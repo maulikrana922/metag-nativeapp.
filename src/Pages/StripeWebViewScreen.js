@@ -24,7 +24,7 @@ const StripeWebViewScreen = ({navigation}) => {
 
   const {token, profile, link, flag, products} = useSelector(state => state);
   const [isModalVisible, setModalVisible] = useState(false);
-  const uri = `https://connect.stripe.com/oauth/v2/authorize?response_type=code&client_id=ca_KI3F2gwYcY50PRG56IBByypySbzPXA99&scope=read_write&state=${profile.id}`;
+  const uri = `https://connect.stripe.com/oauth/v2/authorize?response_type=code&client_id=ca_KJIT7jYBYnAwPQ9DDkHMN8IYrKM18vq3&scope=read_write&state=${profile.id}`;
   console.log('Profile Id :', profile.id);
   // const uri = `https://connect.stripe.com/oauth/v2/authorize?response_type=code&client_id=ca_JqM2jw0UuIhLjMmFk4uNJ9IiNv6cFmvf&scope=read_write&state=${profile.id}`;
   const dispatch = useDispatch();
@@ -83,7 +83,8 @@ const StripeWebViewScreen = ({navigation}) => {
               'https://testyourapp.online/metag-backend/payment/done'
           ) {
             // dispatch(getStripeStatusAction());
-            await dispatch(updateProduct(id));
+            console.log('>>>>>>>>>>>before dispatching id');
+            // await dispatch(updateProduct(id));
 
             navigation.navigate('ViewAll');
           }

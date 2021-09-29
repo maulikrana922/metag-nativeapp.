@@ -65,7 +65,7 @@ export default function MyProfile() {
                     source={require('../../assets/logo.jpg')}
                     style={{width: 50, height: 'auto'}}
                   /> */}
-                  <Logo width={54} height={54} />
+                  <Logo width={65} height={70} />
                   <View style={styles.header_text}>
                     <Text style={styles.text_metag}>meTAG</Text>
                     <Text style={styles.text_tagline}>I M ME,WHO ARE YOU</Text>

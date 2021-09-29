@@ -84,6 +84,7 @@ export default function ProductList({
         );
         navigation.navigate('BuyProductWebViewScreen', {
           url: response.data.data,
+          id: id,
         });
 
         // await dispatch(getPurchaseImage(response.data.data));
@@ -137,6 +138,7 @@ export default function ProductList({
                       disabled={disabled}
                       onPress={() => {
                         // Alert.alert('Buy');
+                        // getProductImages(id);
 
                         setShowModal(true);
                       }}>
@@ -146,8 +148,7 @@ export default function ProductList({
                           fontSize: 16,
                           fontWeight: '500',
                         }}>
-                        {/*purchase_status === 0 ? 'Buy' : 'Purchased'*/}
-                        Buy
+                        {purchase_status === 0 ? 'Buy' : 'Purchased'}
                       </Text>
                     </TouchableOpacity>
                   ) : (
@@ -168,7 +169,7 @@ export default function ProductList({
                           fontSize: 16,
                           fontWeight: '500',
                         }}>
-                        Buy
+                        {purchase_status === 0 ? 'Buy' : 'Purchased'}
                       </Text>
                     </TouchableOpacity>
                   )}
