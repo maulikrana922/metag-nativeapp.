@@ -80,9 +80,9 @@ const BuyProductWebViewScreen = props => {
         onNavigationStateChange={async webViewState => {
           if (
             webViewState.url ==
-              'https://testyourapp.online/metag-backend/payment/done/' ||
+              'https://testyourapp.online/metag-backend/payment/payment_success' ||
             webViewState.url ==
-              'https://testyourapp.online/metag-backend/payment/done'
+              'https://testyourapp.online/metag-backend/payment/payment_success/'
           ) {
             // dispatch(getStripeStatusAction());
             await dispatch(updateProduct(id));
@@ -91,9 +91,9 @@ const BuyProductWebViewScreen = props => {
           }
           if (
             webViewState.url ==
-              'https://testyourapp.online/metag-backend/payment/done/' ||
+              'https://testyourapp.online/metag-backend/payment/failed' ||
             webViewState.url ==
-              'https://testyourapp.online/metag-backend/payment/done'
+              'https://testyourapp.online/metag-backend/payment/failed/'
           ) {
             console.log('=================22', webViewState.url);
             // dispatch(getStripeStatusAction());

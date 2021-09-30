@@ -10,6 +10,7 @@ import {
 import {useSelector, useDispatch} from 'react-redux';
 import {WebView} from 'react-native-webview';
 import url from '../BaseURl/baseurl.json';
+import {updateProduct} from '../redux/reducer';
 
 // import Back from '../assets/images/back-arrow.png';
 // import Logo from '../assets/images/splashlogo.png';
@@ -90,21 +91,21 @@ const StripeWebViewScreen = ({navigation}) => {
           }
           if (
             webViewState.url ==
-              'https://testyourapp.online/metag-backend/payment/done' ||
+              'https://testyourapp.online/metag-backend/payment/payment_success' ||
             webViewState.url ==
-              'https://testyourapp.online/metag-backend/payment/done/'
+              'https://testyourapp.online/metag-backend/payment/payment_success/'
           ) {
             console.log('=================22', webViewState.url);
             // dispatch(getStripeStatusAction());
-            await dispatch(updateProduct(id));
+            // await dispatch(updateProduct(id));
 
             navigation.navigate('ViewAll');
           }
           if (
             webViewState.url ==
-              'https://testyourapp.online/metag-backend/payment/error' ||
+              'https://testyourapp.online/metag-backend/payment/failed' ||
             webViewState.url ==
-              'https://testyourapp.online/metag-backend/payment/error/'
+              'https://testyourapp.online/metag-backend/payment/failed/'
           ) {
             console.log('=================33', webViewState.url);
             // dispatch(getStripeStatusAction());

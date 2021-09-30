@@ -10,6 +10,7 @@ import {
   Button,
   Platform,
   TouchableOpacity,
+  SafeAreaView,
   ImageBackground,
 } from 'react-native';
 // import AvtarImage from "../../assets/avtar.svg";
@@ -42,41 +43,69 @@ import bg from '../../assets/Logo/bg.png';
 
 import url from '../BaseURl/baseurl.json';
 
-export default function MyProfile() {
+export default function MyProfile(props) {
   const [isLoaded, setLoaded] = useState(true);
   if (!isLoaded) {
     return null;
   } else {
     return (
-      <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
-        <View style={{flex: 1}}>
-          <View style={styles.header_parent}>
-            <View>
-              <View style={styles.header}>
-                {/* <View style={styles.arrowback}></View> */}
-                {/* <Image
+      <SafeAreaView style={{flex: 1}}>
+        <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
+          <View style={{flex: 1}}>
+            <View style={styles.header_parent}>
+              <View>
+                <View style={styles.header}>
+                  {/* <View style={styles.arrowback}></View> */}
+                  {/* <Image
                 source={require('../../assets/arrow-back.svg')} 
                 style={styles.arrowback}
               ></Image> */}
 
-                {/* here */}
-                <View style={styles.headerBackground}>
-                  {/* <Image
+                  {/* here */}
+                  <View style={styles.headerBackground}>
+                    <TouchableOpacity
+                      onPress={() => props.navigation.goBack()}
+                      style={{
+                        // backgroundColor: 'red',
+                        // display: 'flex',
+                        flex: 1,
+                        alignItems: 'flex-start',
+                        justifyContent: 'center',
+                      }}>
+                      <Image
+                        source={require('../../assets/CreateProfile/back.png')}
+                        style={{
+                          width: 25,
+                          height: 20,
+                          marginLeft: 10,
+                          // backgroundColor: 'gray',
+                        }}></Image>
+                    </TouchableOpacity>
+                    {/* <Image
                     source={require('../../assets/logo.jpg')}
                     style={{width: 50, height: 'auto'}}
                   /> */}
-                  <Logo width={65} height={70} />
-                  <View style={styles.header_text}>
-                    <Text style={styles.text_metag}>meTAG</Text>
-                    <Text style={styles.text_tagline}>I M ME,WHO ARE YOU</Text>
+                    <View
+                      style={{
+                        flex: 3,
+                        flexDirection: 'row',
+                        // backgroundColor: 'green',
+                      }}>
+                      <Logo width={65} height={70} />
+                      <View style={styles.header_text}>
+                        <Text style={styles.text_metag}>meTAG</Text>
+                        <Text style={styles.text_tagline}>
+                          I M ME,WHO ARE YOU
+                        </Text>
+                      </View>
+                    </View>
                   </View>
+                  {/* <Text style={styles.next}>  </Text> */}
+                  {/* <Image source={more} style={{ height: 60, width: 30 }}></Image> */}
+                  {/* here */}
                 </View>
-                {/* <Text style={styles.next}>  </Text> */}
-                {/* <Image source={more} style={{ height: 60, width: 30 }}></Image> */}
-                {/* here */}
-              </View>
-              {/* <View style={styles.avatarBg}> */}
-              {/* <svg
+                {/* <View style={styles.avatarBg}> */}
+                {/* <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="40.203"
                 height="40.203"
@@ -98,58 +127,58 @@ export default function MyProfile() {
                   />
                 </g>
               </svg> */}
-              <Image
-                source={avatar}
+                <Image
+                  source={avatar}
+                  style={{
+                    backgroundColor: 'white',
+                    borderRadius: 100,
+                    width: 100,
+                    height: 100,
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                  }}
+                  // resizeMode="contain"
+                ></Image>
+                {/* </View> */}
+                <Text style={styles.nameText}>John Copeland</Text>
+              </View>
+              <View
                 style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignSelf: 'center',
+                  margin: 20,
+                }}>
+                <View>
+                  <Image source={google} style={styles.logo}></Image>
+                </View>
+                <View>
+                  <Image source={linkedin} style={styles.logo}></Image>
+                </View>
+                <View>
+                  <Image source={twitter} style={styles.logo}></Image>
+                </View>
+                <View>
+                  <Image source={instagram} style={styles.logo}></Image>
+                </View>
+                <View>
+                  <Image source={facebook} style={styles.logo}></Image>
+                </View>
+              </View>
+              <View
+                style={{
+                  display: 'flex',
+                  alignSelf: 'center',
+                  justifyContent: 'space-around',
+                  height: '40%',
+                  width: '80%',
                   backgroundColor: 'white',
-                  borderRadius: 100,
-                  width: 100,
-                  height: 100,
-                  marginLeft: 'auto',
-                  marginRight: 'auto',
-                }}
-                // resizeMode="contain"
-              ></Image>
-              {/* </View> */}
-              <Text style={styles.nameText}>John Copeland</Text>
-            </View>
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignSelf: 'center',
-                margin: 20,
-              }}>
-              <View>
-                <Image source={google} style={styles.logo}></Image>
-              </View>
-              <View>
-                <Image source={linkedin} style={styles.logo}></Image>
-              </View>
-              <View>
-                <Image source={twitter} style={styles.logo}></Image>
-              </View>
-              <View>
-                <Image source={instagram} style={styles.logo}></Image>
-              </View>
-              <View>
-                <Image source={facebook} style={styles.logo}></Image>
-              </View>
-            </View>
-            <View
-              style={{
-                display: 'flex',
-                alignSelf: 'center',
-                justifyContent: 'space-around',
-                height: '40%',
-                width: '80%',
-                backgroundColor: 'white',
-                padding: 20,
-                // marginBottom: 40,
-                borderRadius: 5,
-              }}>
-              <View style={styles.info}>
-                {/* <svg
+                  padding: 20,
+                  // marginBottom: 40,
+                  borderRadius: 5,
+                }}>
+                <View style={styles.info}>
+                  {/* <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18.204"
                 height="17.24"
@@ -160,11 +189,11 @@ export default function MyProfile() {
                   transform="translate(0)"
                 />
               </svg> */}
-                <Image source={work_i}></Image>
-                <Text style={styles.infoPadding}>Aqua System LLC</Text>
-              </View>
-              <View style={styles.info}>
-                {/* <svg
+                  <Image source={work_i}></Image>
+                  <Text style={styles.infoPadding}>Aqua System LLC</Text>
+                </View>
+                <View style={styles.info}>
+                  {/* <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18.204"
                 height="17.24"
@@ -179,11 +208,13 @@ export default function MyProfile() {
                   transform="translate(0 -59.882)"
                 />
               </svg> */}
-                <Image source={email_i}></Image>
-                <Text style={styles.infoPadding}>Johncopaland@domain.com</Text>
-              </View>
-              <View style={styles.info}>
-                {/* <svg
+                  <Image source={email_i}></Image>
+                  <Text style={styles.infoPadding}>
+                    Johncopaland@domain.com
+                  </Text>
+                </View>
+                <View style={styles.info}>
+                  {/* <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18.204"
                 height="17.24"
@@ -197,11 +228,11 @@ export default function MyProfile() {
                   />
                 </g>
               </svg> */}
-                <Image source={iphone_i}></Image>
-                <Text style={styles.infoPadding}>+004 4567979820</Text>
-              </View>
-              <View style={styles.info}>
-                {/* <svg
+                  <Image source={iphone_i}></Image>
+                  <Text style={styles.infoPadding}>+004 4567979820</Text>
+                </View>
+                <View style={styles.info}>
+                  {/* <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18.204"
                 height="17.24"
@@ -218,19 +249,20 @@ export default function MyProfile() {
                   transform="translate(7 0.75)"
                 />
               </svg> */}
-                <Image source={gps_i}></Image>
-                <Text style={styles.infoPadding}>
-                  9 Bow Ridge,Lakeland,FL 33801
-                </Text>
+                  <Image source={gps_i}></Image>
+                  <Text style={styles.infoPadding}>
+                    9 Bow Ridge,Lakeland,FL 33801
+                  </Text>
+                </View>
               </View>
             </View>
+
+            {/* list  */}
+
+            {/* here */}
           </View>
-
-          {/* list  */}
-
-          {/* here */}
-        </View>
-      </ImageBackground>
+        </ImageBackground>
+      </SafeAreaView>
     );
   }
 }
@@ -255,10 +287,14 @@ const styles = StyleSheet.create({
   headerBackground: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    paddingBottom: 20,
+    // paddingBottom: 20,
     alignSelf: 'center',
+    // backgroundColor: 'orange',
     // borderBottomColor: 'white',
     // paddingRight: 40,
+    display: 'flex',
+    flexDirection: 'row',
+    // justifyContent: 'space-between',
   },
   header_text: {
     // flex: 1,
