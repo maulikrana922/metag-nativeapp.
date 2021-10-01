@@ -227,9 +227,9 @@ function ForgotPassword(props) {
                       color: 'black',
                       fontFamily: 'Poppins-Regular',
                       // width: '100%',
-                      fontSize: 16,
+                      fontSize: 14,
                     }}>
-                    Send now
+                    Send
                   </Text>
                 </TouchableOpacity>
               </View>

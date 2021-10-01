@@ -103,9 +103,9 @@ const StripeWebViewScreen = ({navigation}) => {
           }
           if (
             webViewState.url ==
-              'https://testyourapp.online/metag-backend/payment/failed' ||
+              'https://testyourapp.online/metag-backend/payment/error' ||
             webViewState.url ==
-              'https://testyourapp.online/metag-backend/payment/failed/'
+              'https://testyourapp.online/metag-backend/payment/error'
           ) {
             console.log('=================33', webViewState.url);
             // dispatch(getStripeStatusAction());

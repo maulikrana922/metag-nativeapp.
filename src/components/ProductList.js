@@ -37,18 +37,6 @@ export default function ProductList({
 
   const dispatch = useDispatch();
 
-  const [disabled, setDisabled] = useState(false);
-
-  const checkDisable = () => {
-    if (purchase_status === 0) {
-      getProductImages(id);
-      setShowModal(true);
-      // setDisabled(false);
-    } else {
-      setDisabled(true);
-    }
-  };
-
   // const {purchaseImage, products} = useSelector(state => state);
   // const [purchaseImage, setPurchaseImage] = useState(products);
   // useEffect(() => {
@@ -148,18 +136,13 @@ export default function ProductList({
                           fontSize: 16,
                           fontWeight: '500',
                         }}>
-                        {purchase_status === 0 ? 'Buy' : 'Purchased'}
+                        Buy
                       </Text>
                     </TouchableOpacity>
                   ) : (
                     <TouchableOpacity
                       style={[styles.buyBtnBg, {backgroundColor: '#40A41D'}]}
-                      disabled={disabled}
-                      // onPress={() => {
-                      //   // Alert.alert('Buy');
-                      // getProductImages(id);
-                      // setShowModal(true);
-                      // }}
+                      disabled={purchase_status === 0 ? false : true}
                       onPress={() => {
                         getProductImages(id);
                       }}>

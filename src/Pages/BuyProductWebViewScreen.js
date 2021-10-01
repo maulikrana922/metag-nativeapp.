@@ -85,15 +85,16 @@ const BuyProductWebViewScreen = props => {
               'https://testyourapp.online/metag-backend/payment/payment_success/'
           ) {
             // dispatch(getStripeStatusAction());
-            await dispatch(updateProduct(id));
+            // await dispatch(updateProduct(id));
+            await dispatch(updateProduct(props.route.params.id));
 
             navigation.navigate('ViewAll');
           }
           if (
             webViewState.url ==
-              'https://testyourapp.online/metag-backend/payment/failed' ||
+              'https://testyourapp.online/metag-backend/payment/error' ||
             webViewState.url ==
-              'https://testyourapp.online/metag-backend/payment/failed/'
+              'https://testyourapp.online/metag-backend/payment/error/'
           ) {
             console.log('=================22', webViewState.url);
             // dispatch(getStripeStatusAction());
@@ -121,6 +122,7 @@ const BuyProductWebViewScreen = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginVertical: 15,
   },
   header: {
     flexDirection: 'row',
