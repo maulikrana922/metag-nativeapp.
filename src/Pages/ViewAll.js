@@ -49,7 +49,7 @@ function ViewAll(props) {
               />
             </TouchableOpacity>
           </View>
-          {profile.stripe_flag === 0 && (
+          {profile.stripe_flag === null && (
             <TouchableOpacity
               style={{
                 justifyContent: 'center',

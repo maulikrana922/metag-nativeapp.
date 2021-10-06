@@ -80,15 +80,8 @@ export default function MyProfile(props) {
 
     axios(config)
       .then(function (response) {
-        console.log(
-          'Order History api>>>>',
-          JSON.stringify(response.data.data.order_data),
-        );
-        console.log(
-          'Order History api >>>>',
-          response.data.data.order_data.length,
-        );
-        dispatch(getOrderhistory(response.data.data.order_data));
+        JSON.stringify(response.data.data.order_data),
+          dispatch(getOrderhistory(response.data.data.order_data));
         setLoaded(false);
       })
       .catch(function (error) {

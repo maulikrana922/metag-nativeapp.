@@ -371,46 +371,46 @@ export default function Login(props) {
               visible={modalVisible}>
               <View
                 style={{
+                  flex: 1,
                   height: '100%',
                   backgroundColor: 'rgba( 0, 0, 0, 0.6 )',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                 }}>
                 <View
                   style={{
-                    // backgroundColor: 'white',
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                    marginTop: 'auto',
-                    marginBottom: 'auto',
+                    // backgroundColor: '',
                     width: '80%',
                     height: 'auto',
                   }}>
-                  <TouchableOpacity
-                    onPress={() => setModalVisible(!modalVisible)}
-                    style={{
-                      // backgroundColor: 'red',
-                      width: '8%',
-                      height: '8%',
-                      marginLeft: 'auto',
-                      // marginRight: '5%',
-                      marginTop: '3%',
-                    }}>
-                    <Image
-                      source={close}
-                      resizeMode="contain"
-                      style={{width: '100%', height: '100%'}}></Image>
-                  </TouchableOpacity>
                   <View
                     style={{
                       backgroundColor: 'white',
                       // marginTop: '5%',
                       padding: '5%',
-                      borderBottomLeftRadius: 10,
-                      borderBottomRightRadius: 10,
-                      borderTopLeftRadius: 10,
-                      borderTopRightRadius: 10,
+                      borderRadius: 10,
                       display: 'flex',
                       justifyContent: 'space-evenly',
                     }}>
+                    <TouchableOpacity
+                      onPress={() => setModalVisible(!modalVisible)}
+                      style={{
+                        // backgroundColor: 'red',
+                        width: '8%',
+                        height: '8%',
+                        marginLeft: 'auto',
+                        // marginRight: '5%',
+                        marginTop: '3%',
+                      }}>
+                      <Image
+                        source={cancel}
+                        resizeMode="contain"
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          // backgroundColor: 'red',
+                        }}></Image>
+                    </TouchableOpacity>
                     <Image
                       source={loginFail}
                       resizeMode="contain"
@@ -419,6 +419,7 @@ export default function Login(props) {
                         height: '50%',
                         marginLeft: 'auto',
                         marginRight: 'auto',
+                        // backgroundColor: 'yellow',
                       }}></Image>
                     <Text
                       style={{
@@ -652,7 +653,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     flexWrap: 'wrap',
-    paddingTop: '5%',
+    paddingTop: '10%',
     // borderWidth: 1,
     paddingLeft: 15,
   },

@@ -20,7 +20,7 @@ import axios from 'axios';
 import cancel from '../../assets/CreateProfile/cancel.png';
 
 import url from '../BaseURl/baseurl.json';
-const initialTimerValue = 30;
+const initialTimerValue = 60;
 function VerifyOTP(props) {
   const [otp, setOtp] = useState('');
   const [isLoaded, setLoaded] = useState(true);
@@ -341,9 +341,11 @@ const styles = StyleSheet.create({
   },
   headerBackground: {
     flexDirection: 'row',
+    justifyContent: 'flex-start',
     flexWrap: 'wrap',
     paddingTop: '10%',
-    justifyContent: 'flex-start',
+    // borderWidth: 1,
+    paddingLeft: 15,
   },
   text: {
     fontFamily: 'Poppins-Regular',
@@ -371,6 +373,8 @@ const styles = StyleSheet.create({
   inputEmail: {
     fontSize: 18,
     color: 'white',
+    // backgroundColor: 'red',
+    width: '90%',
   },
   key_text_parent: {
     flexDirection: 'row',

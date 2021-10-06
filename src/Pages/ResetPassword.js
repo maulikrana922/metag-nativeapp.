@@ -202,9 +202,9 @@ function ResetPassword(props) {
                   flexDirection: 'row',
                   borderBottomColor: 'white',
                   borderWidth: 1,
-                  paddingBottom: 10,
+                  paddingBottom: 5,
                   // marginTop: 20,
-                  // marginBottom: 40,
+                  marginBottom: 40,
                   // justifyContent: 'space-between',
                 }}>
                 <Image
@@ -343,8 +343,12 @@ const styles = StyleSheet.create({
   },
   headerBackground: {
     flexDirection: 'row',
+    justifyContent: 'flex-start',
     flexWrap: 'wrap',
     paddingTop: '10%',
+    // borderWidth: 1,
+    paddingLeft: 15,
+    paddingBottom: 10,
   },
   text: {
     fontFamily: 'Poppins-Regular',
@@ -445,17 +449,13 @@ const styles = StyleSheet.create({
   //   color: "black",
   // },
   inputEmail: {
-    // borderBottomColor: 'white',
+    // backgroundColor: 'red',
     borderWidth: 1,
-    // height: 41,
+    padding: 5,
     fontSize: 18,
-    height: 'auto',
     color: 'white',
     fontWeight: '600',
-    // borderColor: 'blue',
-    width: '100%',
-    // alignSelf: 'stretch',
-    // flex: 1,
+    width: '90%',
   },
 
   icon: {

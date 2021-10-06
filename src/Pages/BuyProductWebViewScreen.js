@@ -87,8 +87,9 @@ const BuyProductWebViewScreen = props => {
             // dispatch(getStripeStatusAction());
             // await dispatch(updateProduct(id));
             await dispatch(updateProduct(props.route.params.id));
-
-            navigation.navigate('ViewAll');
+            setTimeout(() => {
+              navigation.navigate('MyOrders');
+            }, 5000);
           }
           if (
             webViewState.url ==

@@ -120,14 +120,10 @@ export default function ProductList({
                   </Text>
                 </View>
                 <View style={{padding: 5}}>
-                  {profile.stripe_flag === 0 ? (
+                  {profile.stripe_flag !== 1 ? (
                     <TouchableOpacity
                       style={[styles.buyBtnBg, {backgroundColor: '#40A41D'}]}
-                      disabled={disabled}
                       onPress={() => {
-                        // Alert.alert('Buy');
-                        // getProductImages(id);
-
                         setShowModal(true);
                       }}>
                       <Text

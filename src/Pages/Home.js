@@ -136,7 +136,7 @@ export default function CreateProfile(props) {
 
     axios(config)
       .then(function (response) {
-        console.log('Product api>>>>', JSON.stringify(response.data.data));
+        JSON.stringify(response.data.data);
         console.log('Product api>>>>', response.data.data.length);
         dispatch(getProduct(response.data.data));
       })

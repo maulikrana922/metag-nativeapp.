@@ -283,14 +283,11 @@ const styles = StyleSheet.create({
   },
   headerBackground: {
     flexDirection: 'row',
+    justifyContent: 'flex-start',
     flexWrap: 'wrap',
-    paddingTop: '5%',
-    paddingLeft: 15,
-    marginTop: 10,
-    // justifyContent: 'flex-start',
-    alignItems: 'center',
-    // paddingBottom: 20,
+    paddingTop: '10%',
     // borderWidth: 1,
+    paddingLeft: 15,
   },
   text: {
     fontFamily: 'Poppins-Regular',
