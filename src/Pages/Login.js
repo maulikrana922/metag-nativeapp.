@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   StatusBar,
   ImageBackground,
+  KeyboardAvoidingView,
   Modal,
   Alert,
   ScrollView,
@@ -360,7 +361,10 @@ export default function Login(props) {
     // const color = modalVisible ? 'rgba(255, 255, 255, 10)' : '';
     return (
       <SafeAreaView style={{flex: 1}}>
-        <ScrollView style={{flex: 1}}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={{flex: 1}}>
+          {/* <ScrollView style={{flex: 1}}> */}
           <ImageBackground source={bg} style={{flex: 1, resizeMode: 'contain'}}>
             {/* {console.log(profile)}
         {}
@@ -614,7 +618,8 @@ export default function Login(props) {
               </View>
             </View>
           </ImageBackground>
-        </ScrollView>
+          {/* </ScrollView> */}
+        </KeyboardAvoidingView>
       </SafeAreaView>
     );
   }
@@ -725,7 +730,7 @@ const styles = StyleSheet.create({
     // alignContent: 'space-between',
     justifyContent: 'space-between',
     // backgroundColor: 'orange',
-    marginTop: 4,
+    marginTop: 0,
   },
   img_icon: {
     width: 45,
