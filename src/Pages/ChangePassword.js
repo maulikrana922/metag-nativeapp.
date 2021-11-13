@@ -152,7 +152,7 @@ export default function CreateProfile(props) {
             setServerError(response.data.errors.error);
             setModalVisible(true);
           }
-          console.log(response.data);
+          console.log('res??????????????', response.data);
           // console.log('printing', response.data);
         })
         .catch(error => console.log(error));
