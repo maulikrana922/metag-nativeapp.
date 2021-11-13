@@ -95,6 +95,7 @@ export default function CreateProfile(props) {
   // }
 
   const upload = data => {
+    // alert('update');
     // try {
     // axios
     //   .post('http://testyourapp.online/metag/api/change-password', {
@@ -109,13 +110,15 @@ export default function CreateProfile(props) {
     //   console.log(error);
     //   show();
     // });
-    const sendData = {
-      id: profile.data[0].id,
-      password: data.newPassword,
-      confirm_password: data.confirmPassword,
-    };
-    console.log(sendData);
-    flag === 'true' &&
+
+    // console.log('flag>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', flag);
+    if (flag === true) {
+      const sendData = {
+        id: profile.data[0].id,
+        password: data.newPassword,
+        confirm_password: data.confirmPassword,
+      };
+      console.log(sendData);
       axios({
         method: 'post',
         url: `${url.baseurl}createPassword`,
@@ -129,11 +132,11 @@ export default function CreateProfile(props) {
           if (response.data.status == 200) {
             setModalVisible2(true);
           }
-
-          console.log(response.data);
+          // console.log(response.data);
           // console.log('printing', response.data);
         })
         .catch(error => console.log(error));
+    }
     flag === 'false' &&
       axios({
         method: 'post',
@@ -149,16 +152,22 @@ export default function CreateProfile(props) {
       })
         .then(response => {
           if (response.data.errors) {
+            // console.log('error', response.data.errors);
             setServerError(response.data.errors.error);
             setModalVisible(true);
           }
-          console.log('res??????????????', response.data);
+          // console.log('res??????????????', response.data);
+          // console.log('data????', data);
+          if (response.data.status === 200) {
+            setModalVisible2(true);
+          }
           // console.log('printing', response.data);
         })
-        .catch(error => console.log(error));
+        .catch(error => console.log('error', error));
   };
 
   const submit = () => {
+    console.log('clicked on submit');
     const data = {};
     if (flag === 'false' && oldPassword === '') {
       errorTemplate.oldPassword = "Old password can't be empty";
@@ -173,14 +182,15 @@ export default function CreateProfile(props) {
       errorTemplate.match = 'newPassword and confirm password should match';
     }
     const val = Object.entries(errorTemplate).length;
-    if (val) {
+    if (val !== 0) {
       // console.log(errorTemplate);
+      console.log('val', val);
       setError(errorTemplate);
     } else {
-      // flag === 'true' && (data.oldPassword = oldPassword),
-      (data.newPassword = newPassword),
-        (data.confirmPassword = confirmPassword),
-        upload(data);
+      data.oldPassword = oldPassword;
+      data.newPassword = newPassword;
+      data.confirmPassword = confirmPassword;
+      upload(data);
     }
   };
 
@@ -224,7 +234,8 @@ export default function CreateProfile(props) {
                   <Image
                     source={cancel}
                     resizeMode="contain"
-                    style={{width: '100%', height: '100%'}}></Image>
+                    style={{width: '100%', height: '100%'}}
+                  />
                 </TouchableOpacity>
                 <View
                   style={{
@@ -274,7 +285,8 @@ export default function CreateProfile(props) {
                     <Image
                       source={close}
                       resizeMode="contain"
-                      style={{width: '100%', height: '100%'}}></Image>
+                      style={{width: '100%', height: '100%'}}
+                    />
                   </TouchableOpacity>
                   {/* <Text
                   style={{
@@ -306,7 +318,8 @@ export default function CreateProfile(props) {
                         height: '50%',
                         marginLeft: 'auto',
                         marginRight: 'auto',
-                      }}></Image>
+                      }}
+                    />
                     <Text
                       style={{
                         marginLeft: 'auto',
@@ -331,7 +344,8 @@ export default function CreateProfile(props) {
                       onPress={() => props.navigation.goBack()}
                       style={styles.arrowback}>
                       <Image
-                        source={require('../../assets/CreateProfile/back.png')}></Image>
+                        source={require('../../assets/CreateProfile/back.png')}
+                      />
                     </TouchableOpacity>
                     <View style={styles.headerBackground}>
                       <Logo width={60} height={70} />
@@ -342,7 +356,7 @@ export default function CreateProfile(props) {
                         </Text>
                       </View>
                     </View>
-                    <Text style={styles.next}></Text>
+                    <Text style={styles.next} />
                   </View>
                   <View
                     style={{
@@ -370,13 +384,15 @@ export default function CreateProfile(props) {
                           <Image
                             source={require('../../assets/signup/lock.png')}
                             style={styles.icon}
-                            resizeMode="contain"></Image>
+                            resizeMode="contain"
+                          />
                           <TextInput
                             placeholder="Old Password"
                             value={oldPassword}
                             onChangeText={text => setOldPassword(text.trim())}
                             placeholderTextColor="white"
-                            style={styles.fieldInputText}></TextInput>
+                            style={styles.fieldInputText}
+                          />
                         </View>
                         {error.oldPassword && (
                           <Text style={{color: 'red', paddingTop: 3}}>
@@ -390,13 +406,15 @@ export default function CreateProfile(props) {
                         <Image
                           source={require('../../assets/signup/lock.png')}
                           style={styles.icon}
-                          resizeMode="contain"></Image>
+                          resizeMode="contain"
+                        />
                         <TextInput
                           value={newPassword}
                           onChangeText={text => setNewPassword(text.trim())}
                           placeholder="New Password"
                           placeholderTextColor="white"
-                          style={styles.fieldInputText}></TextInput>
+                          style={styles.fieldInputText}
+                        />
                       </View>
                       {error.newPassword && (
                         <Text style={{color: 'red', paddingTop: 3}}>
@@ -409,13 +427,15 @@ export default function CreateProfile(props) {
                         <Image
                           source={require('../../assets/signup/lock.png')}
                           style={styles.icon}
-                          resizeMode="contain"></Image>
+                          resizeMode="contain"
+                        />
                         <TextInput
                           value={confirmPassword}
                           onChangeText={text => setConfirmPassword(text.trim())}
                           placeholderTextColor="white"
                           placeholder="Confirm New Password"
-                          style={styles.fieldInputText}></TextInput>
+                          style={styles.fieldInputText}
+                        />
                       </View>
                       {error.confirmPassword && (
                         <Text style={{color: 'red', paddingTop: 3}}>
